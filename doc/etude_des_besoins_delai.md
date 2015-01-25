@@ -1,3 +1,10 @@
-# Etude des besoins et délai**Application web APSO**
-***
-
+# Etude des besoins et délai
+**Application web APSO**
+***Ce document comporte les besoins et délai pour la conception etdéveloppement d'api pour l'appareillage d'expérimentation de la démocratie directe. APSO.***
+
+## Les besoins
+
+* **Pour le vote anonyme :**	* Utilisation d'un algorithme de cryptographie asymétrique. Ça vous aidera à rendre votre api beaucoup plus sure, et par la suite, ça vous aidera dans l'anonymisation du vote. Vous pouvez utiliser la technologie de la cryptographie asymétrique Bitcoin, déjà disponible.
+* **L'architecture :**	* L'api doit être modulable avec la possibilité de permettre d'ajouter de nouvelles fonctionnalités dans le future.	* Respecter l'architecture MVC ( Modèle Vue Contrôleur).	* Respecter les dernières normes et standard web.	* La communication client/serveur est réalisée grâce au protocole JSON RPC 2.	* La cryptographie RSA devra être adoptée en php et JavaScript.
+		* **Côté serveur :**			* Le serveur web représente ici, le coeur de votre system. Centraliser est contrôlé par une administration. Les données sont stoker dans une base MySQL. Ils sont publics et ne représentent aucun risque de vol. Le serveur ne garde pas les données prives.			* Impore de la librairie ECC (Elliptic Curve Cryptography) pour la gestion des algorithmes de signature numérique. L'authentification de l'utilisateur sera vérifiée avec ça signature.			* L'API serveur est réalisé en PHP5, développement orienté objet et une architecture en MC (Modèle Contrôleur). Les données sont retournées en JSON.
+			* L'API est constitué de deux principaux contrôleurs.				* Contrôleurs client :					* Regroupe toutes les fonctions de gestion d'information public, inscription et l'insertion des données par les membres.				* Contrôleurs admin :					* Regroupe toutes les fonctions de gestion, suppression et d'édition des données ajouter par les membres.
