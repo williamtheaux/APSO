@@ -1,6 +1,8 @@
 # APSO
 **Appareillage d'expérimentation de la démocratie directe.**
 
+***
+
 l'institution d'une démocratie-directe en temps-réel, n'annonce pas seulement des changements de régime économiques, industriels etc.. mais un bouleversement dans la psychologie collective.
 
 * APSO réalise un mode d'Assemblée Générale permanente, souveraine à dynamique instantanée.
