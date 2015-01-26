@@ -1,6 +1,5 @@
 # Etude des besoins et délai
-**Application web APSO**
-***Ce document comporte les besoins et délai pour la conception et développement d'api pour l'appareillage d'expérimentation de la démocratie directe. APSO.***
+**Application web APSO**> Ce document comporte les besoins et délai pour la conception et développement d'api pour l'appareillage d'expérimentation de la démocratie directe. APSO.***
 
 ## Les besoins
 
@@ -89,4 +88,4 @@
 	
 ***
 
-*Vendredi 23 Janvier 2015*
+:date: *Vendredi 23 Janvier 2015*
