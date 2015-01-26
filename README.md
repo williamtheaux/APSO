@@ -16,6 +16,9 @@ l'institution d'une démocratie-directe en temps-réel, n'annonce pas seulement 
 
 * [Etude des besoins et délai](doc/etude_des_besoins_delai.md) comporte les besoins et délai pour la conception et développement d'api pour l'appareillage d'expérimentation de la démocratie directe. APSO.
 
+* [Spécification fonctionnelle](doc/specification_fonctionnelle.md) comporte l’ensemble des règles de fonctionnement de votre logiciel. C'est l'architecture de votre application.
+
+
 ***
 
 ## Documentation externe
