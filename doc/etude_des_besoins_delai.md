@@ -25,7 +25,6 @@
 2. *La deuxième étape* **- Les spécifications techniques**
 
 	* À partir des spécifications fonctionnelles, on détermine le nommage des fonctions. Conception de la base de données. Ça sera la feuille de route pour le développement.
-	
 	* Ce document demande moins de 6 jours de travail.
 	
 	* **À cette étape :** Votre documentation contient toutes les informations techniques pour le bon déroulement du développement.
@@ -91,5 +90,3 @@
 ***
 
 *Vendredi 23 Janvier 2015*
-**Docteur William Theaux**Fondateur
-
