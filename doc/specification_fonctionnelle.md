@@ -8,14 +8,19 @@
 * En cas d'égalité ou ballotage, les postes ou lois reste inchangées. Le résultat est en permanence accessible pour tous.
 * Les administrateurs (Secrétaire) peuvent :
 	* Ajouter des postes pour les élections. Par défaut, 4 postes sont déja crée :
-		* Président
-		* Vice-Président
-		* Secrétaire
-		* Trésorier
+		* :bust_in_silhouette: Président
+		* :bust_in_silhouette: Vice-Président
+		* :bust_in_silhouette: Secrétaire
+		* :bust_in_silhouette: Trésorier
 	* Valider ou invalider les membres.
 	* Suppression et mise en forme des lois et leurs variations.* L'application comporte un log, historique de toutes les actions effectuer par les membres et les administrateurs.
 * Donner un espace de connexion pour les observateurs.
-***
+***
+## Connexion des utilisateurs :closed_lock_with_key:
+* :construction: Travail en cours
+***
+## Anonymisation des votes :squirrel:* :construction: Travail en cours***## Architecture :notebook:
+* :construction: Travail en cours***
 
 # Q
 
