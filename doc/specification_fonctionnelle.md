@@ -30,10 +30,15 @@
 
 ---------------------------------------------------------++
 Les administrateurs sont au nombre de deux : un Master et un Secrétaire. Les droits du Master dominent ceux du secrétaire ; les actions du Secrétaire doivent être validées par le Master. Secrétaire et Master peuvent :
+
 = Ajouter des postes pour les élections (par défaut, 4 postes sont déjà créés : Président, Vice-Président, Secrétaire, Trésorier).
+
 = Valider ou invalider les membres.
+
 = Supprimer et mettre en forme des lois et leurs variations.
+
 Sont ajoutés au Master tous les autres droits (intervention sur les données et sur le système).
+
 ---------------------------------------------------------++
 
 
