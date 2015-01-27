@@ -112,14 +112,4 @@ Si l'utilisateur doit faire une modification exigent son authentification, un me
 
 ***
 
-# Q
-
-:interrobang: Secrétaire = Admin ou élu ado ?
-
-:interrobang: Rôle du président dans l'api ?
-
-:interrobang: Informations fournies par les membres ? Ex : Nom, Prenom…
-
-***
-
 :date: *Lundi 26 Janvier 2015*

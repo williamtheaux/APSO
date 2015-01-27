@@ -7,8 +7,8 @@
 * APSO réalise un mode d'Assemblée Générale permanente, souveraine à dynamique instantanée.
 
 * :blue_book: Api en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
-* :green_book: Application web client en jQuery pour le vote, ajout de loi et leur révision.
-* :closed_book: Application administrateur pour le contrôle des données ajouter.
+* :green_book: Application web en jQuery pour le vote, ajout de loi et leur révision.
+* :closed_book: Application administrateur en jQuery pour le contrôle des données ajouter.
 
 ***
 
@@ -24,8 +24,7 @@
 
 ## Annexes
 
-* [PSO](http://www.lasainteethique.org/leparti/2015/htm/20150107_00-PSO.htm) Association Loi.1901 qui a pour objet un espace associatif expérimentant la vie sociale moderne.
-* [PSO](http://www.lasainteethique.org/leparti/2015/htm/20150107_00-PSO.htm) Association Loi.1901 qui a pour objet un espace associatif expérimentant la vie sociale moderne.
+* :earth_americas: [PSO](http://www.lasainteethique.org/leparti/2015/htm/20150107_00-PSO.htm) Association Loi.1901 qui a pour objet un espace associatif expérimentant la vie sociale moderne.
 
 ***
 
