@@ -5,9 +5,12 @@
 > l'institution d'une démocratie-directe en temps-réel, n'annonce pas seulement des changements de régime économiques, industriels etc.. mais un bouleversement dans la psychologie collective.
 
 * APSO réalise un mode d'Assemblée Générale permanente, souveraine à dynamique instantanée.
-* Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
-* Application web client en jQuery, HTML5 et CSS3, pour les vote, ajout de règles et leur révision.
-* Application web Admin en jQuery, HTML5 et CSS3, pour le contrôle des données ajouter par les membres.
+
+:blue_book: Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
+
+:green_book: Application web client en jQuery pour les vote, ajout de loi et leur révision.
+
+:closed_book: Application administrateur pour le contrôle des données ajouter.
 
 ***
 
@@ -18,7 +21,6 @@
 * :two: [Etude des besoins et délai](doc/etude_des_besoins_delai.md) comporte les besoins et délai pour la conception et développement d'api pour l'appareillage d'expérimentation de la démocratie directe. APSO.
 
 * :three: [Spécification fonctionnelle](doc/specification_fonctionnelle.md) comporte l’ensemble des règles de fonctionnement de votre logiciel. C'est l'architecture de votre application.
-
 
 ***
 
