@@ -15,8 +15,11 @@
 * L'application comporte une section de loi. Chaque votant peux proposer et voter pour des lois et leurs variations.
 
 * En cas d'égalité ou ballotage, les postes ou lois reste inchangées. Le résultat est en permanence accessible pour tous.
+* 
 *---------------------------------------------------------
+
 * Les administrateurs (Secrétaire) peuvent :
+* 
 	* Ajouter des postes pour les élections. Par défaut, 4 postes sont déja crée :
 		* :bust_in_silhouette: Président
 		* :bust_in_silhouette: Vice-Président
