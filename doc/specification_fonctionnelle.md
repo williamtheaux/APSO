@@ -18,23 +18,37 @@
 ***
 ## Connexion des utilisateurs :closed_lock_with_key:
 
-L'utilisateur rentrer, côté client une phrase secrétée qui génère une clé public, avec là qu'elle, il est identifié côté serveur. Le serveur n'a plus besoins de son mail et mot de pass, de se fait ça enlève le problème de sécurité côté serveur, il y a plus besoin de le pirater, car il ne garde plus aucune donnée sensible concernant le client.
+L'utilisateur entre, côté client une phrase secrétée qui génère une clé public, avec là qu'elle, il est identifié côté serveur. Le serveur n'a plus besoins de son mail et mot de pass, de se fait ça enlève le problème de sécurité côté serveur, il y a plus besoin de le pirater, car il ne garde plus aucune donnée sensible concernant le client.
 
 Si l'utilisateur doit faire une modification exigent son authentification, un message est signé côté client, le serveur na plus qu'a vérifier la validité de la signature pour identifier que c'est bien l'utilisateur qui a fait la demande.
 
-:arrow_right: Tout le portefeuille est régénérer à partir de la phrase secrète à chaque utilisation et les données sont traitées en local avec JavaScript.
+:arrow_right: Tout le compte est régénérer à partir de la phrase secrète à chaque utilisation et les données sont traitées en local avec JavaScript.
 
-:arrow_right: Un code pin est demander a la connexion pour cryptée pendant toute la durée de la session locale la phrase secrète. le code pin n'est stocké nulle part.
+:arrow_right: Un nouveau code pin est demander a la connexion pour un cryptage symétrique de la phrase secrète pendant toute la durée de la session locale. le code pin n'est stocké nulle part.
 
 :arrow_right: Tout le systeme cryptographique reste invisible pour le client final.
+
+***
+## Gestion des utilisateurs :busts_in_silhouette:
 
 * :construction: Travail en cours
 ***
 ## Anonymisation des votes :squirrel:* :construction: Travail en cours***## Architecture :books:
+> Le projet est constitué d'une api côté serveur et de deux applications web côté client.
 
-### :green_book: Application client
+### :green_book: Application Client
 
-* #### Accueil
+* **Accueil**
+	* **Intro :**
+	* **Accès :**
+	* **Maquette :**
+	* **Informations :**
+	* **Actions possibles :**
+	* **Règles de gestion :**
+
+### :closed_book: Application Admin
+
+* **Accueil**
 	* **Intro :**
 	* **Accès :**
 	* **Maquette :**
