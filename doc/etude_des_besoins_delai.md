@@ -78,7 +78,7 @@
 * Développement des modules et leurs fonctions en jQuery.
 * Communication avec le serveur.
 * Integration de la gestion des données et formulaires.
-* Design de la partie administrateurs..
+* Design de la partie administrateurs.
 * Création et intégration des textes.
 * Test et contrôle des bug.
 * Mise en place de l'application côté production.
