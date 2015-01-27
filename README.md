@@ -25,6 +25,7 @@
 ## Annexes
 
 * [PSO](http://www.lasainteethique.org/leparti/2015/htm/20150107_00-PSO.htm) Association Loi.1901 qui a pour objet un espace associatif expérimentant la vie sociale moderne.
+* [PSO](http://www.lasainteethique.org/leparti/2015/htm/20150107_00-PSO.htm) Association Loi.1901 qui a pour objet un espace associatif expérimentant la vie sociale moderne.
 
 ***
 
