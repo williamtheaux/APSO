@@ -16,7 +16,8 @@
 
 * En cas d'égalité ou ballotage, les postes ou lois reste inchangées. Le résultat est en permanence accessible pour tous.
 * 
-*---------------------------------------------------------
+
+---------------------------------------------------------
 
 * Les administrateurs (Secrétaire) peuvent :
 * 
@@ -30,7 +31,7 @@
 
 ---------------------------------------------------------++
 
-Les administrateurs sont au nombre de deux : un Master et un Secrétaire. Les droits du Master dominent ceux du secrétaire ; les actions du Secrétaire doivent être validées par le Master. Secrétaire et Master peuvent :
+* Les administrateurs sont au nombre de deux : un Master et un Secrétaire. Les droits du Master dominent ceux du secrétaire ; les actions du Secrétaire doivent être validées par le Master. Secrétaire et Master peuvent :
 
 = Ajouter des postes pour les élections (par défaut, 4 postes sont déjà créés : Président, Vice-Président, Secrétaire, Trésorier).
 
