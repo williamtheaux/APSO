@@ -6,11 +6,9 @@
 
 * APSO réalise un mode d'Assemblée Générale permanente, souveraine à dynamique instantanée.
 
-:blue_book: Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
-
-:green_book: Application web client en jQuery pour les vote, ajout de loi et leur révision.
-
-:closed_book: Application administrateur pour le contrôle des données ajouter.
+* :blue_book: Api en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
+* :green_book: Application web client en jQuery pour le vote, ajout de loi et leur révision.
+* :closed_book: Application administrateur pour le contrôle des données ajouter.
 
 ***
 
