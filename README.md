@@ -6,6 +6,8 @@
 
 * APSO réalise un mode d'Assemblée Générale permanente, souveraine à dynamique instantanée.
 * Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
+* Application web client en jQuery, HTML5 et CSS3, pour les vote, ajout de règles et leur révision.
+* Application web Admin en jQuery, HTML5 et CSS3, pour le contrôle des données ajouter par les membres.
 
 ***
 

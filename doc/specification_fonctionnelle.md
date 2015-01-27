@@ -38,6 +38,8 @@ Si l'utilisateur doit faire une modification exigent son authentification, un me
 
 ### :green_book: Application Client
 
+> L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de règles et leur révision.
+
 * **Accueil**
 	* **Intro :**
 	* **Accès :**
@@ -48,6 +50,8 @@ Si l'utilisateur doit faire une modification exigent son authentification, un me
 
 ### :closed_book: Application Admin
 
+> L'application admin, contrôle et modifie toutes les données ajouter par les membres.
+
 * **Accueil**
 	* **Intro :**
 	* **Accès :**
@@ -57,6 +61,8 @@ Si l'utilisateur doit faire une modification exigent son authentification, un me
 	* **Règles de gestion :**
 
 ### :blue_book: Api serveur
+
+> Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
 
 * :construction: Travail en cours
 ***
