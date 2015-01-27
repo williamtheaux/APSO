@@ -27,13 +27,15 @@
 		* :bust_in_silhouette: Trésorier
 	* Valider ou invalider les membres.
 	* Suppression et mise en forme des lois et leurs variations.
-*---------------------------------------------------------++
-*Les administrateurs sont au nombre de deux : un Master et un Secrétaire. Les droits du Master dominent ceux du secrétaire ; les actions du Secrétaire doivent être validées par le Master. Secrétaire et Master peuvent :
-*= Ajouter des postes pour les élections (par défaut, 4 postes sont déjà créés : Président, Vice-Président, Secrétaire, Trésorier).
-*= Valider ou invalider les membres.
-*= Supprimer et mettre en forme des lois et leurs variations.
-*Sont ajoutés au Master tous les autres droits (intervention sur les données et sur le système).
-*---------------------------------------------------------++
+---------------------------------------------------------++
+Les administrateurs sont au nombre de deux : un Master et un Secrétaire. Les droits du Master dominent ceux du secrétaire ; les actions du Secrétaire doivent être validées par le Master. Secrétaire et Master peuvent :
+= Ajouter des postes pour les élections (par défaut, 4 postes sont déjà créés : Président, Vice-Président, Secrétaire, Trésorier).
+= Valider ou invalider les membres.
+= Supprimer et mettre en forme des lois et leurs variations.
+Sont ajoutés au Master tous les autres droits (intervention sur les données et sur le système).
+---------------------------------------------------------++
+
+
 * L'application comporte un log, historique de toutes les actions effectuer par les membres et les administrateurs.
 
 * Donner un espace de connexion pour les observateurs.
