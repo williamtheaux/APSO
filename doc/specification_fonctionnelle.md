@@ -29,14 +29,26 @@ Les administrateurs sont au nombre de deux : un Master et un Secrétaire. Les dr
 
 = Supprimer et mettre en forme des lois et leurs variations.
 
-Si les droits du Master dominent ceux du secrétaire et les actions du Secrétaire doivent être validées par le Master. Sur le plant technique, il serait interessant de crée des fonction specifique au poste de secrétaire et accessible uniquement a la personne élu a ce moment la. Les fonction vont permetre au secrétaire de proposer une modification de loi, creation d'un nouveau poste, ou de la supression d'un membre. 
+Si les droits du Master dominent ceux du secrétaire et les actions du Secrétaire doivent être validées par le Master. Sur le plant technique et modulable dans le futur, il serait plus interessant de crée des fonction specifique au poste de secrétaire et accessible uniquement a la personne élu a ce moment la. Les fonction vont permetre au secrétaire de proposer une modification de loi, creation d'un nouveau poste, ou de la supression d'un membre.
 
-Les actions devron etre valider par un master. Les actions ne peuve pas etre visible avant d'etre valider.
+Pour la validation de l'action par un master, vous avez deux possibilistes.
+
+1. Le Secrétaire effectuer directement la modification dans les données. Sans la validation.
+	* Avantage
+		* Une liberter pour les utilisateur.
+		* Les administrateurs possèdent déjà les fonctions de modification des données en question et un access a l'historique.
+	* Inconvénient
+		* Le Secrétaire ne pourra pas avoir access a la fonction de suppression de lois, postes.  
+2. Les actions devraient être validées par un master.
+	* Avantage
+		* Les actions ne peuvent pas être visibles avant d'être validées.
+		* Une bonne sécurité pour l'administration.
+	* Inconvénient
+		* Développement de fonction supplémentaire pour la validation des actions des secrétaires.
 
 Sur le plant futur, il faut travailler ses fonctions associées à un poste, le plus modulable possible pour pouvoir associer d'autre fonction à d'autres postes créés. Ex, comme le système est baser sur le bitcoin, ont pourra toujours crée des fonctions pour le trésorier, qui seront capable de faire des transfert.
 
 ---------------------------------------------------------++
-
 
 * Les administrateurs peuvent :
 > Sont ajoutés au Master tous les autres droits (intervention sur les données et sur le système).
@@ -45,7 +57,7 @@ Sur le plant futur, il faut travailler ses fonctions associées à un poste, le 
 	* Suppression et mise en forme des lois et leurs variations.
 	* Validées les actions des fonctions generait par les postes de secrétaire...
 
-* L'application comporte un log, historique de toutes les actions effectuer par les membres et les administrateurs. C'est informations sont accessible sur les deux applications.
+* L'application comporte un log, historique de toutes les actions effectuer par les membres et les administrateurs. Ses informations sont accessible sur les deux applications.
 
 * Donner un espace de connexion pour les observateurs.
 
