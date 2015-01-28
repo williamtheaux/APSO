@@ -21,8 +21,11 @@
 * En cas d'égalité ou ballotage, les postes ou lois reste inchangées. Le résultat est en permanence accessible pour tous.
 
 ---------------------------------------------------------++
--[ ]#1
--[ ]#3
+
+- [] #1
+
+- [] #3
+
 ---------------------------------------------------------++
 
 * Les administrateurs peuvent :
