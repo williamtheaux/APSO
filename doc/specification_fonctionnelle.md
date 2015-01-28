@@ -22,9 +22,9 @@
 
 ---------------------------------------------------------++
 
-- [ ] this is an incomplete item chagry#1
+- [ ] [#3](https://github.com/williamtheaux/APSO/issues/3)
 
-- [ ] this is an incomplete item chagry#3
+- [ ] [#1](https://github.com/williamtheaux/APSO/issues/1)
 
 ---------------------------------------------------------++
 
