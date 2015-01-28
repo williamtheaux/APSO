@@ -10,41 +10,39 @@
 
 **Appareillage d'expérimentation de la démocratie directe.**
 
-* Une application permettant des élections anonymes en temps réel ou chaque votant est susceptible d'être élu. À tous moment, un membre peut changer sont vote et basculer le résulta final. Un élu n'a pas le droit au cumul des mandat.
+* Une application permettant des élections anonymes en temps réel ou chaque votant est susceptible d'être élu. À tous moment, un membre peut changer sont vote et basculer le résulta final. Un élu n'a pas le droit au cumul des mandat. Par défaut, 4 postes sont déja crée :
+	* :bust_in_silhouette: Président
+	* :bust_in_silhouette: Vice-Président
+	* :bust_in_silhouette: Secrétaire
+	* :bust_in_silhouette: Trésorier
 
 * L'application comporte une section de loi. Chaque votant peux proposer et voter pour des lois et leurs variations.
 
 * En cas d'égalité ou ballotage, les postes ou lois reste inchangées. Le résultat est en permanence accessible pour tous.
-* 
-
----------------------------------------------------------
-
-* Les administrateurs (Secrétaire) peuvent :
-* 
-	* Ajouter des postes pour les élections. Par défaut, 4 postes sont déja crée :
-		* :bust_in_silhouette: Président
-		* :bust_in_silhouette: Vice-Président
-		* :bust_in_silhouette: Secrétaire
-		* :bust_in_silhouette: Trésorier
-	* Valider ou invalider les membres.
-	* Suppression et mise en forme des lois et leurs variations.
 
 ---------------------------------------------------------++
 
-* Les administrateurs sont au nombre de deux : un Master et un Secrétaire. Les droits du Master dominent ceux du secrétaire ; les actions du Secrétaire doivent être validées par le Master. Secrétaire et Master peuvent :
-
+Les administrateurs sont au nombre de deux : un Master et un Secrétaire. Les droits du Master dominent ceux du secrétaire ; les actions du Secrétaire doivent être validées par le Master. Secrétaire et Master peuvent :
 = Ajouter des postes pour les élections (par défaut, 4 postes sont déjà créés : Président, Vice-Président, Secrétaire, Trésorier).
 
 = Valider ou invalider les membres.
 
 = Supprimer et mettre en forme des lois et leurs variations.
 
-Sont ajoutés au Master tous les autres droits (intervention sur les données et sur le système).
+Si les droits du Master dominent ceux du secrétaire et les actions du Secrétaire doivent être validées par le Master. Sur le plant technique, il serait interessant de crée des fonction specifique au poste de secrétaire et accessible uniquement a la personne élu a ce moment la. Les fonction vont permetre au secrétaire de proposer une modification de loi, creation d'un nouveau poste, ou de la supression d'un membre. Les actions devron etre valider par un master. Les actions ne peuve pas etre visible avant d'etre valider.
+
+Sur le plant futur, il faut travailler ses fonctions associées à un poste, le plus modulable possible pour pouvoir associer d'autre fonction à d'autres postes créés. Ex, comme le système est baser sur le bitcoin, ont pourra toujours crée des fonctions pour le trésorier, qui seront capable de faire des transfert.
 
 ---------------------------------------------------------++
 
+* Les administrateurs peuvent :
+> Sont ajoutés au Master tous les autres droits (intervention sur les données et sur le système).
+	* Ajouter des postes pour les élections.
+	* Valider ou invalider les membres.
+	* Suppression et mise en forme des lois et leurs variations.
+	* Validées les actions des fonctions generait par les postes de secrétaire...
 
-* L'application comporte un log, historique de toutes les actions effectuer par les membres et les administrateurs.
+* L'application comporte un log, historique de toutes les actions effectuer par les membres et les administrateurs. C'est informations sont accessible sur les deux applications.
 
 * Donner un espace de connexion pour les observateurs.
 
@@ -109,6 +107,15 @@ Si l'utilisateur doit faire une modification exigent son authentification, un me
 > Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
 
 * :construction: Travail en cours
+
+***
+
+## Annexes :books:
+
+* :page_facing_up: :gb: [Cryptographic Voting Protocols: A Systems Perspective](annexes/karlof.pdf)
+* :page_facing_up: :gb: [David Chaum’s Voter Verification using Encrypted Paper Receipts](annexes/voter_verification_using_Encrypte.pdf)
+* :page_facing_up: :gb: [Secure Electronic Voting Protocols](annexes/voting4hb.pdf)
+* :earth_americas: :fr: [Bitcoin pour des votes gratuits et vérifiables](http://www.e-ducat.fr/bitcoin-pour-des-votes-gratuits-et-verifiables/)
 
 ***
 
