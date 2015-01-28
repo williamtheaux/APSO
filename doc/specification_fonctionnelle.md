@@ -17,8 +17,8 @@
 	* :bust_in_silhouette: Secrétaire
 	* :bust_in_silhouette: Trésorier
 
-* Fonctions privées définies pour les postes crées précédemment. Permet de définir des fonctions propriétaires accessibles seulement a l'utilisateur en poste à ce moment-là. Les fonctions sont modulables pour être ajoutées ou supprimer. Par défaut, 5 fonctions sont déja crée pour le poste de **secrétaire** :
-	> :white_check_mark: Issues [#1](https://github.com/williamtheaux/APSO/issues/1) [#3](https://github.com/williamtheaux/APSO/issues/3)
+* **Fonctions privées** définies pour les postes crées précédemment. Permet de définir des fonctions **propriétaires** accessibles seulement a l'utilisateur en poste à ce moment-là. Les fonctions sont modulables pour être ajoutées ou supprimer. 
+	> :white_check_mark: Issues [#1](https://github.com/williamtheaux/APSO/issues/1) [#3](https://github.com/williamtheaux/APSO/issues/3) Par défaut, 5 fonctions sont déja crée pour le poste de **secrétaire** :
 	* :nut_and_bolt: Suppression et mise en forme des lois et leurs variations.
 	* :nut_and_bolt: Valider ou invalider les membres. Bas niveaux.
 	* :nut_and_bolt: Ajouter ou supprimer des postes pour les élections
@@ -35,9 +35,9 @@
 	* :nut_and_bolt: Suppression et mise en forme des lois et leurs variations.
 	* :nut_and_bolt: Ajoutées ou supprimer les fonctions propriétaires.
 
-* L'application comporte un log, historique de toutes les actions effectuer par les membres et les administrateurs. Ses informations sont accessible sur les deux applications.
+* L'application comporte un **log**, historique de toutes les actions effectuer par les membres et les administrateurs. Ses informations sont accessible sur les deux applications.
 
-* Donner un espace de connexion pour les observateurs.
+* Donner un espace de connexion pour les **observateurs**.
 
 ***
 
