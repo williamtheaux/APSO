@@ -39,6 +39,19 @@ Pour la validation de l'action par un master, vous avez deux possibilistes.
 		* Les administrateurs possèdent déjà les fonctions de modification des données en question et un access a l'historique.
 	* Inconvénient
 		* Le Secrétaire ne pourra pas avoir access a la fonction de suppression de lois, postes.  
+
++++++++++++++
+
+Je préfère cette première - parce que a) elle me semble plus simple, plus légère - b) dans les minutes, heures qui suivent la modifPARsecrétaire, le Master peut éventuellement intervenir et corriger la modif - c) et parce qu'il y a toujours le recours à la restauration sur sauvegarde journalière.
+
+(deux questions à vérifier 1) les modifs sont visibles... MAIS y a-t-il aussi une fonction 'alerte' qui informe le Master qu'une modif a été posée  ? ---   2) il y a une sauvegarde journalière et possibilité de restauration... MAIS jusqu'à quel historique remonte la restauration possible (autrement dit - peut-on faire une restauration à jour-moins-trois,  moins-quatre etc... ou bien n'y a-t-il jamais qu'une seule restauration possible (celle de la veille) ?
+
+Par contre je ne comprends pas pourquoi cette solution empêche le Secrétaire à avoir accès à "fonction de suppression de lois, postes"
+
++++++++++++++
+
+
+
 2. Les actions devraient être validées par un master.
 	* Avantage
 		* Les actions ne peuvent pas être visibles avant d'être validées.
@@ -47,6 +60,12 @@ Pour la validation de l'action par un master, vous avez deux possibilistes.
 		* Développement de fonction supplémentaire pour la validation des actions des secrétaires.
 
 Sur le plant futur, il faut travailler ses fonctions associées à un poste, le plus modulable possible pour pouvoir associer d'autre fonction à d'autres postes créés. Ex, comme le système est baser sur le bitcoin, ont pourra toujours crée des fonctions pour le trésorier, qui seront capable de faire des transfert.
+
++++++++++++++//////////
+
+exact - toujours le plus modulable possible
+
++++++++++++++//////////
 
 ---------------------------------------------------------++
 
