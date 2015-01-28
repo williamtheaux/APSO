@@ -19,19 +19,20 @@
 * L'application comporte une section de loi. Chaque votant peux proposer et voter pour des lois et leurs variations.
 
 * En cas d'égalité ou ballotage, les postes ou lois reste inchangées. Le résultat est en permanence accessible pour tous.
+	> :interrobang: [à propos cumul des mandats #4](https://github.com/williamtheaux/APSO/issues/4)
 
-
-> :interrobang: [Issues Validation ou non, de l'action par un master. #3](https://github.com/williamtheaux/APSO/issues/3)
-
-> :interrobang: [Issues Les droits des administrateurs et secrétaire. #1](https://github.com/williamtheaux/APSO/issues/1)
-
+* Fonctions privées définies pour les postes crées précédemment. Permet de définir des fonctions propriétaires accessibles seulement a l'utilisateur en poste à ce moment-là. Les fonctions sont modulables pour être ajoutées ou élever.
+	* Par défaut, 6 fonctions sont déja crée pour le poste de **secrétaire** :
+		* Suppression et mise en forme des lois et leurs variations.
+		* Valider ou invalider les membres. Bas niveaux.
+		* Ajouter ou supprimer des postes pour les élections.
+	> :white_check_mark: Issues [#1](https://github.com/williamtheaux/APSO/issues/1) [#3](https://github.com/williamtheaux/APSO/issues/3) 
 
 * Les administrateurs peuvent :
-> Sont ajoutés au Master tous les autres droits (intervention sur les données et sur le système).
-	* Ajouter des postes pour les élections.
-	* Valider ou invalider les membres.
+	> Sont ajoutés au Master tous les autres droits (intervention sur les données et sur le système).
+	* Ajouter ou supprimer des postes pour les élections.
+	* Valider ou invalider les membres. Haut niveaux.
 	* Suppression et mise en forme des lois et leurs variations.
-	* Validées les actions des fonctions generait par les postes de secrétaire...
 
 * L'application comporte un log, historique de toutes les actions effectuer par les membres et les administrateurs. Ses informations sont accessible sur les deux applications.
 
