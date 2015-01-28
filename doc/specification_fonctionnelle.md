@@ -20,7 +20,6 @@
 
 * En cas d'égalité ou ballotage, les postes ou lois reste inchangées. Le résultat est en permanence accessible pour tous.
 
-```
 ---------------------------------------------------------++
 
 Les administrateurs sont au nombre de deux : un Master et un Secrétaire. Les droits du Master dominent ceux du secrétaire ; les actions du Secrétaire doivent être validées par le Master. Secrétaire et Master peuvent :
@@ -30,12 +29,14 @@ Les administrateurs sont au nombre de deux : un Master et un Secrétaire. Les dr
 
 = Supprimer et mettre en forme des lois et leurs variations.
 
-Si les droits du Master dominent ceux du secrétaire et les actions du Secrétaire doivent être validées par le Master. Sur le plant technique, il serait interessant de crée des fonction specifique au poste de secrétaire et accessible uniquement a la personne élu a ce moment la. Les fonction vont permetre au secrétaire de proposer une modification de loi, creation d'un nouveau poste, ou de la supression d'un membre. Les actions devron etre valider par un master. Les actions ne peuve pas etre visible avant d'etre valider.
+Si les droits du Master dominent ceux du secrétaire et les actions du Secrétaire doivent être validées par le Master. Sur le plant technique, il serait interessant de crée des fonction specifique au poste de secrétaire et accessible uniquement a la personne élu a ce moment la. Les fonction vont permetre au secrétaire de proposer une modification de loi, creation d'un nouveau poste, ou de la supression d'un membre. 
+
+Les actions devron etre valider par un master. Les actions ne peuve pas etre visible avant d'etre valider.
 
 Sur le plant futur, il faut travailler ses fonctions associées à un poste, le plus modulable possible pour pouvoir associer d'autre fonction à d'autres postes créés. Ex, comme le système est baser sur le bitcoin, ont pourra toujours crée des fonctions pour le trésorier, qui seront capable de faire des transfert.
 
 ---------------------------------------------------------++
-```
+
 
 * Les administrateurs peuvent :
 > Sont ajoutés au Master tous les autres droits (intervention sur les données et sur le système).
@@ -72,12 +73,12 @@ Si l'utilisateur doit faire une modification exigent son authentification, un me
 
 ## Anonymisation des votes :squirrel:
 
-* Les contraintes techniques du vote.
-	* Le vote doit être anonyme.
-	* Le vote peut être modifiable.
-	* L'utilisateur peut voir ses votes.
-	* Le résultats des élections est en temps réel.
-	* Le système de vote doit être adaptable aux élections des postes et lois.
+* Les **contraintes** techniques du vote.
+	* Le vote doit être **anonyme**.
+	* Le vote peut être **modifiable**.
+	* L'utilisateur peut **voir** ses votes.
+	* Le résultats des élections est en **temps réel**.
+	* Le système de vote doit être adaptable aux élections des **postes** et **lois**.
 
 * :construction: Travail en cours
 
