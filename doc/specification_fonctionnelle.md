@@ -20,13 +20,11 @@
 
 * En cas d'égalité ou ballotage, les postes ou lois reste inchangées. Le résultat est en permanence accessible pour tous.
 
----------------------------------------------------------++
 
-- [ ] [#3](https://github.com/williamtheaux/APSO/issues/3)
+> :interrobang: [Issues Validation ou non, de l'action par un master. #3](https://github.com/williamtheaux/APSO/issues/3)
 
-- [ ] [#1](https://github.com/williamtheaux/APSO/issues/1)
+> :interrobang: [Issues Les droits des administrateurs et secrétaire. #1](https://github.com/williamtheaux/APSO/issues/1)
 
----------------------------------------------------------++
 
 * Les administrateurs peuvent :
 > Sont ajoutés au Master tous les autres droits (intervention sur les données et sur le système).
