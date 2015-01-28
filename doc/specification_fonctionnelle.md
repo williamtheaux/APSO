@@ -22,9 +22,9 @@
 
 ---------------------------------------------------------++
 
-- [ ] this is an incomplete item APSO#1
+- [ ] this is an incomplete item chagry#1
 
-- [ ] this is an incomplete item APSO#3
+- [ ] this is an incomplete item chagry#3
 
 ---------------------------------------------------------++
 
