@@ -65,6 +65,7 @@ Si l'utilisateur doit faire une modification exigent son authentification, un me
 
 * Les **contraintes** techniques du vote.
 	* Le vote doit être **anonyme**.
+	* Le système de vote doit être **publiquement vérifiable**.
 	* Le vote peut être **modifiable**.
 	* L'utilisateur peut **voir** ses votes.
 	* Le résultats des élections est en **temps réel**.
