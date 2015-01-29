@@ -2,7 +2,7 @@
 
 ***
 
-## GÉNÉRALITÉ
+## GÉNÉRALITÉ - PREMIER ARGUMENT POUR UNE INTELLIGENCE ARTIFICIELLE
 
    L'idée d'APSO germa à partir de 1985. À cette époque on commençait à parler d'écologie et en même temps la psychanalyse montrait des signes de déclin. Une question se posait alors : ..**_en inventant en 1900 le concept d'Inconscient, Freud n'aurait-il pas eu l'intuition d'une notion moderne d'Environnement ?_** Or au milieu de ce même siècle la science de la Cybernétique allait aussi constituée. Elle se définirait comme la *science des relations et de leur contrôle, entre les êtres vivants et les machines* ; autrement dit, elle annonçait un Environnement 'mécanique', 'intelligent' et en même temps 'naturel' et 'pulsionnel'. Cet environnement appareillé ressemblait effectivement à l'Inconscient. Nous partîmes donc **(1) d'un écosystème**, en observant qu'il s'appareillait d'une future **(2) intelligence artificielle**, et supposâmes que **(3) l'analyse de l'Inconscient** devait se prêter à cette circonstance inédite. Pour mettre à jour cette nouvelle optique il suffisait en 1985 d'appliquer la psychanalyse de manière à ce qu'elle se conforme à une psychologie collective - ce qui fut réglé sous le terme de Psychanalyse Plurielle.
    
@@ -21,7 +21,7 @@
    
 ***
 
-## LE SECOND ARGUMENT POUR UNE INTELLIGENCE ARTIFICIELLE
+## SECOND ARGUMENT POUR UNE INTELLIGENCE ARTIFICIELLE
    
 **_L'identification de la nature d'APSO est suffisamment importante pour que soit décrit en détail la raison d'y reconnaître une I.A._**
 
@@ -37,7 +37,23 @@
 En résumé : APSO établit **_une activité de l'/ia/_** dans un milieu social - réalisant effectivement un phénomène démocratie et/ou de compétence écologique ; mais le processus présente un danger que l'on peut comparer à une implantation d'organe, nécessitant une mesure immunosuppressive pour éviter l'intoxication ou le rejet. Dans le cas d'APSO/ia/, la sécurité requiert une analyse de la réaction psychique que son implémentation provoque. Ce traitement est procuré par l'application conjointe d'une Analyse Plurielle.
 
 (lien)   [Traité du milieu social appareillé cybernétique](https://www.smashwords.com/books/view/143155)
-    
+ 
+***
+
+## L'ANTIDOTE AUX EFFETS NEFASTES DE L'/ia/
+
+* Si nous avons identifié dans les GENERALITE qu'**_une écologie se produisait_** dans une circonstance où l'environnement était appareillé d'intelligence artificielle.
+* 
+* Et si nous avons estimé que cette intelligence **_pouvait être dangereuse_**.
+* Nous avons proposé un appareil cybernétique, APSO - qualifiable d'Intelligence Artificielle que nous écrivons /ia/ et qui sera doublé d'une **_mesure appropriée de sauvegarde_**.
+* Cette sauvegarde a été identifiée comme étant la Psychanalyse mise-à-jour de la société cybernétique (que nous appelons **_Analyse Plurielle et/ou PLAN_** - PLuriel ANalytique)
+* Cette Analyse Plurielle a pour caractéristique de **_se coordonner à une Pulsion Hiérarchique_** ("Pulsion" désigne une énergétique spécifique du vivant/humain détectée par l'analyse du psychisme humain). La coordonnée de cette pulsion se trouve insérée dans APSO au motif d'un registre de rôle (rôle sociaux traditionnels : Président, Secrétaire, Trésorier, Vice-Président suivant l'ordre de dominance P > S > T > V).
+**Par conséquent APSO intègre le facteur humain pulsionnel - et se prête à l'analyse permettant de contrôler ses risques inhérent à l'/ia/.**
+
+En résumé : a) la reconnaissance de APSO comme implémentation d'/ia/ est basée sur deux critères tendant au plus simple : 1) un *Contraction du Temps* dans le traitement de l'information (H.Atlan) et 2) une *Pulsion Hiérarchique* dans la psychologie collective (W.Théaux). Ces deux critères minimaux et essentiels sont réalisés : le vote-décisionnel (direct et temps réel) réalise le phénomène "contraction", et le traitement "P>S>T>V" du vote/cumul réalise l'insertion de la hiérarchie traditionnelle de la société humaine.
+b) si ces deux critères (contraction et hiérarchie) nécessaires et suffisants habilitent APSO dans l'ordre de l'/ia/ - la théorie elle-même de la conjonction cybernétique-pulsion, prévient du besoin d'un antidote aux effets secondaires de cette fonction APSO (indication du traitement PLAN). Sans quoi APSO présente les risque d'une résistance qui, soit l'éteindra, soit la rendra nuisible à son milieu.
+
+
    
 ***
 
