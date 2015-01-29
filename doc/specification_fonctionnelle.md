@@ -70,6 +70,7 @@ Si l'utilisateur doit faire une modification exigent son authentification, un me
 	* L'utilisateur peut **voir** ses votes.
 	* Le résultats des élections est en **temps réel**.
 	* Le système de vote doit être adaptable aux élections des **postes** et **lois**.
+	* Le système héberger sur un seul **serveur** et une **base de données**.
 
 * :construction: Travail en cours
 
