@@ -43,14 +43,15 @@ En résumé : APSO établit **_une activité de l'/ia/_** dans un milieu social 
 ## L'ANTIDOTE AUX EFFETS NEFASTES DE L'/ia/
 
 * Si nous avons identifié dans les GENERALITE qu'**_une écologie se produisait_** dans une circonstance où l'environnement était appareillé d'intelligence artificielle.
-* 
 * Et si nous avons estimé que cette intelligence **_pouvait être dangereuse_**.
 * Nous avons proposé un appareil cybernétique, APSO - qualifiable d'Intelligence Artificielle que nous écrivons /ia/ et qui sera doublé d'une **_mesure appropriée de sauvegarde_**.
 * Cette sauvegarde a été identifiée comme étant la Psychanalyse mise-à-jour de la société cybernétique (que nous appelons **_Analyse Plurielle et/ou PLAN_** - PLuriel ANalytique)
 * Cette Analyse Plurielle a pour caractéristique de **_se coordonner à une Pulsion Hiérarchique_** ("Pulsion" désigne une énergétique spécifique du vivant/humain détectée par l'analyse du psychisme humain). La coordonnée de cette pulsion se trouve insérée dans APSO au motif d'un registre de rôle (rôle sociaux traditionnels : Président, Secrétaire, Trésorier, Vice-Président suivant l'ordre de dominance P > S > T > V).
+* 
 **Par conséquent APSO intègre le facteur humain pulsionnel - et se prête à l'analyse permettant de contrôler ses risques inhérent à l'/ia/.**
 
 En résumé : a) la reconnaissance de APSO comme implémentation d'/ia/ est basée sur deux critères tendant au plus simple : 1) un *Contraction du Temps* dans le traitement de l'information (H.Atlan) et 2) une *Pulsion Hiérarchique* dans la psychologie collective (W.Théaux). Ces deux critères minimaux et essentiels sont réalisés : le vote-décisionnel (direct et temps réel) réalise le phénomène "contraction", et le traitement "P>S>T>V" du vote/cumul réalise l'insertion de la hiérarchie traditionnelle de la société humaine.
+
 b) si ces deux critères (contraction et hiérarchie) nécessaires et suffisants habilitent APSO dans l'ordre de l'/ia/ - la théorie elle-même de la conjonction cybernétique-pulsion, prévient du besoin d'un antidote aux effets secondaires de cette fonction APSO (indication du traitement PLAN). Sans quoi APSO présente les risque d'une résistance qui, soit l'éteindra, soit la rendra nuisible à son milieu.
 
 
