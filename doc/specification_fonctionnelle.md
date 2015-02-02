@@ -17,13 +17,13 @@
 	* :bust_in_silhouette: Secrétaire
 	* :bust_in_silhouette: Trésorier
 
-* **Fonctions propriétaires** définies pour les postes crées précédemment. Permet de définir des fonctions propriétaires accessibles seulement a l'utilisateur en poste à ce moment-là. Les fonctions sont modulables pour être ajoutées ou supprimer. Ils pourront être utilisés sur plusieur postes simultanément.
+* **Fonctions propriétaires** définies pour les postes crées précédemment. Permet de définir des fonctions propriétaires accessibles seulement a l'utilisateur en poste à ce moment-là. Les fonctions sont modulables pour être ajoutées ou supprimer. Elles pourront être utilisées sur plusieur postes simultanément.
 	> :white_check_mark: Issues [#1](https://github.com/williamtheaux/APSO/issues/1) [#3](https://github.com/williamtheaux/APSO/issues/3) Par défaut, 5 fonctions sont déja crée pour le poste de **secrétaire** :
 	* :nut_and_bolt: Suppression et mise en forme des lois et leurs amendements.
 	* :nut_and_bolt: Valider ou invalider les membres. Bas niveaux.
 	* :nut_and_bolt: Ajouter ou supprimer des postes pour les élections
 
-* L'application comporte le **suffrage universel**. Une section ou chaque votant peut créer des nouvelles lois, proposer des amendements pour des lois existantes, et enfin d'exprimer sont vote.
+* L'application comporte le **suffrage universel**. Une section ou chaque votant peut créer des nouvelles lois, proposer des amendements pour des lois existantes, et enfin, exprimer sont vote.
 
 * En cas **d'égalité ou ballotage**, les postes ou lois reste inchangées. Le résultat est en permanence accessible pour tous.
 	> :interrobang: [à propos cumul des mandats #4](https://github.com/williamtheaux/APSO/issues/4)
@@ -71,6 +71,7 @@ Si l'utilisateur doit faire une modification exigent son authentification, un me
 	* Le résultats des élections est en **temps réel**.
 	* Le système de vote doit être adaptable aux élections des **postes** et **lois**.
 	* Le système héberger sur un seul **serveur** et une **base de données**.
+	* Suppressions des votes si l'utilisateur est **invalidé** par un administrateur.
 
 * :construction: Travail en cours
 
