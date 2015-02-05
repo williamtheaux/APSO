@@ -24,6 +24,7 @@
 	* :nut_and_bolt: Ajouter ou supprimer des postes pour les élections
 
 * L'application comporte le **suffrage universel**. Une section ou chaque votant peut créer des nouvelles lois, proposer des amendements pour des lois existantes, et enfin, exprimer sont vote.
+	* Les lois considérés élus, Quant au moins 50% des utilisateurs ont sélectionnées un amendement dans cette loi. Les 50% pourront être changés directement dans les configurations du code.
 
 * En cas **d'égalité ou ballotage**, les postes ou lois reste inchangées. Le résultat est en permanence accessible pour tous.
 	> :interrobang: [à propos cumul des mandats #4](https://github.com/williamtheaux/APSO/issues/4)
@@ -43,15 +44,15 @@
 
 ## Connexion des utilisateurs :closed_lock_with_key:
 
-L'utilisateur entre, côté client une phrase secrétée qui génère une clé public, avec là qu'elle, il est identifié côté serveur. Le serveur n'a plus besoins de son mail et mot de pass, de se fait ça enlève le problème de sécurité côté serveur, il y a plus besoin de le pirater, car il ne garde plus aucune donnée sensible concernant le client.
+L'utilisateur entre, côté client une phrase secrétée qui génère une **clé public**, avec là qu'elle, il est identifié côté serveur. Le serveur n'a plus besoins de son mail et mot de pass, de se fait ça enlève le problème de sécurité côté serveur, il y a plus besoin de le pirater, car il ne garde plus aucune donnée **sensible** concernant le client.
 
-Si l'utilisateur doit faire une modification exigent son authentification, un message est signé côté client, le serveur na plus qu'a vérifier la validité de la signature pour identifier que c'est bien l'utilisateur qui a fait la demande.
+Si l'utilisateur doit faire une modification exigent son authentification, un message est **signé** côté client, le serveur na plus qu'a vérifier la validité de la signature pour identifier que c'est bien l'utilisateur qui a fait la demande.
 
-:arrow_right: Tout le compte est régénérer à partir de la phrase secrète à chaque utilisation et les données sont traitées en local avec JavaScript.
+:arrow_right: Tout le compte est régénérer à partir de la phrase secrète à chaque utilisation et les données sont traitées en **local** avec JavaScript.
 
-:arrow_right: Un nouveau code pin est demander a la connexion pour un cryptage symétrique de la phrase secrète pendant toute la durée de la session locale. le code pin n'est stocké nulle part.
+:arrow_right: Un nouveau code pin est demander a la connexion pour un **cryptage symétrique** de la phrase secrète pendant toute la durée de la session locale. le code pin n'est stocké nulle part.
 
-:arrow_right: Tout le systeme cryptographique reste invisible pour le client final.
+:arrow_right: Tout le systeme cryptographique reste **invisible** pour le client final.
 
 ***
 
@@ -59,16 +60,11 @@ Si l'utilisateur doit faire une modification exigent son authentification, un me
 
 L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administrateurs ou par les postes, disposant de la fonction propriétaires. Si le client se connecte pour la première fois et n'est pas reconnu par l'api, il est invité de finir son inscription en fournissant des données supplémentaires : **Nom** et **Prénom**.
 
-* :bust_in_silhouette: **Guest**
-	* Le rôle par défaut après l'inscription de l'utilisateur dans l'api. Retourne un message "En attente de validation par un administrateur."
-* :bust_in_silhouette: **Banni**
-	* Concerne les utilisateurs bannis par un administrateur ou un poste disposant de la fonction propriétaire. Regroupe aussi les visiteurs non identifiés après l'inscription. Retourne un message "Vous êtes bloqué. Veuillez contacter un administrateur."
-* :bust_in_silhouette: **Observateur**
-	* Le groupe des Observateur, ont seulement accès a l'historique et les résulta de vote.
-* :bust_in_silhouette: **membre**
-	* Les membres ont le droit d'exprimer son vote et proposer de nouvelles lois. Ils peuvent aussi être élus.
-* :bust_in_silhouette: **Administrateur**
-	* Ils gèrent et modifient toutes les données de l'api.
+* :bust_in_silhouette: **Guest** Le rôle par défaut après l'inscription de l'utilisateur dans l'api. Retourne un message "En attente de validation par un administrateur."
+* :bust_in_silhouette: **Banni** Concerne les utilisateurs bannis par un administrateur ou un poste disposant de la fonction propriétaire. Regroupe aussi les visiteurs non identifiés après l'inscription. Retourne un message "Vous êtes bloqué. Veuillez contacter un administrateur."
+* :bust_in_silhouette: **Observateur** Le groupe des Observateur, ont seulement accès a l'historique et les résulta de suffrage.
+* :bust_in_silhouette: **membre** Les membres ont le droit d'exprimer leur votes et proposer de nouvelles lois. Ils peuvent aussi être élus.
+* :bust_in_silhouette: **Administrateur** Ils gèrent et modifient toutes les données de l'api.
 
 ***
 
