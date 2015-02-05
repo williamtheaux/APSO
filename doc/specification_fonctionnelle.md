@@ -57,7 +57,18 @@ Si l'utilisateur doit faire une modification exigent son authentification, un me
 
 ## Gestion des utilisateurs :busts_in_silhouette:
 
-* :construction: Travail en cours
+L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administrateurs ou par les postes, disposant de la fonction propriétaires. Si le client se connecte pour la première fois et n'est pas reconnu par l'api, il est invité de finir son inscription en fournissant des données supplémentaires : **Nom** et **Prénom**.
+
+* :bust_in_silhouette: **Guest**
+	* Le rôle par défaut après l'inscription de l'utilisateur dans l'api. Retourne un message "En attente de validation par un administrateur."
+* :bust_in_silhouette: **Banni**
+	* Concerne les utilisateurs bannis par un administrateur ou un poste disposant de la fonction propriétaire. Regroupe aussi les visiteurs non identifiés après l'inscription. Retourne un message "Vous êtes bloqué. Veuillez contacter un administrateur."
+* :bust_in_silhouette: **Observateur**
+	* Le groupe des Observateur, ont seulement accès a l'historique et les résulta de vote.
+* :bust_in_silhouette: **membre**
+	* Les membres ont le droit d'exprimer son vote et proposer de nouvelles lois. Ils peuvent aussi être élus.
+* :bust_in_silhouette: **Administrateur**
+	* Ils gèrent et modifient toutes les données de l'api.
 
 ***
 
@@ -72,6 +83,8 @@ Si l'utilisateur doit faire une modification exigent son authentification, un me
 	* Le système de vote doit être adaptable aux élections des **postes** et **lois**.
 	* Le système héberger sur un seul **serveur** et une **base de données**.
 	* Suppressions des votes si l'utilisateur est **invalidé** par un administrateur.
+
+Un système de vote pseudo-anonyme.
 
 * :construction: Travail en cours
 
