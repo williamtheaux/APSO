@@ -62,8 +62,8 @@ L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administra
 
 * :bust_in_silhouette: **Guest :** Le rôle par défaut après l'inscription de l'utilisateur dans l'api. Retourne un message "En attente de validation par un administrateur."
 * :bust_in_silhouette: **Banni :** Concerne les utilisateurs bannis par un administrateur ou un poste disposant de la fonction propriétaire. Regroupe aussi les visiteurs non identifiés après l'inscription. Retourne un message "Vous êtes bloqué. Veuillez contacter un administrateur."
-* :bust_in_silhouette: **Observateur :** Le groupe des Observateur, ont seulement accès a l'historique et les résulta de suffrage.
-* :bust_in_silhouette: **Membre :** Les membres ont le droit d'exprimer leur votes et proposer de nouvelles lois. Ils peuvent aussi être élus.
+* :bust_in_silhouette: **Observateur :** Le groupe des Observateur, ont seulement accès a l'historique et les résulta du suffrage.
+* :bust_in_silhouette: **Membre :** Les membres ont le droit d'exprimer leurs votes et proposer de nouvelles lois. Ils peuvent aussi être élus.
 * :bust_in_silhouette: **Administrateur :** Ils gèrent et modifient toutes les données de l'api.
 
 ***
@@ -80,7 +80,11 @@ L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administra
 	* Le système héberger sur un seul **serveur** et une **base de données**.
 	* Suppressions des votes si l'utilisateur est **Banni** par un administrateur.
 
-Un système de vote pseudo-anonyme. 
+Un système de vote pseudo-anonyme avec une minime utilisation de brute force pour respecter la dernière contrainte. Utilisation du RSA pour la signature des votes et un cryptage symétrique pour que l'utilisateur puisse les voir et modifier. Le vote se passe en trois étapes :
+
+* Demande de la listes électorales.
+* Procédure d'envoi de son vote.
+* Signature du vote de verification.
 
 * :construction: Travail en cours
 
@@ -98,7 +102,7 @@ Un système de vote pseudo-anonyme.
 	* **Intro :**
 		* Affiche un formulaire de connexion et un slide de 3 ou 4 paragraphes.
 	* **Accès :**
-		* Directement sur le domain prinsipal. https://domaine.com
+		* Directement sur le domaine principal. https://domaine.com
 		* Accès rôle **Guest**.
 	* **Maquette :**
 	* **Informations :**
