@@ -82,9 +82,9 @@ L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administra
 
 Un système de vote pseudo-anonyme avec une minime utilisation de brute force pour respecter la dernière contrainte. Utilisation du RSA pour la signature des votes et un cryptage symétrique pour que l'utilisateur puisse les voir et modifier. Le vote se passe en trois étapes :
 
-* Demande de la listes électorales.
-* Procédure d'envoi de son vote.
-* Signature du vote de verification.
+* Récupération des listes électorales.
+* Procédure du vote.
+* Signature du vote.
 
 * :construction: Travail en cours
 
@@ -98,16 +98,41 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 > L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de règles et leur révision.
 
-* **Accueil**
+* **ACCUEIL**
 	* **Intro :**
 		* Affiche un formulaire de connexion et un slide de 3 ou 4 paragraphes.
 	* **Accès :**
 		* Directement sur le domaine principal. https://domaine.com
 		* Accès rôle **Guest**.
+	* **Actions possibles :**
+		* Connexion avec l'application.
+* **VÉRIFIER UNE SIGNATURE**
+	* **Intro :**
+	* **Accès :**
 	* **Maquette :**
 	* **Informations :**
 	* **Actions possibles :**
-		* Connexion avec l'api.
+	* **Règles de gestion :**
+* **SIGNATURE DU MESSAGE**
+	* **Intro :**
+	* **Accès :**
+	* **Maquette :**
+	* **Informations :**
+	* **Actions possibles :**
+	* **Règles de gestion :**
+* **CLÉ PRIVÉE**
+	* **Intro :**
+	* **Accès :**
+	* **Maquette :**
+	* **Informations :**
+	* **Actions possibles :**
+	* **Règles de gestion :**
+* **MON COMPTE**
+	* **Intro :**
+	* **Accès :**
+	* **Maquette :**
+	* **Informations :**
+	* **Actions possibles :**
 	* **Règles de gestion :**
 
 ### :closed_book: Application Admin
