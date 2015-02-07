@@ -93,42 +93,44 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 ***
 
-## Architecture :books:
+# Architecture :books:
 
 > Le projet est constitué d'une api côté serveur et de deux applications web côté client.
 
-### :green_book: Application Client
+## :green_book: Application Client
 
 > L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de règles et leur révision.
 
-* **ACCUEIL**
-	> Affiche un formulaire de connexion et un slide de 3 ou 4 paragraphes.
-	* **Accès :**
-		* Directement sur le domaine principal. https://domaine.com
-	* **Informations :**
-		* **Texte pour le slide**
-			1. *Titre :* La démocratie directe
-				* *Desc :* Des élections anonymes en temps réel ou chaque membre peut changer à tous moment sont vote, et basculer le résulta final du scrutin.
-			2. *Titre :* Le suffrage universel
-				* *Desc :* Exprime un choix, une volonté. Ici chaque membre peut créer des lois, proposer des amendements, et enfin, exprimer sont vote.
-		* **Input**
-			* La phrase secrète pour le cryptage asymétrique.
-			* Le code pin pour le cryptage symétrique de la phrase secrète.
-	* **Actions possibles :**
-		* Connexion avec l'application.
+### ACCUEIL
+> Affiche un formulaire de connexion et un slide de 3 ou 4 paragraphes.
 
-* **VÉRIFIER UNE SIGNATURE**
-	> Intro :
-	* **Accès :**
-		* A partir du menu principal ou mon compte.
-	* **Maquette :**
-	* **Informations :**
-		* **Input**
-			* Le message signé.
-			* la signature du message.
-			* Adresse Bitcoin du signataire.
-	* **Actions possibles :**
-	* **Règles de gestion :**
+* **Accès :**
+	* Directement sur le domaine principal. https://domaine.com
+* **Informations :**
+	* **Texte pour le slide**
+		1. *Titre :* La démocratie directe
+			* *Desc :* Des élections anonymes en temps réel ou chaque membre peut changer à tous moment sont vote, et basculer le résulta final du scrutin.
+		2. *Titre :* Le suffrage universel
+			* *Desc :* Exprime un choix, une volonté. Ici chaque membre peut créer des lois, proposer des amendements, et enfin, exprimer sont vote.
+	* **Input**
+		* La phrase secrète pour le cryptage asymétrique.
+		* Le code pin pour le cryptage symétrique de la phrase secrète.
+* **Actions possibles :**
+	* Connexion avec l'application.
+
+### VÉRIFIER UNE SIGNATURE
+> Intro :
+
+* **Accès :**
+	* A partir du menu principal ou mon compte.
+* **Maquette :**
+* **Informations :**
+	* **Input**
+		* Le message signé.
+		* la signature du message.
+		* Adresse Bitcoin du signataire.
+* **Actions possibles :**
+* **Règles de gestion :**
 
 * **SIGNATURE DU MESSAGE**
 	> Intro :
