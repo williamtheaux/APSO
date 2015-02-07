@@ -83,8 +83,10 @@ L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administra
 Un système de vote pseudo-anonyme avec une minime utilisation de brute force pour respecter la dernière contrainte. Utilisation d'une cryptographie asymétrique pour la signature des votes et une cryptographie symétrique pour que l'utilisateur puisse les voir et modifier. Le vote se passe en trois étapes :
 
 * **Récupération des listes électorales**
-	> Cette procédure, ce pass au moment de la connexion, ou l'utilisateur récupère toutes les données relatives à l'application.
+	* Cette procédure, ce pass au moment de la connexion, ou l'utilisateur récupère toutes les données relatives à l'application.
+
 * **Procédure du vote**
+
 * **Signature du vote**
 
 * :construction: Travail en cours
