@@ -80,11 +80,11 @@ L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administra
 	* Le système héberger sur un seul **serveur** et une **base de données**.
 	* Suppressions des votes si l'utilisateur est **Banni** par un administrateur.
 
-Un système de vote pseudo-anonyme avec une minime utilisation de brute force pour respecter la dernière contrainte. Utilisation du RSA pour la signature des votes et un cryptage symétrique pour que l'utilisateur puisse les voir et modifier. Le vote se passe en trois étapes :
+Un système de vote pseudo-anonyme avec une minime utilisation de brute force pour respecter la dernière contrainte. Utilisation d'une cryptographie asymétrique pour la signature des votes et une cryptographie symétrique pour que l'utilisateur puisse les voir et modifier. Le vote se passe en trois étapes :
 
-* Récupération des listes électorales.
-* Procédure du vote.
-* Signature du vote.
+* **Récupération des listes électorales**
+* **Procédure du vote**
+* **Signature du vote**
 
 * :construction: Travail en cours
 
@@ -99,37 +99,52 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de règles et leur révision.
 
 * **ACCUEIL**
-	* **Intro :**
-		* Affiche un formulaire de connexion et un slide de 3 ou 4 paragraphes.
+	> Affiche un formulaire de connexion et un slide de 3 ou 4 paragraphes.
 	* **Accès :**
 		* Directement sur le domaine principal. https://domaine.com
 		* Accès rôle **Guest**.
+	* **Informations :**
+		* **Input**
+			* La phrase secrète pour le cryptage asymétrique.
+			* Le code pin pour le cryptage symétrique de la phrase secrète.
 	* **Actions possibles :**
 		* Connexion avec l'application.
+
 * **VÉRIFIER UNE SIGNATURE**
-	* **Intro :**
+	> Intro :
 	* **Accès :**
+		* A partir du menu principal ou mon compte.
+		* Accès rôle **Guest**.
 	* **Maquette :**
 	* **Informations :**
 	* **Actions possibles :**
 	* **Règles de gestion :**
+
 * **SIGNATURE DU MESSAGE**
-	* **Intro :**
+	> Intro :
 	* **Accès :**
+		* Directement à partir de mon compte.
+		* Accès rôle **Guest**.
 	* **Maquette :**
 	* **Informations :**
 	* **Actions possibles :**
 	* **Règles de gestion :**
+
 * **CLÉ PRIVÉE**
-	* **Intro :**
+	> Intro :
 	* **Accès :**
+		* Directement à partir de mon compte.
+		* Accès rôle **Guest**.
 	* **Maquette :**
 	* **Informations :**
 	* **Actions possibles :**
 	* **Règles de gestion :**
+
 * **MON COMPTE**
-	* **Intro :**
+	> Intro :
 	* **Accès :**
+		* Juste après la connexion.
+		* Accès rôle **Guest**.
 	* **Maquette :**
 	* **Informations :**
 	* **Actions possibles :**
@@ -139,8 +154,8 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 > L'application admin, contrôle et modifie toutes les données ajouter par les membres.
 
-* **Accueil**
-	* **Intro :**
+* **ACCUEIL**
+	> Intro :
 	* **Accès :**
 	* **Maquette :**
 	* **Informations :**
