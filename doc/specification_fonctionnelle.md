@@ -82,12 +82,12 @@ L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administra
 
 Un système de vote pseudo-anonyme avec une minime utilisation de brute force pour respecter la dernière contrainte. Utilisation d'une cryptographie asymétrique pour la signature des votes et une cryptographie symétrique pour que l'utilisateur puisse les voir et modifier. Le vote se passe en trois étapes :
 
-* **Récupération des listes électorales**
+1. **Récupération des listes électorales**
 	* Cette procédure, ce pass au moment de la connexion, ou l'utilisateur récupère toutes les données relatives à l'application.
 
-* **Procédure du vote**
+2. **Procédure du vote**
 
-* **Signature du vote**
+3. **Signature du vote**
 
 * :construction: Travail en cours
 
@@ -105,11 +105,10 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	> Affiche un formulaire de connexion et un slide de 3 ou 4 paragraphes.
 	* **Accès :**
 		* Directement sur le domaine principal. https://domaine.com
-		* Accès rôle **Guest**.
 	* **Informations :**
 		* **Texte pour le slide**
 			1. *Titre :* La démocratie directe
-				* *Desc :* Des élections anonymes en temps réel ou chaque un membre peut changer à tous moment sont vote, et basculer le résulta final du scrutin.
+				* *Desc :* Des élections anonymes en temps réel ou chaque membre peut changer à tous moment sont vote, et basculer le résulta final du scrutin.
 			2. *Titre :* Le suffrage universel
 				* *Desc :* Exprime un choix, une volonté. Ici chaque membre peut créer des lois, proposer des amendements, et enfin, exprimer sont vote.
 		* **Input**
@@ -122,9 +121,12 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	> Intro :
 	* **Accès :**
 		* A partir du menu principal ou mon compte.
-		* Accès rôle **Guest**.
 	* **Maquette :**
 	* **Informations :**
+		* **Input**
+			* Le message signé.
+			* la signature du message.
+			* Adresse Bitcoin du signataire.
 	* **Actions possibles :**
 	* **Règles de gestion :**
 
@@ -135,6 +137,9 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* Accès rôle **Guest**.
 	* **Maquette :**
 	* **Informations :**
+		* **Input**
+			* Le message à signer.
+			* Le code pin pour le decryptage symétrique de la phrase secrète.
 	* **Actions possibles :**
 	* **Règles de gestion :**
 
@@ -145,6 +150,8 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* Accès rôle **Guest**.
 	* **Maquette :**
 	* **Informations :**
+		* **Input**
+			* Le code pin pour le decryptage symétrique de la phrase secrète.
 	* **Actions possibles :**
 	* **Règles de gestion :**
 
