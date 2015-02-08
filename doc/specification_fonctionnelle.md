@@ -101,71 +101,82 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 > L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de règles et leur révision.
 
-### ACCUEIL
-> Affiche un formulaire de connexion et un slide de 3 ou 4 paragraphes.
+### :hash: Accueil
+> C'est la porte d'entrée de votre application. Elle se situe au sommet de la hiérarchie. C'est une page qui explique clairement ce qu'on va trouver sur votre application. C'est la page la plus visitée.
 
 * **Accès :**
 	* Directement sur le domaine principal. https://domaine.com
+* **Maquette :**
+	* Couleur dominant est le vert. Un arrière-plan blanc, photo. Composer d'un formulaire de connexion et un slide de 3 ou 4 paragraphes.
 * **Informations :**
 	* **Texte pour le slide**
-		1. *Titre :* La démocratie directe
-			* *Desc :* Des élections anonymes en temps réel ou chaque membre peut changer à tous moment sont vote, et basculer le résulta final du scrutin.
-		2. *Titre :* Le suffrage universel
-			* *Desc :* Exprime un choix, une volonté. Ici chaque membre peut créer des lois, proposer des amendements, et enfin, exprimer sont vote.
+		1. **Titre :** La démocratie directe **Desc :** Des élections anonymes en temps réel ou chaque membre peut changer à tous moment sont vote, et basculer le résulta final du scrutin.
+		2. **Titre :** Le suffrage universel **Desc :** Exprime un choix, une volonté. Ici chaque membre peut créer des lois, proposer des amendements, et enfin, exprimer sont vote.
 	* **Input**
 		* La phrase secrète pour le cryptage asymétrique.
 		* Le code pin pour le cryptage symétrique de la phrase secrète.
 * **Actions possibles :**
 	* Connexion avec l'application.
+* **Règles de gestion :**
+	* Validation des champs pendant submit.
 
-### VÉRIFIER UNE SIGNATURE
-> Intro :
+### :hash: Vérifier une signature
+> La vérification des signatures permet de valider le message et l'expéditeur. La signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
 
 * **Accès :**
 	* A partir du menu principal ou mon compte.
 * **Maquette :**
+	* Composer d'un formulaire, icon, titre + Desc.
+* **Informations :**
+	* **Texte**
+		* **Titre :** Vérifier une signature
+		* **Desc :** Dans cette section vous pouvez verifier une signiature et son message avec l'adresse bitcoin du signiataire.
+	* **Input**
+		* Le message signé
+		* la signature du message
+		* Adresse Bitcoin du signataire
+* **Actions possibles :**
+	* Vérification de la signature.
+* **Règles de gestion :**
+	* Validation des champs pendant submit.
+
+### :hash: Signature du message
+> Intro :
+
+* **Accès :**
+	* Directement à partir de mon compte.
+	* Accès rôle **Guest**.
+* **Maquette :**
 * **Informations :**
 	* **Input**
-		* Le message signé.
-		* la signature du message.
-		* Adresse Bitcoin du signataire.
+		* Le message à signer.
+		* Le code pin pour le decryptage symétrique de la phrase secrète.
 * **Actions possibles :**
 * **Règles de gestion :**
 
-* **SIGNATURE DU MESSAGE**
-	> Intro :
-	* **Accès :**
-		* Directement à partir de mon compte.
-		* Accès rôle **Guest**.
-	* **Maquette :**
-	* **Informations :**
-		* **Input**
-			* Le message à signer.
-			* Le code pin pour le decryptage symétrique de la phrase secrète.
-	* **Actions possibles :**
-	* **Règles de gestion :**
+### :hash: Clé privée
+> Intro :
 
-* **CLÉ PRIVÉE**
-	> Intro :
-	* **Accès :**
-		* Directement à partir de mon compte.
-		* Accès rôle **Guest**.
-	* **Maquette :**
-	* **Informations :**
-		* **Input**
-			* Le code pin pour le decryptage symétrique de la phrase secrète.
-	* **Actions possibles :**
-	* **Règles de gestion :**
+* **Accès :**
+	* Directement à partir de mon compte.
+	* Accès rôle **Guest**.
+* **Maquette :**
+* **Informations :**
+	* **Input**
+		* Le code pin pour le decryptage symétrique de la phrase secrète.
+* **Actions possibles :**
+* **Règles de gestion :**
 
-* **MON COMPTE**
-	> Intro :
-	* **Accès :**
-		* Juste après la connexion.
-		* Accès rôle **Guest**.
-	* **Maquette :**
-	* **Informations :**
-	* **Actions possibles :**
-	* **Règles de gestion :**
+### :hash: Mon compte
+> Intro :
+
+* **Accès :**
+	* Juste après la connexion.
+	* Accès rôle **Guest**.
+* **Maquette :**
+* **Informations :**
+* **Actions possibles :**
+* **Règles de gestion :**
 
 ### :closed_book: Application Admin
 
