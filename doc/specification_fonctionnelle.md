@@ -130,7 +130,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * **Informations :**
 	* **Texte**
 		* **Titre :** Vérifier une signature
-		* **Desc :** Dans cette section vous pouvez verifier une signiature et son message avec l'adresse bitcoin du signiataire.
+		* **Desc :** Dans cette section, vous pouvez vérifier une signature et son message avec l'adresse bitcoin du signataire.
 	* **Input**
 		* Le message signé
 		* la signature du message
@@ -141,31 +141,24 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Validation des champs pendant submit.
 
 ### :hash: Signature du message
-> Intro :
+> La signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
 
 * **Accès :**
 	* Directement à partir de mon compte.
 	* Accès rôle **Guest**.
 * **Maquette :**
+	* Composer d'un formulaire, icon, titre + Desc.
 * **Informations :**
+	* **Texte**
+		* **Titre :** Signature du message
+		* **Desc :** Dans cette section, vous pouvez signer un message avec votre clé prives et vérifiable avec votre adresse bitcoin.
 	* **Input**
 		* Le message à signer.
 		* Le code pin pour le decryptage symétrique de la phrase secrète.
 * **Actions possibles :**
+	* Signature du message.
 * **Règles de gestion :**
-
-### :hash: Clé privée
-> Intro :
-
-* **Accès :**
-	* Directement à partir de mon compte.
-	* Accès rôle **Guest**.
-* **Maquette :**
-* **Informations :**
-	* **Input**
-		* Le code pin pour le decryptage symétrique de la phrase secrète.
-* **Actions possibles :**
-* **Règles de gestion :**
+	* Validation des champs pendant submit.
 
 ### :hash: Mon compte
 > Intro :
@@ -178,17 +171,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * **Actions possibles :**
 * **Règles de gestion :**
 
-### :closed_book: Application Admin
-
-> L'application admin, contrôle et modifie toutes les données ajouter par les membres.
-
-* **ACCUEIL**
-	> Intro :
-	* **Accès :**
-	* **Maquette :**
-	* **Informations :**
-	* **Actions possibles :**
-	* **Règles de gestion :**
+***
 
 ### :blue_book: Api serveur
 
