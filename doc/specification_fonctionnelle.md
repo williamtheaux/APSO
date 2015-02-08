@@ -97,6 +97,8 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 > Le projet est constitué d'une api côté serveur et de deux applications web côté client.
 
+***
+
 ## :green_book: Application Client
 
 > L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de règles et leur révision.
@@ -161,19 +163,24 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Validation des champs pendant submit.
 
 ### :hash: Mon compte
-> Intro :
+> Cette page apparaît juste après la connexion. Elle lance un appel à l'api pour les information client.
 
 * **Accès :**
 	* Juste après la connexion.
 	* Accès rôle **Guest**.
 * **Maquette :**
 * **Informations :**
+	* **Variable interne**
+		* Id publique. L'adresse bitcoin.
+		* Clé privée.
+		* Phrase secrète crypter.
 * **Actions possibles :**
 * **Règles de gestion :**
+	* Si l'appel échoue, annulé la connexion.
 
 ***
 
-### :blue_book: Api serveur
+## :blue_book: Api serveur
 
 > Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
 

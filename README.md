@@ -2,13 +2,14 @@
 
 :globe_with_meridians: **Appareillage d'expérimentation de la démocratie directe.**
 
-> l'institution d'une démocratie-directe en temps-réel, n'annonce pas seulement des changements de régime économiques, industriels etc.. mais un bouleversement dans la psychologie collective.
+> l'institution d'une démocratie-directe en temps-réel, n'annonce pas seulement des changements de régime économiques, industriels etc... mais un bouleversement dans la psychologie collective.
 
-* APSO réalise un mode d'Assemblée Générale permanente, souveraine à dynamique instantanée.
+APSO réalise un mode d'Assemblée Générale permanente, souveraine à dynamique instantanée.
 
-* :blue_book: Api en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
-* :green_book: Application web en jQuery pour le vote, ajout de loi et leur révision.
-* :closed_book: Application administrateur en jQuery pour le contrôle des données ajouter.
+* :blue_book: **Api serveur**
+	* En PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
+* :green_book: **Application client**
+	* En jQuery html5 et CSS3. Pour le vote, ajout de lois, leur amendements et la gestion administrateur.
 
 ***
 
