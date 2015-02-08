@@ -95,7 +95,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 # Architecture :books:
 
-> Le projet est constitué d'une api côté serveur et de deux applications web côté client.
+> Le projet est constitué d'une api côté serveur et d'une application web côté client.
 
 ***
 
@@ -103,7 +103,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 > L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de règles et leur révision.
 
-### :hash: Accueil
+### :hash: Accueil HTML
 > C'est la porte d'entrée de votre application. Elle se situe au sommet de la hiérarchie. C'est une page qui explique clairement ce qu'on va trouver sur votre application. C'est la page la plus visitée.
 
 * **Accès :**
@@ -118,11 +118,11 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* La phrase secrète pour le cryptage asymétrique.
 		* Le code pin pour le cryptage symétrique de la phrase secrète.
 * **Actions possibles :**
-	* Connexion avec l'application. :arrow_right_hook: Mon compte
+	* Connexion avec l'application. :hash: `Mon compte HTML`
 * **Règles de gestion :**
 	* Validation des champs pendant submit.
 
-### :hash: Vérifier une signature
+### :hash: Vérification HTML
 > La vérification des signatures permet de valider le message et l'expéditeur. La signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
 
 * **Accès :**
@@ -138,17 +138,17 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* la signature du message
 		* Adresse Bitcoin du signataire
 * **Actions possibles :**
-	* Vérification de la signature. :arrow_right_hook: Vérification de la signature
+	* Vérification de la signature. :hash: `Vérification FUNC`
 * **Règles de gestion :**
 	* Validation des champs pendant submit.
 
-### :hash: Vérification de la signature
+### :hash: Vérification FUNC
 > La vérification valider le message et l'expéditeur. La signature électronique vérifier l'intégrité du message.
 
 * **Accès :**
-	* A partir de la page `Vérifier une signature`.
+	* A partir de la page :hash: `Vérification HTML`.
 * **Maquette :**
-	* Modifie le message sur la page `Vérifier une signature`.
+	* Modifie le message sur la page :hash: `Vérification HTML`.
 * **Informations :**
 	* **Texte**
 		* **Message succès :** Le message est bien signiez par l'adresse en question.
@@ -156,11 +156,13 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* Le message signé
 		* la signature du message
 		* Adresse Bitcoin du signataire
-* **Règles de gestion :**
+* **Actions possibles :**
 	* En cas d'erreur, afficher un message d'alerte.
 	* En cas de succès, afficher le message de validation sur la page + icon.
+* **Règles de gestion :**
+	* Vérification électronique du message.
 
-### :hash: Signature du message
+### :hash: Signature HTML
 > La Signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
 
 * **Accès :**
@@ -176,17 +178,17 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* Le message à signer.
 		* Le code pin pour le decryptage symétrique de la phrase secrète.
 * **Actions possibles :**
-	* Signature du message. :arrow_right_hook: Signature
+	* Signature du message. :hash: `Signature FUNC`
 * **Règles de gestion :**
 	* Validation des champs pendant submit.
 
-### :hash: Signature
+### :hash: Signature FUNC
 > Procédure de la signature électronique du message.
 
 * **Accès :**
-	* A partir de la page `Signature du message`.
+	* A partir de la page :hash: `Signature HTML`.
 * **Maquette :**
-	* Modifie le message sur la page `Signature du message`.
+	* Modifie le message sur la page :hash: `Signature HTML`.
 * **Informations :**
 	* **Texte**
 		* **Message succès :** Voici la signature électronique de votre message authentifier par votre identifiant publique.
@@ -198,11 +200,13 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* Id publique du signataire
 	* **Variable new**
 		* la signature du message
-* **Règles de gestion :**
+* **Actions possibles :**
 	* En cas d'erreur, afficher un message d'alerte.
 	* En cas de succès, afficher la signataire sur la page.
+* **Règles de gestion :**
+	* Signature électronique du message.
 
-### :hash: Mon compte
+### :hash: Mon compte HTML
 > Cette page apparaît juste après la connexion. Elle lance un appel à l'api pour les information client.
 
 * **Accès :**
