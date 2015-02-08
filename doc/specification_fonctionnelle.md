@@ -118,7 +118,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* La phrase secrète pour le cryptage asymétrique.
 		* Le code pin pour le cryptage symétrique de la phrase secrète.
 * **Actions possibles :**
-	* Connexion avec l'application.
+	* Connexion avec l'application. :arrow_right_hook: Mon compte
 * **Règles de gestion :**
 	* Validation des champs pendant submit.
 
@@ -138,12 +138,30 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* la signature du message
 		* Adresse Bitcoin du signataire
 * **Actions possibles :**
-	* Vérification de la signature.
+	* Vérification de la signature. :arrow_right_hook: Vérification de la signature
 * **Règles de gestion :**
 	* Validation des champs pendant submit.
 
+### :hash: Vérification de la signature
+> La vérification valider le message et l'expéditeur. La signature électronique vérifier l'intégrité du message.
+
+* **Accès :**
+	* A partir de la page `Vérifier une signature`.
+* **Maquette :**
+	* Modifie le message sur la page `Vérifier une signature`.
+* **Informations :**
+	* **Texte**
+		* **Message succès :** Le message est bien signiez par l'adresse en question.
+	* **Variable interne**
+		* Le message signé
+		* la signature du message
+		* Adresse Bitcoin du signataire
+* **Règles de gestion :**
+	* En cas d'erreur, afficher un message d'alerte.
+	* En cas de succès, afficher le message de validation sur la page + icon.
+
 ### :hash: Signature du message
-> La signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
+> La Signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
 
 * **Accès :**
 	* Directement à partir de mon compte.
@@ -158,9 +176,31 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* Le message à signer.
 		* Le code pin pour le decryptage symétrique de la phrase secrète.
 * **Actions possibles :**
-	* Signature du message.
+	* Signature du message. :arrow_right_hook: Signature
 * **Règles de gestion :**
 	* Validation des champs pendant submit.
+
+### :hash: Signature
+> Procédure de la signature électronique du message.
+
+* **Accès :**
+	* A partir de la page `Signature du message`.
+* **Maquette :**
+	* Modifie le message sur la page `Signature du message`.
+* **Informations :**
+	* **Texte**
+		* **Message succès :** Voici la signature électronique de votre message authentifier par votre identifiant publique.
+	* **Variable interne**
+		* Le message
+		* Clé privée
+		* Phrase secrète crypter
+		* Le code pin
+		* Id publique du signataire
+	* **Variable new**
+		* la signature du message
+* **Règles de gestion :**
+	* En cas d'erreur, afficher un message d'alerte.
+	* En cas de succès, afficher la signataire sur la page.
 
 ### :hash: Mon compte
 > Cette page apparaît juste après la connexion. Elle lance un appel à l'api pour les information client.
