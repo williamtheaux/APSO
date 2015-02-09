@@ -251,7 +251,43 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * **Règles de gestion :**
 	* Si les données de l'utiliasteur son absent. alors lancer la fonction :hash: `Connexion FUNC`.
 
-	
+### :hash: SignUp HTML
+> Si l'utilisateur n'est pas dans la base de données. Elle affiche un formulaire pour s'inscrire.	
+### :hash: SignUp FUNC
+> Déclencher par un formulaire. Elle lance un appel à l'api avec les données de l'utilisateur. Si tout, c'est bien passer, elle affiche la page de validation.
+
+### :hash: Valide HTML
+> Si l'utilisateur n'est pas validé par un administrateur. Elle affiche un message de mise en attente.
+
+### :hash: Block HTML
+> Si l'utilisateur est banni. Elle affiche un message de bannissement.
+
+### :hash: Log HTML
+> Elle affiche l'historique du site.
+
+### :hash: Etas HTML
+> Elle affiche les postes et les utilisateurs élus. Elle est le point d'entrer pour toutes les fonctions touchant les postes et membres de l'api.
+
+### :hash: addPoste HTML
+> Elle affiche un formulaire pour l'ajout des postes.
+
+### :hash: addPoste FUNC
+> Elle lance un appel à l'api avec les données des postes au serveur.
+
+### :hash: deletePoste HTML
+> Elle affiche un formulaire pour effacer le poste sélectionné.
+
+### :hash: deletePoste FUNC
+> Elle lance un appel à l'api pour la suppression du poste.
+
+### :hash: Vote HTML
+> Elle permet de proposer son vote.
+
+### :hash: Vote FUNC
+> Elle lance un appel à l'api avec les données du vote. Si succès, alors confirmer son vote en le signant a l'aide de code pin.
+
+### :hash: fixVote FUNC
+> Elle lance un appel à l'api avec la signature du vote.
 
 ***
 
