@@ -104,30 +104,45 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de règles et leur révision.
 
 ### :hash: Accueil HTML
-> C'est la porte d'entrée de votre application. Elle se situe au sommet de la hiérarchie. C'est une page qui explique clairement ce qu'on va trouver sur votre application. C'est la page la plus visitée.
+> C'est la porte d'entrée de votre application. Elle se situe au sommet de la hiérarchie. C'est une page qui explique clairement ce qu'on va trouver sur votre application. C'est la page la plus visitée. Si l'utilisateur est connecter, Elle affiche les données de l'utilisateur.
 
 * **Accès :**
 	* Directement sur le domaine principal. https://domaine.com
 * **Maquette :**
-	* Couleur dominant est le vert. Un arrière-plan blanc, photo. Composer d'un formulaire de connexion et un slide de 3 ou 4 paragraphes.
+	* Couleur dominant est le vert. Un arrière-plan blanc, photo.
+		* **Si connecter** Données de l'utilisateur.
+		* **Si no connecter** un formulaire de connexion et un slide de 3 ou 4 paragraphes.
 * **Informations :**
-	* **Texte pour le slide**
-		1. **Titre :** La démocratie directe **Desc :** Des élections anonymes en temps réel ou chaque membre peut changer à tous moment sont vote, et basculer le résulta final du scrutin.
-		2. **Titre :** Le suffrage universel **Desc :** Exprime un choix, une volonté. Ici chaque membre peut créer des lois, proposer des amendements, et enfin, exprimer sont vote.
-	* **Input**
-		* La phrase secrète pour le cryptage asymétrique.
-		* Le code pin pour le cryptage symétrique de la phrase secrète.
+	* **Si connecter**
+		* **Variable interne**
+			* Id publique. L'adresse bitcoin.
+			* Clé privée.
+			* Phrase secrète crypter.
+			* Données serveur.
+	* **Si no connecter**
+		* **Texte pour le slide**
+			1. **Titre :** La démocratie directe **Desc :** Des élections anonymes en temps réel ou chaque membre peut changer à tous moment sont vote, et basculer le résulta final du scrutin.
+			2. **Titre :** Le suffrage universel **Desc :** Exprime un choix, une volonté. Ici chaque membre peut créer des lois, proposer des amendements, et enfin, exprimer sont vote.
+		* **Input**
+			* La phrase secrète pour le cryptage asymétrique.
+			* Le code pin pour le cryptage symétrique de la phrase secrète.
 * **Actions possibles :**
-	* Connexion avec l'application. :hash: `Compte HTML`
+	* **Si connecter**
+		* Si l'utilisateur n'est pas reconue, afficher la page :hash: `SignUp HTML`
+		* Si l'utilisateur est banni, afficher la page :hash: `Block HTML`
+	* **Si no connecter**
+		* Connexion avec l'application. :hash: `Connexion FUNC`
 * **Règles de gestion :**
-	* Si les données de connexion son present. alors afficher la page :hash: `Compte HTML`.
-	* Validation des champs pendant submit.
+	* **Si connecter**
+		* Si les données de connexion son present.
+	* **Si no connecter**
+		* Validation des champs pendant submit.
 
 ### :hash: Vérification HTML
 > La vérification des signatures permet de valider le message et l'expéditeur. La signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
 
 * **Accès :**
-	* A partir du menu principal ou la page :hash: `Compte HTML`.
+	* A partir du menu principal ou la page :hash: `Accueil HTML`.
 * **Maquette :**
 	* Composer d'un formulaire, icon, titre + Desc.
 * **Informations :**
@@ -167,7 +182,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > La Signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
 
 * **Accès :**
-	* A partir de la page :hash: `Compte HTML`.
+	* A partir de la page :hash: `Accueil HTML`.
 	* Accès rôle **Guest**.
 * **Maquette :**
 	* Composer d'un formulaire, icon, titre + Desc.
@@ -209,7 +224,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Signature électronique du message.
 
 ### :hash: Connexion FUNC
-> Elle lance un appel à l'api pour les information client. Après analyse des données reçu, elle affiche la bonne page a l'utilisateur, et si le role d'accès est autorisé, elle lance un événement dans l'application.
+> Elle lance un appel à l'api pour les information client. Après analyse des données reçu et si le role d'accès est autorisé, elle lance un événement dans l'application.
 
 * **Accès :**
 	* Juste après la connexion.
@@ -220,39 +235,24 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* Clé privée.
 		* Phrase secrète crypter.
 * **Actions possibles :**
-	* Si l'appel échoue, annulé la connexion. retourner sur :hash: `Déconnexion FUNC`
-	* Si l'utilisateur est au minimum **observateur**, editer le model, lancer un événement et afficher la page :hash: `Compte HTML`.
+	* Si l'appel échoue, annulé la connexion et lancer une erreur.
+	* Editer le model, si l'utilisateur est au minimum **observateur**, lancer un événement et afficher la page :hash: `Accueil HTML`.
 * **Règles de gestion :**
 
 ### :hash: Déconnexion FUNC
 > Elle efface toutes les variable du model, lance un événement de déconnexion dans l'application.
 
 * **Accès :**
-	A partir du menu principal ou la page :hash: `Compte HTML`.
+	A partir du menu principal ou la page :hash: `Accueil HTML`.
 	* Accès rôle **Guest**.
 * **Actions possibles :**
 	* Editer le model, lancer un événement et afficher la page :hash: `Accueil HTML`.
-
-### :hash: Compte HTML
-> Cette page apparaît juste après la connexion. Elle affiche les données de l'utilisateur.
-
-* **Accès :**
-	* Juste après la connexion.
-	* Accès rôle **observateur**.
-* **Informations :**
-	* **Variable interne**
-		* Id publique. L'adresse bitcoin.
-		* Clé privée.
-		* Phrase secrète crypter.
-		* Données serveur.
-* **Actions possibles :**
-	* Si l'utilisateur n'est pas reconue, afficher la page :hash: `xxx`
-	* Si l'utilisateur est banni, afficher la page :hash: `xxx`
 * **Règles de gestion :**
-	* Si les données de l'utiliasteur son absent. alors lancer la fonction :hash: `Connexion FUNC`.
+	* Ne pas afficher si l'utilisateur n'est pas connecté.
 
 ### :hash: SignUp HTML
-> Si l'utilisateur n'est pas dans la base de données. Elle affiche un formulaire pour s'inscrire.	
+> Si l'utilisateur n'est pas dans la base de données. Elle affiche un formulaire pour s'inscrire.
+
 ### :hash: SignUp FUNC
 > Déclencher par un formulaire. Elle lance un appel à l'api avec les données de l'utilisateur. Si tout, c'est bien passer, elle affiche la page de validation.
 
@@ -288,6 +288,24 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 ### :hash: fixVote FUNC
 > Elle lance un appel à l'api avec la signature du vote.
+
+### :hash: Lois HTML
+> Elle liste les lois et leurs amendements. Elle est le point d'entrer pour toutes les fonctions touchant les lois.
+
+### :hash: ficheLois HTML
+> Elle affiche la loi et ses amendements. Elle offre un moyen de modification de données à l'utilisateur ayant les droits nécessaires.
+
+### :hash: addLois HTML
+> Elle affiche un formulaire pour ajouter de nouvelles lois.
+
+### :hash: addLois FUNC
+> Elle lance un appel à l'api pour ajouter de nouvelles lois.
+
+### :hash: addAmd HTML
+> Elle affiche un formulaire pour ajouter de nouveaux amendements.
+
+### :hash: addAmd FUNC
+> Elle lance un appel à l'api pour ajouter de nouveaux amendements.
 
 ***
 
