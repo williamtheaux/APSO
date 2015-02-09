@@ -118,15 +118,16 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* La phrase secrète pour le cryptage asymétrique.
 		* Le code pin pour le cryptage symétrique de la phrase secrète.
 * **Actions possibles :**
-	* Connexion avec l'application. :hash: `Mon compte HTML`
+	* Connexion avec l'application. :hash: `Compte HTML`
 * **Règles de gestion :**
+	* Si les données de connexion son present. alors afficher la page :hash: `Compte HTML`.
 	* Validation des champs pendant submit.
 
 ### :hash: Vérification HTML
 > La vérification des signatures permet de valider le message et l'expéditeur. La signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
 
 * **Accès :**
-	* A partir du menu principal ou mon compte.
+	* A partir du menu principal ou la page :hash: `Compte HTML`.
 * **Maquette :**
 	* Composer d'un formulaire, icon, titre + Desc.
 * **Informations :**
@@ -166,7 +167,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > La Signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
 
 * **Accès :**
-	* Directement à partir de mon compte.
+	* A partir de la page :hash: `Compte HTML`.
 	* Accès rôle **Guest**.
 * **Maquette :**
 	* Composer d'un formulaire, icon, titre + Desc.
@@ -187,6 +188,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * **Accès :**
 	* A partir de la page :hash: `Signature HTML`.
+	* Accès rôle **Guest**.
 * **Maquette :**
 	* Modifie le message sur la page :hash: `Signature HTML`.
 * **Informations :**
@@ -202,25 +204,54 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* la signature du message
 * **Actions possibles :**
 	* En cas d'erreur, afficher un message d'alerte.
-	* En cas de succès, afficher la signataire sur la page.
+	* En cas de succès, afficher la signature sur la page.
 * **Règles de gestion :**
 	* Signature électronique du message.
 
-### :hash: Mon compte HTML
-> Cette page apparaît juste après la connexion. Elle lance un appel à l'api pour les information client.
+### :hash: Connexion FUNC
+> Elle lance un appel à l'api pour les information client. Après analyse des données reçu, elle affiche la bonne page a l'utilisateur, et si le role d'accès est autorisé, elle lance un événement dans l'application.
 
 * **Accès :**
 	* Juste après la connexion.
 	* Accès rôle **Guest**.
-* **Maquette :**
 * **Informations :**
 	* **Variable interne**
 		* Id publique. L'adresse bitcoin.
 		* Clé privée.
 		* Phrase secrète crypter.
 * **Actions possibles :**
+	* Si l'appel échoue, annulé la connexion. retourner sur :hash: `Déconnexion FUNC`
+	* Si l'utilisateur est au minimum **observateur**, editer le model, lancer un événement et afficher la page :hash: `Compte HTML`.
 * **Règles de gestion :**
-	* Si l'appel échoue, annulé la connexion.
+
+### :hash: Déconnexion FUNC
+> Elle efface toutes les variable du model, lance un événement de déconnexion dans l'application.
+
+* **Accès :**
+	A partir du menu principal ou la page :hash: `Compte HTML`.
+	* Accès rôle **Guest**.
+* **Actions possibles :**
+	* Editer le model, lancer un événement et afficher la page :hash: `Accueil HTML`.
+
+### :hash: Compte HTML
+> Cette page apparaît juste après la connexion. Elle affiche les données de l'utilisateur.
+
+* **Accès :**
+	* Juste après la connexion.
+	* Accès rôle **observateur**.
+* **Informations :**
+	* **Variable interne**
+		* Id publique. L'adresse bitcoin.
+		* Clé privée.
+		* Phrase secrète crypter.
+		* Données serveur.
+* **Actions possibles :**
+	* Si l'utilisateur n'est pas reconue, afficher la page :hash: `xxx`
+	* Si l'utilisateur est banni, afficher la page :hash: `xxx`
+* **Règles de gestion :**
+	* Si les données de l'utiliasteur son absent. alors lancer la fonction :hash: `Connexion FUNC`.
+
+	
 
 ***
 
