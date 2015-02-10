@@ -307,6 +307,24 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### :hash: addAmd FUNC
 > Elle lance un appel à l'api pour ajouter de nouveaux amendements.
 
+### :hash: editeLois HTML
+> Elle affiche un formulaire pour editer une lois.
+
+### :hash: editeLois FUNC
+> Elle lance un appel à l'api pour editer une lois.
+
+### :hash: editeAmd HTML
+> Elle affiche un formulaire pour editer un amendements.
+
+### :hash: editeAmd FUNC
+> Elle lance un appel à l'api pour editer un amendements.
+
+### :hash: deleteLoi FUNC
+> Elle lance un appel à l'api pour la suppression d'une lois.
+
+### :hash: deleteAmd FUNC
+> Elle lance un appel à l'api pour la suppression d'un amendements.
+
 ***
 
 ## :blue_book: Api serveur
