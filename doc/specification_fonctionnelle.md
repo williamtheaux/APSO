@@ -18,7 +18,7 @@
 	* Vice-Président
 
 * **Fonctions propriétaires** définies pour les postes crées précédemment. Permet de définir des fonctions propriétaires accessibles seulement a l'utilisateur en poste à ce moment-là. Les fonctions sont modulables pour être ajoutées ou supprimer. Elles pourront être utilisées sur plusieur postes simultanément.
-	> :white_check_mark: Issues [#1](https://github.com/williamtheaux/APSO/issues/1) [#3](https://github.com/williamtheaux/APSO/issues/3) Par défaut, 5 fonctions sont déja crée pour le poste de **secrétaire** :
+	> Issues [#1](https://github.com/williamtheaux/APSO/issues/1) [#3](https://github.com/williamtheaux/APSO/issues/3) Par défaut, 5 fonctions sont déja crée pour le poste de **secrétaire** :
 	* Suppression et mise en forme des lois et leurs amendements.
 	* Valider ou invalider les membres. Bas niveaux.
 	* Ajouter ou supprimer des postes pour les élections
@@ -42,7 +42,7 @@
 
 ***
 
-## Connexion des utilisateurs :closed_lock_with_key:
+## Connexion des utilisateurs
 
 L'utilisateur entre, côté client une phrase secrétée qui génère une **clé public**, avec là qu'elle, il est identifié côté serveur. Le serveur n'a plus besoins de son mail et mot de pass, de se fait ça enlève le problème de sécurité côté serveur, il y a plus besoin de le pirater, car il ne garde plus aucune donnée **sensible** concernant le client.
 
@@ -89,7 +89,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 3. **Signature du vote**
 
-* :construction: Travail en cours
+* Travail en cours
 
 ***
 
@@ -128,10 +128,10 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 			* Le code pin pour le cryptage symétrique de la phrase secrète.
 * **Actions possibles :**
 	* **Si connecter**
-		* Si l'utilisateur n'est pas reconue, afficher la page Ω `SignUp HTML`
-		* Si l'utilisateur est banni, afficher la page Ω `Block HTML`
+		* Si l'utilisateur n'est pas reconue, afficher la page `Ω SignUp HTML`
+		* Si l'utilisateur est banni, afficher la page `Ω Block HTML`
 	* **Si no connecter**
-		* Connexion avec l'application. Ω `Connexion FUNC`
+		* Connexion avec l'application. `Ω Connexion FUNC`
 * **Règles de gestion :**
 	* **Si connecter**
 		* Si les données de connexion son present.
@@ -142,7 +142,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > La vérification des signatures permet de valider le message et l'expéditeur. La signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
 
 * **Accès :**
-	* A partir du menu principal ou la page Ω `Accueil HTML`.
+	* A partir du menu principal ou la page `Ω Accueil HTML`.
 * **Maquette :**
 	* Composer d'un formulaire, icon, titre + Desc.
 * **Informations :**
@@ -154,7 +154,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* la signature du message
 		* Adresse Bitcoin du signataire
 * **Actions possibles :**
-	* Vérification de la signature. Ω `Vérification FUNC`
+	* Vérification de la signature. `Ω Vérification FUNC`
 * **Règles de gestion :**
 	* Validation des champs pendant submit.
 
@@ -162,9 +162,9 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > La vérification valider le message et l'expéditeur. La signature électronique vérifier l'intégrité du message.
 
 * **Accès :**
-	* A partir de la page Ω `Vérification HTML`.
+	* A partir de la page `Ω Vérification HTML`.
 * **Maquette :**
-	* Modifie le message sur la page Ω `Vérification HTML`.
+	* Modifie le message sur la page `Ω Vérification HTML`.
 * **Informations :**
 	* **Texte**
 		* **Message succès :** Le message est bien signiez par l'adresse en question.
@@ -182,7 +182,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > La Signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
 
 * **Accès :**
-	* A partir de la page Ω `Accueil HTML`.
+	* A partir de la page `Ω Accueil HTML`.
 	* Accès rôle **Guest**.
 * **Maquette :**
 	* Composer d'un formulaire, icon, titre + Desc.
@@ -194,7 +194,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* Le message à signer.
 		* Le code pin pour le decryptage symétrique de la phrase secrète.
 * **Actions possibles :**
-	* Signature du message. Ω `Signature FUNC`
+	* Signature du message. `Ω Signature FUNC`
 * **Règles de gestion :**
 	* Validation des champs pendant submit.
 
@@ -202,10 +202,10 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > Procédure de la signature électronique du message.
 
 * **Accès :**
-	* A partir de la page Ω `Signature HTML`.
+	* A partir de la page `Ω Signature HTML`.
 	* Accès rôle **Guest**.
 * **Maquette :**
-	* Modifie le message sur la page Ω `Signature HTML`.
+	* Modifie le message sur la page `Ω Signature HTML`.
 * **Informations :**
 	* **Texte**
 		* **Message succès :** Voici la signature électronique de votre message authentifier par votre identifiant publique.
@@ -236,17 +236,17 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* Phrase secrète crypter.
 * **Actions possibles :**
 	* Si l'appel échoue, annulé la connexion et lancer une erreur.
-	* Editer le model, si l'utilisateur est au minimum **observateur**, lancer un événement et afficher la page Ω `Accueil HTML`.
+	* Editer le model, si l'utilisateur est au minimum **observateur**, lancer un événement et afficher la page `Ω Accueil HTML`.
 * **Règles de gestion :**
 
 ### Ω Déconnexion FUNC
 > Elle efface toutes les variable du model, lance un événement de déconnexion dans l'application.
 
 * **Accès :**
-	A partir du menu principal ou la page Ω `Accueil HTML`.
+	A partir du menu principal ou la page `Ω Accueil HTML`.
 	* Accès rôle **Guest**.
 * **Actions possibles :**
-	* Editer le model, lancer un événement et afficher la page Ω `Accueil HTML`.
+	* Editer le model, lancer un événement et afficher la page `Ω Accueil HTML`.
 * **Règles de gestion :**
 	* Ne pas afficher si l'utilisateur n'est pas connecté.
 
@@ -274,7 +274,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω addPoste FUNC
 > Elle lance un appel à l'api avec les données des postes au serveur.
 
-### :hash: deletePoste HTML
+### Ω deletePoste HTML
 > Elle affiche un formulaire pour effacer le poste sélectionné.
 
 ### Ω deletePoste FUNC
@@ -310,7 +310,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω editeLois HTML
 > Elle affiche un formulaire pour editer une lois.
 
-### :hash: editeLois FUNC
+### Ω editeLois FUNC
 > Elle lance un appel à l'api pour editer une lois.
 
 ### Ω editeAmd HTML
