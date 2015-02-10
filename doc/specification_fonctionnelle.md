@@ -325,16 +325,16 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### :hash: deleteAmd FUNC
 > Elle lance un appel à l'api pour la suppression d'un amendements.
 
-### :hash: editeRole HTML
+### editeRole HTML
 > Elle affiche un formulaire pour editer le role d'un utilisateur.
 
-### :hash: editeRole FUNC
+### editeRole FUNC
 > Elle lance un appel à l'api pour editer le role d'un utilisateur.
 
-### :hash: editeAtribue HTML
+### editeAtribue HTML
 > Elle affiche un formulaire pour editer les fonctions propriétaires et les postes associés.
 
-### :hash: editeAtribue FUNC
+### editeAtribue FUNC
 > Elle lance un appel à l'api pour editer les fonctions propriétaires et les postes associés.
 
 ***
