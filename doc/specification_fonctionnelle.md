@@ -267,7 +267,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω Log HTML
 > Elle affiche l'historique du site.
 
-### Ω Etas HTML
+### Ω État HTML
 > Elle affiche les postes et les utilisateurs élus. Elle est le point d'entrer pour toutes les fonctions touchant les postes et membres de l'api.
 
 ### Ω addPoste HTML
@@ -278,9 +278,6 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 ### Ω deletePoste FUNC
 > Elle lance un appel à l'api pour la suppression du poste.
-
-### Ω Vote HTML
-> Elle permet de proposer son vote.
 
 ### Ω Vote FUNC
 > Elle lance un appel à l'api avec les données du vote. Si succès, alors confirmer son vote en le signant a l'aide de code pin.
