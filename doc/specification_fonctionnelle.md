@@ -103,6 +103,8 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 > L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de règles et leur révision.
 
+![App architecture](annexes/appArchitect.jpg)
+
 ### Ω Accueil HTML
 > C'est la porte d'entrée de votre application. Elle se situe au sommet de la hiérarchie. C'est une page qui explique clairement ce qu'on va trouver sur votre application. C'est la page la plus visitée. Si l'utilisateur est connecter, Elle affiche les données de l'utilisateur.
 
@@ -273,9 +275,6 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 ### Ω addPoste FUNC
 > Elle lance un appel à l'api avec les données des postes au serveur.
-
-### Ω deletePoste HTML
-> Elle affiche un formulaire pour effacer le poste sélectionné.
 
 ### Ω deletePoste FUNC
 > Elle lance un appel à l'api pour la suppression du poste.
