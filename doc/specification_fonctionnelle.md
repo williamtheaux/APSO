@@ -101,7 +101,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 ## ∑ Application Client
 
-> L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de règles et leur révision.
+> L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de lois et leur amendements.
 
 ![App architecture](annexes/appArchitect.jpg)
 
@@ -337,6 +337,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 			* Les paramètres sont des JSON est sont diffèrent à chaque action.
 * **Règles de gestion :**
 	* Classement par : date Asc.
+	* Une pagination est intégrée en pied du tableau. 20 par page.
 
 ### Ω État HTML
 > Elle affiche les postes et les utilisateurs élus. Elle est le point d'entrer pour toutes les fonctions touchant les postes et membres de l'api.
@@ -348,17 +349,51 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω addPoste HTML
 > Elle affiche un formulaire pour l'ajout des postes.
 
+* **Accès :**
+	* A partir de la page `Ω État HTML`.
+	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+
 ### Ω addPoste FUNC
 > Elle lance un appel à l'api avec les données des postes au serveur.
+
+* **Accès :**
+	* A partir de la page `Ω addPoste HTML`.
+	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω deletePoste FUNC
 > Elle lance un appel à l'api pour la suppression du poste.
 
+* **Accès :**
+	* A partir de la page `Ω État HTML`.
+	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+
+### Ω editeRole HTML
+> Elle affiche un formulaire pour editer le role d'un utilisateur.
+
+* **Accès :**
+	* A partir de la page `Ω État HTML`.
+	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+
+### Ω editeRole FUNC
+> Elle lance un appel à l'api pour editer le role d'un utilisateur.
+
+* **Accès :**
+	* A partir de la page `Ω editeRole HTML`.
+	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+
 ### Ω Vote FUNC
 > Elle lance un appel à l'api avec les données du vote. Si succès, alors confirmer son vote en le signant a l'aide de code pin.
 
+* **Accès :**
+	* A partir de la page `Ω ficheLois HTML` ou `Ω État HTML`.
+	* Accès rôle **Membre**.
+
 ### Ω fixVote FUNC
 > Elle lance un appel à l'api avec la signature du vote.
+
+* **Accès :**
+	* A partir de la page `Ω Vote FUNC`.
+	* Accès rôle **Membre**.
 
 ### Ω Lois HTML
 > Elle liste les lois et leurs amendements. Elle est le point d'entrer pour toutes les fonctions touchant les lois.
@@ -377,44 +412,82 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω addLois HTML
 > Elle affiche un formulaire pour ajouter de nouvelles lois.
 
+* **Accès :**
+	* A partir de la page `Ω Lois HTML`.
+	* Accès rôle **Membre**.
+
 ### Ω addLois FUNC
 > Elle lance un appel à l'api pour ajouter de nouvelles lois.
+
+* **Accès :**
+	* A partir de la page `Ω addLois HTML`.
+	* Accès rôle **Membre**.
 
 ### Ω addAmd HTML
 > Elle affiche un formulaire pour ajouter de nouveaux amendements.
 
+* **Accès :**
+	* A partir de la page `Ω ficheLois HTML`.
+	* Accès rôle **Membre**.
+
 ### Ω addAmd FUNC
 > Elle lance un appel à l'api pour ajouter de nouveaux amendements.
+
+* **Accès :**
+	* A partir de la page `Ω addAmd HTML`.
+	* Accès rôle **Membre**.
 
 ### Ω editeLois HTML
 > Elle affiche un formulaire pour editer une lois.
 
+* **Accès :**
+	* A partir de la page `Ω ficheLois HTML`.
+	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+
 ### Ω editeLois FUNC
 > Elle lance un appel à l'api pour editer une lois.
+
+* **Accès :**
+	* A partir de la page `Ω editeLois HTML`.
+	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω editeAmd HTML
 > Elle affiche un formulaire pour editer un amendements.
 
+* **Accès :**
+	* A partir de la page `Ω ficheLois HTML`.
+	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+
 ### Ω editeAmd FUNC
 > Elle lance un appel à l'api pour editer un amendements.
+
+* **Accès :**
+	* A partir de la page `Ω editeAmd HTML`.
+	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω deleteLoi FUNC
 > Elle lance un appel à l'api pour la suppression d'une lois.
 
+* **Accès :**
+	* A partir de la page `Ω ficheLois HTML`.
+	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+
 ### Ω deleteAmd FUNC
 > Elle lance un appel à l'api pour la suppression d'un amendements.
 
-### Ω editeRole HTML
-> Elle affiche un formulaire pour editer le role d'un utilisateur.
-
-### Ω editeRole FUNC
-> Elle lance un appel à l'api pour editer le role d'un utilisateur.
+* **Accès :**
+	* A partir de la page `Ω ficheLois HTML`.
+	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
 
 ***
 
 ## ∑ Api serveur
 
 > Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
+
+* ##### Fonction
+	* Connexion
+	* SignUp
 
 * Travail en cours
 
