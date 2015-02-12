@@ -256,10 +256,21 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > Si l'utilisateur n'est pas dans la base de données. Elle affiche un formulaire pour s'inscrire.
 
 * **Accès :**
-	* Juste après la connexion. Elle est afficher si l'utilisateur ne fut pas trouver dans la base de données.
+	* Juste après la connexion. Elle est affichée si l'utilisateur ne fut pas trouvé dans la base de données.
 	* Accès rôle **Guest**.
 * **Maquette :**
 	* Composer d'un formulaire, icon, titre + Desc.
+* **Informations :**
+	* **Texte**
+		* **Titre :** Finaliser votre inscription
+		* **Desc :** Pour finaliser le processus d'inscription, veuillez envoyer votre nom et prénom.
+	* **Input**
+		* Le nom
+		* Le prénom
+* **Actions possibles :**
+	* Déclencher la fonction `Ω SignUp FUNC`.
+* **Règles de gestion :**
+	* Validation des champs pendant submit.
 
 ### Ω SignUp FUNC
 > Déclencher par un formulaire. Elle lance un appel à l'api avec les données de l'utilisateur. Si tout, c'est bien passer, elle affiche la page de validation.
