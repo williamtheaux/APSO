@@ -240,6 +240,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Si l'appel échoue, annulé la connexion et lancer une erreur.
 	* Editer le model, si l'utilisateur est au minimum **observateur**, lancer un événement et afficher la page `Ω Accueil HTML`.
 * **Règles de gestion :**
+	* Analyse du JSON retourner par le serveur.
 
 ### Ω Déconnexion FUNC
 > Elle efface toutes les variable du model, lance un événement de déconnexion dans l'application.
@@ -274,6 +275,20 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 ### Ω SignUp FUNC
 > Déclencher par un formulaire. Elle lance un appel à l'api avec les données de l'utilisateur. Si tout, c'est bien passer, elle affiche la page de validation.
+
+* **Accès :**
+	* A partir de la page `Ω SignUp HTML`.
+	* Accès rôle **Guest**.
+* **Maquette :**
+	* Affiche la page `Ω Valide HTML`.
+* **Informations :**
+	* **Variable new**
+		* Le retour serveur
+* **Actions possibles :**
+	* En cas d'erreur, afficher un message d'alerte.
+	* En cas de succès, afficher la page `Ω Valide HTML`.
+* **Règles de gestion :**
+	* Analyse du JSON retourner par le serveur.
 
 ### Ω Valide HTML
 > Si l'utilisateur n'est pas validé par un administrateur. Elle affiche un message de mise en attente.
@@ -343,12 +358,6 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 ### Ω editeRole FUNC
 > Elle lance un appel à l'api pour editer le role d'un utilisateur.
-
-### Ω editeAtribue HTML
-> Elle affiche un formulaire pour editer les fonctions propriétaires et les postes associés.
-
-### Ω editeAtribue FUNC
-> Elle lance un appel à l'api pour editer les fonctions propriétaires et les postes associés.
 
 ***
 
