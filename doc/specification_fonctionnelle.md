@@ -144,7 +144,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > La vérification des signatures permet de valider le message et l'expéditeur. La signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
 
 * **Accès :**
-	* A partir du menu principal ou la page `Ω Accueil HTML`.
+	* A partir du menu principal.
 * **Maquette :**
 	* Composer d'un formulaire, icon, titre + Desc.
 * **Informations :**
@@ -184,8 +184,8 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > La Signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
 
 * **Accès :**
-	* A partir de la page `Ω Accueil HTML`.
-	* Accès rôle **Guest**.
+	* A partir du menu principal.
+	* Accès rôle **Banni**.
 * **Maquette :**
 	* Composer d'un formulaire, icon, titre + Desc.
 * **Informations :**
@@ -205,7 +205,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * **Accès :**
 	* A partir de la page `Ω Signature HTML`.
-	* Accès rôle **Guest**.
+	* Accès rôle **Banni**.
 * **Maquette :**
 	* Modifie le message sur la page `Ω Signature HTML`.
 * **Informations :**
@@ -230,7 +230,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * **Accès :**
 	* Juste après la connexion.
-	* Accès rôle **Guest**.
+	* Accès rôle **Banni**.
 * **Informations :**
 	* **Variable interne**
 		* Id publique. L'adresse bitcoin.
@@ -246,8 +246,8 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > Elle efface toutes les variable du model, lance un événement de déconnexion dans l'application.
 
 * **Accès :**
-	A partir du menu principal ou la page `Ω Accueil HTML`.
-	* Accès rôle **Guest**.
+	A partir du menu principal.
+	* Accès rôle **Banni**.
 * **Actions possibles :**
 	* Editer le model, lancer un événement et afficher la page `Ω Accueil HTML`.
 * **Règles de gestion :**
@@ -319,8 +319,31 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω Log HTML
 > Elle affiche l'historique du site.
 
+* **Accès :**
+	* A partir du menu principal.
+	* Accès rôle **Observateur**.
+* **Maquette :**
+	* Composer d'un tableau contenant les actions des utilisateurs, icon, titre + Desc.
+* **Informations :**
+	* **Texte**
+		* **Titre :** Historique d'état
+		* **Desc :** Retrouver ici, l'historique des actions publique de l'Etat souverain.
+	* **Tableau**
+		* Le nom de l'utilisateur
+		* Le pénom de l'utilisateur
+		* Le nom de l'action
+		* La date de l'action
+		* Les info de l'action
+			* Les paramètres sont des JSON est sont diffèrent à chaque action.
+* **Règles de gestion :**
+	* Classement par : date Asc.
+
 ### Ω État HTML
 > Elle affiche les postes et les utilisateurs élus. Elle est le point d'entrer pour toutes les fonctions touchant les postes et membres de l'api.
+
+* **Accès :**
+	* A partir du menu principal.
+	* Accès rôle **Observateur**.
 
 ### Ω addPoste HTML
 > Elle affiche un formulaire pour l'ajout des postes.
@@ -340,8 +363,16 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω Lois HTML
 > Elle liste les lois et leurs amendements. Elle est le point d'entrer pour toutes les fonctions touchant les lois.
 
+* **Accès :**
+	* A partir du menu principal.
+	* Accès rôle **Observateur**.
+
 ### Ω ficheLois HTML
 > Elle affiche la loi et ses amendements. Elle offre un moyen de modification de données à l'utilisateur ayant les droits nécessaires.
+
+* **Accès :**
+	* A partir du menu principal.
+	* Accès rôle **Observateur**.
 
 ### Ω addLois HTML
 > Elle affiche un formulaire pour ajouter de nouvelles lois.
