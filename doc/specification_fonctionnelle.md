@@ -293,8 +293,28 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω Valide HTML
 > Si l'utilisateur n'est pas validé par un administrateur. Elle affiche un message de mise en attente.
 
+* **Accès :**
+	* Juste après la connexion. Elle est affichée si l'utilisateur fut trouvé dans la base de données mais toujours rôle **guest**.
+	* Accès rôle **Guest**.
+* **Maquette :**
+	* Composer de icon, titre + Desc.
+* **Informations :**
+	* **Texte**
+		* **Titre :** Validation du compte
+		* **Desc :** Votre compte est actuellement en attente d'approbation. Une fois cette actions effectuées, vous pourrez poursuivre pour découvrir le déroulement du processus de vote.
+
 ### Ω Block HTML
 > Si l'utilisateur est banni. Elle affiche un message de bannissement.
+
+* **Accès :**
+	* Juste après la connexion. Elle est affichée si l'utilisateur est banni.
+	* Accès rôle **Banni**.
+* **Maquette :**
+	* Composer de icon, titre + Desc.
+* **Informations :**
+	* **Texte**
+		* **Titre :** Compte bloqué
+		* **Desc :** Votre compte a été désactivé par un administrateur. Veuillez contacter le service support pour plus d'information.
 
 ### Ω Log HTML
 > Elle affiche l'historique du site.
