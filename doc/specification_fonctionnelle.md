@@ -337,7 +337,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 			* Les paramètres sont des JSON est sont diffèrent à chaque action.
 * *Règles de gestion*
 	* Classement par : date Asc.
-	* Une pagination est intégrée en pied du tableau. 20 par page.
+	* Une pagination est intégrée au pied du tableau. 20 par page.
 
 ### Ω État HTML
 > Elle affiche les postes et les utilisateurs élus. Elle est le point d'entrer pour toutes les fonctions touchant les postes et membres de l'api.
@@ -345,13 +345,27 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * *Accès*
 	* A partir du menu principal.
 	* Accès rôle **Observateur**.
+* *Informations*
+	* **Tableau** membre
+		* identifiant
+		* Nom
+		* Prénom
+	* **Tableau** poste
+		* identifiant
+		* nom
+* *Actions possibles*
+	* Si **membre** voter ou modifier son vote.
+	* Si **Admin** ou **memebre élu** Ajout des postes, suppression des postes, gestion des utilisateurs.
+* *Règles de gestion*
+	* Si **membre** permettre d'effectuer son vote.
+	* Si **Admin** ou **memebre élu** permettre d'effectuer les actions disponible.
 
 ### Ω addPoste HTML
 > Elle affiche un formulaire pour l'ajout des postes.
 
 * *Accès*
 	* A partir de la page `Ω État HTML`.
-	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
 * *Maquette*
 	* Composer d'un formulaire, icon, titre + Desc.
 * *Informations*
@@ -369,21 +383,21 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * *Accès*
 	* A partir de la page `Ω addPoste HTML`.
-	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω deletePoste FUNC
 > Elle lance un appel à l'api pour la suppression du poste.
 
 * *Accès*
 	* A partir de la page `Ω État HTML`.
-	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω editeRole HTML
 > Elle affiche un formulaire pour editer le role d'un utilisateur.
 
 * *Accès*
 	* A partir de la page `Ω État HTML`.
-	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
 * *Maquette*
 	* Composer d'un formulaire, icon, titre + Desc.
 * *Informations*
@@ -401,7 +415,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * *Accès*
 	* A partir de la page `Ω editeRole HTML`.
-	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω Vote FUNC
 > Elle lance un appel à l'api avec les données du vote. Si succès, alors confirmer son vote en le signant a l'aide de code pin.
@@ -488,7 +502,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * *Accès*
 	* A partir de la page `Ω ficheLois HTML`.
-	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
 * *Maquette*
 	* Composer d'un formulaire, icon, titre + Desc.
 * *Informations*
@@ -506,14 +520,14 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * *Accès*
 	* A partir de la page `Ω editeLois HTML`.
-	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω editeAmd HTML
 > Elle affiche un formulaire pour editer un amendements.
 
 * *Accès*
 	* A partir de la page `Ω ficheLois HTML`.
-	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
 * *Maquette*
 	* Composer d'un formulaire, icon, titre + Desc.
 * *Informations*
@@ -531,21 +545,21 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * *Accès :*
 	* A partir de la page `Ω editeAmd HTML`.
-	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω deleteLoi FUNC
 > Elle lance un appel à l'api pour la suppression d'une lois.
 
 * *Accès :*
 	* A partir de la page `Ω ficheLois HTML`.
-	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω deleteAmd FUNC
 > Elle lance un appel à l'api pour la suppression d'un amendements.
 
 * *Accès :*
 	* A partir de la page `Ω ficheLois HTML`.
-	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
 
 ***
 
