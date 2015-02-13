@@ -352,9 +352,20 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * **Accès :**
 	* A partir de la page `Ω État HTML`.
 	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+* **Maquette :**
+	* Composer d'un formulaire, icon, titre + Desc.
+* **Informations :**
+	* **Texte**
+		* **Titre :** Ajouter un nouveaux poste.
+	* **Input**
+		* Le poste
+* **Actions possibles :**
+	* Déclencher la fonction `Ω addPoste FUNC`.
+* **Règles de gestion :**
+	* Validation des champs pendant submit.
 
 ### Ω addPoste FUNC
-> Elle lance un appel à l'api avec les données des postes au serveur.
+> Elle lance un appel à l'api avec les données du poste au serveur.
 
 * **Accès :**
 	* A partir de la page `Ω addPoste HTML`.
@@ -373,6 +384,17 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * **Accès :**
 	* A partir de la page `Ω État HTML`.
 	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+* **Maquette :**
+	* Composer d'un formulaire, icon, titre + Desc.
+* **Informations :**
+	* **Texte**
+		* **Titre :** Modification d'acces de l'utilisateur.
+	* **Input**
+		* Le role
+* **Actions possibles :**
+	* Déclencher la fonction `Ω editeRole FUNC`.
+* **Règles de gestion :**
+	* Validation des champs pendant submit.
 
 ### Ω editeRole FUNC
 > Elle lance un appel à l'api pour editer le role d'un utilisateur.
@@ -387,6 +409,8 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * **Accès :**
 	* A partir de la page `Ω ficheLois HTML` ou `Ω État HTML`.
 	* Accès rôle **Membre**.
+* **Maquette :**
+	* Composer d'un formulaire de code pin, icon, titre + Desc.
 
 ### Ω fixVote FUNC
 > Elle lance un appel à l'api avec la signature du vote.
@@ -415,6 +439,17 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * **Accès :**
 	* A partir de la page `Ω Lois HTML`.
 	* Accès rôle **Membre**.
+* **Maquette :**
+	* Composer d'un formulaire, icon, titre + Desc.
+* **Informations :**
+	* **Texte**
+		* **Titre :** Ajouter une nouvelle loi.
+	* **Input**
+		* La loi
+* **Actions possibles :**
+	* Déclencher la fonction `Ω addLois FUNC`.
+* **Règles de gestion :**
+	* Validation des champs pendant submit.
 
 ### Ω addLois FUNC
 > Elle lance un appel à l'api pour ajouter de nouvelles lois.
@@ -429,6 +464,17 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * **Accès :**
 	* A partir de la page `Ω ficheLois HTML`.
 	* Accès rôle **Membre**.
+* **Maquette :**
+	* Composer d'un formulaire, icon, titre + Desc.
+* **Informations :**
+	* **Texte**
+		* **Titre :** Ajouter un nouveaux amendements.
+	* **Input**
+		* L'amendements
+* **Actions possibles :**
+	* Déclencher la fonction `Ω addAmd FUNC`.
+* **Règles de gestion :**
+	* Validation des champs pendant submit.
 
 ### Ω addAmd FUNC
 > Elle lance un appel à l'api pour ajouter de nouveaux amendements.
@@ -443,6 +489,17 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * **Accès :**
 	* A partir de la page `Ω ficheLois HTML`.
 	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+* **Maquette :**
+	* Composer d'un formulaire, icon, titre + Desc.
+* **Informations :**
+	* **Texte**
+		* **Titre :** Modification de la loi.
+	* **Input**
+		* La loi
+* **Actions possibles :**
+	* Déclencher la fonction `Ω editeLois FUNC`.
+* **Règles de gestion :**
+	* Validation des champs pendant submit.
 
 ### Ω editeLois FUNC
 > Elle lance un appel à l'api pour editer une lois.
@@ -457,6 +514,17 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * **Accès :**
 	* A partir de la page `Ω ficheLois HTML`.
 	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
+* **Maquette :**
+	* Composer d'un formulaire, icon, titre + Desc.
+* **Informations :**
+	* **Texte**
+		* **Titre :** Modification d'amendements.
+	* **Input**
+		* Le amendements
+* **Actions possibles :**
+	* Déclencher la fonction `Ω editeAmd FUNC`.
+* **Règles de gestion :**
+	* Validation des champs pendant submit.
 
 ### Ω editeAmd FUNC
 > Elle lance un appel à l'api pour editer un amendements.
