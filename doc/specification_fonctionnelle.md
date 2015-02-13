@@ -10,7 +10,7 @@
 
 **Appareillage d'expérimentation de la démocratie directe.**
 
-* Une application permettant des **élections anonymes en temps réel** ou chaque votant est susceptible d'être élu. À tous moment, un membre peut changer sont vote et basculer le résulta final. Un élu n'a pas le droit au cumul des mandat.
+* Une application permettant des **élections anonymes en temps réel** ou chaque votant est susceptible d'être élu. À tous moment, un citoyen peut changer sont vote et basculer le résulta final. Un élu n'a pas le droit au cumul des mandat.
 	> Par défaut, 4 postes sont déja crée :
 	* Président
 	* Secrétaire
@@ -20,7 +20,7 @@
 * **Fonctions propriétaires** définies pour les postes crées précédemment. Permet de définir des fonctions propriétaires accessibles seulement a l'utilisateur en poste à ce moment-là. Les fonctions sont modulables pour être ajoutées ou supprimer. Elles pourront être utilisées sur plusieur postes simultanément.
 	> Issues [#1](https://github.com/williamtheaux/APSO/issues/1) [#3](https://github.com/williamtheaux/APSO/issues/3) Par défaut, 5 fonctions sont déja crée pour le poste de **secrétaire** :
 	* Suppression et mise en forme des lois et leurs amendements.
-	* Valider ou invalider les membres. Bas niveaux.
+	* Valider ou invalider les citoyens. Bas niveaux.
 	* Ajouter ou supprimer des postes pour les élections
 
 * L'application comporte le **suffrage universel**. Une section ou chaque votant peut créer des nouvelles lois, proposer des amendements pour des lois existantes, et enfin, exprimer sont vote.
@@ -32,11 +32,11 @@
 * Les **administrateurs** peuvent :
 	> Sont ajoutés au Master tous les autres droits (intervention sur les données et sur le système) Par défaut, 7 fonctions sont déja crée.
 	* Ajouter ou supprimer des postes pour les élections.
-	* Valider ou invalider les membres. Haut niveaux.
+	* Valider ou invalider les citoyens. Haut niveaux.
 	* Suppression et mise en forme des lois et leurs amendements.
 	* Ajoutées ou supprimer les fonctions propriétaires.
 
-* L'application comporte un **log**, historique de toutes les actions effectuer par les membres et les administrateurs. Ses informations sont accessible sur les deux applications.
+* L'application comporte un **log**, historique de toutes les actions effectuer par les citoyens et les administrateurs. Ses informations sont accessible sur les deux applications.
 
 * Donner un espace de connexion pour les **observateurs**.
 
@@ -63,7 +63,7 @@ L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administra
 * **Guest :** Le rôle par défaut après l'inscription de l'utilisateur dans l'api. Retourne un message "En attente de validation par un administrateur."
 * **Banni :** Concerne les utilisateurs bannis par un administrateur ou un poste disposant de la fonction propriétaire. Regroupe aussi les visiteurs non identifiés après l'inscription. Retourne un message "Vous êtes bloqué. Veuillez contacter un administrateur."
 * **Observateur :** Le groupe des Observateur, ont seulement accès a l'historique et les résulta du suffrage.
-* **Membre :** Les membres ont le droit d'exprimer leurs votes et proposer de nouvelles lois. Ils peuvent aussi être élus.
+* **citoyen :** Les citoyens ont le droit d'exprimer leurs votes et proposer de nouvelles lois. Ils peuvent aussi être élus.
 * **Administrateur :** Ils gèrent et modifient toutes les données de l'api.
 
 ***
@@ -125,8 +125,8 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 			* Données serveur.
 	* **Si no connecter**
 		* **Texte pour le slide**
-			1. **Titre :** La démocratie directe **Desc :** Des élections anonymes en temps réel ou chaque membre peut changer à tous moment sont vote, et basculer le résulta final du scrutin.
-			2. **Titre :** Le suffrage universel **Desc :** Exprime un choix, une volonté. Ici chaque membre peut créer des lois, proposer des amendements, et enfin, exprimer sont vote.
+			1. **Titre :** La démocratie directe **Desc :** Des élections anonymes en temps réel ou chaque citoyen peut changer à tous moment sont vote, et basculer le résulta final du scrutin.
+			2. **Titre :** Le suffrage universel **Desc :** Exprime un choix, une volonté. Ici chaque citoyen peut créer des lois, proposer des amendements, et enfin, exprimer sont vote.
 		* **Input**
 			* La phrase secrète pour le cryptage asymétrique.
 			* Le code pin pour le cryptage symétrique de la phrase secrète.
@@ -342,13 +342,16 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Une pagination est intégrée au pied du tableau. 20 par page.
 
 ### Ω État HTML
-> Elle affiche les postes et les utilisateurs élus. Elle est le point d'entrer pour toutes les fonctions touchant les postes et membres de l'api.
+> Elle affiche les postes et les utilisateurs élus. Elle est le point d'entrer pour toutes les fonctions touchant les postes et citoyens de l'api.
 
 * *Accès*
 	* A partir du menu principal.
 	* Accès rôle **Observateur**.
+* *Maquette*
+	* Tableau des citoyens de l'État sur la partie gauche de la page. Tableau des postes avec le citoyen élu sur la partie droite de la page.
+	* Si administrateur, afficher un btn en haut du tableau pour ajouter de nouveau poste et devant chaque poste un btn pour pouvoir le supprimer. Sur la partie gauche afficher des btn pour pouvoir trier les membres guest, banni et citoyens et devant chaque membre un btn pour pouvoir modifier son rôle d'accès.
 * *Informations*
-	* **Tableau** membre
+	* **Tableau** citoyen
 		* identifiant
 		* Nom
 		* Prénom
@@ -356,18 +359,18 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* identifiant
 		* nom
 * *Actions possibles*
-	* Si **membre** voter ou modifier son vote.
+	* Si **citoyen** voter ou modifier son vote.
 	* Si **Admin** ou **memebre élu** Ajout des postes, suppression des postes, gestion des utilisateurs.
 * *Règles de gestion*
-	* Si **membre** permettre d'effectuer son vote.
-	* Si **Admin** ou **membre élu** permettre d'effectuer les actions disponible.
+	* Si **citoyen** permettre d'effectuer son vote.
+	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible. Donner accès au liste de citoyens banni ou guest.
 
 ### Ω addPoste HTML
 > Elle affiche un formulaire pour l'ajout des postes.
 
 * *Accès*
-	* A partir du menu principal.
-	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
+	A partir de la page Ω État HTML.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
 * *Maquette*
 	* Composer d'un formulaire, icon, titre + Desc.
 * *Informations*
@@ -387,7 +390,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * *Accès*
 	* A partir de la page `Ω addPoste HTML`.
-	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
 * *Informations*
 	* **Texte**
 		* **Message succès :** Le nouveau poste fut ajouté avec succès.
@@ -413,14 +416,14 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * *Accès*
 	* A partir de la page `Ω État HTML`.
-	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω editeRole HTML
 > Elle affiche un formulaire pour editer le role d'un utilisateur.
 
 * *Accès*
 	* A partir de la page `Ω État HTML`.
-	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
 * *Maquette*
 	* Composer d'un formulaire, icon, titre + Desc.
 * *Informations*
@@ -438,14 +441,14 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * *Accès*
 	* A partir de la page `Ω editeRole HTML`.
-	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω Vote FUNC
 > Elle lance un appel à l'api avec les données du vote. Si succès, alors confirmer son vote en le signant a l'aide de code pin.
 
 * *Accès*
 	* A partir de la page `Ω ficheLois HTML` ou `Ω État HTML`.
-	* Accès rôle **Membre**.
+	* Accès rôle **citoyen**.
 * *Maquette*
 	* Composer d'un formulaire de code pin, icon, titre + Desc.
 
@@ -454,7 +457,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * *Accès*
 	* A partir de la page `Ω Vote FUNC`.
-	* Accès rôle **Membre**.
+	* Accès rôle **citoyen**.
 
 ### Ω Lois HTML
 > Elle liste les lois et leurs amendements. Elle est le point d'entrer pour toutes les fonctions touchant les lois.
@@ -475,7 +478,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * *Accès*
 	* A partir de la page `Ω Lois HTML`.
-	* Accès rôle **Membre**.
+	* Accès rôle **citoyen**.
 * *Maquette*
 	* Composer d'un formulaire, icon, titre + Desc.
 * *Informations*
@@ -493,14 +496,14 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * *Accès*
 	* A partir de la page `Ω addLois HTML`.
-	* Accès rôle **Membre**.
+	* Accès rôle **citoyen**.
 
 ### Ω addAmd HTML
 > Elle affiche un formulaire pour ajouter de nouveaux amendements.
 
 * *Accès*
 	* A partir de la page `Ω ficheLois HTML`.
-	* Accès rôle **Membre**.
+	* Accès rôle **citoyen**.
 * *Maquette*
 	* Composer d'un formulaire, icon, titre + Desc.
 * *Informations*
@@ -518,14 +521,14 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * *Accès*
 	* A partir de la page `Ω addAmd HTML`.
-	* Accès rôle **Membre**.
+	* Accès rôle **citoyen**.
 
 ### Ω editeLois HTML
 > Elle affiche un formulaire pour editer une lois.
 
 * *Accès*
 	* A partir de la page `Ω ficheLois HTML`.
-	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
 * *Maquette*
 	* Composer d'un formulaire, icon, titre + Desc.
 * *Informations*
@@ -543,14 +546,14 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * *Accès*
 	* A partir de la page `Ω editeLois HTML`.
-	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω editeAmd HTML
 > Elle affiche un formulaire pour editer un amendements.
 
 * *Accès*
 	* A partir de la page `Ω ficheLois HTML`.
-	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
 * *Maquette*
 	* Composer d'un formulaire, icon, titre + Desc.
 * *Informations*
@@ -568,21 +571,21 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 * *Accès :*
 	* A partir de la page `Ω editeAmd HTML`.
-	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω deleteLoi FUNC
 > Elle lance un appel à l'api pour la suppression d'une lois.
 
 * *Accès :*
 	* A partir de la page `Ω ficheLois HTML`.
-	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω deleteAmd FUNC
 > Elle lance un appel à l'api pour la suppression d'un amendements.
 
 * *Accès :*
 	* A partir de la page `Ω ficheLois HTML`.
-	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
 
 ***
 
