@@ -116,6 +116,8 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* **Si no connecter** un formulaire de connexion et un slide de 3 ou 4 paragraphes.
 * *Informations*
 	* **Si connecter**
+		* **Texte**
+			* **Titre :** Mon compte
 		* **Variable interne**
 			* Id publique. L'adresse bitcoin.
 			* Clé privée.
@@ -358,13 +360,13 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Si **Admin** ou **memebre élu** Ajout des postes, suppression des postes, gestion des utilisateurs.
 * *Règles de gestion*
 	* Si **membre** permettre d'effectuer son vote.
-	* Si **Admin** ou **memebre élu** permettre d'effectuer les actions disponible.
+	* Si **Admin** ou **membre élu** permettre d'effectuer les actions disponible.
 
 ### Ω addPoste HTML
 > Elle affiche un formulaire pour l'ajout des postes.
 
 * *Accès*
-	* A partir de la page `Ω État HTML`.
+	* A partir du menu principal.
 	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
 * *Maquette*
 	* Composer d'un formulaire, icon, titre + Desc.
@@ -373,9 +375,11 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* **Titre :** Ajouter un nouveaux poste.
 	* **Input**
 		* Le poste
+		* Le code pin
 * *Actions possibles*
 	* Déclencher la fonction `Ω addPoste FUNC`.
 * *Règles de gestion*
+	* Visibiliter  dans le menu principal selon les Accès.
 	* Validation des champs pendant submit.
 
 ### Ω addPoste FUNC
@@ -384,6 +388,25 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * *Accès*
 	* A partir de la page `Ω addPoste HTML`.
 	* Accès rôle **Admin** ou un **membre élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Le nouveau poste fut ajouté avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* le poste
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω État HTML`.
+* *Règles de gestion*
+	* signiature de la variable poste.
+	* appel à l'api.
 
 ### Ω deletePoste FUNC
 > Elle lance un appel à l'api pour la suppression du poste.
@@ -570,6 +593,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * #### Fonction
 	* Connexion
 	* SignUp
+	* addPoste
 
 * Travail en cours
 
