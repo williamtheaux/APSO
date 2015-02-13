@@ -349,7 +349,8 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Accès rôle **Observateur**.
 * *Maquette*
 	* Tableau des citoyens de l'État sur la partie gauche de la page. Tableau des postes avec le citoyen élu sur la partie droite de la page.
-	* Si administrateur, afficher un btn en haut du tableau pour ajouter de nouveau poste et devant chaque poste un btn pour pouvoir le supprimer. Sur la partie gauche afficher des btn pour pouvoir trier les membres guest, banni et citoyens et devant chaque membre un btn pour pouvoir modifier son rôle d'accès.
+	* Si citoyen, Devant chaque poste proposer un formulaire pour voter ou modifier son vote.
+	* Si administrateur, afficher un btn en haut du tableau pour ajouter de nouveau poste et devant chaque poste un btn pour pouvoir le supprimer. Sur la partie gauche afficher un btn pour pouvoir modifier le rôle d'accès.
 * *Informations*
 	* **Tableau** citoyen
 		* identifiant
@@ -410,6 +411,9 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * *Règles de gestion*
 	* signiature de la variable poste.
 	* appel à l'api.
+
+### Ω deletePoste HTML
+> Elle affiche un formulaire avec le code pin pour la suppression du poste.
 
 ### Ω deletePoste FUNC
 > Elle lance un appel à l'api pour la suppression du poste.
