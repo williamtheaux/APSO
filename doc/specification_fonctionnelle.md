@@ -543,7 +543,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω deleteAmd FUNC
 > Elle lance un appel à l'api pour la suppression d'un amendements.
 
-* **Accès :**
+* ###### Accès
 	* A partir de la page `Ω ficheLois HTML`.
 	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
 
@@ -554,7 +554,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
 
 * #### Fonction
-	* ###### Connexion
+	* Connexion
 	* SignUp
 
 * Travail en cours
