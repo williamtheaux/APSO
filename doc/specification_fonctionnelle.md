@@ -536,14 +536,14 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω deleteLoi FUNC
 > Elle lance un appel à l'api pour la suppression d'une lois.
 
-* #### Accès
+* #### Accès ####
 	* A partir de la page `Ω ficheLois HTML`.
 	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
 
 ### Ω deleteAmd FUNC
 > Elle lance un appel à l'api pour la suppression d'un amendements.
 
-* #### Accès
+* #### Accès ####
 	* A partir de la page `Ω ficheLois HTML`.
 	* Accès rôle **Admin** ou un membre élu au poste donc la fonction dépend, précisément à ce moment-là.
 
