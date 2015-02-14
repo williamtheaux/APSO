@@ -93,6 +93,12 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 ***
 
+## Fonctions propriétaires
+
+* L'application cliente gère le retour JSON de connexion dans des variables séparé. Banni, Guest, Observateur, citoyen, Administrateur. Chaque fonction jQuery n'aura plus qu'a vérifier la présence de la variable pour afficher ou non les informations. Les fonctions propriétaires seront placées directement dans la variable admin. L'app client ne vérifie pas directement le poste du citoyen, mais affiche ou non les infos de la variable Administrateur. Si un codeur modifie les données pendant l'exécution de l'app et accède au fonction propriétaire. Le serveur rejettera ces demandes. 
+
+***
+
 # ∑ Architecture
 
 > Le projet est constitué d'une api côté serveur et d'une application web côté client.
@@ -361,7 +367,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* nom
 * *Actions possibles*
 	* Si **citoyen** voter ou modifier son vote.
-	* Si **Admin** ou **memebre élu** Ajout des postes, suppression des postes, gestion des utilisateurs.
+	* Si **Admin** ou **membre élu** Ajout des postes, suppression des postes, gestion des utilisateurs.
 * *Règles de gestion*
 	* Si **citoyen** permettre d'effectuer son vote.
 	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible. Donner accès au liste de citoyens banni ou guest.
@@ -415,12 +421,48 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω deletePoste HTML
 > Elle affiche un formulaire avec le code pin pour la suppression du poste.
 
+* *Accès*
+	* A partir de la page `Ω État HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** suppression du poste.
+	* **Input**
+		* L'identifiant du poste
+		* Le code pin
+* *Actions possibles*
+	* Déclencher la fonction `Ω addPoste FUNC`.
+* *Règles de gestion*
+	* Visibiliter selon les Accès.
+	* Validation des champs pendant submit.
+
 ### Ω deletePoste FUNC
 > Elle lance un appel à l'api pour la suppression du poste.
 
 * *Accès*
-	* A partir de la page `Ω État HTML`.
+	* A partir de la page `Ω deletePoste HTML`.
 	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Le poste fut supprimer avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* l'identifiant du poste
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω État HTML`.
+* *Règles de gestion*
+	* signiature de la variable poste.
+	* appel à l'api.
 
 ### Ω editeRole HTML
 > Elle affiche un formulaire pour editer le role d'un utilisateur.
@@ -601,6 +643,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Connexion
 	* SignUp
 	* addPoste
+	* deletePoste
 
 * Travail en cours
 
