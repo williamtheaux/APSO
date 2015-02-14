@@ -95,7 +95,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 ## Fonctions propriétaires
 
-* L'application cliente gère le retour JSON de connexion dans des variables séparé. Banni, Guest, Observateur, citoyen, Administrateur. Chaque fonction jQuery n'aura plus qu'a vérifier la présence de la variable pour afficher ou non les informations. Les fonctions propriétaires seront placées directement dans la variable admin. L'app client ne vérifie pas directement le poste du citoyen, mais affiche ou non les infos de la variable Administrateur. Si un codeur modifie les données pendant l'exécution de l'app et accède au fonction propriétaire. Le serveur rejettera ces demandes. 
+* L'application cliente gère le retour JSON de connexion dans des variables séparé. Banni, Guest, Observateur, citoyen, Administrateur. Chaque fonction jQuery n'aura plus qu'a vérifier la présence de la variable pour afficher ou non les informations. Les fonctions propriétaires seront placées directement dans la variable admin par le serveur. L'app client ne vérifie pas directement le poste du citoyen, mais affiche ou non les infos de la variable Administrateur. Si un codeur modifie les données pendant l'exécution de l'app et accède au fonctions propriétaires. Le serveur rejettera ces demandes. 
 
 ***
 
@@ -465,7 +465,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* appel à l'api.
 
 ### Ω editeRole HTML
-> Elle affiche un formulaire pour editer le role d'un utilisateur.
+> Elle affiche un formulaire pour editer le role.
 
 * *Accès*
 	* A partir de la page `Ω État HTML`.
@@ -475,8 +475,11 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * *Informations*
 	* **Texte**
 		* **Titre :** Modification d'acces de l'utilisateur.
+	* **Variable interne**
+		* Id utilisateur
 	* **Input**
 		* Le role
+		* Le code pin
 * *Actions possibles*
 	* Déclencher la fonction `Ω editeRole FUNC`.
 * *Règles de gestion*
@@ -488,6 +491,26 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * *Accès*
 	* A partir de la page `Ω editeRole HTML`.
 	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Le rôle fut mise a jour avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* le rôle
+		* Id user
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.		
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω État HTML`.
+* *Règles de gestion*
+	* signiature de la variable rôle.
+	* appel à l'api.
 
 ### Ω Vote FUNC
 > Elle lance un appel à l'api avec les données du vote. Si succès, alors confirmer son vote en le signant a l'aide de code pin.
@@ -644,6 +667,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* SignUp
 	* addPoste
 	* deletePoste
+	* editeRole
 
 * Travail en cours
 
