@@ -534,6 +534,23 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * *Accès*
 	* A partir du menu principal.
 	* Accès rôle **Observateur**.
+* *Maquette*
+	* Tableau des lois sur la page. Chaque ligne conduite a la fiche détaillée de la loi.
+	* Si citoyen, Afficher un btn en haut du tableau pour ajouter de nouvelle lois.
+	* Si admin, devant chaque poste un btn pour pouvoir supprimer la lois.
+* *Informations*
+	* **Tableau** Lois
+		* identifiant
+		* Nom
+	* **Tableau** amendements
+		* identifiant
+		* nom
+* *Actions possibles*
+	* Si **citoyen** voter ou modifier son vote. Ajout de lois.
+	* Si **Admin** ou **membre élu** Suppression et gestion de lois.
+* *Règles de gestion*
+	* Si **citoyen** permettre d'effectuer son vote.
+	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible.
 
 ### Ω ficheLois HTML
 > Elle affiche la loi et ses amendements. Elle offre un moyen de modification de données à l'utilisateur ayant les droits nécessaires.
