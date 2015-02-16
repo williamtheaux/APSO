@@ -512,14 +512,33 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* signiature de la variable rôle.
 	* appel à l'api.
 
-### Ω Vote FUNC
-> Elle lance un appel à l'api avec les données du vote. Si succès, alors confirmer son vote en le signant a l'aide de code pin.
+### Ω Vote HTML
+> Elle affiche un formulaire pour le vote.
 
 * *Accès*
 	* A partir de la page `Ω ficheLois HTML` ou `Ω État HTML`.
 	* Accès rôle **citoyen**.
+* *Informations*
+	* **Variable interne**
+		* Id publique
+	* **Variable new**
+		* Type de vote
+		* L'identifiant du vote
+		* L'identifiant de la catégorie
+* *Actions possibles*
+	* Déclencher la fonction `Ω Vote FUNC`.
+* *Règles de gestion*
+	* Déterminer le type de vote.
+	* Validation des champs pendant submit.
+
+### Ω Vote FUNC
+> Elle lance un appel à l'api avec les données du vote. Si succès, alors confirmer son vote en le signant a l'aide de code pin.
+
+* *Accès*
+	* A partir de la page `Ω Vote HTML`.
+	* Accès rôle **citoyen**.
 * *Maquette*
-	* Composer d'un formulaire de code pin, icon, titre + Desc.
+	* En cas de succès de l'appel, composer d'un formulaire de code pin, icon, titre + Desc.
 
 ### Ω fixVote FUNC
 > Elle lance un appel à l'api avec la signature du vote.
