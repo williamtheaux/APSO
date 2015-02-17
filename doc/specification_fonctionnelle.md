@@ -86,10 +86,10 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Cette procédure, ce pass au moment de la connexion, ou l'utilisateur récupère toutes les données relatives à l'application.
 
 2. **Procédure du vote**
+	* Travail en cours
 
 3. **Signature du vote**
-
-* Travail en cours
+	* Travail en cours
 
 ***
 
@@ -919,20 +919,104 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 > Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
 
+
 ### Ω login
+> Connexion de l'utilisateur.
+
+* *Informations entrantes*
+* *Règles de gestion* 
+* *Informations sortantes*
+
 ### Ω SignUp
+> inscription de l'utilisateur.
+
+* *Informations entrantes*
+* *Règles de gestion* 
+* *Informations sortantes*
+
 ### Ω addPoste
+> Ajouter un nouveaux poste.
+
+* *Informations entrantes*
+* *Règles de gestion* 
+* *Informations sortantes*
+
 ### Ω deletePoste
+> Suppression du poste.
+
+* *Informations entrantes*
+* *Règles de gestion* 
+* *Informations sortantes*
+
 ### Ω editeRole
+> Editer le role.
+
+* *Informations entrantes*
+* *Règles de gestion* 
+* *Informations sortantes*
+
 ### Ω Vote
+> Permet de voter.
+
+* *Informations entrantes*
+* *Règles de gestion* 
+* *Informations sortantes*
+
 ### Ω fixVote
+> Permet de confirmer son voter
+
+* *Informations entrantes*
+* *Règles de gestion* 
+* *Informations sortantes*
+
 ### Ω addLois
+> Ajouter une nouvelle loi.
+
+* *Informations entrantes*
+* *Règles de gestion* 
+* *Informations sortantes*
+
 ### Ω addAmd
+> Ajouter un nouveaux amendement.
+
+* *Informations entrantes*
+* *Règles de gestion* 
+* *Informations sortantes*
+
 ### Ω editeLois
+> Editer une loi.
+
+* *Informations entrantes*
+* *Règles de gestion* 
+* *Informations sortantes*
+
 ### Ω editeAmd
+> Editer un amendement.
+
+* *Informations entrantes*
+* *Règles de gestion* 
+* *Informations sortantes*
+
 ### Ω deleteLoi
+> Suppression d'une loi.
+
+* *Informations entrantes*
+* *Règles de gestion* 
+* *Informations sortantes*
+
 ### Ω deleteAmd
+> Suppression d'un amendemente.
+
+* *Informations entrantes*
+* *Règles de gestion* 
+* *Informations sortantes*
+
 ### Ω upData
+> Mise à jour des données toutes les minutes.
+
+* *Informations entrantes*
+* *Règles de gestion* 
+* *Informations sortantes*
 
 ***
 
