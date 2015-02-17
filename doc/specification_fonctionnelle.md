@@ -539,6 +539,28 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Accès rôle **citoyen**.
 * *Maquette*
 	* En cas de succès de l'appel, composer d'un formulaire de code pin, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Confirmer votre vote.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+		* Type de vote
+		* L'identifiant du vote
+		* Id user
+	* **Variable new**
+		* L'identifiant de la catégorie
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.		
+	* En cas de succès
+		* Afficher un message de succès.
+		* Déclencher la fonction `Ω fixVote FUNC`.
+* *Règles de gestion*
+	* signiature de la variable hash vote.
+	* appel à l'api.
 
 ### Ω fixVote FUNC
 > Elle lance un appel à l'api avec la signature du vote.
@@ -704,6 +726,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* addPoste
 	* deletePoste
 	* editeRole
+	* Vote
 
 * Travail en cours
 
