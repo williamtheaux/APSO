@@ -233,7 +233,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * *Règles de gestion*
 	* Signature électronique du message.
 
-### Ω Connexion FUNC
+### Ω Login FUNC
 > Elle lance un appel à l'api pour les information client. Après analyse des données reçu et si le role d'accès est autorisé, elle lance un événement dans l'application.
 
 * *Accès*
@@ -821,15 +821,55 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* signiature de la variable amendement.
 	* appel à l'api.
 
+### Ω deleteLoi HTML
+> Elle affiche un formulaire avec le code pin pour la suppression de la loi.
+
+* *Accès*
+	* A partir de la page `Ω Lois HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** suppression du poste.
+	* **Input**
+		* L'identifiant de la loi
+		* Le code pin
+* *Actions possibles*
+	* Déclencher la fonction `Ω deleteLoi FUNC`.
+* *Règles de gestion*
+	* Visibiliter selon les Accès.
+	* Validation des champs pendant submit.
+
 ### Ω deleteLoi FUNC
 > Elle lance un appel à l'api pour la suppression d'une lois.
 
 * *Accès :*
-	* A partir de la page `Ω ficheLois HTML`.
+	* A partir de la page `Ω deleteLoi HTML`.
 	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
 
+### Ω deleteAmd HTML
+> Elle affiche un formulaire avec le code pin pour la suppression de l'amendement.
+
+* *Accès*
+	* A partir de la page `Ω ficheLois HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** suppression de l'amendement.
+	* **Input**
+		* L'identifiant de l'amendement
+		* Le code pin
+* *Actions possibles*
+	* Déclencher la fonction `Ω deleteAmd FUNC`.
+* *Règles de gestion*
+	* Visibiliter selon les Accès.
+	* Validation des champs pendant submit.
+
 ### Ω deleteAmd FUNC
-> Elle lance un appel à l'api pour la suppression d'un amendements.
+> Elle lance un appel à l'api pour la suppression d'un amendement.
 
 * *Accès :*
 	* A partir de la page `Ω ficheLois HTML`.
@@ -842,7 +882,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
 
 * #### Fonction
-	* Connexion
+	* login
 	* SignUp
 	* addPoste
 	* deletePoste
@@ -853,6 +893,8 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* addAmd
 	* editeLois
 	* editeAmd
+	* deleteLoi
+	* deleteAmd
 
 * Travail en cours
 
