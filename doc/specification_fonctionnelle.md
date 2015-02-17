@@ -651,6 +651,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* **Titre :** Ajouter une nouvelle loi.
 	* **Input**
 		* La loi
+		* Le code pin
 * *Actions possibles*
 	* Déclencher la fonction `Ω addLois FUNC`.
 * *Règles de gestion*
@@ -662,6 +663,26 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * *Accès*
 	* A partir de la page `Ω addLois HTML`.
 	* Accès rôle **citoyen**.
+* *Informations*
+	* **Texte**
+		* **Message succès :** La nouvelle loi fut ajouté avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* la loi
+		* Le premier amendement		
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω ficheLois HTML`.
+* *Règles de gestion*
+	* signiature de la variable loi.
+	* appel à l'api.
 
 ### Ω addAmd HTML
 > Elle affiche un formulaire pour ajouter de nouveaux amendements.
@@ -766,6 +787,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* editeRole
 	* Vote
 	* fixVote
+	* addLois
 
 * Travail en cours
 
