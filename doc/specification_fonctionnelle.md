@@ -107,7 +107,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 ## ∑ Application Client
 
-> L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de lois et leur amendements.
+> L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de lois et leur amendements. C'est la partie graphique qui est affichée au client.
 
 ![App architecture](annexes/appArchitect.jpg)
 
@@ -917,8 +917,9 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 ## ∑ Api serveur
 
-> Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
+> Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel. C'est la partie qui centralise et distribue les données. Elle gère la gestion des actions possibles.
 
+![App architecture](annexes/apiArchitect.jpg)
 
 ### Ω login
 > Connexion de l'utilisateur.
