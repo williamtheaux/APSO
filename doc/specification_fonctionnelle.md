@@ -603,7 +603,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* **Tableau** Lois
 		* identifiant
 		* Nom
-	* **Tableau** amendements
+	* **Tableau** amendements élu.
 		* identifiant
 		* nom
 * *Actions possibles*
@@ -619,6 +619,24 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * *Accès*
 	* A partir du menu principal.
 	* Accès rôle **Observateur**.
+* *Maquette*
+	* Le nom de la loi.
+	* Tableau des amendements. Faire resortire l'amendement élu.
+	* Si citoyen, Afficher un btn en haut du tableau pour ajouter de nouveaux amendements.
+	* Si admin, devant chaque amendements un btn pour pouvoir supprimer ou modifier.
+* *Informations*
+	* **Variable** Lois
+		* identifiant
+		* Nom
+	* **Tableau** amendements élu.
+		* identifiant
+		* nom
+* *Actions possibles*
+	* Si **citoyen** voter ou modifier son vote.
+	* Si **Admin** ou **membre élu** Suppression et gestion des amendements.
+* *Règles de gestion*
+	* Si **citoyen** permettre d'effectuer son vote.
+	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible.
 
 ### Ω addLois HTML
 > Elle affiche un formulaire pour ajouter de nouvelles lois.
