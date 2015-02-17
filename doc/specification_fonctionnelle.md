@@ -551,7 +551,6 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* Id user
 	* **Variable new**
 		* L'identifiant de la catégorie
-		* Le code pin
 * *Actions possibles*
 	* En cas d'erreur
 		* Afficher un message d'alerte.		
@@ -559,7 +558,6 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* Afficher un message de succès.
 		* Déclencher la fonction `Ω fixVote FUNC`.
 * *Règles de gestion*
-	* signiature de la variable hash vote.
 	* appel à l'api.
 
 ### Ω fixVote FUNC
@@ -568,6 +566,28 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * *Accès*
 	* A partir de la page `Ω Vote FUNC`.
 	* Accès rôle **citoyen**.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Votre vote électronique est réalisés avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+		* Type de vote
+		* L'identifiant du vote
+		* Id user
+	* **Variable new**
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.		
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω État HTML` ou `Ω Lois HTML`.
+* *Règles de gestion*
+	* signiature de la variable hash vote.
+	* Différence entre le type de vote pour l'affichage de la page de retour.
+	* appel à l'api.
 
 ### Ω Lois HTML
 > Elle liste les lois et leurs amendements. Elle est le point d'entrer pour toutes les fonctions touchant les lois.
@@ -727,6 +747,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* deletePoste
 	* editeRole
 	* Vote
+	* fixVote
 
 * Travail en cours
 
