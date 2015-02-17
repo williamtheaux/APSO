@@ -847,6 +847,25 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * *Accès :*
 	* A partir de la page `Ω deleteLoi HTML`.
 	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Informations*
+	* **Texte**
+		* **Message succès :** La loi fut supprimer avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* l'identifiant de la loi
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω Lois HTML`.
+* *Règles de gestion*
+	* signiature de la variable loi.
+	* appel à l'api.
 
 ### Ω deleteAmd HTML
 > Elle affiche un formulaire avec le code pin pour la suppression de l'amendement.
@@ -874,6 +893,25 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * *Accès :*
 	* A partir de la page `Ω ficheLois HTML`.
 	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Informations*
+	* **Texte**
+		* **Message succès :** L'amendement fut supprimer avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* l'identifiant de l'amendement
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω ficheLois HTML`.
+* *Règles de gestion*
+	* signiature de la variable amendement.
+	* appel à l'api.
 
 ***
 
@@ -881,22 +919,20 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 > Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel.
 
-* #### Fonction
-	* login
-	* SignUp
-	* addPoste
-	* deletePoste
-	* editeRole
-	* Vote
-	* fixVote
-	* addLois
-	* addAmd
-	* editeLois
-	* editeAmd
-	* deleteLoi
-	* deleteAmd
-
-* Travail en cours
+### Ω login
+### Ω SignUp
+### Ω addPoste
+### Ω deletePoste
+### Ω editeRole
+### Ω Vote
+### Ω fixVote
+### Ω addLois
+### Ω addAmd
+### Ω editeLois
+### Ω editeAmd
+### Ω deleteLoi
+### Ω deleteAmd
+### Ω upData
 
 ***
 
