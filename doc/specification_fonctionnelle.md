@@ -755,6 +755,26 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * *Accès*
 	* A partir de la page `Ω editeLois HTML`.
 	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Informations*
+	* **Texte**
+		* **Message succès :** La loi fut mise a jour avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* la loi
+		* Id user
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.		
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω ficheLois HTML`.
+* *Règles de gestion*
+	* signiature de la variable loi.
+	* appel à l'api.
 
 ### Ω editeAmd HTML
 > Elle affiche un formulaire pour editer un amendements.
@@ -811,6 +831,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* fixVote
 	* addLois
 	* addAmd
+	* editeLois
 
 * Travail en cours
 
