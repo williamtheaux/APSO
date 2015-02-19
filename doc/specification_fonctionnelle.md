@@ -376,7 +376,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > Elle affiche un formulaire pour l'ajout des postes.
 
 * *Accès*
-	A partir de la page Ω État HTML.
+	A partir de la page `Ω État HTML`.
 	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
 * *Maquette*
 	* Composer d'un formulaire, icon, titre + Desc.
@@ -925,13 +925,20 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > Connexion de l'utilisateur.
 
 * *Informations entrantes*
-* *Règles de gestion* 
+	* Identifiant client (adresse bitcoin)
+	* Timestamp
+	* Signiature (hash Timestamp+Identifiant)
+* *Règles de gestion*
 * *Informations sortantes*
 
 ### Ω SignUp
 > inscription de l'utilisateur.
 
 * *Informations entrantes*
+	* Identifiant client (adresse bitcoin)
+	* Nom
+	* Prénom
+	* Signiature (hash nom+prénom+'Action'+Identifiant)
 * *Règles de gestion* 
 * *Informations sortantes*
 
@@ -939,6 +946,9 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > Ajouter un nouveaux poste.
 
 * *Informations entrantes*
+	* Identifiant client (adresse bitcoin)
+	* Poste
+	* Signiature (hash Poste+'Action'+Identifiant)
 * *Règles de gestion* 
 * *Informations sortantes*
 
@@ -946,6 +956,10 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 > Suppression du poste.
 
 * *Informations entrantes*
+	* Identifiant client (adresse bitcoin)
+	* Identifiant Poste
+	* Poste
+	* Signiature (hash idPoste+Poste+'Action'+Identifiant)
 * *Règles de gestion* 
 * *Informations sortantes*
 
