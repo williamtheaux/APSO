@@ -929,14 +929,20 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Timestamp
 	* Signiature (hash Timestamp+Identifiant)
 * *Règles de gestion*
-	* Vérification des données entrante. Timestamp dans les 12h du timestamp serveur.
-	* Recherche de l'utilisateur dans la base de données.
-	* Vérification du rôle de l'utilisateur.
+	1. Vérification des données entrante. Timestamp dans les 12h du timestamp serveur.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
 		* Si Banni. Retourner la reponse.
 		* Si Guest. Retourner la reponse.
-	
+	4. Sélectionner toute la base de données.
+	5. Boucle sur la table utilisateur.
+		* Séparer les utilisateurs par rôle.
+	6. Boucle sur la table vote.
+		* Séparer les votes par type.
+			* Type poste
+			* Type loi
 * *Informations sortantes*
-	> Les données seront retournées dans les variables de rôle. L'app client n'a plus que vérifier le contenu.
+	> Les données seront retournées dans les variables de rôle. L'app client n'a plus que vérifier le contenu de chaque variable.
 	* Banni
 	* Guest
 	* Observateur
