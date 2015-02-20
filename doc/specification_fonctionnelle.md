@@ -924,11 +924,11 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω login
 > Connexion de l'utilisateur.
 
-* *Informations entrantes*
+* **Informations entrantes**
 	* Identifiant client (adresse bitcoin)
 	* Timestamp
 	* Signiature (hash Timestamp+Identifiant)
-* *Règles de gestion*
+* **Règles de gestion**
 	1. Vérification des données entrante. Timestamp dans les 12h du timestamp serveur.
 	2. Recherche de l'utilisateur dans la base de données.
 	3. Vérification du rôle de l'utilisateur.
@@ -937,12 +937,26 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	4. Sélectionner toute la base de données.
 	5. Boucle sur la table utilisateur.
 		* Séparer les utilisateurs par rôle.
+		* Compter les utilisateurs par rôle.
 	6. Boucle sur la table vote.
 		* Séparer les votes par type.
 			* Type poste
+				* Vérifier le poste et l'utilisateur choisi.
+				* Incrémenter la variable de vote des postes.
 			* Type loi
-* *Informations sortantes*
-	> Les données seront retournées dans les variables de rôle. L'app client n'a plus que vérifier le contenu de chaque variable.
+				* Vérifier la loi et l'amendement choisi.
+				* Incrémenter la variable de vote des lois.
+	7. Boucle sur la variable vote poste.
+		* Déterminer une liste de postes avec leurs utilisateurs élus.
+	8. Boucle sur la variable vote loi.
+		* Déterminer une liste de lois avec leurs amendements élus.
+	9. Boucle sur la variable de l'historique.
+		* Marquer les actions du client.
+	10. Vérifier si le client appartient à un poste élu.
+	11. Si Administrateur ou poste. Inclure les variables dans le retour.
+
+* **Informations sortantes**
+> Les données seront retournées dans les variables de rôle. L'app client n'a plus que vérifier le contenu de chaque variable.
 	* Banni
 	* Guest
 	* Observateur
