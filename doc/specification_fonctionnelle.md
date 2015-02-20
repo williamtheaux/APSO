@@ -27,7 +27,8 @@
 	* Les lois considérés élus, Quant au moins 50% des utilisateurs ont sélectionnées un amendement dans cette loi. Les 50% pourront être changés directement dans les configurations du code.
 
 * En cas **d'égalité ou ballotage**, les postes ou lois reste inchangées. Le résultat est en permanence accessible pour tous.
-	> [à propos cumul des mandats #4](https://github.com/williamtheaux/APSO/issues/4)
+	> Issues [#4](https://github.com/williamtheaux/APSO/issues/4) Commencer le dépouillement des postes par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
+	* Si les utilisateurs son élu avec le même score, alors c'est le premier de la liste qui obtient le poste.
 
 * Les **administrateurs** peuvent :
 	> Sont ajoutés au Master tous les autres droits (intervention sur les données et sur le système) Par défaut, 7 fonctions sont déja crée.
@@ -39,7 +40,7 @@
 * L'application comporte un **log**, historique de toutes les actions effectuer par les citoyens et les administrateurs. Ses informations sont accessible sur les deux applications.
 
 * Donner un espace de connexion pour les **observateurs**.
-
+	* Les observateurs accéderont aux mêmes données que les citoyens.
 ***
 
 ## Connexion des utilisateurs
@@ -947,7 +948,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 				* Vérifier la loi et l'amendement choisi.
 				* Incrémenter la variable de vote des lois.
 	7. Boucle sur la variable vote poste.
-		* Déterminer une liste de postes avec leurs utilisateurs élus.
+		* Déterminer une liste de postes avec leurs utilisateurs élus. Commencer par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
 	8. Boucle sur la variable vote loi.
 		* Déterminer une liste de lois avec leurs amendements élus.
 	9. Boucle sur la variable de l'historique.
