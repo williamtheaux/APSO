@@ -28,7 +28,7 @@
 
 * En cas **d'égalité ou ballotage**, les postes ou lois reste inchangées. Le résultat est en permanence accessible pour tous.
 	> Issues [#4](https://github.com/williamtheaux/APSO/issues/4) Commencer le dépouillement des postes par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
-	* Si les utilisateurs son élu avec le même score, alors c'est le premier de la liste qui obtient le poste.
+	* Si les utilisateurs son élu avec le même score, alors c'est le premier de la liste qui obtient le poste. Adopter le même comportement aux élections des amendements.
 
 * Les **administrateurs** peuvent :
 	> Sont ajoutés au Master tous les autres droits (intervention sur les données et sur le système) Par défaut, 7 fonctions sont déja crée.
@@ -979,7 +979,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	3. Si pas d'utilisateur.
 		* Enregistrait l'utilisateur.
 		* Sauvegardait l'action d'ans l'historique.
-	4. Sélectionner toutes les données de connexion (login 4-11).
+	4. Sélectionner toutes les données de connexion (`login` 4-11).
 * **Informations sortantes**
 	* Les données seront retournées comme dans login.
 
@@ -996,7 +996,11 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	3. Vérification du rôle de l'utilisateur.
 		* Si administrateur, alors poursuivre.
 		* Si citoyen, vérifier les poste est les élus.
+	4. Enregistrait le poste.
+	5. Sauvegardait l'action d'ans l'historique.
+	6. Sélectionner toutes les données de connexion (`login` 4-11).
 * **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
 
 ### Ω deletePoste
 > Suppression du poste.
