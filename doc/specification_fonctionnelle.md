@@ -41,6 +41,7 @@
 
 * Donner un espace de connexion pour les **observateurs**.
 	* Les observateurs accéderont aux mêmes données que les citoyens.
+
 ***
 
 ## Connexion des utilisateurs
@@ -967,15 +968,20 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω SignUp
 > inscription de l'utilisateur.
 
-* *Informations entrantes*
+* **Informations entrantes**
 	* Identifiant client (adresse bitcoin)
 	* Nom
 	* Prénom
 	* Signiature (hash nom+prénom+'Action'+Identifiant)
-* *Règles de gestion* 
-	
-* *Informations sortantes*
-
+* **Règles de gestion**
+1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Si pas d'utilisateur.
+		* Enregistrait l'utilisateur.
+		* Sauvegardait l'action d'ans l'historique.
+	4. Sélectionner toutes les données de connexion (login 4-11).
+* **Informations sortantes**
+	* Les données seront retournées comme dans login.
 
 ### Ω addPoste
 > Ajouter un nouveaux poste.
