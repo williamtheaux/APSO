@@ -974,7 +974,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Prénom
 	* Signiature (hash nom+prénom+'Action'+Identifiant)
 * **Règles de gestion**
-1. Vérification des données entrante.
+	1. Vérification des données entrante.
 	2. Recherche de l'utilisateur dans la base de données.
 	3. Si pas d'utilisateur.
 		* Enregistrait l'utilisateur.
@@ -986,12 +986,17 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω addPoste
 > Ajouter un nouveaux poste.
 
-* *Informations entrantes*
+* **Informations entrantes**
 	* Identifiant client (adresse bitcoin)
 	* Poste
 	* Signiature (hash Poste+'Action'+Identifiant)
-* *Règles de gestion* 
-* *Informations sortantes*
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si administrateur, alors poursuivre.
+		* Si citoyen, vérifier les poste est les élus.
+* **Informations sortantes**
 
 ### Ω deletePoste
 > Suppression du poste.
@@ -999,7 +1004,6 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 * *Informations entrantes*
 	* Identifiant client (adresse bitcoin)
 	* Identifiant Poste
-	* Poste
 	* Signiature (hash idPoste+Poste+'Action'+Identifiant)
 * *Règles de gestion* 
 * *Informations sortantes*
