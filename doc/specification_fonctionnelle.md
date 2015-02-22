@@ -1024,72 +1024,119 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ### Ω editeRole
 > Editer le role.
 
-* *Informations entrantes*
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* role
+	* id client
+	* Signiature (hash idUser+Role+'Action'+Identifiant)
 * *Règles de gestion* 
-* *Informations sortantes*
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
 
 ### Ω Vote
 > Permet de voter.
 
-* *Informations entrantes*
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* Type
+	* id 1
+	* id 2
 * *Règles de gestion* 
-* *Informations sortantes*
+* **Informations sortantes**
+	* Id du vote
+	* Hash pour la signature.
 
 ### Ω fixVote
 > Permet de confirmer son voter
 
-* *Informations entrantes*
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* id vote
+	* Signiature (Hash)
 * *Règles de gestion* 
-* *Informations sortantes*
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
 
 ### Ω addLois
 > Ajouter une nouvelle loi.
 
-* *Informations entrantes*
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* nom
+	* Signiature (hash 'Loi'+Identifiant)
 * *Règles de gestion* 
-* *Informations sortantes*
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
 
 ### Ω addAmd
 > Ajouter un nouveaux amendement.
 
-* *Informations entrantes*
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* amendement
+	* id loi
+	* Signiature (hash 'Loi'+'amendement'+Identifiant)
 * *Règles de gestion* 
-* *Informations sortantes*
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
 
 ### Ω editeLois
 > Editer une loi.
 
-* *Informations entrantes*
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* nom
+	* id loi
+	* Signiature (hash idLoi+'nom'+Identifiant)
 * *Règles de gestion* 
-* *Informations sortantes*
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
 
 ### Ω editeAmd
 > Editer un amendement.
 
-* *Informations entrantes*
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* nom
+	* id loi
+	* id Amd
+	* Signiature (hash idLoi+idAmd+'nom'+Identifiant)
 * *Règles de gestion* 
-* *Informations sortantes*
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
 
 ### Ω deleteLoi
 > Suppression d'une loi.
 
-* *Informations entrantes*
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* id loi
+	* Signiature (hash idLoi+Identifiant)
 * *Règles de gestion* 
-* *Informations sortantes*
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
 
 ### Ω deleteAmd
 > Suppression d'un amendemente.
 
-* *Informations entrantes*
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* id loi
+	* id Amd
+	* Signiature (hash idLoi+idAmd+Identifiant)
 * *Règles de gestion* 
-* *Informations sortantes*
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
 
 ### Ω upData
 > Mise à jour des données toutes les minutes.
 
-* *Informations entrantes*
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* Timestamp
+	* Signiature (hash Timestamp+Identifiant)
 * *Règles de gestion* 
-* *Informations sortantes*
+* **Informations sortantes**
 
 ***
 
