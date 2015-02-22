@@ -1016,6 +1016,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 		* Si administrateur, alors poursuivre.
 		* Si citoyen, vérifier les poste est les élus.
 	4. Suppression du poste.
+		* Suppression des votes.
 	5. Sauvegardait l'action d'ans l'historique.
 	6. Sélectionner toutes les données de connexion (`login` 4-11).
 * **Informations sortantes**
@@ -1029,7 +1030,18 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* role
 	* id client
 	* Signiature (hash idUser+Role+'Action'+Identifiant)
-* *Règles de gestion* 
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si administrateur, alors poursuivre.
+		* Si citoyen, vérifier les poste est les élus.
+	4. Recherche le client dans la base de données.
+	5. Vérifier le rôle du client.
+		* Si administrateur, lancer une erreur.
+	6. Modifier le rôle du client.
+	7. Sauvegardait l'action d'ans l'historique.
+	8. Sélectionner toutes les données de connexion (`login` 4-11).
 * **Informations sortantes**
 	* Les données seront retournées comme dans `upData`.
 
