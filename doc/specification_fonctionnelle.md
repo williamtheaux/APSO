@@ -1053,7 +1053,15 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Type
 	* id 1
 	* id 2
-* *Règles de gestion*
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si citoyen ou administrateur, alors poursuivre.
+	4. Vérifier si le client a voté pour ce type et id.
+		* SI oui, modifier le vote.
+		* Si non, Sauvegardait le vote.
+	5. Crée un hash du vote.
 * **Informations sortantes**
 	* Id du vote
 	* Hash pour la signature.
@@ -1065,7 +1073,14 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Identifiant client (adresse bitcoin)
 	* id vote
 	* Signiature (Hash)
-* *Règles de gestion*
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si citoyen ou administrateur, alors poursuivre.
+	4. Vérifier le hash.
+	6. Sauvegardait la signature.
+	7. Sauvegardait l'action d'ans l'historique.
 * **Informations sortantes**
 	* Les données seront retournées comme dans `upData`.
 
@@ -1195,8 +1210,38 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Identifiant client (adresse bitcoin)
 	* Timestamp
 	* Signiature (hash Timestamp+Identifiant)
-* *Règles de gestion* 
+* **Règles de gestion**
+	1. Vérification des données entrante. Timestamp dans les 12h du timestamp serveur.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si Banni. Retourner la reponse.
+		* Si Guest. Retourner la reponse.
+	4. Sélectionner toute la base de données.
+	5. Boucle sur la table utilisateur.
+		* Séparer les utilisateurs par rôle.
+		* Compter les utilisateurs par rôle.
+	6. Boucle sur la table vote.
+		* Séparer les votes par type.
+			* Type poste
+				* Vérifier le poste et l'utilisateur choisi.
+				* Incrémenter la variable de vote des postes.
+			* Type loi
+				* Vérifier la loi et l'amendement choisi.
+				* Incrémenter la variable de vote des lois.
+	7. Boucle sur la variable vote poste.
+		* Déterminer une liste de postes avec leurs utilisateurs élus. Commencer par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
+	8. Boucle sur la variable vote loi.
+		* Déterminer une liste de lois avec leurs amendements élus.
+	9. Boucle sur la variable de l'historique.
+		* Marquer les actions du client.
+	10. Vérifier si le client appartient à un poste élu.
+	11. Si Administrateur ou poste. Inclure les variables dans le retour.
 * **Informations sortantes**
+	* Banni
+	* Guest
+	* Observateur
+	* Citoyen
+	* Administrateur
 
 ***
 
