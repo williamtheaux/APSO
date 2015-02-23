@@ -1053,7 +1053,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Type
 	* id 1
 	* id 2
-* *Règles de gestion* 
+* *Règles de gestion*
 * **Informations sortantes**
 	* Id du vote
 	* Hash pour la signature.
@@ -1065,7 +1065,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Identifiant client (adresse bitcoin)
 	* id vote
 	* Signiature (Hash)
-* *Règles de gestion* 
+* *Règles de gestion*
 * **Informations sortantes**
 	* Les données seront retournées comme dans `upData`.
 
@@ -1076,7 +1076,14 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* Identifiant client (adresse bitcoin)
 	* nom
 	* Signiature (hash 'Loi'+Identifiant)
-* *Règles de gestion*
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si citoyen ou administrateur, alors poursuivre.
+	4. Enregistrait la loi.
+	5. Sauvegardait l'action d'ans l'historique.
+	6. Sélectionner toutes les données de connexion (`login` 4-11).
 * **Informations sortantes**
 	* Les données seront retournées comme dans `upData`.
 
