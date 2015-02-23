@@ -1121,7 +1121,15 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	* id loi
 	* id Amd
 	* Signiature (hash idLoi+idAmd+'nom'+Identifiant)
-* *Règles de gestion* 
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si administrateur, alors poursuivre.
+		* Si citoyen, vérifier les poste est les élus.
+	4. Modifier l'amendement.
+	5. Sauvegardait l'action d'ans l'historique.
+	6. Sélectionner toutes les données de connexion (`login` 4-11).
 * **Informations sortantes**
 	* Les données seront retournées comme dans `upData`.
 
