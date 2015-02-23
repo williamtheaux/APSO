@@ -87,12 +87,6 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 1. **Récupération des listes électorales**
 	* Cette procédure, ce pass au moment de la connexion, ou l'utilisateur récupère toutes les données relatives à l'application.
 
-2. **Procédure du vote**
-	* Travail en cours
-
-3. **Signature du vote**
-	* Travail en cours
-
 ***
 
 ## Fonctions propriétaires
@@ -1040,6 +1034,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 	5. Vérifier le rôle du client.
 		* Si administrateur, lancer une erreur.
 	6. Modifier le rôle du client.
+		* Si banni, effacer els votes.
 	7. Sauvegardait l'action d'ans l'historique.
 	8. Sélectionner toutes les données de connexion (`login` 4-11).
 * **Informations sortantes**
