@@ -64,6 +64,12 @@ L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administra
 | citoyen | Les citoyens ont le droit d'exprimer leurs votes et proposer de nouvelles lois. Ils peuvent aussi être élus. |
 | admin | Ils gèrent et modifient toutes les données de l'api. |
 
+Api/configuration/params.php
+```php
+config::addParams('role', 'guest', 'GUEST');
+config::addParams('role', 'banni', 'BANNI');
+//...
+```
 
 les postes permet de définir des fonctions propriétaires accessibles seulement a l'utilisateur élu au poste à ce moment-là. Par défaut, 4 postes sont déja crée.
 
