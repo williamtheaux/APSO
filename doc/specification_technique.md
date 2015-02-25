@@ -22,13 +22,18 @@ $.m.user.wallet.hash
 *Décrypte la phrase secrète*
 ```js
 // hash passphrase.
-var hash = Crypto.util.hexToBytes($.crp.decrypte($.m.user.wallet.hash, $.sha1($('#YOUR-FORM #password').val())));
+var hash = Crypto.util.hexToBytes($.crp.decrypte($.m.user.wallet.hash, $.sha1('YOUR-CODE-PIN')));
 ```
 
-*Récupérer la clé privée en string*
+*Récupérer l'adresse bitcoin et la clé privée en string*
 ```js
-// Get private key.
+// Initialize new bitcoin object.
 var sec = new Bitcoin.ECKey(hash);
+
+// Get bitcoin adresse.
+var adr = ''+sec.getBitcoinAddress();
+
+// Get private key.
 var key = ''+sec.getExportedPrivateKey();
 ```
 
@@ -41,12 +46,17 @@ var compressed = payload.length == 38;
 // Signer le message.
 var sign = $.btc.sign_message(sec, 'YOUR-MESSAGE', compressed);
 ```
+*Les événement déclenché par la partie utilisateur*
+| Event | Desc |
+|-------|------|
+| login | Cette événement est lancé a la connexion d'un utilisateur. |
+| logout | Cette événement est lancé a la déconnexion d'un utilisateur. |
 
 > Vérification de la signature électronique côté serveur par le php, dans toutes les fonctions du framework.
 
 *Validation de la signature*
 ```php
-// Class de validation.
+// Return true or false.
 valide::btc_sign($bitcoinAdresse, $message, $signature);
 ```
 
