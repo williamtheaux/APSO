@@ -6,48 +6,48 @@
 
 ***
 
-## Introduction
-
-**Appareillage d'expérimentation de la démocratie directe.**
-
-
-* **Fonctions propriétaires** définies pour les postes crées précédemment. Permet de définir des fonctions propriétaires accessibles seulement a l'utilisateur en poste à ce moment-là. Les fonctions sont modulables pour être ajoutées ou supprimer. Elles pourront être utilisées sur plusieur postes simultanément.
-	> Issues [#1](https://github.com/williamtheaux/APSO/issues/1) [#3](https://github.com/williamtheaux/APSO/issues/3) Par défaut, 5 fonctions sont déja crée pour le poste de **secrétaire** :
-	* Suppression et mise en forme des lois et leurs amendements.
-	* Valider ou invalider les citoyens. Bas niveaux.
-	* Ajouter ou supprimer des postes pour les élections
-
-* L'application comporte le **suffrage universel**. Une section ou chaque votant peut créer des nouvelles lois, proposer des amendements pour des lois existantes, et enfin, exprimer sont vote.
-	* Les lois considérés élus, Quant au moins 50% des utilisateurs ont sélectionnées un amendement dans cette loi. Les 50% pourront être changés directement dans les configurations du code.
-
-* En cas **d'égalité ou ballotage**, les postes ou lois reste inchangées. Le résultat est en permanence accessible pour tous.
-	> Issues [#4](https://github.com/williamtheaux/APSO/issues/4) Commencer le dépouillement des postes par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
-	* Si les utilisateurs son élu avec le même score, alors c'est le premier de la liste qui obtient le poste. Adopter le même comportement aux élections des amendements.
-
-* Les **administrateurs** peuvent :
-	> Sont ajoutés au Master tous les autres droits (intervention sur les données et sur le système) Par défaut, 7 fonctions sont déja crée.
-	* Ajouter ou supprimer des postes pour les élections.
-	* Valider ou invalider les citoyens. Haut niveaux.
-	* Suppression et mise en forme des lois et leurs amendements.
-	* Ajoutées ou supprimer les fonctions propriétaires.
-
-* L'application comporte un **log**, historique de toutes les actions effectuer par les citoyens et les administrateurs. Ses informations sont accessible sur les deux applications.
-
-* Donner un espace de connexion pour les **observateurs**.
-	* Les observateurs accéderont aux mêmes données que les citoyens.
-
-***
-
 ## Connexion des utilisateurs
 
-> Accès au information de l'utilisateur côté jQuery.
+> Accès au information de l'utilisateur côté jQuery, dans toutes les fonctions du framework.
 
+*Variables disponibles.*
 ```js
 // Identifiant client. Address bitcoin.
 $.m.user.wallet.adr
 
 // Hash crypter de la phrase secrète.
 $.m.user.wallet.hash
+```
+
+*Décrypte la phrase secrète*
+```js
+// hash passphrase.
+var hash = Crypto.util.hexToBytes($.crp.decrypte($.m.user.wallet.hash, $.sha1($('#YOUR-FORM #password').val())));
+```
+
+*Récupérer la clé privée en string*
+```js
+// Get private key.
+var sec = new Bitcoin.ECKey(hash);
+var key = ''+sec.getExportedPrivateKey();
+```
+
+*Signer un message*
+```js
+// Compresse private key.
+var payload = Bitcoin.Base58.decode(key);
+var compressed = payload.length == 38;
+
+// Signer le message.
+var sign = $.btc.sign_message(sec, 'YOUR-MESSAGE', compressed);
+```
+
+> Vérification de la signature électronique côté serveur par le php, dans toutes les fonctions du framework.
+
+*Validation de la signature*
+```php
+// Class de validation.
+valide::btc_sign($bitcoinAdresse, $message, $signature);
 ```
 
 ***
