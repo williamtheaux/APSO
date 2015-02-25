@@ -40,21 +40,21 @@
 
 ## Connexion des utilisateurs
 
-L'utilisateur entre, côté client une phrase secrétée qui génère une **clé public**, avec là qu'elle, il est identifié côté serveur. Le serveur n'a plus besoins de son mail et mot de pass, de se fait ça enlève le problème de sécurité côté serveur, il y a plus besoin de le pirater, car il ne garde plus aucune donnée **sensible** concernant le client.
+> Accès au information de l'utilisateur côté jQuery.
 
-Si l'utilisateur doit faire une modification exigent son authentification, un message est **signé** côté client, le serveur na plus qu'a vérifier la validité de la signature pour identifier que c'est bien l'utilisateur qui a fait la demande.
+```js
+// Identifiant client. Address bitcoin.
+$.m.user.wallet.adr
 
-**∆** Tout le compte est régénérer à partir de la phrase secrète à chaque utilisation et les données sont traitées en **local** avec JavaScript.
-
-**∆** Un nouveau code pin est demander a la connexion pour un **cryptage symétrique** de la phrase secrète pendant toute la durée de la session locale. le code pin n'est stocké nulle part.
-
-**∆** Tout le systeme cryptographique reste **invisible** pour le client final.
+// Hash crypter de la phrase secrète.
+$.m.user.wallet.hash
+```
 
 ***
 
 ## Gestion des rôles et accées.
 
-L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administrateurs ou par les postes, disposant de la fonction propriétaires.
+> L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administrateurs ou par les postes, disposant de la fonction propriétaires.
 
 | Rôle | Desc |
 |------|------|
@@ -64,14 +64,14 @@ L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administra
 | citoyen | Les citoyens ont le droit d'exprimer leurs votes et proposer de nouvelles lois. Ils peuvent aussi être élus. |
 | admin | Ils gèrent et modifient toutes les données de l'api. |
 
-Api/configuration/params.php
+*Api/configuration/params.php*
 ```php
 config::addParams('role', 'guest', 'GUEST');
 config::addParams('role', 'banni', 'BANNI');
 //...
 ```
 
-les postes permet de définir des fonctions propriétaires accessibles seulement a l'utilisateur élu au poste à ce moment-là. Par défaut, 4 postes sont déja crée.
+> les postes permet de définir des fonctions propriétaires accessibles seulement a l'utilisateur élu au poste à ce moment-là. Par défaut, 4 postes sont déja crée.
 
 | Poste | Nom |
 |-------|-----|
@@ -1252,13 +1252,4 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 
 ***
 
-## Annexes
-
-* PDF [Cryptographic Voting Protocols: A Systems Perspective](annexes/karlof.pdf)
-* PDF [David Chaum’s Voter Verification using Encrypted Paper Receipts](annexes/voter_verification_using_Encrypte.pdf)
-* PDF [Secure Electronic Voting Protocols](annexes/voting4hb.pdf)
-* URL [Bitcoin pour des votes gratuits et vérifiables](http://www.e-ducat.fr/bitcoin-pour-des-votes-gratuits-et-verifiables/)
-
-***
-
-*Lundi 26 Janvier 2015*
+*Mercredi 25 Février 2015*
