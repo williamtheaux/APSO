@@ -47,6 +47,7 @@ var compressed = payload.length == 38;
 var sign = $.btc.sign_message(sec, 'YOUR-MESSAGE', compressed);
 ```
 *Les événement déclenché par la partie utilisateur*
+
 | Event | Desc |
 |-------|------|
 | login | Cette événement est lancé a la connexion d'un utilisateur. |
@@ -89,25 +90,6 @@ config::addParams('role', 'banni', 'BANNI');
 | 2 | Secrétaire |
 | 3 | Trésorier |
 | 4 | Vice-Président |
-
-***
-
-## Anonymisation des votes
-
-* Les **contraintes** techniques du vote.
-	* Le vote doit être **anonyme**.
-	* Le système de vote doit être **vérifiable**.
-	* Le vote peut être **modifiable**.
-	* L'utilisateur peut **voir** ses votes.
-	* Le résultats des élections est en **temps réel**.
-	* Le système de vote doit être adaptable aux élections des **postes** et **lois**.
-	* Le système héberger sur un seul **serveur** et une **base de données**.
-	* Suppressions des votes si l'utilisateur est **Banni** par un administrateur.
-
-Un système de vote pseudo-anonyme avec une minime utilisation de brute force pour respecter la dernière contrainte. Utilisation d'une cryptographie asymétrique pour la signature des votes et une cryptographie symétrique pour que l'utilisateur puisse les voir et modifier. Le vote se passe en trois étapes :
-
-1. **Récupération des listes électorales**
-	* Cette procédure, ce pass au moment de la connexion, ou l'utilisateur récupère toutes les données relatives à l'application.
 
 ***
 
