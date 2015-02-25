@@ -53,6 +53,8 @@ var sign = $.btc.sign_message(sec, 'YOUR-MESSAGE', compressed);
 | login | Cette événement est lancé a la connexion d'un utilisateur. |
 | logout | Cette événement est lancé a la déconnexion d'un utilisateur. |
 
+### Côté serveur
+
 > Vérification de la signature électronique côté serveur par le php, dans toutes les fonctions du framework.
 
 *Validation de la signature*
@@ -81,6 +83,8 @@ config::addParams('role', 'guest', 'GUEST');
 config::addParams('role', 'banni', 'BANNI');
 //...
 ```
+
+### Gestion des postes.
 
 > les postes permet de définir des fonctions propriétaires accessibles seulement a l'utilisateur élu au poste à ce moment-là. Par défaut, 4 postes sont déja crée.
 
