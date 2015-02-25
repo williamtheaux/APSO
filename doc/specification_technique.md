@@ -10,12 +10,6 @@
 
 **Appareillage d'expérimentation de la démocratie directe.**
 
-* Une application permettant des **élections anonymes en temps réel** ou chaque votant est susceptible d'être élu. À tous moment, un citoyen peut changer sont vote et basculer le résulta final. Un élu n'a pas le droit au cumul des mandat.
-	> Par défaut, 4 postes sont déja crée :
-	* Président
-	* Secrétaire
-	* Trésorier
-	* Vice-Président
 
 * **Fonctions propriétaires** définies pour les postes crées précédemment. Permet de définir des fonctions propriétaires accessibles seulement a l'utilisateur en poste à ce moment-là. Les fonctions sont modulables pour être ajoutées ou supprimer. Elles pourront être utilisées sur plusieur postes simultanément.
 	> Issues [#1](https://github.com/williamtheaux/APSO/issues/1) [#3](https://github.com/williamtheaux/APSO/issues/3) Par défaut, 5 fonctions sont déja crée pour le poste de **secrétaire** :
@@ -58,15 +52,27 @@ Si l'utilisateur doit faire une modification exigent son authentification, un me
 
 ***
 
-## Gestion des utilisateurs
+## Gestion des rôles et accées.
 
-L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administrateurs ou par les postes, disposant de la fonction propriétaires. Si le client se connecte pour la première fois et n'est pas reconnu par l'api, il est invité de finir son inscription en fournissant des données supplémentaires : **Nom** et **Prénom**.
+L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administrateurs ou par les postes, disposant de la fonction propriétaires.
 
-* **Guest :** Le rôle par défaut après l'inscription de l'utilisateur dans l'api. Retourne un message "En attente de validation par un administrateur."
-* **Banni :** Concerne les utilisateurs bannis par un administrateur ou un poste disposant de la fonction propriétaire. Regroupe aussi les visiteurs non identifiés après l'inscription. Retourne un message "Vous êtes bloqué. Veuillez contacter un administrateur."
-* **Observateur :** Le groupe des Observateur, ont seulement accès a l'historique et les résulta du suffrage.
-* **citoyen :** Les citoyens ont le droit d'exprimer leurs votes et proposer de nouvelles lois. Ils peuvent aussi être élus.
-* **Administrateur :** Ils gèrent et modifient toutes les données de l'api.
+| Rôle | Desc |
+|------|------|
+| guest | Le rôle par défaut après l'inscription de l'utilisateur dans l'api. Retourne un message "En attente de validation par un administrateur." |
+| banni | Concerne les utilisateurs bannis par un administrateur ou un poste disposant de la fonction propriétaire. Regroupe aussi les visiteurs non identifiés après l'inscription. Retourne un message "Vous êtes bloqué. Veuillez contacter un administrateur." |
+| obs | Le groupe des Observateur, ont seulement accès a l'historique et les résulta du suffrage. |
+| citoyen | Les citoyens ont le droit d'exprimer leurs votes et proposer de nouvelles lois. Ils peuvent aussi être élus. |
+| admin | Ils gèrent et modifient toutes les données de l'api. |
+
+
+les postes permet de définir des fonctions propriétaires accessibles seulement a l'utilisateur élu au poste à ce moment-là. Par défaut, 4 postes sont déja crée.
+
+| Poste | Nom |
+|-------|-----|
+| 1 | Président |
+| 2 | Secrétaire |
+| 3 | Trésorier |
+| 4 | Vice-Président |
 
 ***
 
@@ -918,7 +924,7 @@ Un système de vote pseudo-anonyme avec une minime utilisation de brute force po
 ![App architecture](annexes/apiArchitect.jpg)
 
 ### Ω login
-> Connexion de l'utilisateur.
+> Connexion de l'utilisateur.  Si le client se connecte pour la première fois et n'est pas reconnu par l'api, il est invité de finir son inscription en fournissant des données supplémentaires : **Nom** et **Prénom**.
 
 * **Informations entrantes**
 	* Identifiant client (adresse bitcoin)
