@@ -116,7 +116,7 @@ config::addParams('role', 'banni', 'BANNI');
 
 > Le projet est constitué d'une api côté serveur et d'une application web côté client. Nous commençons ici par les fonctions du modèle et la base de données.
 
-
+![SQL architecture](annexes/sqlArchitect.png)
 
 ## ∑ Model dbUser
 > Regroupe les fonctions en rapport avec la table user.
