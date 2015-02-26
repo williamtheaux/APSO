@@ -945,11 +945,11 @@ config::addParams('role', 'banni', 'BANNI');
 
 **Informations entrantes**
 
-| param | Desc |
-|-------|------|
-| $a | Identifiant client (adresse bitcoin). |
-| $t | Timestamp. |
-| $s | Signiature (hash sha1 Timestamp+Identifiant). |
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $t | int | Timestamp. |
+| $s | string sha1 | Signiature (hash sha1 Timestamp+Identifiant). |
 
 **Règles de gestion**
 
@@ -1012,8 +1012,16 @@ config::addParams('role', 'banni', 'BANNI');
 	* Crée un hash `sha1` du nom `$n`, prénom `$p` et de l'adresse bitcoin `$a`.
 	* Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`.
 2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
-	* Crée un tableau contenant l'Identifiant client. `$req = array('adr' => $a)`
-	* Appel a la fonction du model `dbUser::getUserByBtc($req)`.
+	* Crée un tableau contenant l'identifiant client.
+	
+	```php
+	// Init $req.
+	$req = array('adr' => $a);
+	
+	// Appel a la fonction du model.
+	dbUser::getUserByBtc($req);
+	```
+	
 3. Vérifier si pas d'utilisateur ou retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`.
 	* Enregistrait l'utilisateur.
 	* Sauvegardait l'action d'ans l'historique.
