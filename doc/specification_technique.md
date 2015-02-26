@@ -97,15 +97,19 @@ config::addParams('role', 'banni', 'BANNI');
 
 ***
 
-## Fonctions propriétaires
+## Gestion des erreurs.
 
-* L'application cliente gère le retour JSON de connexion dans des variables séparé. Banni, Guest, Observateur, citoyen, Administrateur. Chaque fonction jQuery n'aura plus qu'a vérifier la présence de la variable pour afficher ou non les informations. Les fonctions propriétaires seront placées directement dans la variable admin par le serveur. L'app client ne vérifie pas directement le poste du citoyen, mais affiche ou non les infos de la variable Administrateur. Si un codeur modifie les données pendant l'exécution de l'app et accède au fonctions propriétaires. Le serveur rejettera ces demandes. 
+| Code | Desc |
+|-------|-----|
+| ERR-BTC-ADR-INVALID | L'adresse bitcoin ne semble pas être valide. |
 
 ***
 
 # ∑ Architecture
 
 > Le projet est constitué d'une api côté serveur et d'une application web côté client.
+
+## SQL Model
 
 ***
 
@@ -968,8 +972,8 @@ config::addParams('role', 'banni', 'BANNI');
 
 ```js
 {
-	'guest' : 
-	'banni' : 
+	'guest' : 1,
+	'banni' : 1,
 	'obs' : 
 	'citoyen' : 
 	'admin' : 
@@ -991,8 +995,7 @@ config::addParams('role', 'banni', 'BANNI');
 **Règles de gestion**
 
 1. Vérification des données entrante.
-	* Vérifier la validité de l'adresse bitcoin.
-		* Retourner une erreur.
+	* Vérifier la validité de l'adresse bitcoin ou retourner une erreur. `ERR-BTC-ADR-INVALID`.
 	* Vérifier que nom et prénom son des alpha.
 		* Retourner une erreur.
 	* Crée un hash du nom, prénom et de l'adresse bitcoin.
@@ -1006,7 +1009,11 @@ config::addParams('role', 'banni', 'BANNI');
 
 **Informations sortantes**
 
-* Les données seront retournées comme dans `user_login`.
+```js
+{
+	'guest' : 1 
+}
+```
 
 ### Ω addPoste
 > Ajouter un nouveaux poste.
