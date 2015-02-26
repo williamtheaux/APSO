@@ -1011,21 +1011,21 @@ config::addParams('role', 'banni', 'BANNI');
 	* Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`.
 	* Crée un hash `sha1` du nom `$n`, prénom `$p` et de l'adresse bitcoin `$a`.
 	* Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`.
+
 2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
-	* Crée un tableau contenant l'identifiant client.
-	
-	```php
-	// Init $req.
-	$req = array('adr' => $a);
-	
-	// Appel a la fonction du model.
-	dbUser::getUserByBtc($req);
-	```
-	
+
+```php
+// Crée un tableau contenant l'identifiant client.
+$req = array('adr' => $a);
+
+// Appel a la fonction du model.
+dbUser::getUserByBtc($req);
+```
+
 3. Vérifier si pas d'utilisateur ou retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`.
-	* Enregistrait l'utilisateur.
-	* Sauvegardait l'action d'ans l'historique.
-4. Sélectionner toutes les données de connexion (`login` 4-11).
+4. Enregistrait l'utilisateur.
+5. Sauvegardait l'action dans l'historique.
+6. Sélectionner toutes les données de connexion (`login` 4-11).
 
 **Informations sortantes**
 
