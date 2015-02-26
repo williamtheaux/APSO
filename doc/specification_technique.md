@@ -101,6 +101,11 @@ config::addParams('role', 'banni', 'BANNI');
 
 | Code | Desc |
 |-------|-----|
+| ERR-NOT-FIND-FILE | Erreur lors du chargement du fichier d'exécution. |
+| ERR-INVALID-PARAM-OR-METHODE | Méthodes ou Paramètres incorrects. Erreur dans les données d'accès. |
+| ERR-CONNECT-MYSQL | Connexion au serveur MySQL impossible. Erreur dans les données d'accès. |
+| ERR-OFFLINE-MESSAGE | L'application est actuellement indisponible pour cause de maintenance. Désolé pour le désagrément. |
+| ERR-MODEL-DATABASE | Erreur lors de l'exécution de la commande de model SQL. |
 | ERR-BTC-ADR-INVALID | L'adresse bitcoin ne semble pas être valide. |
 | ERR-BTC-SIGN-INVALID | La signature électronique ne semble pas être valide. |
 | ERR-ACCOUNT-ALREADY-EXISTS | L'utilisateur est déjà enregistré dans la base de données. |
@@ -109,9 +114,12 @@ config::addParams('role', 'banni', 'BANNI');
 
 # ∑ Architecture
 
-> Le projet est constitué d'une api côté serveur et d'une application web côté client.
+> Le projet est constitué d'une api côté serveur et d'une application web côté client. Nous commençons ici par les fonctions du modèle et la base de données.
 
-## SQL Model dbUser
+
+
+## ∑ Model dbUser
+> Regroupe les fonctions en rapport avec la table user.
 
 ### Ω dbUser::getUserByBtc($e)
 > Retourne la table de l'utilisateur trouver par son identifiant (adresse bitcoin).
@@ -121,6 +129,25 @@ config::addParams('role', 'banni', 'BANNI');
 | param | Type | Desc |
 |-------|------|------|
 | $e | array | Un tableau contenant l'identifiant de l'utilisateur. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('SELECT * FROM apso_user WHERE adr=:adr');
+```
+
+**Informations sortantes**
+```php
+Array {
+	[id] = // L'identifiant unique crée par l'application.
+	[adr] = // Identifiant client (adresse bitcoin).
+	[nom] = // Le nom du client.
+	[prenom] = // Le prenom du client.
+	[date] = // La date d'inscription.
+	[role] = // Le rôle de l'utilisateur.
+}
+```
 
 ***
 
@@ -948,7 +975,7 @@ config::addParams('role', 'banni', 'BANNI');
 | param | Type | Desc |
 |-------|------|------|
 | $a | string | Identifiant client (adresse bitcoin). |
-| $t | int | Timestamp. |
+| $t | int | Timestamp actuel. |
 | $s | string sha1 | Signiature (hash sha1 Timestamp+Identifiant). |
 
 **Règles de gestion**
