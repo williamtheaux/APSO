@@ -53,7 +53,7 @@ var sign = $.btc.sign_message(sec, 'YOUR-MESSAGE', compressed);
 | login | Cette événement est lancé a la connexion d'un utilisateur. |
 | logout | Cette événement est lancé a la déconnexion d'un utilisateur. |
 
-### Côté serveur
+#### Côté serveur
 
 > Vérification de la signature électronique côté serveur par le php, dans toutes les fonctions du framework.
 
@@ -84,7 +84,7 @@ config::addParams('role', 'banni', 'BANNI');
 //...
 ```
 
-### Gestion des postes.
+#### Gestion des postes.
 
 > les postes permet de définir des fonctions propriétaires accessibles seulement a l'utilisateur élu au poste à ce moment-là. Par défaut, 4 postes sont déja crée.
 
@@ -925,20 +925,25 @@ config::addParams('role', 'banni', 'BANNI');
 
 ![App architecture](annexes/apiArchitect.jpg)
 
-### Ω login
+### Ω user_login($a, $t, $s)
 > Connexion de l'utilisateur.  Si le client se connecte pour la première fois et n'est pas reconnu par l'api, il est invité de finir son inscription en fournissant des données supplémentaires : **Nom** et **Prénom**.
 
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* Timestamp
-	* Signiature (hash Timestamp+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante. Timestamp dans les 12h du timestamp serveur.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si Banni. Retourner la reponse.
-		* Si Guest. Retourner la reponse.
-	4. Sélectionner toute la base de données.
+*Informations entrantes*
+
+| param | Desc |
+|-------|------|
+| $a | Identifiant client (adresse bitcoin). |
+| $t | Timestamp. |
+| $s | Signiature (hash sha1 Timestamp+Identifiant). |
+
+*Règles de gestion*
+
+1. Vérification des données entrante. Timestamp dans les 12h du timestamp serveur.
+2. Recherche de l'utilisateur dans la base de données.
+3. Vérification du rôle de l'utilisateur.
+	* Si Banni. Retourner la reponse.
+	* Si Guest. Retourner la reponse.
+4. Sélectionner toute la base de données.
 	5. Boucle sur la table utilisateur.
 		* Séparer les utilisateurs par rôle.
 		* Compter les utilisateurs par rôle.
@@ -959,22 +964,29 @@ config::addParams('role', 'banni', 'BANNI');
 	10. Vérifier si le client appartient à un poste élu.
 	11. Si Administrateur ou poste. Inclure les variables dans le retour.
 
-* **Informations sortantes**
-> Les données seront retournées dans les variables de rôle. L'app client n'a plus que vérifier le contenu de chaque variable.
-	* Banni
-	* Guest
-	* Observateur
-	* Citoyen
-	* Administrateur
+*Informations sortantes*
+```js
+{
+	'guest' : 
+	'banni' : 
+	'obs' : 
+	'citoyen' : 
+	'admin' : 
+}
+```
 
-### Ω SignUp
+### Ω user_sign($a, $n, $p, $s)
 > inscription de l'utilisateur.
 
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* Nom
-	* Prénom
-	* Signiature (hash nom+prénom+'Action'+Identifiant)
+*Informations entrantes*
+
+| param | Desc |
+|-------|------|
+| $a | Identifiant client (adresse bitcoin). |
+| $n | Nom. |
+| $p | Prénom. |
+| $s | Signiature (hash sha1 nom+prénom+Identifiant). |
+
 * **Règles de gestion**
 	1. Vérification des données entrante.
 	2. Recherche de l'utilisateur dans la base de données.
@@ -983,7 +995,7 @@ config::addParams('role', 'banni', 'BANNI');
 		* Sauvegardait l'action d'ans l'historique.
 	4. Sélectionner toutes les données de connexion (`login` 4-11).
 * **Informations sortantes**
-	* Les données seront retournées comme dans login.
+	* Les données seront retournées comme dans `user_login`.
 
 ### Ω addPoste
 > Ajouter un nouveaux poste.
