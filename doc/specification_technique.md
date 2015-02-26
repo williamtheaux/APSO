@@ -928,7 +928,7 @@ config::addParams('role', 'banni', 'BANNI');
 ### Ω user_login($a, $t, $s)
 > Connexion de l'utilisateur.  Si le client se connecte pour la première fois et n'est pas reconnu par l'api, il est invité de finir son inscription en fournissant des données supplémentaires : **Nom** et **Prénom**.
 
-*Informations entrantes*
+**Informations entrantes**
 
 | param | Desc |
 |-------|------|
@@ -936,7 +936,7 @@ config::addParams('role', 'banni', 'BANNI');
 | $t | Timestamp. |
 | $s | Signiature (hash sha1 Timestamp+Identifiant). |
 
-*Règles de gestion*
+**Règles de gestion**
 
 1. Vérification des données entrante. Timestamp dans les 12h du timestamp serveur.
 2. Recherche de l'utilisateur dans la base de données.
@@ -964,7 +964,8 @@ config::addParams('role', 'banni', 'BANNI');
 	10. Vérifier si le client appartient à un poste élu.
 	11. Si Administrateur ou poste. Inclure les variables dans le retour.
 
-*Informations sortantes*
+**Informations sortantes**
+
 ```js
 {
 	'guest' : 
@@ -978,7 +979,7 @@ config::addParams('role', 'banni', 'BANNI');
 ### Ω user_sign($a, $n, $p, $s)
 > inscription de l'utilisateur.
 
-*Informations entrantes*
+**Informations entrantes**
 
 | param | Desc |
 |-------|------|
@@ -987,15 +988,20 @@ config::addParams('role', 'banni', 'BANNI');
 | $p | Prénom. |
 | $s | Signiature (hash sha1 nom+prénom+Identifiant). |
 
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Si pas d'utilisateur.
-		* Enregistrait l'utilisateur.
-		* Sauvegardait l'action d'ans l'historique.
-	4. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `user_login`.
+**Règles de gestion**
+
+1. Vérification des données entrante.
+	* Vérifier la validité de l'adresse bitcoin.
+
+2. Recherche de l'utilisateur dans la base de données.
+3. Si pas d'utilisateur.
+	* Enregistrait l'utilisateur.
+	* Sauvegardait l'action d'ans l'historique.
+4. Sélectionner toutes les données de connexion (`login` 4-11).
+
+**Informations sortantes**
+
+* Les données seront retournées comme dans `user_login`.
 
 ### Ω addPoste
 > Ajouter un nouveaux poste.
