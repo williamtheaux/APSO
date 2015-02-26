@@ -992,7 +992,12 @@ config::addParams('role', 'banni', 'BANNI');
 
 1. Vérification des données entrante.
 	* Vérifier la validité de l'adresse bitcoin.
-
+		* Retourner une erreur.
+	* Vérifier que nom et prénom son des alpha.
+		* Retourner une erreur.
+	* Crée un hash du nom, prénom et de l'adresse bitcoin.
+	* Vérifier la signature avec le hash crée précédemment.
+		* Retourner une erreur.
 2. Recherche de l'utilisateur dans la base de données.
 3. Si pas d'utilisateur.
 	* Enregistrait l'utilisateur.
