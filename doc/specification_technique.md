@@ -97,11 +97,13 @@ config::addParams('role', 'banni', 'BANNI');
 
 ***
 
-## Gestion des erreurs.
+## Gestion des erreurs
 
 | Code | Desc |
 |-------|-----|
 | ERR-BTC-ADR-INVALID | L'adresse bitcoin ne semble pas être valide. |
+| ERR-BTC-SIGN-INVALID | La signature électronique ne semble pas être valide. |
+| ERR-ACCOUNT-ALREADY-EXISTS | L'utilisateur est déjà enregistré dans la base de données. |
 
 ***
 
@@ -109,7 +111,16 @@ config::addParams('role', 'banni', 'BANNI');
 
 > Le projet est constitué d'une api côté serveur et d'une application web côté client.
 
-## SQL Model
+## SQL Model dbUser
+
+### Ω dbUser::getUserByBtc($e)
+> Retourne la table de l'utilisateur trouver par son identifiant (adresse bitcoin).
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant l'identifiant de l'utilisateur. |
 
 ***
 
@@ -930,7 +941,7 @@ config::addParams('role', 'banni', 'BANNI');
 ![App architecture](annexes/apiArchitect.jpg)
 
 ### Ω user_login($a, $t, $s)
-> Connexion de l'utilisateur.  Si le client se connecte pour la première fois et n'est pas reconnu par l'api, il est invité de finir son inscription en fournissant des données supplémentaires : **Nom** et **Prénom**.
+> Connexion de l'utilisateur.
 
 **Informations entrantes**
 
@@ -985,24 +996,25 @@ config::addParams('role', 'banni', 'BANNI');
 
 **Informations entrantes**
 
-| param | Desc |
-|-------|------|
-| $a | Identifiant client (adresse bitcoin). |
-| $n | Nom. |
-| $p | Prénom. |
-| $s | Signiature (hash sha1 nom+prénom+Identifiant). |
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $n | string | Nom. |
+| $p | string | Prénom. |
+| $s | string sha1| Signiature (hash nom+prénom+Identifiant). |
 
 **Règles de gestion**
 
 1. Vérification des données entrante.
-	* Vérifier la validité de l'adresse bitcoin ou retourner une erreur. `ERR-BTC-ADR-INVALID`.
-	* Vérifier que nom et prénom son des alpha.
+	* Vérifier que nom `$n` et prénom `$p` son des alpha.
 		* Retourner une erreur.
-	* Crée un hash du nom, prénom et de l'adresse bitcoin.
-	* Vérifier la signature avec le hash crée précédemment.
-		* Retourner une erreur.
-2. Recherche de l'utilisateur dans la base de données.
-3. Si pas d'utilisateur.
+	* Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`.
+	* Crée un hash `sha1` du nom `$n`, prénom `$p` et de l'adresse bitcoin `$a`.
+	* Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`.
+2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
+	* Crée un tableau contenant l'Identifiant client. `$req = array('adr' => $a)`
+	* Appel a la fonction du model `dbUser::getUserByBtc($req)`.
+3. Vérifier si pas d'utilisateur ou retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`.
 	* Enregistrait l'utilisateur.
 	* Sauvegardait l'action d'ans l'historique.
 4. Sélectionner toutes les données de connexion (`login` 4-11).
