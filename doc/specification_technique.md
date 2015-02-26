@@ -118,9 +118,6 @@ config::addParams('role', 'banni', 'BANNI');
 
 ![SQL architecture](annexes/sqlArchitect.png)
 
-## ∑ Model dbUser
-> Regroupe les fonctions en rapport avec la table user.
-
 ### Ω dbUser::getUserByBtc($e)
 > Retourne la table de l'utilisateur trouver par son identifiant (adresse bitcoin).
 
