@@ -97,6 +97,16 @@ config::addParams('role', 'banni', 'BANNI');
 
 ***
 
+## Gestion de l'historique
+
+> Les actions disponibles dans l'application et leurs descriptions.
+
+| Action | Desc | jdata |
+|--------|------|-------|
+| save | Inscription de l'utilisateur | id user, adresse bitcoin, nom, prénom, date, rôle |
+
+***
+
 ## Gestion des erreurs
 
 | Code | Desc |
@@ -109,6 +119,8 @@ config::addParams('role', 'banni', 'BANNI');
 | ERR-BTC-ADR-INVALID | L'adresse bitcoin ne semble pas être valide. |
 | ERR-BTC-SIGN-INVALID | La signature électronique ne semble pas être valide. |
 | ERR-ACCOUNT-ALREADY-EXISTS | L'utilisateur est déjà enregistré dans la base de données. |
+| ERR-ECHEC-SAVE-USER | L'enregistrement de l'utilisateur a échoué. |
+| ERR-NAME-OR-FIRSTNAME-INVALID | Votre nom ou prénom semble invalide. |
 
 ***
 
@@ -149,6 +161,40 @@ Array {
 	[date] = // La date d'inscription.
 	[role] = // Le rôle de l'utilisateur.
 }
+```
+### Ω dbUser::setUser($e)
+> Ajoute un nouvel utilisateur dans la base de données, réoccuper et retourne son id user.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant l'identifiant client, nom, prénom, date, rôle. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('INSERT INTO apso_user VALUES("", :adr, :nom, :prenom, :date, :role)');
+```
+**Informations sortantes**
+
+* Récupérer l'adresse bitcoin et lancer la fonction `dbUser::getUserByBtc($e)`
+
+### Ω dbUser::setLog($e)
+> Ajoute un nouvel historique dans la base de données. Retourne void.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant l'id user, l'action, date, jdata. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 ```
 
 ***
@@ -225,11 +271,10 @@ Array {
 **Règles de gestion**
 
 1. Vérification des données entrante.
-	* Vérifier que nom `$n` et prénom `$p` son des alpha.
-		* Retourner une erreur.
-	* Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`.
+	* Vérifier que nom `$n` et prénom `$p` son des alpha ou retourner une erreur. `ERR-NAME-OR-FIRSTNAME-INVALID`
+	* Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`
 	* Crée un hash `sha1` du nom `$n`, prénom `$p` et de l'adresse bitcoin `$a`.
-	* Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`.
+	* Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`
 2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
 	```php
 	// Crée un tableau contenant l'identifiant client.
@@ -238,7 +283,7 @@ Array {
 	// Appel a la fonction du model.
 	$user = dbUser::getUserByBtc($req);
 	```
-3. Vérifier si pas d'utilisateur ou retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`.
+3. Vérifier si pas d'utilisateur ou retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`
 4. Enregistrait l'utilisateur.
 	```php
 	// Crée un tableau contenant l'identifiant client, nom, prénom, date, rôle.
@@ -253,9 +298,10 @@ Array {
 	// Appel a la fonction du model.
 	$user = dbUser::setUser($req);
 	```
-5. Ajouter l'id dans le array `$req`.
-6. Encode en string json le contenu de la variable `$req`.
-7. Sauvegardait l'action dans l'historique.
+5. Vérifier si l'utilisateur est enregistrait ou retourner une erreur. `ERR-ECHEC-SAVE-USER`
+6. Ajouter l'id user dans le array `$req`
+7. Encode en string json le contenu de la variable `$req`
+8. Sauvegardait l'action dans l'historique.
 	```php
 	// Crée un tableau contenant l'id user, l'action, date, jdata.
 	$req1 = array(
@@ -268,7 +314,7 @@ Array {
 	// Appel a la fonction du model.
 	dbUser::setLog($req1);
 	```
-8. Construire et retourner le tableau final.
+9. Construire et retourner le tableau final.
 
 **Informations sortantes**
 
