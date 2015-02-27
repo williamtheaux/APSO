@@ -240,8 +240,35 @@ Array {
 	```
 3. Vérifier si pas d'utilisateur ou retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`.
 4. Enregistrait l'utilisateur.
-5. Sauvegardait l'action dans l'historique.
-6. Sélectionner toutes les données de connexion (`login` 4-11).
+	```php
+	// Crée un tableau contenant l'identifiant client, nom, prénom, date, rôle.
+	$req = array(
+		'adr' => $a,
+		'nom' => $n,
+		'prenom' => $p,
+		'date' => // Timestamp actuel
+		'role' => 'guest'
+	);
+	
+	// Appel a la fonction du model.
+	$user = dbUser::setUser($req);
+	```
+5. Ajouter l'id dans le array `$req`.
+6. Encode en string json le contenu de la variable `$req`.
+7. Sauvegardait l'action dans l'historique.
+	```php
+	// Crée un tableau contenant l'id user, l'action, date, jdata.
+	$req1 = array(
+		'id_user' => // id retourner par dbUser::setUser($req),
+		'action' => 'save',
+		'date' => // Timestamp actuel
+		'jdata' => // string json $req
+	);
+	
+	// Appel a la fonction du model.
+	dbUser::setLog($req1);
+	```
+8. Construire et retourner le tableau final.
 
 **Informations sortantes**
 
