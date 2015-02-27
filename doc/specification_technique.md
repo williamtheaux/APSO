@@ -153,6 +153,367 @@ Array {
 
 ***
 
+## ∑ Api serveur
+
+> Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel. C'est la partie qui centralise et distribue les données. Elle gère la gestion des actions possibles.
+
+![App architecture](annexes/apiArchitect.jpg)
+
+### Ω user_login($a, $t, $s)
+> Connexion de l'utilisateur.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $t | int | Timestamp actuel. |
+| $s | string sha1 | Signiature (hash sha1 Timestamp+Identifiant). |
+
+**Règles de gestion**
+
+1. Vérification des données entrante. Timestamp dans les 12h du timestamp serveur.
+2. Recherche de l'utilisateur dans la base de données.
+3. Vérification du rôle de l'utilisateur.
+	* Si Banni. Retourner la reponse.
+	* Si Guest. Retourner la reponse.
+4. Sélectionner toute la base de données.
+	5. Boucle sur la table utilisateur.
+		* Séparer les utilisateurs par rôle.
+		* Compter les utilisateurs par rôle.
+	6. Boucle sur la table vote.
+		* Séparer les votes par type.
+			* Type poste
+				* Vérifier le poste et l'utilisateur choisi.
+				* Incrémenter la variable de vote des postes.
+			* Type loi
+				* Vérifier la loi et l'amendement choisi.
+				* Incrémenter la variable de vote des lois.
+	7. Boucle sur la variable vote poste.
+		* Déterminer une liste de postes avec leurs utilisateurs élus. Commencer par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
+	8. Boucle sur la variable vote loi.
+		* Déterminer une liste de lois avec leurs amendements élus.
+	9. Boucle sur la variable de l'historique.
+		* Marquer les actions du client.
+	10. Vérifier si le client appartient à un poste élu.
+	11. Si Administrateur ou poste. Inclure les variables dans le retour.
+
+**Informations sortantes**
+
+```js
+{
+	'guest' : 1,
+	'banni' : 1,
+	'obs' : 
+	'citoyen' : 
+	'admin' : 
+}
+```
+
+### Ω user_sign($a, $n, $p, $s)
+> inscription de l'utilisateur.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $n | string | Nom. |
+| $p | string | Prénom. |
+| $s | string sha1| Signiature (hash nom+prénom+Identifiant). |
+
+**Règles de gestion**
+
+1. Vérification des données entrante.
+	* Vérifier que nom `$n` et prénom `$p` son des alpha.
+		* Retourner une erreur.
+	* Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`.
+	* Crée un hash `sha1` du nom `$n`, prénom `$p` et de l'adresse bitcoin `$a`.
+	* Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`.
+2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
+	```php
+	// Crée un tableau contenant l'identifiant client.
+	$req = array('adr' => $a);
+	
+	// Appel a la fonction du model.
+	$user = dbUser::getUserByBtc($req);
+	```
+3. Vérifier si pas d'utilisateur ou retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`.
+4. Enregistrait l'utilisateur.
+5. Sauvegardait l'action dans l'historique.
+6. Sélectionner toutes les données de connexion (`login` 4-11).
+
+**Informations sortantes**
+
+```js
+{
+	'guest' : 1 
+}
+```
+
+### Ω addPoste
+> Ajouter un nouveaux poste.
+
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* Poste
+	* Signiature (hash Poste+'Action'+Identifiant)
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si administrateur, alors poursuivre.
+		* Si citoyen, vérifier les poste est les élus.
+	4. Enregistrait le poste.
+	5. Sauvegardait l'action d'ans l'historique.
+	6. Sélectionner toutes les données de connexion (`login` 4-11).
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
+
+### Ω deletePoste
+> Suppression du poste.
+
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* Identifiant Poste
+	* Signiature (hash idPoste+Poste+'Action'+Identifiant)
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si administrateur, alors poursuivre.
+		* Si citoyen, vérifier les poste est les élus.
+	4. Suppression du poste.
+		* Suppression des votes.
+	5. Sauvegardait l'action d'ans l'historique.
+	6. Sélectionner toutes les données de connexion (`login` 4-11).
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
+
+### Ω editeRole
+> Editer le role.
+
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* role
+	* id client
+	* Signiature (hash idUser+Role+'Action'+Identifiant)
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si administrateur, alors poursuivre.
+		* Si citoyen, vérifier les poste est les élus.
+	4. Recherche le client dans la base de données.
+	5. Vérifier le rôle du client.
+		* Si administrateur, lancer une erreur.
+	6. Modifier le rôle du client.
+		* Si banni, effacer els votes.
+	7. Sauvegardait l'action d'ans l'historique.
+	8. Sélectionner toutes les données de connexion (`login` 4-11).
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
+
+### Ω Vote
+> Permet de voter.
+
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* Type
+	* id 1
+	* id 2
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si citoyen ou administrateur, alors poursuivre.
+	4. Vérifier si le client a voté pour ce type et id.
+		* SI oui, modifier le vote.
+		* Si non, Sauvegardait le vote.
+	5. Crée un hash du vote.
+* **Informations sortantes**
+	* Id du vote
+	* Hash pour la signature.
+
+### Ω fixVote
+> Permet de confirmer son voter
+
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* id vote
+	* Signiature (Hash)
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si citoyen ou administrateur, alors poursuivre.
+	4. Vérifier le hash.
+	6. Sauvegardait la signature.
+	7. Sauvegardait l'action d'ans l'historique.
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
+
+### Ω addLois
+> Ajouter une nouvelle loi.
+
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* nom
+	* Signiature (hash 'Loi'+Identifiant)
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si citoyen ou administrateur, alors poursuivre.
+	4. Enregistrait la loi.
+	5. Sauvegardait l'action d'ans l'historique.
+	6. Sélectionner toutes les données de connexion (`login` 4-11).
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
+
+### Ω addAmd
+> Ajouter un nouveaux amendement.
+
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* amendement
+	* id loi
+	* Signiature (hash 'Loi'+'amendement'+Identifiant)
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si citoyen ou administrateur, alors poursuivre.
+	4. Enregistrait l'amendement.
+	5. Sauvegardait l'action d'ans l'historique.
+	6. Sélectionner toutes les données de connexion (`login` 4-11).
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
+
+### Ω editeLois
+> Editer une loi.
+
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* nom
+	* id loi
+	* Signiature (hash idLoi+'nom'+Identifiant)
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si administrateur, alors poursuivre.
+		* Si citoyen, vérifier les poste est les élus.
+	4. Modifier la loi.
+	5. Sauvegardait l'action d'ans l'historique.
+	6. Sélectionner toutes les données de connexion (`login` 4-11).
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
+
+### Ω editeAmd
+> Editer un amendement.
+
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* nom
+	* id loi
+	* id Amd
+	* Signiature (hash idLoi+idAmd+'nom'+Identifiant)
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si administrateur, alors poursuivre.
+		* Si citoyen, vérifier les poste est les élus.
+	4. Modifier l'amendement.
+	5. Sauvegardait l'action d'ans l'historique.
+	6. Sélectionner toutes les données de connexion (`login` 4-11).
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
+
+### Ω deleteLoi
+> Suppression d'une loi.
+
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* id loi
+	* Signiature (hash idLoi+Identifiant)
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si administrateur, alors poursuivre.
+		* Si citoyen, vérifier les poste est les élus.
+	4. Suppression de la loi.
+		* Suppression des votes.
+	5. Sauvegardait l'action d'ans l'historique.
+	6. Sélectionner toutes les données de connexion (`login` 4-11).
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
+
+### Ω deleteAmd
+> Suppression d'un amendemente.
+
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* id loi
+	* id Amd
+	* Signiature (hash idLoi+idAmd+Identifiant)
+* **Règles de gestion**
+	1. Vérification des données entrante.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si administrateur, alors poursuivre.
+		* Si citoyen, vérifier les poste est les élus.
+	4. Suppression de l'amendemente.
+		* Suppression des votes.
+	5. Sauvegardait l'action d'ans l'historique.
+	6. Sélectionner toutes les données de connexion (`login` 4-11).
+* **Informations sortantes**
+	* Les données seront retournées comme dans `upData`.
+
+### Ω upData
+> Mise à jour des données toutes les minutes.
+
+* **Informations entrantes**
+	* Identifiant client (adresse bitcoin)
+	* Timestamp
+	* Signiature (hash Timestamp+Identifiant)
+* **Règles de gestion**
+	1. Vérification des données entrante. Timestamp dans les 12h du timestamp serveur.
+	2. Recherche de l'utilisateur dans la base de données.
+	3. Vérification du rôle de l'utilisateur.
+		* Si Banni. Retourner la reponse.
+		* Si Guest. Retourner la reponse.
+	4. Sélectionner toute la base de données.
+	5. Boucle sur la table utilisateur.
+		* Séparer les utilisateurs par rôle.
+		* Compter les utilisateurs par rôle.
+	6. Boucle sur la table vote.
+		* Séparer les votes par type.
+			* Type poste
+				* Vérifier le poste et l'utilisateur choisi.
+				* Incrémenter la variable de vote des postes.
+			* Type loi
+				* Vérifier la loi et l'amendement choisi.
+				* Incrémenter la variable de vote des lois.
+	7. Boucle sur la variable vote poste.
+		* Déterminer une liste de postes avec leurs utilisateurs élus. Commencer par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
+	8. Boucle sur la variable vote loi.
+		* Déterminer une liste de lois avec leurs amendements élus.
+	9. Boucle sur la variable de l'historique.
+		* Marquer les actions du client.
+	10. Vérifier si le client appartient à un poste élu.
+	11. Si Administrateur ou poste. Inclure les variables dans le retour.
+* **Informations sortantes**
+	* Banni
+	* Guest
+	* Observateur
+	* Citoyen
+	* Administrateur
+
+***
+
 ## ∑ Application Client
 
 > L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de lois et leur amendements. C'est la partie graphique qui est affichée au client.
@@ -960,367 +1321,6 @@ Array {
 * *Règles de gestion*
 	* signiature de la variable amendement.
 	* appel à l'api.
-
-***
-
-## ∑ Api serveur
-
-> Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel. C'est la partie qui centralise et distribue les données. Elle gère la gestion des actions possibles.
-
-![App architecture](annexes/apiArchitect.jpg)
-
-### Ω user_login($a, $t, $s)
-> Connexion de l'utilisateur.
-
-**Informations entrantes**
-
-| param | Type | Desc |
-|-------|------|------|
-| $a | string | Identifiant client (adresse bitcoin). |
-| $t | int | Timestamp actuel. |
-| $s | string sha1 | Signiature (hash sha1 Timestamp+Identifiant). |
-
-**Règles de gestion**
-
-1. Vérification des données entrante. Timestamp dans les 12h du timestamp serveur.
-2. Recherche de l'utilisateur dans la base de données.
-3. Vérification du rôle de l'utilisateur.
-	* Si Banni. Retourner la reponse.
-	* Si Guest. Retourner la reponse.
-4. Sélectionner toute la base de données.
-	5. Boucle sur la table utilisateur.
-		* Séparer les utilisateurs par rôle.
-		* Compter les utilisateurs par rôle.
-	6. Boucle sur la table vote.
-		* Séparer les votes par type.
-			* Type poste
-				* Vérifier le poste et l'utilisateur choisi.
-				* Incrémenter la variable de vote des postes.
-			* Type loi
-				* Vérifier la loi et l'amendement choisi.
-				* Incrémenter la variable de vote des lois.
-	7. Boucle sur la variable vote poste.
-		* Déterminer une liste de postes avec leurs utilisateurs élus. Commencer par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
-	8. Boucle sur la variable vote loi.
-		* Déterminer une liste de lois avec leurs amendements élus.
-	9. Boucle sur la variable de l'historique.
-		* Marquer les actions du client.
-	10. Vérifier si le client appartient à un poste élu.
-	11. Si Administrateur ou poste. Inclure les variables dans le retour.
-
-**Informations sortantes**
-
-```js
-{
-	'guest' : 1,
-	'banni' : 1,
-	'obs' : 
-	'citoyen' : 
-	'admin' : 
-}
-```
-
-### Ω user_sign($a, $n, $p, $s)
-> inscription de l'utilisateur.
-
-**Informations entrantes**
-
-| param | Type | Desc |
-|-------|------|------|
-| $a | string | Identifiant client (adresse bitcoin). |
-| $n | string | Nom. |
-| $p | string | Prénom. |
-| $s | string sha1| Signiature (hash nom+prénom+Identifiant). |
-
-**Règles de gestion**
-
-1. Vérification des données entrante.
-	* Vérifier que nom `$n` et prénom `$p` son des alpha.
-		* Retourner une erreur.
-	* Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`.
-	* Crée un hash `sha1` du nom `$n`, prénom `$p` et de l'adresse bitcoin `$a`.
-	* Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`.
-2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
-	```php
-	// Crée un tableau contenant l'identifiant client.
-	$req = array('adr' => $a);
-	
-	// Appel a la fonction du model.
-	$user = dbUser::getUserByBtc($req);
-	```
-3. Vérifier si pas d'utilisateur ou retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`.
-4. Enregistrait l'utilisateur.
-5. Sauvegardait l'action dans l'historique.
-6. Sélectionner toutes les données de connexion (`login` 4-11).
-
-**Informations sortantes**
-
-```js
-{
-	'guest' : 1 
-}
-```
-
-### Ω addPoste
-> Ajouter un nouveaux poste.
-
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* Poste
-	* Signiature (hash Poste+'Action'+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si administrateur, alors poursuivre.
-		* Si citoyen, vérifier les poste est les élus.
-	4. Enregistrait le poste.
-	5. Sauvegardait l'action d'ans l'historique.
-	6. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
-
-### Ω deletePoste
-> Suppression du poste.
-
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* Identifiant Poste
-	* Signiature (hash idPoste+Poste+'Action'+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si administrateur, alors poursuivre.
-		* Si citoyen, vérifier les poste est les élus.
-	4. Suppression du poste.
-		* Suppression des votes.
-	5. Sauvegardait l'action d'ans l'historique.
-	6. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
-
-### Ω editeRole
-> Editer le role.
-
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* role
-	* id client
-	* Signiature (hash idUser+Role+'Action'+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si administrateur, alors poursuivre.
-		* Si citoyen, vérifier les poste est les élus.
-	4. Recherche le client dans la base de données.
-	5. Vérifier le rôle du client.
-		* Si administrateur, lancer une erreur.
-	6. Modifier le rôle du client.
-		* Si banni, effacer els votes.
-	7. Sauvegardait l'action d'ans l'historique.
-	8. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
-
-### Ω Vote
-> Permet de voter.
-
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* Type
-	* id 1
-	* id 2
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si citoyen ou administrateur, alors poursuivre.
-	4. Vérifier si le client a voté pour ce type et id.
-		* SI oui, modifier le vote.
-		* Si non, Sauvegardait le vote.
-	5. Crée un hash du vote.
-* **Informations sortantes**
-	* Id du vote
-	* Hash pour la signature.
-
-### Ω fixVote
-> Permet de confirmer son voter
-
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* id vote
-	* Signiature (Hash)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si citoyen ou administrateur, alors poursuivre.
-	4. Vérifier le hash.
-	6. Sauvegardait la signature.
-	7. Sauvegardait l'action d'ans l'historique.
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
-
-### Ω addLois
-> Ajouter une nouvelle loi.
-
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* nom
-	* Signiature (hash 'Loi'+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si citoyen ou administrateur, alors poursuivre.
-	4. Enregistrait la loi.
-	5. Sauvegardait l'action d'ans l'historique.
-	6. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
-
-### Ω addAmd
-> Ajouter un nouveaux amendement.
-
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* amendement
-	* id loi
-	* Signiature (hash 'Loi'+'amendement'+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si citoyen ou administrateur, alors poursuivre.
-	4. Enregistrait l'amendement.
-	5. Sauvegardait l'action d'ans l'historique.
-	6. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
-
-### Ω editeLois
-> Editer une loi.
-
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* nom
-	* id loi
-	* Signiature (hash idLoi+'nom'+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si administrateur, alors poursuivre.
-		* Si citoyen, vérifier les poste est les élus.
-	4. Modifier la loi.
-	5. Sauvegardait l'action d'ans l'historique.
-	6. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
-
-### Ω editeAmd
-> Editer un amendement.
-
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* nom
-	* id loi
-	* id Amd
-	* Signiature (hash idLoi+idAmd+'nom'+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si administrateur, alors poursuivre.
-		* Si citoyen, vérifier les poste est les élus.
-	4. Modifier l'amendement.
-	5. Sauvegardait l'action d'ans l'historique.
-	6. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
-
-### Ω deleteLoi
-> Suppression d'une loi.
-
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* id loi
-	* Signiature (hash idLoi+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si administrateur, alors poursuivre.
-		* Si citoyen, vérifier les poste est les élus.
-	4. Suppression de la loi.
-		* Suppression des votes.
-	5. Sauvegardait l'action d'ans l'historique.
-	6. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
-
-### Ω deleteAmd
-> Suppression d'un amendemente.
-
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* id loi
-	* id Amd
-	* Signiature (hash idLoi+idAmd+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si administrateur, alors poursuivre.
-		* Si citoyen, vérifier les poste est les élus.
-	4. Suppression de l'amendemente.
-		* Suppression des votes.
-	5. Sauvegardait l'action d'ans l'historique.
-	6. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
-
-### Ω upData
-> Mise à jour des données toutes les minutes.
-
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* Timestamp
-	* Signiature (hash Timestamp+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante. Timestamp dans les 12h du timestamp serveur.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si Banni. Retourner la reponse.
-		* Si Guest. Retourner la reponse.
-	4. Sélectionner toute la base de données.
-	5. Boucle sur la table utilisateur.
-		* Séparer les utilisateurs par rôle.
-		* Compter les utilisateurs par rôle.
-	6. Boucle sur la table vote.
-		* Séparer les votes par type.
-			* Type poste
-				* Vérifier le poste et l'utilisateur choisi.
-				* Incrémenter la variable de vote des postes.
-			* Type loi
-				* Vérifier la loi et l'amendement choisi.
-				* Incrémenter la variable de vote des lois.
-	7. Boucle sur la variable vote poste.
-		* Déterminer une liste de postes avec leurs utilisateurs élus. Commencer par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
-	8. Boucle sur la variable vote loi.
-		* Déterminer une liste de lois avec leurs amendements élus.
-	9. Boucle sur la variable de l'historique.
-		* Marquer les actions du client.
-	10. Vérifier si le client appartient à un poste élu.
-	11. Si Administrateur ou poste. Inclure les variables dans le retour.
-* **Informations sortantes**
-	* Banni
-	* Guest
-	* Observateur
-	* Citoyen
-	* Administrateur
 
 ***
 
