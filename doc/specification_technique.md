@@ -203,7 +203,7 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 ## ∑ HELPER
 > Regroupe les fonctions réutilisable dans tous les contrôleurs et actions.
 
-### Ω help::user($a, $v, $s, $e=false)
+### Ω help::user($a, $v, $s)
 > Vérification de l'adresse bitcoin, de la signature du client. Recherche du client dans la base de données. Retourne les infos du client.
 
 **Informations entrantes**
@@ -213,7 +213,6 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 | $a | string | Identifiant client (adresse bitcoin). |
 | $v | ? | La variable de contrôle de l'utilisateur. |
 | $s | string | Signiature (hash sha1 $v+$a). |
-| $e | bool | Si false, lever une erreur. Si true return false. |
 
 **Règles de gestion**
 
@@ -229,9 +228,7 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 	// Appel a la fonction du model.
 	$user = dbUser::getUserByBtc($req);
 	```
-3. Vérifier la presence de l'utilisateur.
-	* Si $e = false retourner une erreur. `ERR-USER-NOT-EXISTS`
-	* Si $e = true retourner `false`
+3. Vérifier la presence de l'utilisateur si non retourner `false`
 4. Construire et retourner le tableau de l'utilisateur.
 
 **Informations sortantes**
@@ -268,14 +265,13 @@ Array {
 **Règles de gestion**
 
 1. Vérification que Timestamp `$t` est number et comprie entre -12h et + 12h `(60*60*12)` ou retourner une erreur. `ERR-TIMESTAMP-INVALID`
-2. Récupérer les donnés utilisateur.
+2. Récupérer les donnés utilisateur avec helper.
+3. Vérifier si pas d'utilisateur, retourner la variable `'info' : 0`.
 	
 	```php
-		// Appel a la fonction helper.
-	$user = help::user($a, $t, $s, true);
+	// Appel de la fonction helper dans un if.
+	if(!$user = help::user($a, $t, $s)) return // info = 0;
 	```
-3. Vérifier si pas d'utilisateur, retourner la variable `'info' : 0`.
-
 3. Vérification du rôle de l'utilisateur.
 	* Si Banni. Retourner la reponse.
 	* Si Guest. Retourner la reponse.
@@ -335,14 +331,15 @@ Array {
 **Règles de gestion**
 
 1. Vérification que nom `$n` et prénom `$p` son des alpha ou retourner une erreur. `ERR-NAME-OR-FIRSTNAME-INVALID`
-2. Récupérer les donnés utilisateur.
+2. Récupérer les donnés utilisateur avec helper.
+3. Vérifier si utilisateur, retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`
 	
 	```php
-	// Appel a la fonction helper.
-	$user = help::user($a, $n.$p, $s, true);
+	// Appel de la fonction helper dans un if.
+	if($user = help::user($a, $n.$p, $s)) throw new Exception('ERR-ACCOUNT-ALREADY-EXISTS');
 	```
-3. Vérifier si pas d'utilisateur ou retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`
 4. Enregistrait l'utilisateur.
+	
 	```php
 	// Crée un tableau contenant l'identifiant client, nom, prénom, date, rôle.
 	$req = array(
@@ -356,22 +353,23 @@ Array {
 	// Appel a la fonction du model.
 	dbUser::setUser($req);
 	```
-5. Récupérer les donnés utilisateur.
+5. Récupérer les donnés utilisateur avec helper.
+6. Vérifier si l'utilisateur est enregistrait ou retourner une erreur. `ERR-ECHEC-SAVE-USER`
 	
 	```php
-	// Appel a la fonction helper.
-	$user = help::user($a, $n.$p, $s, true);
+	// Appel de la fonction helper dans un if.
+	if(!$user = help::user($a, $n.$p, $s)) throw new Exception('ERR-ECHEC-SAVE-USER');
 	```
-6. Vérifier si l'utilisateur est enregistrait ou retourner une erreur. `ERR-ECHEC-SAVE-USER`
 7. Encode en string json le contenu de la variable `$user`
 8. Sauvegardait l'action dans l'historique.
+	
 	```php
 	// Crée un tableau contenant l'id user, l'action, date, jdata.
 	$req1 = array(
-		'id_user' => // id retourner par dbUser::setUser($req),
+		'id_user' => // id retourner par $user['id'],
 		'action' => 'save',
 		'date' => // Timestamp actuel
-		'jdata' => // string json $req
+		'jdata' => // string json $user
 	);
 	
 	// Appel a la fonction du model.
@@ -409,11 +407,12 @@ Array {
 **Règles de gestion**
 
 1. Vérification que poste `$p` est alpha ou retourner une erreur. `ERR-POSTE-INVALID`
-2. Récupérer les donnés utilisateur.
+2. Récupérer les donnés utilisateur avec helper.
+3. Vérifier si pas d'utilisateur, retourner une erreur. `ERR-USER-NOT-EXISTS`
 	
 	```php
-	// Appel a la fonction helper.
-	$user = help::user($a, $p, $s);
+	// Appel de la fonction helper dans un if.
+	if(!$user = help::user($a, $p, $s)) throw new Exception('ERR-USER-NOT-EXISTS');
 	```
 
 	3. Vérification du rôle de l'utilisateur.
@@ -439,12 +438,14 @@ Array {
 **Règles de gestion**
 
 1. Vérification que id poste `$p` est int ou retourner une erreur. `ERR-POSTE-INVALID`
-2. Récupérer les donnés utilisateur.
+2. Récupérer les donnés utilisateur avec helper.
+3. Vérifier si pas d'utilisateur, retourner une erreur. `ERR-USER-NOT-EXISTS`
 	
 	```php
-	// Appel a la fonction helper.
-	$user = help::user($a, $p, $s);
+	// Appel de la fonction helper dans un if.
+	if(!$user = help::user($a, $p, $s)) throw new Exception('ERR-USER-NOT-EXISTS');
 	```
+
 
 	3. Vérification du rôle de l'utilisateur.
 		* Si administrateur, alors poursuivre.
