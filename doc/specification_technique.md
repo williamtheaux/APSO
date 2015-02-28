@@ -166,7 +166,7 @@ Array {
 ```
 
 ### Ω dbUser::setUser($e)
-> Ajoute un nouvel utilisateur dans la base de données, réoccuper et retourne son id user.
+> Ajoute un nouvel utilisateur dans la base de données.
 
 **Informations entrantes**
 
@@ -180,9 +180,6 @@ En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 ```php
 db::go('INSERT INTO apso_user VALUES("", :adr, :nom, :prenom, :date, :role)');
 ```
-**Informations sortantes**
-
-* Récupérer l'adresse bitcoin et lancer la fonction `dbUser::getUserByBtc($e)`
 
 ### Ω dbUser::setLog($e)
 > Ajoute un nouvel historique dans la base de données. Retourne void.
@@ -205,8 +202,8 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 ## ∑ HELPER
 > Regroupe les fonctions réutilisable dans tous les contrôleurs et actions.
 
-### Ω help::user($a, $v, $s)
-> Connexion de l'utilisateur.
+### Ω help::user($a, $v, $s, $e=false)
+> Vérification de l'adresse bitcoin, de la signature du client. Recherche du client dans la base de données. Retourne les infos du client.
 
 **Informations entrantes**
 
@@ -215,6 +212,7 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 | $a | string | Identifiant client (adresse bitcoin). |
 | $v | ? | La variable de contrôle de l'utilisateur. |
 | $s | string | Signiature (hash sha1 $v+$a). |
+| $e | bool | Si false, lever une erreur. Si true return false. |
 
 **Règles de gestion**
 
@@ -230,7 +228,9 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 	// Appel a la fonction du model.
 	$user = dbUser::getUserByBtc($req);
 	```
-3. Vérifier la presence de l'utilisateur ou retourner une erreur. `ERR-USER-NOT-EXISTS`
+3. Vérifier la presence de l'utilisateur.
+	* Si $e = false retourner une erreur. `ERR-USER-NOT-EXISTS`
+	* Si $e = true retourner `false`
 4. Construire et retourner le tableau de l'utilisateur.
 
 **Informations sortantes**
@@ -266,8 +266,14 @@ Array {
 
 **Règles de gestion**
 
-1. Vérification des données entrante. Timestamp dans les 12h du timestamp serveur.
-2. Recherche de l'utilisateur dans la base de données.
+1. Vérification que Timestamp `$t` est number et comprie entre -12h et + 12h `(60*60*12)` ou retourner une erreur. `ERR-TIMESTAMP-INVALID`
+2. Récupérer les donnés utilisateur.
+	```php
+	// Appel a la fonction helper.
+	$user = help::user($a, $t, $s, true);
+	```
+3. Vérifier si pas d'utilisateur, retourner la variable `'info' : 0`.
+
 3. Vérification du rôle de l'utilisateur.
 	* Si Banni. Retourner la reponse.
 	* Si Guest. Retourner la reponse.
@@ -298,7 +304,7 @@ Array {
 {
 	'guest' : 1, // L'utilisateur n'est pas encore validé.
 	'banni' : 1, // L'utilisateur est banni.
-	'info' : {
+	'info' : { // Variable $user
 		'id' : // L'identifiant unique crée par l'application.
 		'adr' : // Identifiant client (adresse bitcoin).
 		'nom' : // Le nom du client.
@@ -326,18 +332,11 @@ Array {
 
 **Règles de gestion**
 
-1. Vérification des données entrante.
-	* Vérifier que nom `$n` et prénom `$p` son des alpha ou retourner une erreur. `ERR-NAME-OR-FIRSTNAME-INVALID`
-	* Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`
-	* Crée un hash `sha1` du nom `$n`, prénom `$p` et de l'adresse bitcoin `$a`.
-	* Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`
-2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
+1. Vérification que nom `$n` et prénom `$p` son des alpha ou retourner une erreur. `ERR-NAME-OR-FIRSTNAME-INVALID`
+2. Récupérer les donnés utilisateur.
 	```php
-	// Crée un tableau contenant l'identifiant client.
-	$req = array('adr' => $a);
-	
-	// Appel a la fonction du model.
-	$user = dbUser::getUserByBtc($req);
+	// Appel a la fonction helper.
+	$user = help::user($a, $n.$p, $s, true);
 	```
 3. Vérifier si pas d'utilisateur ou retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`
 4. Enregistrait l'utilisateur.
@@ -352,11 +351,15 @@ Array {
 	);
 	
 	// Appel a la fonction du model.
-	$user = dbUser::setUser($req);
+	dbUser::setUser($req);
 	```
-5. Vérifier si l'utilisateur est enregistrait ou retourner une erreur. `ERR-ECHEC-SAVE-USER`
-6. Ajouter l'id user dans le array `$req`
-7. Encode en string json le contenu de la variable `$req`
+5. Récupérer les donnés utilisateur.
+	```php
+	// Appel a la fonction helper.
+	$user = help::user($a, $n.$p, $s, true);
+	```
+6. Vérifier si l'utilisateur est enregistrait ou retourner une erreur. `ERR-ECHEC-SAVE-USER`
+7. Encode en string json le contenu de la variable `$user`
 8. Sauvegardait l'action dans l'historique.
 	```php
 	// Crée un tableau contenant l'id user, l'action, date, jdata.
@@ -377,7 +380,7 @@ Array {
 ```js
 {
 	'guest' : 1, // L'utilisateur n'est pas encore validé.
-	'info' : {
+	'info' : { // Variable $user
 		'id' : // L'identifiant unique crée par l'application.
 		'adr' : // Identifiant client (adresse bitcoin).
 		'nom' : // Le nom du client.
