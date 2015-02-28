@@ -121,6 +121,8 @@ config::addParams('role', 'banni', 'BANNI');
 | ERR-ACCOUNT-ALREADY-EXISTS | L'utilisateur est déjà enregistré dans la base de données. |
 | ERR-ECHEC-SAVE-USER | L'enregistrement de l'utilisateur a échoué. |
 | ERR-NAME-OR-FIRSTNAME-INVALID | Votre nom ou prénom semble invalide. |
+| ERR-POSTE-INVALID | Le nom du poste semble invalide. |
+| ERR-USER-NOT-EXISTS | Votre identifiant n'est pas reconnu. |
 
 ***
 
@@ -340,16 +342,34 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 }
 ```
 	
-### Ω addPoste
+### Ω user_addPoste($a, $p, $s)
 > Ajouter un nouveaux poste.
 
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* Poste
-	* Signiature (hash Poste+'Action'+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $p | string | Poste. |
+| $s | string sha1| Signiature (hash poste+Identifiant). |
+
+**Règles de gestion**
+
+1. Vérification des données entrante.
+	* Vérifier que poste `$p` est alpha ou retourner une erreur. `ERR-POSTE-INVALID`
+	* Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`
+	* Crée un hash `sha1`  poste `$p` et de l'adresse bitcoin `$a`.
+	* Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`
+2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
+	```php
+	// Crée un tableau contenant l'identifiant client.
+	$req = array('adr' => $a);
+	
+	// Appel a la fonction du model.
+	$user = dbUser::getUserByBtc($req);
+	```
+3. Vérifier la presence de l'utilisateur ou retourner une erreur. `ERR-USER-NOT-EXISTS`
+
 	3. Vérification du rôle de l'utilisateur.
 		* Si administrateur, alors poursuivre.
 		* Si citoyen, vérifier les poste est les élus.
