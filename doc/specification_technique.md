@@ -336,8 +336,8 @@ Array {
 
 1. Vérification que nom `$n` et prénom `$p` son des alpha ou retourner une erreur. `ERR-NAME-OR-FIRSTNAME-INVALID`
 2. Récupérer les donnés utilisateur.
-	```php
 	
+	```php
 	// Appel a la fonction helper.
 	$user = help::user($a, $n.$p, $s, true);
 	```
@@ -357,8 +357,8 @@ Array {
 	dbUser::setUser($req);
 	```
 5. Récupérer les donnés utilisateur.
-	```php
 	
+	```php
 	// Appel a la fonction helper.
 	$user = help::user($a, $n.$p, $s, true);
 	```
@@ -410,6 +410,7 @@ Array {
 
 1. Vérification que poste `$p` est alpha ou retourner une erreur. `ERR-POSTE-INVALID`
 2. Récupérer les donnés utilisateur.
+	
 	```php
 	// Appel a la fonction helper.
 	$user = help::user($a, $p, $s);
@@ -439,6 +440,7 @@ Array {
 
 1. Vérification que id poste `$p` est int ou retourner une erreur. `ERR-POSTE-INVALID`
 2. Récupérer les donnés utilisateur.
+	
 	```php
 	// Appel a la fonction helper.
 	$user = help::user($a, $p, $s);
