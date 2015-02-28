@@ -123,6 +123,7 @@ config::addParams('role', 'banni', 'BANNI');
 | ERR-NAME-OR-FIRSTNAME-INVALID | Votre nom ou prénom semble invalide. |
 | ERR-POSTE-INVALID | Le poste semble invalide. |
 | ERR-USER-NOT-EXISTS | Votre identifiant n'est pas reconnu. |
+| ERR-TIMESTAMP-INVALID | Le timestamp semble invalide. |
 
 ***
 
@@ -268,8 +269,9 @@ Array {
 
 1. Vérification que Timestamp `$t` est number et comprie entre -12h et + 12h `(60*60*12)` ou retourner une erreur. `ERR-TIMESTAMP-INVALID`
 2. Récupérer les donnés utilisateur.
+	
 	```php
-	// Appel a la fonction helper.
+		// Appel a la fonction helper.
 	$user = help::user($a, $t, $s, true);
 	```
 3. Vérifier si pas d'utilisateur, retourner la variable `'info' : 0`.
