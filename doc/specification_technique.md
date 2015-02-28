@@ -248,8 +248,16 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 
 ```js
 {
-	'guest' : 1,
-	'banni' : 1,
+	'guest' : 1, // L'utilisateur n'est pas encore validé.
+	'banni' : 1, // L'utilisateur est banni.
+	'info' : {
+		'id' : // L'identifiant unique crée par l'application.
+		'adr' : // Identifiant client (adresse bitcoin).
+		'nom' : // Le nom du client.
+		'prenom' : // Le prénom du client.
+		'date' : // La date d'inscription.
+		'role' : // Le rôle de l'utilisateur.
+	},
 	'obs' : 
 	'citoyen' : 
 	'admin' : 
@@ -320,10 +328,18 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 
 ```js
 {
-	'guest' : 1 
+	'guest' : 1, // L'utilisateur n'est pas encore validé.
+	'info' : {
+		'id' : // L'identifiant unique crée par l'application.
+		'adr' : // Identifiant client (adresse bitcoin).
+		'nom' : // Le nom du client.
+		'prenom' : // Le prénom du client.
+		'date' : // La date d'inscription.
+		'role' : // Le rôle de l'utilisateur.
+	}
 }
 ```
-
+	
 ### Ω addPoste
 > Ajouter un nouveaux poste.
 
