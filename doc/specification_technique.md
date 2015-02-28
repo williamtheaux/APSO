@@ -121,7 +121,7 @@ config::addParams('role', 'banni', 'BANNI');
 | ERR-ACCOUNT-ALREADY-EXISTS | L'utilisateur est déjà enregistré dans la base de données. |
 | ERR-ECHEC-SAVE-USER | L'enregistrement de l'utilisateur a échoué. |
 | ERR-NAME-OR-FIRSTNAME-INVALID | Votre nom ou prénom semble invalide. |
-| ERR-POSTE-INVALID | Le nom du poste semble invalide. |
+| ERR-POSTE-INVALID | Le poste semble invalide. |
 | ERR-USER-NOT-EXISTS | Votre identifiant n'est pas reconnu. |
 
 ***
@@ -164,6 +164,7 @@ Array {
 	[role] = // Le rôle de l'utilisateur.
 }
 ```
+
 ### Ω dbUser::setUser($e)
 > Ajoute un nouvel utilisateur dans la base de données, réoccuper et retourne son id user.
 
@@ -201,6 +202,51 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 
 ***
 
+## ∑ HELPER
+> Regroupe les fonctions réutilisable dans tous les contrôleurs et actions.
+
+### Ω help::user($a, $v, $s)
+> Connexion de l'utilisateur.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $v | ? | La variable de contrôle de l'utilisateur. |
+| $s | string | Signiature (hash sha1 $v+$a). |
+
+**Règles de gestion**
+
+1. Vérification des données entrante.
+	* Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`
+	* Crée un hash `sha1`  de `$v` et de l'adresse bitcoin `$a`.
+	* Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`
+2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
+	```php
+	// Crée un tableau contenant l'identifiant client.
+	$req = array('adr' => $a);
+	
+	// Appel a la fonction du model.
+	$user = dbUser::getUserByBtc($req);
+	```
+3. Vérifier la presence de l'utilisateur ou retourner une erreur. `ERR-USER-NOT-EXISTS`
+4. Construire et retourner le tableau de l'utilisateur.
+
+**Informations sortantes**
+```php
+Array {
+	[id] = // L'identifiant unique crée par l'application.
+	[adr] = // Identifiant client (adresse bitcoin).
+	[nom] = // Le nom du client.
+	[prenom] = // Le prenom du client.
+	[date] = // La date d'inscription.
+	[role] = // Le rôle de l'utilisateur.
+}
+```
+
+***
+
 ## ∑ Api serveur
 
 > Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel. C'est la partie qui centralise et distribue les données. Elle gère la gestion des actions possibles.
@@ -216,7 +262,7 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 |-------|------|------|
 | $a | string | Identifiant client (adresse bitcoin). |
 | $t | int | Timestamp actuel. |
-| $s | string sha1 | Signiature (hash sha1 Timestamp+Identifiant). |
+| $s | string | Signiature (hash sha1 Timestamp+Identifiant). |
 
 **Règles de gestion**
 
@@ -276,7 +322,7 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 | $a | string | Identifiant client (adresse bitcoin). |
 | $n | string | Nom. |
 | $p | string | Prénom. |
-| $s | string sha1| Signiature (hash nom+prénom+Identifiant). |
+| $s | string | Signiature (hash nom+prénom+Identifiant). |
 
 **Règles de gestion**
 
@@ -351,24 +397,16 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 |-------|------|------|
 | $a | string | Identifiant client (adresse bitcoin). |
 | $p | string | Poste. |
-| $s | string sha1| Signiature (hash poste+Identifiant). |
+| $s | string | Signiature (hash poste+Identifiant). |
 
 **Règles de gestion**
 
-1. Vérification des données entrante.
-	* Vérifier que poste `$p` est alpha ou retourner une erreur. `ERR-POSTE-INVALID`
-	* Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`
-	* Crée un hash `sha1`  poste `$p` et de l'adresse bitcoin `$a`.
-	* Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`
-2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
+1. Vérification que poste `$p` est alpha ou retourner une erreur. `ERR-POSTE-INVALID`
+2. Récupérer les donnés utilisateur.
 	```php
-	// Crée un tableau contenant l'identifiant client.
-	$req = array('adr' => $a);
-	
-	// Appel a la fonction du model.
-	$user = dbUser::getUserByBtc($req);
+	// Appel a la fonction helper.
+	$user = help::user($a, $p, $s);
 	```
-3. Vérifier la presence de l'utilisateur ou retourner une erreur. `ERR-USER-NOT-EXISTS`
 
 	3. Vérification du rôle de l'utilisateur.
 		* Si administrateur, alors poursuivre.
@@ -387,25 +425,17 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 | param | Type | Desc |
 |-------|------|------|
 | $a | string | Identifiant client (adresse bitcoin). |
-| $p | string | Identifiant Poste. |
-| $s | string sha1| Signiature (hash id_poste+Identifiant). |
+| $p | int | Identifiant Poste. |
+| $s | string | Signiature (hash id_poste+Identifiant). |
 
 **Règles de gestion**
 
-1. Vérification des données entrante.
-	* Vérifier que id poste `$p` est int ou retourner une erreur. `ERR-POSTE-INVALID`
-	* Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`
-	* Crée un hash `sha1`  id poste `$p` et de l'adresse bitcoin `$a`.
-	* Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`
-2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
+1. Vérification que id poste `$p` est int ou retourner une erreur. `ERR-POSTE-INVALID`
+2. Récupérer les donnés utilisateur.
 	```php
-	// Crée un tableau contenant l'identifiant client.
-	$req = array('adr' => $a);
-	
-	// Appel a la fonction du model.
-	$user = dbUser::getUserByBtc($req);
+	// Appel a la fonction helper.
+	$user = help::user($a, $p, $s);
 	```
-3. Vérifier la presence de l'utilisateur ou retourner une erreur. `ERR-USER-NOT-EXISTS`
 
 	3. Vérification du rôle de l'utilisateur.
 		* Si administrateur, alors poursuivre.
