@@ -379,16 +379,34 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 * **Informations sortantes**
 	* Les données seront retournées comme dans `upData`.
 
-### Ω deletePoste
+### Ω user_deletePoste($a, $p, $s)
 > Suppression du poste.
 
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* Identifiant Poste
-	* Signiature (hash idPoste+Poste+'Action'+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $p | string | Identifiant Poste. |
+| $s | string sha1| Signiature (hash id_poste+Identifiant). |
+
+**Règles de gestion**
+
+1. Vérification des données entrante.
+	* Vérifier que id poste `$p` est int ou retourner une erreur. `ERR-POSTE-INVALID`
+	* Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`
+	* Crée un hash `sha1`  id poste `$p` et de l'adresse bitcoin `$a`.
+	* Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`
+2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
+	```php
+	// Crée un tableau contenant l'identifiant client.
+	$req = array('adr' => $a);
+	
+	// Appel a la fonction du model.
+	$user = dbUser::getUserByBtc($req);
+	```
+3. Vérifier la presence de l'utilisateur ou retourner une erreur. `ERR-USER-NOT-EXISTS`
+
 	3. Vérification du rôle de l'utilisateur.
 		* Si administrateur, alors poursuivre.
 		* Si citoyen, vérifier les poste est les élus.
