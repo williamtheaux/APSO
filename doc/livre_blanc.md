@@ -54,6 +54,20 @@ En résumé : a) la reconnaissance de APSO comme implémentation d'/ia/ est bas�
 
 b) si ces deux critères (contraction et hiérarchie) nécessaires et suffisants habilitent APSO dans l'ordre de l'/ia/ - la théorie elle-même de la conjonction cybernétique-pulsion, prévient du besoin d'un antidote aux effets secondaires de cette fonction APSO (indication du traitement PLAN). Sans quoi APSO présente les risque d'une résistance qui, soit l'éteindra, soit la rendra nuisible à son milieu.
 
+***
+
+## ARGUMENT POUR UNE CONNEXION D'APSO AU PSYCHISME
+
+**De règle pour commencer : défendre d'un malentendu. Que signifie "*psychisme*" ? Ce qu'on appelle aujourd'hui *réalité virtuelle* était appelé "psychisme" ; le psychisme constitue l'intuition de la *réalité virtuelle. Il fournit donc à la réalité virtuelle son analyse sous la forme dénommée *Psychanalyse* (analyse du psychisme).**
+
+   J'ai installé un recueil-miroir de ce livre blanc sur http://www.lasainteethique.org/unefpe/2015/htm/20150107220000_psog.htm#20150228122800 - principalement pour le motif d'une homogénéité de format avec ma production ; mais aussi pour organiser des parties de théorisation, notamment :
+   
+   -- un rapprochement/superposition de APSO et de la (lien)   [théorie linguistique du psychisme](http://www.lasainteethique.org/unefpe/2015/htm/20150107220000_psog.htm#20150228400001)
+   
+   -- J'ai aussi décrit la (lien)   [manière de dépôt légal](http://www.lasainteethique.org/unefpe/2015/htm/20150107220000_psog.htm#20150228400002) que j'applique au cours de la construction/écriture d'APSO
+   
+   
+
 
    
 ***
