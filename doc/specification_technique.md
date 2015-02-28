@@ -335,6 +335,7 @@ Array {
 1. Vérification que nom `$n` et prénom `$p` son des alpha ou retourner une erreur. `ERR-NAME-OR-FIRSTNAME-INVALID`
 2. Récupérer les donnés utilisateur.
 	```php
+	
 	// Appel a la fonction helper.
 	$user = help::user($a, $n.$p, $s, true);
 	```
@@ -355,6 +356,7 @@ Array {
 	```
 5. Récupérer les donnés utilisateur.
 	```php
+	
 	// Appel a la fonction helper.
 	$user = help::user($a, $n.$p, $s, true);
 	```
