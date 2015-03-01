@@ -93,7 +93,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 
 | Fonction | Desc | Associés |
 |----------|------|----------|
-| addPoste | Ajouter un nouveaux poste. | Secrétaire |
+| addPoste | Ajouter un nouveaux poste dans la base de données. | Secrétaire |
 
 ***
 
@@ -103,7 +103,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 
 | Action | Desc | jdata |
 |--------|------|-------|
-| save | Inscription de l'utilisateur | id user, adresse bitcoin, nom, prénom, date, rôle |
+| SAVE | Inscription de l'utilisateur | id user, adresse bitcoin, nom, prénom, date, rôle |
 
 ***
 
@@ -124,6 +124,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ERR-POSTE-INVALID | Le poste semble invalide. |
 | ERR-USER-NOT-EXISTS | Votre identifiant n'est pas reconnu. |
 | ERR-TIMESTAMP-INVALID | Le timestamp semble invalide. |
+| ERR-USER-NOT-ACCESS | Vous n'êtes pas autorisé à accéder à cette ressource. |
 
 ***
 
@@ -216,9 +217,9 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 
 **Règles de gestion**
 
-1. Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`
+1. Vérifier la validité de l'adresse bitcoin `$a` ou lever une exception. `ERR-BTC-ADR-INVALID`
 2. Crée un hash `sha1`  de `$v` et de l'adresse bitcoin `$a`.
-3. Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`
+3. Vérifier la signature `$s` avec le hash crée précédemment ou lever une exception. `ERR-BTC-SIGN-INVALID`
 4. Recherche de l'utilisateur dans la base de données par l'identifiant client.
 	
 	```php
@@ -244,7 +245,7 @@ Array {
 ```
 
 ### Ω help::acl($e, $f)
-> Vérification des Accès Contrôle Level. Disponible pour les administrateurs et les citoyens élus a un poste associé à une fonction propriétaire. 
+> Vérification des Accès Contrôle Level. Disponible pour les administrateurs et les citoyens élus a un poste, associé à une fonction propriétaire. 
 
 **Informations entrantes**
 
@@ -255,8 +256,10 @@ Array {
 
 **Règles de gestion**
 
-* Si administrateur, alors poursuivre.
-* Si citoyen, vérifier les poste est les élus.
+1. Si administrateur `$e['role']`, alors retourner la variable `'acl' : 1`.
+2. Si citoyen, vérifier les poste est les élus.
+	1.Travail en cour...
+3. Si n'y citoyen et n'y administrateur, alors lever une exception `ERR-USER-NOT-ACCESS`
 
 ***
 
@@ -279,7 +282,7 @@ Array {
 
 **Règles de gestion**
 
-1. Vérification que Timestamp `$t` est number et comprie entre -12h et + 12h `(60*60*12)` ou retourner une erreur. `ERR-TIMESTAMP-INVALID` 
+1. Vérification que Timestamp `$t` est number et comprie entre -12h et + 12h `(60*60*12)` ou lever une exception. `ERR-TIMESTAMP-INVALID`
 2. Récupérer les donnés utilisateur avec helper. Vérifier si pas d'utilisateur, retourner la variable `'info' : 0`.
 	
 	```php
@@ -345,8 +348,8 @@ Array {
 
 **Règles de gestion**
 
-1. Vérification que nom `$n` et prénom `$p` son des alpha ou retourner une erreur. `ERR-NAME-OR-FIRSTNAME-INVALID`
-2. Récupérer les donnés utilisateur avec helper. Vérifier, si utilisateur, retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`
+1. Vérification que nom `$n` et prénom `$p` son des alpha ou lever une exception. `ERR-NAME-OR-FIRSTNAME-INVALID`
+2. Récupérer les donnés utilisateur avec helper. Vérifier, si utilisateur, lever une exception. `ERR-ACCOUNT-ALREADY-EXISTS`
 	
 	```php
 	// Appel de la fonction helper dans un if.
@@ -361,13 +364,13 @@ Array {
 		'nom' => $n,
 		'prenom' => $p,
 		'date' => // Timestamp actuel
-		'role' => 'guest'
+		'role' => 'GUEST'
 	);
 	
 	// Appel a la fonction du model.
 	dbUser::setUser($req);
 	``` 
-4. Récupérer les donnés utilisateur avec helper. Vérifier, si l'utilisateur est enregistrait ou retourner une erreur. `ERR-ECHEC-SAVE-USER`
+4. Récupérer les donnés utilisateur avec helper. Vérifier, si l'utilisateur est enregistrait ou lever une exception. `ERR-ECHEC-SAVE-USER`
 	
 	```php
 	// Appel de la fonction helper dans un if.
@@ -380,7 +383,7 @@ Array {
 	// Crée un tableau contenant l'id user, l'action, date, jdata.
 	$req1 = array(
 		'id_user' => // id retourner par $user['id'],
-		'action' => 'save',
+		'action' => 'SAVE',
 		'date' => // Timestamp actuel
 		'jdata' => // string json $user
 	);
@@ -419,8 +422,8 @@ Array {
 
 **Règles de gestion**
 
-1. Vérification que poste `$p` est alpha ou retourner une erreur. `ERR-POSTE-INVALID`
-2. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, retourner une erreur. `ERR-USER-NOT-EXISTS`
+1. Vérification que poste `$p` est alpha ou lever une exception. `ERR-POSTE-INVALID`
+2. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, lever une exception. `ERR-USER-NOT-EXISTS`
 	
 	```php
 	// Appel de la fonction helper dans un if.
@@ -452,8 +455,8 @@ Array {
 
 **Règles de gestion**
 
-1. Vérification que id poste `$p` est int ou retourner une erreur. `ERR-POSTE-INVALID`
-2. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, retourner une erreur. `ERR-USER-NOT-EXISTS`
+1. Vérification que id poste `$p` est int ou lever une exception. `ERR-POSTE-INVALID`
+2. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, lever une exception. `ERR-USER-NOT-EXISTS`
 	
 	```php
 	// Appel de la fonction helper dans un if.
