@@ -272,9 +272,10 @@ Array {
 	// Appel de la fonction helper dans un if.
 	if(!$user = help::user($a, $t, $s)) return // info = 0;
 	```
-3. Vérification du rôle de l'utilisateur.
-	* Si Banni. Retourner la reponse.
-	* Si Guest. Retourner la reponse.
+4. Vérification du rôle de l'utilisateur.
+	* Si Banni. retourner la variable `'banni' : 1`.
+	* Si Guest. retourner la variable `'guest' : 1`.
+
 4. Sélectionner toute la base de données.
 	5. Boucle sur la table utilisateur.
 		* Séparer les utilisateurs par rôle.
@@ -332,7 +333,7 @@ Array {
 
 1. Vérification que nom `$n` et prénom `$p` son des alpha ou retourner une erreur. `ERR-NAME-OR-FIRSTNAME-INVALID`
 2. Récupérer les donnés utilisateur avec helper.
-3. Vérifier si utilisateur, retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`
+3. Vérifier, si utilisateur, retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`
 	
 	```php
 	// Appel de la fonction helper dans un if.
