@@ -69,20 +69,13 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 
 > L'utilisateur dispose de 5 rôles. Les rôles sont attribués par les administrateurs ou par les postes, disposant de la fonction propriétaires.
 
-| Rôle | Desc |
-|------|------|
-| guest | Le rôle par défaut après l'inscription de l'utilisateur dans l'api. Retourne un message "En attente de validation par un administrateur." |
-| banni | Concerne les utilisateurs bannis par un administrateur ou un poste disposant de la fonction propriétaire. Regroupe aussi les visiteurs non identifiés après l'inscription. Retourne un message "Vous êtes bloqué. Veuillez contacter un administrateur." |
-| obs | Le groupe des Observateur, ont seulement accès a l'historique et les résulta du suffrage. |
-| citoyen | Les citoyens ont le droit d'exprimer leurs votes et proposer de nouvelles lois. Ils peuvent aussi être élus. |
-| admin | Ils gèrent et modifient toutes les données de l'api. |
-
-*Api/configuration/params.php*
-```php
-config::addParams('role', 'guest', 'GUEST');
-config::addParams('role', 'banni', 'BANNI');
-//...
-```
+| Rôle | Code | Desc |
+|------|------|------|
+| guest | GUEST | Le rôle par défaut après l'inscription de l'utilisateur dans l'api. Retourne un message "En attente de validation par un administrateur." |
+| banni | BANNI |Concerne les utilisateurs bannis par un administrateur ou un poste disposant de la fonction propriétaire. Regroupe aussi les visiteurs non identifiés après l'inscription. Retourne un message "Vous êtes bloqué. Veuillez contacter un administrateur." |
+| obs | OBS | Le groupe des Observateur, ont seulement accès a l'historique et les résulta du suffrage. |
+| citoyen |CITOYEN | Les citoyens ont le droit d'exprimer leurs votes et proposer de nouvelles lois. Ils peuvent aussi être élus. |
+| admin | ADMIN | Ils gèrent et modifient toutes les données de l'api. |
 
 #### Gestion des postes.
 
@@ -94,6 +87,13 @@ config::addParams('role', 'banni', 'BANNI');
 | 2 | Secrétaire |
 | 3 | Trésorier |
 | 4 | Vice-Président |
+
+#### Fonction propriétaire.
+> Les postes peuvent être associés à des fonctions propriétaires.
+
+| Fonction | Desc | Associés |
+|----------|------|----------|
+| addPoste | Ajouter un nouveaux poste. | Secrétaire |
 
 ***
 
@@ -216,11 +216,11 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 
 **Règles de gestion**
 
-1. Vérification des données entrante.
-	* Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`
-	* Crée un hash `sha1`  de `$v` et de l'adresse bitcoin `$a`.
-	* Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`
-2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
+1. Vérifier la validité de l'adresse bitcoin `$a` ou retourner une erreur. `ERR-BTC-ADR-INVALID`
+2. Crée un hash `sha1`  de `$v` et de l'adresse bitcoin `$a`.
+3. Vérifier la signature `$s` avec le hash crée précédemment ou retourner une erreur. `ERR-BTC-SIGN-INVALID`
+4. Recherche de l'utilisateur dans la base de données par l'identifiant client.
+	
 	```php
 	// Crée un tableau contenant l'identifiant client.
 	$req = array('adr' => $a);
@@ -228,8 +228,8 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 	// Appel a la fonction du model.
 	$user = dbUser::getUserByBtc($req);
 	```
-3. Vérifier la presence de l'utilisateur si non retourner `false`
-4. Construire et retourner le tableau de l'utilisateur.
+5. Vérifier la presence de l'utilisateur si non retourner `false`
+6. Construire et retourner le tableau de l'utilisateur.
 
 **Informations sortantes**
 ```php
@@ -243,14 +243,20 @@ Array {
 }
 ```
 
-### Ω help::acl($e)
+### Ω help::acl($e, $f)
 > Vérification des Accès Contrôle Level. Disponible pour les administrateurs et les citoyens élus a un poste associé à une fonction propriétaire. 
 
 **Informations entrantes**
 
 | param | Type | Desc |
 |-------|------|------|
-| $a | array | info client.|
+| $e | array | info client.|
+| $f | string | La fonction propriétaire.|
+
+**Règles de gestion**
+
+* Si administrateur, alors poursuivre.
+* Si citoyen, vérifier les poste est les élus.
 
 ***
 
@@ -401,7 +407,7 @@ Array {
 ```
 	
 ### Ω user_addPoste($a, $p, $s)
-> Ajouter un nouveaux poste.
+> Ajouter un nouveaux poste. Fonction propriétaire : **addPoste**
 
 **Informations entrantes**
 
@@ -424,11 +430,9 @@ Array {
 	
 	```php
 	// Appel de la fonction Accés Controle Level.
-	help::acl($user);
+	help::acl($user, 'addPoste');
 	```
 	
-	* Si administrateur, alors poursuivre.
-	* Si citoyen, vérifier les poste est les élus.
 	4. Enregistrait le poste.
 	5. Sauvegardait l'action d'ans l'historique.
 	6. Sélectionner toutes les données de connexion (`login` 4-11).
@@ -436,7 +440,7 @@ Array {
 	* Les données seront retournées comme dans `upData`.
 
 ### Ω user_deletePoste($a, $p, $s)
-> Suppression du poste.
+> Suppression du poste. Fonction propriétaire : **deletePoste**
 
 **Informations entrantes**
 
@@ -449,7 +453,7 @@ Array {
 **Règles de gestion**
 
 1. Vérification que id poste `$p` est int ou retourner une erreur. `ERR-POSTE-INVALID`
-3. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, retourner une erreur. `ERR-USER-NOT-EXISTS`
+2. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, retourner une erreur. `ERR-USER-NOT-EXISTS`
 	
 	```php
 	// Appel de la fonction helper dans un if.
