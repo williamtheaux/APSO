@@ -243,6 +243,15 @@ Array {
 }
 ```
 
+### Ω help::acl($e)
+> Vérification des Accès Contrôle Level. Disponible pour les administrateurs et les citoyens élus a un poste associé à une fonction propriétaire. 
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $a | array | info client.|
+
 ***
 
 ## ∑ Api serveur
@@ -264,15 +273,14 @@ Array {
 
 **Règles de gestion**
 
-1. Vérification que Timestamp `$t` est number et comprie entre -12h et + 12h `(60*60*12)` ou retourner une erreur. `ERR-TIMESTAMP-INVALID`
-2. Récupérer les donnés utilisateur avec helper.
-3. Vérifier si pas d'utilisateur, retourner la variable `'info' : 0`.
+1. Vérification que Timestamp `$t` est number et comprie entre -12h et + 12h `(60*60*12)` ou retourner une erreur. `ERR-TIMESTAMP-INVALID` 
+2. Récupérer les donnés utilisateur avec helper. Vérifier si pas d'utilisateur, retourner la variable `'info' : 0`.
 	
 	```php
 	// Appel de la fonction helper dans un if.
 	if(!$user = help::user($a, $t, $s)) return // info = 0;
 	```
-4. Vérification du rôle de l'utilisateur.
+3. Vérification du rôle de l'utilisateur.
 	* Si Banni. retourner la variable `'banni' : 1`.
 	* Si Guest. retourner la variable `'guest' : 1`.
 
@@ -332,14 +340,13 @@ Array {
 **Règles de gestion**
 
 1. Vérification que nom `$n` et prénom `$p` son des alpha ou retourner une erreur. `ERR-NAME-OR-FIRSTNAME-INVALID`
-2. Récupérer les donnés utilisateur avec helper.
-3. Vérifier, si utilisateur, retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`
+2. Récupérer les donnés utilisateur avec helper. Vérifier, si utilisateur, retourner une erreur. `ERR-ACCOUNT-ALREADY-EXISTS`
 	
 	```php
 	// Appel de la fonction helper dans un if.
 	if($user = help::user($a, $n.$p, $s)) throw new Exception('ERR-ACCOUNT-ALREADY-EXISTS');
 	```
-4. Enregistrait l'utilisateur.
+3. Enregistrait l'utilisateur.
 	
 	```php
 	// Crée un tableau contenant l'identifiant client, nom, prénom, date, rôle.
@@ -353,16 +360,15 @@ Array {
 	
 	// Appel a la fonction du model.
 	dbUser::setUser($req);
-	```
-5. Récupérer les donnés utilisateur avec helper.
-6. Vérifier si l'utilisateur est enregistrait ou retourner une erreur. `ERR-ECHEC-SAVE-USER`
+	``` 
+4. Récupérer les donnés utilisateur avec helper. Vérifier, si l'utilisateur est enregistrait ou retourner une erreur. `ERR-ECHEC-SAVE-USER`
 	
 	```php
 	// Appel de la fonction helper dans un if.
 	if(!$user = help::user($a, $n.$p, $s)) throw new Exception('ERR-ECHEC-SAVE-USER');
 	```
-7. Encode en string json le contenu de la variable `$user`
-8. Sauvegardait l'action dans l'historique.
+5. Encode en string json le contenu de la variable `$user`
+6. Sauvegardait l'action dans l'historique.
 	
 	```php
 	// Crée un tableau contenant l'id user, l'action, date, jdata.
@@ -376,7 +382,7 @@ Array {
 	// Appel a la fonction du model.
 	dbUser::setLog($req1);
 	```
-9. Construire et retourner le tableau final.
+7. Construire et retourner le tableau final.
 
 **Informations sortantes**
 
@@ -408,17 +414,21 @@ Array {
 **Règles de gestion**
 
 1. Vérification que poste `$p` est alpha ou retourner une erreur. `ERR-POSTE-INVALID`
-2. Récupérer les donnés utilisateur avec helper.
-3. Vérifier si pas d'utilisateur, retourner une erreur. `ERR-USER-NOT-EXISTS`
+2. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, retourner une erreur. `ERR-USER-NOT-EXISTS`
 	
 	```php
 	// Appel de la fonction helper dans un if.
 	if(!$user = help::user($a, $p, $s)) throw new Exception('ERR-USER-NOT-EXISTS');
 	```
-
-	3. Vérification du rôle de l'utilisateur.
-		* Si administrateur, alors poursuivre.
-		* Si citoyen, vérifier les poste est les élus.
+3. Vérification du rôle de l'utilisateur.
+	
+	```php
+	// Appel de la fonction Accés Controle Level.
+	help::acl($user);
+	```
+	
+	* Si administrateur, alors poursuivre.
+	* Si citoyen, vérifier les poste est les élus.
 	4. Enregistrait le poste.
 	5. Sauvegardait l'action d'ans l'historique.
 	6. Sélectionner toutes les données de connexion (`login` 4-11).
@@ -439,8 +449,7 @@ Array {
 **Règles de gestion**
 
 1. Vérification que id poste `$p` est int ou retourner une erreur. `ERR-POSTE-INVALID`
-2. Récupérer les donnés utilisateur avec helper.
-3. Vérifier si pas d'utilisateur, retourner une erreur. `ERR-USER-NOT-EXISTS`
+3. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, retourner une erreur. `ERR-USER-NOT-EXISTS`
 	
 	```php
 	// Appel de la fonction helper dans un if.
