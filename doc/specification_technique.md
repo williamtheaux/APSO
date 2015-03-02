@@ -258,7 +258,7 @@ Array {
 
 1. Si administrateur `$e['role']`, alors retourner la variable `'acl' : 1`.
 2. Si citoyen, vérifier les poste est les élus.
-	1.Travail en cour...
+	1. Recherche dans la base de données la fonction propriétaire passer en paramètre `$f`.
 3. Si n'y citoyen et n'y administrateur, alors lever une exception `ERR-USER-NOT-ACCESS`
 
 ***
