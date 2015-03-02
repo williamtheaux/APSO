@@ -210,14 +210,15 @@ db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 
 En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 ```php
-db::go('SELECT f.name, p.id, v.id1, v.id2 
+db::go('SELECT f.name, p.id, v.id1, COUNT(v.id2) nb,
 	FROM apso_func f 
-	INNER JOIN apso_poste p 
+	RIGHT JOIN apso_poste p 
 	ON f.id_poste = p.id 
 	INNER JOIN apso_vote v 
-	ON p.id = v.id2 AND v.type = 'ctn' 
+	ON p.id = v.id2 AND v.type = "ctn"
 	WHERE f.name=:name 
-	ORDER BY v.id1');
+	GROUP BY v.id1 
+	ORDER BY p.id ASC, nb DESC');
 ```
 
 **Informations sortantes**
@@ -225,10 +226,10 @@ db::go('SELECT f.name, p.id, v.id1, v.id2
 ```php
 Array [
 	[0] = Array [
-		[name] = // Le nom de la fonction propriétaire.
-		[id] = // Identifiant du poste associé.
+		[name] = // Le nom de la fonction propriétaire. NULL MULTI
+		[id] = // Identifiant du poste associé. MULTI
 		[id1] = // Identifiant du client élu.
-		[id2] = // Identifiant du poste.
+		[nb] = // Nombre de voix obtenues.
 	]
 	[1] = // ...
 ]
