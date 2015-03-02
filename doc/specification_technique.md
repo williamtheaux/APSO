@@ -305,7 +305,19 @@ Array {
 		// Appel a la fonction du model.
 		$func = dbUser::getPrivFunc($req);
 		```
-	2. Analiser le retoure sql.
+	2. Créer la variable `$suffrage` et déclencher une boucle sûr `$func` pour créer le tableau suivant. Avant l'insertion du premier élu, faire une boucle sur le tableau lui-même '$suffrage', si l'id1 apparais déjà dans un poste précédant, alors sélectionner le deuxième élu et refaire l'opération.
+		
+		```php
+		Array [
+			[id] = Array [ // Identifiant du poste
+				[elu] = [id1] // Identifiant du client élu.
+				[nb] = [nb] // Nombre de voix obtenues.
+				[name] // Le nom de la fonction propriétaire ou NULL
+			]
+			[id] = // ...
+		]
+		```
+	3. Comparaison des postes avec les données de l'utilisateur.
 3. Si n'y citoyen et n'y administrateur, alors lever une exception `ERR-USER-NOT-ACCESS`
 
 ***
@@ -456,7 +468,7 @@ Array {
 }
 ```
 	
-### Ω user_addPoste($a, $p, $s)
+### Ω etat_addPoste($a, $p, $s)
 > Ajouter un nouveaux poste. Fonction propriétaire : **addPoste**
 
 **Informations entrantes**
@@ -489,7 +501,7 @@ Array {
 * **Informations sortantes**
 	* Les données seront retournées comme dans `upData`.
 
-### Ω user_deletePoste($a, $p, $s)
+### Ω etat_deletePoste($a, $p, $s)
 > Suppression du poste. Fonction propriétaire : **deletePoste**
 
 **Informations entrantes**
@@ -521,7 +533,7 @@ Array {
 * **Informations sortantes**
 	* Les données seront retournées comme dans `upData`.
 
-### Ω editeRole
+### Ω etat_editeRole
 > Editer le role.
 
 * **Informations entrantes**
