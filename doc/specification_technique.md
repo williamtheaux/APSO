@@ -107,7 +107,9 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 
 ***
 
-## Gestion des erreurs
+## Erreurs serveur
+
+> Gestion des erreurs déclencher par le serveur et les contrôleurs.
 
 | Code | Desc |
 |-------|-----|
@@ -218,7 +220,7 @@ db::go('SELECT f.name, p.id, v.id1, COUNT(v.id2) nb,
 	ON p.id = v.id2 AND v.type = "ctn"
 	WHERE f.name=:name 
 	GROUP BY v.id1 
-	ORDER BY p.id ASC, nb DESC');
+	ORDER BY p.id DESC, nb ASC');
 ```
 
 **Informations sortantes**
