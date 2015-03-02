@@ -294,7 +294,7 @@ Array {
 
 **Règles de gestion**
 
-1. Si administrateur `$e['role']`, alors retourner la variable `'acl' : 1`.
+1. Si administrateur `$e['role']`, alors retourner la variable `$tmp = true`.
 2. Si citoyen, vérifier les poste est les élus.
 	1. Recherche dans la base de données la fonction propriétaire passer en paramètre `$f`.
 		
@@ -317,8 +317,9 @@ Array {
 			[id] = // ...
 		]
 		```
-	3. Comparaison des postes avec les données de l'utilisateur.
-3. Si n'y citoyen et n'y administrateur, alors lever une exception `ERR-USER-NOT-ACCESS`
+	3. Comparaison des postes avec les données de l'utilisateur. Créer la variable `$tmp = false`. Déclencher une boucle sur `$suffrage`. S'il y a correspondance entre l'élu et `$e['id']` pendant la correspondance du nom de la fonction propriétaire avec `$f`, alors modifier la variable `$tmp = true`. Au final retourner `$tmp`.
+
+3. Si n'y citoyen et n'y administrateur, alors retourner `$tmp = false`.
 
 ***
 
@@ -492,7 +493,7 @@ Array {
 	
 	```php
 	// Appel de la fonction Accés Controle Level.
-	help::acl($user, 'addPoste');
+	if(!help::acl($user, 'addPoste')) throw new Exception('ERR-USER-NOT-ACCESS');
 	```
 	
 	4. Enregistrait le poste.
