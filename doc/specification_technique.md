@@ -199,6 +199,20 @@ En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 ```
 
+### Ω dbUser::getPrivFunc($e)
+> Retourne la fonction propriétaire accompagner des postes assignés et leurs résultats de vote.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le nom de la fonction propriétaire. |
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('SELECT * FROM apso_func WHERE name=:name');
+```
+
 ***
 
 ## ∑ HELPER
@@ -259,6 +273,15 @@ Array {
 1. Si administrateur `$e['role']`, alors retourner la variable `'acl' : 1`.
 2. Si citoyen, vérifier les poste est les élus.
 	1. Recherche dans la base de données la fonction propriétaire passer en paramètre `$f`.
+		
+		```php
+		// Crée un tableau contenant la fonction propriétaire.
+		$req = array('name' => $f);
+		
+		// Appel a la fonction du model.
+		$func = dbUser::getPrivFunc($req);
+		```
+	2. Analiser le retoure sql.
 3. Si n'y citoyen et n'y administrateur, alors lever une exception `ERR-USER-NOT-ACCESS`
 
 ***
