@@ -127,6 +127,8 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ERR-USER-NOT-EXISTS | Votre identifiant n'est pas reconnu. |
 | ERR-TIMESTAMP-INVALID | Le timestamp semble invalide. |
 | ERR-USER-NOT-ACCESS | Vous n'êtes pas autorisé à accéder à cette ressource. |
+| ERR-POSTE-ALREADY-EXISTS | Le poste que vous essayiez d'ajouter existe déjà dans la base de données. |
+| ERR-ECHEC-SAVE-POSTE | L'enregistrement du poste a échoué |
 
 ***
 
@@ -235,6 +237,22 @@ Array [
 	]
 	[1] = // ...
 ]
+```
+
+### Ω dbUser::setPoste($e)
+> Ajoute un nouveau poste dans la base de données.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le poste et la date. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('INSERT INTO apso_poste VALUES("", :poste, :date)');
 ```
 
 ***
@@ -489,18 +507,69 @@ Array {
 	// Appel de la fonction helper dans un if.
 	if(!$user = help::user($a, $p, $s)) throw new Exception('ERR-USER-NOT-EXISTS');
 	```
+
 3. Vérification du rôle de l'utilisateur.
 	
 	```php
 	// Appel de la fonction Accés Controle Level.
 	if(!help::acl($user, 'addPoste')) throw new Exception('ERR-USER-NOT-ACCESS');
 	```
+
+4. Vérifier que le poste n'existe pas déjà dans la base de données.
 	
-	4. Enregistrait le poste.
-	5. Sauvegardait l'action d'ans l'historique.
-	6. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
+	```php
+	// Crée un tableau contenant le poste et la date.
+	$reqGet = array('poste' => $p);
+	
+	// Appel de la fonction model
+	$poste = dbUser::getPoste($reqGet);
+	```
+	
+5. Vérification, si `$poste` n'est pas vide, alors lever une exception. `ERR-POSTE-ALREADY-EXISTS`
+6. Enregistrait le poste.
+
+	```php
+	// Crée un tableau contenant le poste et la date.
+	$req = array(
+		'poste' => $p,
+		'date' => // Timestamp actuel
+	);
+	
+	// Appel a la fonction du model.
+	dbUser::setPoste($req);
+	```
+7. 	Vérifier que le poste fut bien ajouter a la base de données.
+
+	```php
+	// Crée un tableau contenant le poste et la date.
+	$reqGet = array('poste' => $p);
+	
+	// Appel de la fonction model
+	$poste = dbUser::getPoste($reqGet);
+	```
+
+8. Vérification, si `$poste` est vide, alors lever une exception. `ERR-ECHEC-SAVE-POSTE`
+
+9. Encode en string json le contenu de la variable `$poste`
+10. Sauvegardait l'action dans l'historique.
+	
+	```php
+	// Crée un tableau contenant l'id user, l'action, date, jdata.
+	$req1 = array(
+		'id_user' => // id retourner par $user['id'],
+		'action' => 'ADDPOSTE',
+		'date' => // Timestamp actuel
+		'jdata' => // string json $poste
+	);
+	
+	// Appel a la fonction du model.
+	dbUser::setLog($req1);
+	```
+11. Construire et retourner le tableau final.
+
+**Informations sortantes**
+
+* Les données seront retournées comme dans `upData`.
 
 ### Ω etat_deletePoste($a, $p, $s)
 > Suppression du poste. Fonction propriétaire : **deletePoste**
