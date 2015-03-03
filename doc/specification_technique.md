@@ -94,6 +94,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | Fonction | Desc | Associés |
 |----------|------|----------|
 | addPoste | Ajouter un nouveaux poste dans la base de données. | Secrétaire |
+| deletePoste | Suppression du poste dans la base de données. | Secrétaire |
 
 ***
 
@@ -104,7 +105,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | Action | Desc | jdata |
 |--------|------|-------|
 | SAVE | Inscription de l'utilisateur | id user, adresse bitcoin, nom, prénom, date, rôle |
-| ADDPOSTE | Ajout d'un nouveau poste | id poste, le nom, la date |
+| ADDPOSTE | Ajouter un nouveaux poste dans la base de données | id poste, le nom, la date |
 
 ***
 
@@ -622,10 +623,13 @@ Array {
 	if(!$user = help::user($a, $p, $s)) throw new Exception('ERR-USER-NOT-EXISTS');
 	```
 
+3. Vérification du rôle de l'utilisateur.
+	
+	```php
+	// Appel de la fonction Accés Controle Level.
+	if(!help::acl($user, 'deletePoste')) throw new Exception('ERR-USER-NOT-ACCESS');
+	```
 
-	3. Vérification du rôle de l'utilisateur.
-		* Si administrateur, alors poursuivre.
-		* Si citoyen, vérifier les poste est les élus.
 	4. Suppression du poste.
 		* Suppression des votes.
 	5. Sauvegardait l'action d'ans l'historique.
