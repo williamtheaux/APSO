@@ -104,6 +104,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | Action | Desc | jdata |
 |--------|------|-------|
 | SAVE | Inscription de l'utilisateur | id user, adresse bitcoin, nom, prénom, date, rôle |
+| ADDPOSTE | Ajout d'un nouveau poste | id poste, le nom, la date |
 
 ***
 
@@ -253,6 +254,32 @@ Array [
 En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 ```php
 db::go('INSERT INTO apso_poste VALUES("", :poste, :date)');
+```
+
+### Ω dbUser::getPosteByName($e)
+> Retourne la table deu poste trouver par son nom (poste).
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le nom du poste. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('SELECT * FROM apso_poste WHERE poste=:poste');
+```
+
+**Informations sortantes**
+
+```php
+Array {
+	[id] = // L'identifiant unique du poste.
+	[poste] = // Le nom du poste.
+	[date] = // La date d'inscription.
+}
 ```
 
 ***
@@ -522,7 +549,7 @@ Array {
 	$reqGet = array('poste' => $p);
 	
 	// Appel de la fonction model
-	$poste = dbUser::getPoste($reqGet);
+	$poste = dbUser::getPosteByName($reqGet);
 	```
 	
 5. Vérification, si `$poste` n'est pas vide, alors lever une exception. `ERR-POSTE-ALREADY-EXISTS`
@@ -541,11 +568,8 @@ Array {
 7. 	Vérifier que le poste fut bien ajouter a la base de données.
 
 	```php
-	// Crée un tableau contenant le poste et la date.
-	$reqGet = array('poste' => $p);
-	
 	// Appel de la fonction model
-	$poste = dbUser::getPoste($reqGet);
+	$poste = dbUser::getPosteByName($reqGet);
 	```
 
 8. Vérification, si `$poste` est vide, alors lever une exception. `ERR-ECHEC-SAVE-POSTE`
@@ -569,7 +593,13 @@ Array {
 
 **Informations sortantes**
 
-* Les données seront retournées comme dans `upData`.
+```js
+{
+	'id' :  // L'identifiant unique du poste.
+	'poste' :  // Le nom du poste.
+	'date' :  // La date de la creation du poste.
+}
+```
 
 ### Ω etat_deletePoste($a, $p, $s)
 > Suppression du poste. Fonction propriétaire : **deletePoste**
