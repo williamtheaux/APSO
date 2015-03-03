@@ -131,6 +131,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ERR-USER-NOT-ACCESS | Vous n'êtes pas autorisé à accéder à cette ressource. |
 | ERR-POSTE-ALREADY-EXISTS | Le poste que vous essayiez d'ajouter existe déjà dans la base de données. |
 | ERR-ECHEC-SAVE-POSTE | L'enregistrement du poste a échoué |
+| ERR-POSTE-NOT-EXISTS | Le poste que vous voulez supprimer n'existe pas. |
 
 ***
 
@@ -142,10 +143,10 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 
 ***
 
-## ∑ Model SQL dbUser
+## ∑ Model SQL dbs
 > Regroupe les fonctions en rapport avec la table user.
 
-### Ω dbUser::getUserByBtc($e)
+### Ω dbs::getUserByBtc($e)
 > Retourne la table de l'utilisateur trouver par son identifiant (adresse bitcoin).
 
 **Informations entrantes**
@@ -173,7 +174,7 @@ Array {
 }
 ```
 
-### Ω dbUser::setUser($e)
+### Ω dbs::setUser($e)
 > Ajoute un nouvel utilisateur dans la base de données.
 
 **Informations entrantes**
@@ -189,7 +190,7 @@ En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 db::go('INSERT INTO apso_user VALUES("", :adr, :nom, :prenom, :date, :role)');
 ```
 
-### Ω dbUser::setLog($e)
+### Ω dbs::setLog($e)
 > Ajoute un nouvel historique dans la base de données. Retourne void.
 
 **Informations entrantes**
@@ -205,7 +206,7 @@ En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 db::go('INSERT INTO apso_log VALUES("", :id_user, :action, :date, :jdata)');
 ```
 
-### Ω dbUser::getPrivFunc($e)
+### Ω dbs::getPrivFunc($e)
 > Retourne la fonction propriétaire accompagner des postes assignés et leurs résultats de vote.
 
 **Informations entrantes**
@@ -241,7 +242,7 @@ Array [
 ]
 ```
 
-### Ω dbUser::setPoste($e)
+### Ω dbs::setPoste($e)
 > Ajoute un nouveau poste dans la base de données.
 
 **Informations entrantes**
@@ -257,7 +258,7 @@ En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 db::go('INSERT INTO apso_poste VALUES("", :poste, :date)');
 ```
 
-### Ω dbUser::getPosteByName($e)
+### Ω dbs::getPosteByName($e)
 > Retourne la table deu poste trouver par son nom (poste).
 
 **Informations entrantes**
@@ -281,6 +282,35 @@ Array {
 	[poste] = // Le nom du poste.
 	[date] = // La date d'inscription.
 }
+```
+
+### Ω dbs::getPosteById($e)
+> Retourne la table du poste trouver par son id (poste) + conte le nobre de votes.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le id du poste. |
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('SELECT p.id, p.poste, p.date, COUNT(v.id2) nb,
+	FROM apso_poste p  
+	INNER JOIN apso_vote v 
+	ON p.id = v.id2 AND v.type = "ctn"
+	WHERE p.id=:id');
+```
+
+**Informations sortantes**
+
+```php
+Array [
+	[id] = // Identifiant du poste associé.
+	[poste] = // Le nom du poste.
+	[date] = // La date de la création du poste.
+	[nb] = // Nombre de voix obtenues.
+]
 ```
 
 ***
@@ -311,7 +341,7 @@ Array {
 	$req = array('adr' => $a);
 	
 	// Appel a la fonction du model.
-	$user = dbUser::getUserByBtc($req);
+	$user = dbs::getUserByBtc($req);
 	```
 5. Vérifier la presence de l'utilisateur si non retourner `false`
 6. Construire et retourner le tableau de l'utilisateur.
@@ -349,7 +379,7 @@ Array {
 		$req = array('name' => $f);
 		
 		// Appel a la fonction du model.
-		$func = dbUser::getPrivFunc($req);
+		$func = dbs::getPrivFunc($req);
 		```
 	2. Créer la variable `$suffrage` et déclencher une boucle sûr `$func` pour créer le tableau suivant. Avant l'insertion du premier élu, faire une boucle sur le tableau lui-même '$suffrage', si l'id1 apparais déjà dans un poste précédant, alors sélectionner le deuxième élu et refaire l'opération.
 		
@@ -474,7 +504,7 @@ Array {
 	);
 	
 	// Appel a la fonction du model.
-	dbUser::setUser($req);
+	dbs::setUser($req);
 	``` 
 4. Récupérer les donnés utilisateur avec helper. Vérifier, si l'utilisateur est enregistrait ou lever une exception. `ERR-ECHEC-SAVE-USER`
 	
@@ -495,7 +525,7 @@ Array {
 	);
 	
 	// Appel a la fonction du model.
-	dbUser::setLog($req1);
+	dbs::setLog($req1);
 	```
 7. Construire et retourner le tableau final.
 
@@ -546,11 +576,11 @@ Array {
 4. Vérifier que le poste n'existe pas déjà dans la base de données.
 	
 	```php
-	// Crée un tableau contenant le poste et la date.
+	// Crée un tableau contenant le poste.
 	$reqGet = array('poste' => $p);
 	
 	// Appel de la fonction model
-	$poste = dbUser::getPosteByName($reqGet);
+	$poste = dbs::getPosteByName($reqGet);
 	```
 	
 5. Vérification, si `$poste` n'est pas vide, alors lever une exception. `ERR-POSTE-ALREADY-EXISTS`
@@ -564,13 +594,13 @@ Array {
 	);
 	
 	// Appel a la fonction du model.
-	dbUser::setPoste($req);
+	dbs::setPoste($req);
 	```
 7. 	Vérifier que le poste fut bien ajouter a la base de données.
 
 	```php
 	// Appel de la fonction model
-	$poste = dbUser::getPosteByName($reqGet);
+	$poste = dbs::getPosteByName($reqGet);
 	```
 
 8. Vérification, si `$poste` est vide, alors lever une exception. `ERR-ECHEC-SAVE-POSTE`
@@ -588,7 +618,7 @@ Array {
 	);
 	
 	// Appel a la fonction du model.
-	dbUser::setLog($req1);
+	dbs::setLog($req1);
 	```
 11. Construire et retourner le tableau final.
 
@@ -630,6 +660,18 @@ Array {
 	if(!help::acl($user, 'deletePoste')) throw new Exception('ERR-USER-NOT-ACCESS');
 	```
 
+4. Vérifier que le poste existe dans la base de données.
+	
+	```php
+	// Crée un tableau contenant le poste.
+	$reqGet = array('id' => $p);
+	
+	// Appel de la fonction model
+	$poste = dbs::getPosteById($reqGet);
+	```
+	
+5. Vérification, si `$poste` est vide, alors lever une exception. `ERR-POSTE-NOT-EXISTS`
+	
 	4. Suppression du poste.
 		* Suppression des votes.
 	5. Sauvegardait l'action d'ans l'historique.
