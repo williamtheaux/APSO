@@ -107,8 +107,8 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 |--------|------|-------|
 | SAVE | Inscription de l'utilisateur | id user, adresse bitcoin, nom, prénom, date, rôle |
 | ADDPOSTE | Ajouter un nouveaux poste dans la base de données | id poste, le nom, la date |
-| DELETEPOSTE | Suppression du poste, des votes et des fonctions associer | id poste, nom, date, le nombre de vote |
-| EDITEROLE | Modification du rôle de l'utilisateur | id user, rôle, new rôle ??? |
+| DELETEPOSTE | Suppression du poste, des votes et des fonctions associer | id poste, nom, date, le nombre de vote supprimer |
+| EDITEROLE | Modification du rôle de l'utilisateur | id user, nom, prénom, rôle, new rôle, le nombre de vote supprimer |
 
 ***
 
@@ -136,6 +136,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ERR-ECHEC-SAVE-POSTE | L'enregistrement du poste a échoué |
 | ERR-POSTE-NOT-EXISTS | Le poste que vous voulez supprimer n'existe pas. |
 | ERR-ROLE-INVALID | Le rôle passer en paramètres semble incorrecte. |
+| ERR-NOT-CHANGE-ADMIN | Vous ne pouvez pas modifier les rôles d'administrateurs. |
 
 ***
 
@@ -340,6 +341,34 @@ db::go('DELETE FROM apso_vote WHERE id2=:id AND type="ctn"');
 
 // Suppression des fonctions associer.
 db::go('DELETE FROM apso_func WHERE id_poste=:id');
+```
+
+### Ω getUserById ($e)
+> Retourne la table de l'utilisateur trouver par son id user.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant l'id user. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('SELECT * FROM apso_user WHERE id=:id');
+```
+
+**Informations sortantes**
+```php
+Array {
+	[id] = // L'identifiant unique crée par l'application.
+	[adr] = // Identifiant client (adresse bitcoin).
+	[nom] = // Le nom du client.
+	[prenom] = // Le prenom du client.
+	[date] = // La date d'inscription.
+	[role] = // Le rôle de l'utilisateur.
+}
 ```
 
 ***
@@ -749,7 +778,7 @@ Array {
 
 **Règles de gestion**
 
-1. Vérification que le rôle `$r` est `BANNI` ou `OBS` ou `CITOYEN`. Si aucun des trois, lever une exception. `ERR-ROLE-INVALID`
+1. Vérification que `$r` est [int], le rôle `$r` est `BANNI` ou `OBS` ou `CITOYEN`. Si aucun des trois, lever une exception. `ERR-ROLE-INVALID`
 2. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, lever une exception. `ERR-USER-NOT-EXISTS`
 	
 	```php
@@ -764,9 +793,23 @@ Array {
 	if(!help::acl($user, 'editeRole')) throw new Exception('ERR-USER-NOT-ACCESS');
 	```
 
-	4. Recherche le client dans la base de données.
-	5. Vérifier le rôle du client.
-		* Si administrateur, lancer une erreur.
+4. Recherche de l'utilisateur dans la base de données par l'id user.
+	
+	```php
+	// Crée un tableau contenant l'identifiant client.
+	$req = array('adr' => $a);
+	
+	// Appel a la fonction du model.
+	$client = dbs::getUserById($req);
+	```
+
+5. Comparer les deux rôles, si identique lever une exception. `ERR-ROLE-INVALID`
+
+6. Vérifier le rôle du client.
+	* Si administrateur, lever une exception. `ERR-NOT-CHANGE-ADMIN`
+	* Si citoyen, 
+
+
 	6. Modifier le rôle du client.
 		* Si banni, effacer els votes.
 	7. Sauvegardait l'action d'ans l'historique.
