@@ -106,6 +106,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 |--------|------|-------|
 | SAVE | Inscription de l'utilisateur | id user, adresse bitcoin, nom, prénom, date, rôle |
 | ADDPOSTE | Ajouter un nouveaux poste dans la base de données | id poste, le nom, la date |
+| DELETEPOSTE | Suppression du poste, des votes et des fonctions associer | id poste, nom, date, le nombre de vote |
 
 ***
 
@@ -293,6 +294,8 @@ Array {
 |-------|------|------|
 | $e | array | Un tableau contenant le id du poste. |
 
+**Règles de gestion**
+
 En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 ```php
 db::go('SELECT p.id, p.poste, p.date, COUNT(v.id2) nb,
@@ -311,6 +314,29 @@ Array [
 	[date] = // La date de la création du poste.
 	[nb] = // Nombre de voix obtenues.
 ]
+```
+
+### Ω dbs::deletePoste($e)
+> Suppression du poste, des votes et des fonctions associer.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le id du poste. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+// Suppression du poste.
+db::go('DELETE FROM apso_poste WHERE id=:id');
+
+// Suppression du postedes vote.
+db::go('DELETE FROM apso_vote WHERE id2=:id AND type="ctn"');
+
+// Suppression des fonctions associer.
+db::go('DELETE FROM apso_func WHERE id_poste=:id');
 ```
 
 ***
@@ -664,20 +690,47 @@ Array {
 	
 	```php
 	// Crée un tableau contenant le poste.
-	$reqGet = array('id' => $p);
+	$req = array('id' => $p);
 	
 	// Appel de la fonction model
-	$poste = dbs::getPosteById($reqGet);
+	$poste = dbs::getPosteById($req);
 	```
 	
 5. Vérification, si `$poste` est vide, alors lever une exception. `ERR-POSTE-NOT-EXISTS`
+6. Suppression du poste, des votes et des fonctions associer.
+
+	```php
+	// Appel de la fonction model
+	dbs:deletePoste($req);
+	```
+
+7. Encode en string json le contenu de la variable `$poste`
+10. Sauvegardait l'action dans l'historique.
 	
-	4. Suppression du poste.
-		* Suppression des votes.
-	5. Sauvegardait l'action d'ans l'historique.
-	6. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
+	```php
+	// Crée un tableau contenant l'id user, l'action, date, jdata.
+	$req1 = array(
+		'id_user' => // id retourner par $user['id'],
+		'action' => 'DELETEPOSTE',
+		'date' => // Timestamp actuel
+		'jdata' => // string json $poste
+	);
+	
+	// Appel a la fonction du model.
+	dbs::setLog($req1);
+	```
+11. Construire et retourner le tableau final.
+
+**Informations sortantes**
+
+```js
+{
+	'id' :  // L'identifiant unique du poste.
+	'poste' :  // Le nom du poste.
+	'date' :  // La date de la creation du poste.
+	'nb' : // Le nombre de vote.
+}
+```
 
 ### Ω etat_editeRole
 > Editer le role.
