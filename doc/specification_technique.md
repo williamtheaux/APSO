@@ -95,6 +95,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 |----------|------|----------|
 | addPoste | Ajouter un nouveaux poste dans la base de données. | Secrétaire |
 | deletePoste | Suppression du poste dans la base de données. | Secrétaire |
+| editeRole | Modifier le rôle de l'utilisateur. | Secrétaire |
 
 ***
 
@@ -107,6 +108,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | SAVE | Inscription de l'utilisateur | id user, adresse bitcoin, nom, prénom, date, rôle |
 | ADDPOSTE | Ajouter un nouveaux poste dans la base de données | id poste, le nom, la date |
 | DELETEPOSTE | Suppression du poste, des votes et des fonctions associer | id poste, nom, date, le nombre de vote |
+| EDITEROLE | Modification du rôle de l'utilisateur | id user, rôle, new rôle ??? |
 
 ***
 
@@ -133,6 +135,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ERR-POSTE-ALREADY-EXISTS | Le poste que vous essayiez d'ajouter existe déjà dans la base de données. |
 | ERR-ECHEC-SAVE-POSTE | L'enregistrement du poste a échoué |
 | ERR-POSTE-NOT-EXISTS | Le poste que vous voulez supprimer n'existe pas. |
+| ERR-ROLE-INVALID | Le rôle passer en paramètres semble incorrecte. |
 
 ***
 
@@ -286,7 +289,7 @@ Array {
 ```
 
 ### Ω dbs::getPosteById($e)
-> Retourne la table du poste trouver par son id (poste) + conte le nobre de votes.
+> Retourne la table du poste trouvé par son id (poste) + compte le nombre de votes.
 
 **Informations entrantes**
 
@@ -332,7 +335,7 @@ En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 // Suppression du poste.
 db::go('DELETE FROM apso_poste WHERE id=:id');
 
-// Suppression du postedes vote.
+// Suppression des vote.
 db::go('DELETE FROM apso_vote WHERE id2=:id AND type="ctn"');
 
 // Suppression des fonctions associer.
@@ -732,20 +735,35 @@ Array {
 }
 ```
 
-### Ω etat_editeRole
-> Editer le role.
+### Ω etat_editeRole ($a, $r, $u, $s)
+> Editer le rôle de l'utilisateur. Fonction propriétaire : **editeRole**
 
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* role
-	* id client
-	* Signiature (hash idUser+Role+'Action'+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si administrateur, alors poursuivre.
-		* Si citoyen, vérifier les poste est les élus.
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $r | string | Rôle. |
+| $u | int | Id user. |
+| $s | string | Signiature (hash Role+idUser+Identifiant). |
+
+**Règles de gestion**
+
+1. Vérification que le rôle `$r` est `BANNI` ou `OBS` ou `CITOYEN`. Si aucun des trois, lever une exception. `ERR-ROLE-INVALID`
+2. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, lever une exception. `ERR-USER-NOT-EXISTS`
+	
+	```php
+	// Appel de la fonction helper dans un if.
+	if(!$user = help::user($a, $r.$u, $s)) throw new Exception('ERR-USER-NOT-EXISTS');
+	```
+
+3. Vérification du rôle de l'utilisateur.
+	
+	```php
+	// Appel de la fonction Accés Controle Level.
+	if(!help::acl($user, 'editeRole')) throw new Exception('ERR-USER-NOT-ACCESS');
+	```
+
 	4. Recherche le client dans la base de données.
 	5. Vérifier le rôle du client.
 		* Si administrateur, lancer une erreur.
