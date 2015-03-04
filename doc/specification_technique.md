@@ -343,7 +343,7 @@ db::go('DELETE FROM apso_vote WHERE id2=:id AND type="ctn"');
 db::go('DELETE FROM apso_func WHERE id_poste=:id');
 ```
 
-### Ω getUserById ($e)
+### Ω dbs::getUserById ($e)
 > Retourne la table de l'utilisateur trouver par son id user.
 
 **Informations entrantes**
@@ -807,15 +807,41 @@ Array {
 
 6. Vérifier le rôle du client.
 	* Si administrateur, lever une exception. `ERR-NOT-CHANGE-ADMIN`
-	* Si citoyen, 
+	* Si citoyen, récupérait ses propre votes, puis les votes effectue pour lui.
 
 
-	6. Modifier le rôle du client.
-		* Si banni, effacer els votes.
-	7. Sauvegardait l'action d'ans l'historique.
-	8. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
+
+
+7. Modifier le rôle du client.
+	* Si citoyen, supprimé ses propre votes, puis supprimé les votes effectue pour lui.
+
+
+
+	
+8. Encode en string json le contenu de la variable `$role`
+9. Sauvegardait l'action dans l'historique.
+	
+	```php
+	// Crée un tableau contenant l'id user, l'action, date, jdata.
+	$req1 = array(
+		'id_user' => // id retourner par $user['id'],
+		'action' => 'EDITEROLE',
+		'date' => // Timestamp actuel
+		'jdata' => // string json $role
+	);
+	
+	// Appel a la fonction du model.
+	dbs::setLog($req1);
+	```
+10. Construire et retourner le tableau final.
+
+**Informations sortantes**
+
+```js
+{
+	//...
+}
+```
 
 ### Ω Vote
 > Permet de voter.
