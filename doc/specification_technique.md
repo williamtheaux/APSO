@@ -808,9 +808,24 @@ Array {
 6. Vérifier le rôle du client.
 	* Si administrateur, lever une exception. `ERR-NOT-CHANGE-ADMIN`
 	* Si citoyen, récupérait ses propre votes, puis les votes effectue pour lui.
-
-
-
+		* Charger le log du citoyen et l'action VOTE.
+		
+		```php
+		// Crée un tableau contenant le id user.
+		$req = array('id' => $client['id']);
+		
+		// Appel de la fonction model
+		$log = dbs::getLogVoteByUser($req);
+		```
+		
+		* Lancer une boucle sur '$log' pour créer le tableau suivant.
+		
+		```php
+		Array [
+			[hash] = [id client] // Le hash du vote contenu dans jdata = 
+			[hash] = // ...
+		]
+		```
 
 7. Modifier le rôle du client.
 	* Si citoyen, supprimé ses propre votes, puis supprimé les votes effectue pour lui.
