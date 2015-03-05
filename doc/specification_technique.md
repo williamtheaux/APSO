@@ -137,6 +137,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ERR-POSTE-NOT-EXISTS | Le poste que vous voulez supprimer n'existe pas. |
 | ERR-ROLE-INVALID | Le rôle passer en paramètres semble incorrecte. |
 | ERR-NOT-CHANGE-ADMIN | Vous ne pouvez pas modifier les rôles d'administrateurs. |
+| ERR-VAR-VOTE-INVALID | Les données du vote semble incorrecte. |
 
 ***
 
@@ -872,10 +873,25 @@ Array {
 
 **Règles de gestion**
 
-1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si citoyen ou administrateur, alors poursuivre.
+1. Vérification que `$d1` et `$d2` sont [int], le type est `CTN` ou `LOS`. Si non, lever une exception. `ERR-VAR-VOTE-INVALID`
+
+2. Recherche de l'utilisateur dans la base de données.
+	1. Vérifier la validité de l'adresse bitcoin `$a` ou lever une exception. `ERR-BTC-ADR-INVALID`.
+	2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
+	
+		```php
+		// Crée un tableau contenant l'identifiant client.
+		$req = array('adr' => $a);
+		
+		// Appel a la fonction du model.
+		$user = dbs::getUserByBtc($req);
+		```
+	
+	3. Vérifier la présence de l'utilisateur si non lever une exception. `ERR-USER-NOT-EXISTS`.
+	
+3. Vérification du rôle de l'utilisateur `$user['role']`.
+	* Si citoyen ou administrateur, alors poursuivre. si non lever une exception. `ERR-USER-NOT-ACCESS`.
+	
 	4. Vérifier si le client a voté pour ce type et id.
 		* SI oui, modifier le vote.
 		* Si non, Sauvegardait le vote.
@@ -893,7 +909,7 @@ Array {
 |-------|------|------|
 | $a | string | Identifiant client (adresse bitcoin). |
 | $d | int | L'identifiant du vote. |
-| $s | string | Signiature (hash d1+id2+type+Identifiant). |
+| $s | string | Signiature (hash d1+id2+type). |
 
 * **Règles de gestion**
 	1. Vérification des données entrante.
