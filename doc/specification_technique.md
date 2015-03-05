@@ -466,6 +466,35 @@ Array {
 |-------|------|------|
 | $e | int | id client.|
 
+**Règles de gestion**
+
+1. Charger le log du citoyen et l'action VOTE.
+
+	```php
+	// Crée un tableau contenant l'identifiant client.
+	$req = array('id_user' => $e
+		'action' => 'vote');
+	
+	// Appel a la fonction du model.
+	$log = dbs::getLogVoteByUser($req);
+	```
+
+2. Lancer une boucle sur $log pour créer le tableau suivant.
+
+	```php
+	Array [
+		[0] = [hash] // Le hash du vote contenu dans jdata. 
+		[1] = // ...
+	]
+	```
+
+3. Charger la table vote au complet.
+
+	```php
+	// Appel a la fonction du model.
+	$vote = dbs::getVote();
+	```
+
 ***
 
 ## ∑ Api serveur
@@ -825,25 +854,6 @@ Array {
 			// Appel a la fonction du helper.
 			$vote = help::userVote($client['id']);
 			```
-		
-		* Charger le log du citoyen et l'action VOTE.
-		
-		```php
-		// Crée un tableau contenant le id user.
-		$req = array('id' => $client['id']);
-		
-		// Appel de la fonction model
-		$log = dbs::getLogVoteByUser($req);
-		```
-		
-		* Lancer une boucle sur `$log` pour créer le tableau suivant.
-		
-		```php
-		Array [
-			[hash] = [id client] // Le hash du vote contenu dans jdata = 
-			[hash] = // ...
-		]
-		```
 
 7. Modifier le rôle du client.
 	* Si citoyen, supprimé ses propre votes, puis supprimé les votes effectue pour lui.
