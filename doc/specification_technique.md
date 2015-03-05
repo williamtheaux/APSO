@@ -456,6 +456,16 @@ Array {
 
 3. Si n'y citoyen et n'y administrateur, alors retourner `$tmp = false`.
 
+
+### Ω help::userVote($e)
+> Retourne les votes du client.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | int | id client.|
+
 ***
 
 ## ∑ Api serveur
@@ -809,6 +819,13 @@ Array {
 6. Vérifier le rôle du client.
 	* Si administrateur, lever une exception. `ERR-NOT-CHANGE-ADMIN`
 	* Si citoyen, récupérait ses propre votes, puis les votes effectue pour lui.
+		* Récupérait les votes effectuer par le citoyen.
+	
+			```php
+			// Appel a la fonction du helper.
+			$vote = help::userVote($client['id']);
+			```
+		
 		* Charger le log du citoyen et l'action VOTE.
 		
 		```php
@@ -891,6 +908,13 @@ Array {
 	
 3. Vérification du rôle de l'utilisateur `$user['role']`.
 	* Si citoyen ou administrateur, alors poursuivre. si non lever une exception. `ERR-USER-NOT-ACCESS`.
+
+4. Récupérait les votes effectuer par le citoyen.
+	
+	```php
+	// Appel a la fonction du helper.
+	$vote = help::userVote($user['id']);
+	```
 	
 	4. Vérifier si le client a voté pour ce type et id.
 		* SI oui, modifier le vote.
