@@ -397,7 +397,7 @@ Array {
 		[id_user] = // L'identifiant unique du client.
 		[action] = // L'action du log.
 		[date] = // La date d'inscription.
-		[jdata] = information en format JSON string.
+		[jdata] = // Information en format JSON string.
 	[1] = // ...
 }
 ```
@@ -549,6 +549,23 @@ Array {
 	// Appel a la fonction du model.
 	$vote = dbs::getVote();
 	```
+
+4.  Lancer une boucle sur $vote. Hash le id_vote, d1 et d2 et compare la présence dans le log créé précédemment. Construire et retourner le tableau.
+
+**Informations sortantes**
+```php
+Array [
+	[id] = Array [ // Identifiant du vote
+		[id]
+		[id1]		
+		[id2]
+		[type]
+		[hash]
+		[signe]
+	]
+	[id] = // ...
+]
+```
 
 ***
 
