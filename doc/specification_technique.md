@@ -372,6 +372,61 @@ Array {
 }
 ```
 
+### Ω dbs::getLogByUserAndAction($e)
+> Retourne la table de poste trouver par son nom (poste).
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le nom du poste. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('SELECT * FROM apso_log WHERE id_user=:id_user AND action=:action');
+```
+
+**Informations sortantes**
+
+```php
+Array {
+	[0] = Array [
+		[id] = // L'identifiant unique du log.
+		[id_user] = // L'identifiant unique du client.
+		[action] = // L'action du log.
+		[date] = // La date d'inscription.
+		[jdata] = information en format JSON string.
+	[1] = // ...
+}
+```
+
+### Ω dbs::getVote()
+> Retourne la table vote au complet.
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('SELECT * FROM apso_vote');
+```
+
+**Informations sortantes**
+
+```php
+Array {
+	[0] = Array [
+		[id] = // L'identifiant unique du vote.
+		[id1]
+		[id2]
+		[type] = // Le type de vote.
+		[date] = // Timestamp.
+		[signe] = // La signiature du vote.
+	[1] = // ...
+}
+```
+
 ***
 
 ## ∑ HELPER
@@ -473,13 +528,13 @@ Array {
 	```php
 	// Crée un tableau contenant l'identifiant client.
 	$req = array('id_user' => $e
-		'action' => 'vote');
+		'action' => 'VOTE');
 	
 	// Appel a la fonction du model.
-	$log = dbs::getLogVoteByUser($req);
+	$log = dbs::getLogByUserAndAction($req);
 	```
 
-2. Lancer une boucle sur $log pour créer le tableau suivant.
+2. Lancer une boucle sur $log pour créer le tableau suivant. Le hash se trouve dans la variable jdata de l'action vote.
 
 	```php
 	Array [
