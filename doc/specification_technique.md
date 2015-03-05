@@ -764,7 +764,7 @@ Array {
 }
 ```
 
-### Ω etat_editeRole ($a, $r, $u, $s)
+### Ω etat_editeRole($a, $r, $u, $s)
 > Editer le rôle de l'utilisateur. Fonction propriétaire : **editeRole**
 
 **Informations entrantes**
@@ -818,7 +818,7 @@ Array {
 		$log = dbs::getLogVoteByUser($req);
 		```
 		
-		* Lancer une boucle sur '$log' pour créer le tableau suivant.
+		* Lancer une boucle sur `$log` pour créer le tableau suivant.
 		
 		```php
 		Array [
@@ -858,16 +858,21 @@ Array {
 }
 ```
 
-### Ω Vote
-> Permet de voter.
+### Ω vote_send($a, $d1, $d2, $t)
+> Permet d'enregistrer la première phase du vote.
 
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* Type
-	* id 1
-	* id 2
-* **Règles de gestion**
-	1. Vérification des données entrante.
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $d1 | int | Le premier identifiant du vote. |
+| $d2 | int | Le deuxième identifiant du vote. |
+| $t | string | Le type de vote. |
+
+**Règles de gestion**
+
+1. Vérification des données entrante.
 	2. Recherche de l'utilisateur dans la base de données.
 	3. Vérification du rôle de l'utilisateur.
 		* Si citoyen ou administrateur, alors poursuivre.
@@ -879,13 +884,17 @@ Array {
 	* Id du vote
 	* Hash pour la signature.
 
-### Ω fixVote
-> Permet de confirmer son voter
+### Ω vote_fix($a, $d, $s)
+> Permet de confirmer son vote.
 
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* id vote
-	* Signiature (Hash)
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $d | int | L'identifiant du vote. |
+| $s | string | Signiature (hash d1+id2+type+Identifiant). |
+
 * **Règles de gestion**
 	1. Vérification des données entrante.
 	2. Recherche de l'utilisateur dans la base de données.
