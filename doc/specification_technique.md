@@ -1008,16 +1008,34 @@ Array [
 		$req = array('id' => $vote['id']);
 		
 		// Appel a la fonction du model.
-		$user = dbs::deleteVote($req);
+		dbs::deleteVote($req);
 		```
 	
 6. Crée un hash du vote. Sauvegardait le vote dans la base de données.
+
+	```php
+	// Crée un tableau contenant l'id vote, id1, id2, type, date.
+	$req1 = array(
+		'id' => // Hash id1 id2 type date
+		'id1' => 
+		'id2' => 
+		'type' => // type de vote
+		'date' => Timestamp actuel.
+		'signe' => 0 // Non signé.
+	);
+	
+	// Appel a la fonction du model.
+	dbs::setVote($req);
+	```
+
+7. Construire et retourner le Hash (id+id1+id2+type) pour la signiature du vote.
 
 **Informations sortantes**
 
 ```js
 {
-	//... Hash pour la signature. Id du vote
+	'id' :  // Id du vote.
+	'hash' :  // Hash pour la signature.
 }
 ```
 
