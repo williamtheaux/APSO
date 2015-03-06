@@ -316,6 +316,68 @@ En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 db::go('INSERT INTO apso_vote VALUES(:id, :id1, :id2, :type, :date, :signe)');
 ```
 
+### Ω dbs::getVoteById($e)
+> Retourne la table vote par id.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant l'identifiant du vote. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('SELECT * FROM apso_vote' WHERE id=:id');
+```
+
+**Informations sortantes**
+
+```php
+Array [
+	[id] = // L'identifiant unique du vote.
+	[id1]
+	[id2]
+	[type] = // Le type de vote.
+	[date] = // Timestamp.
+	[signe] = // La signiature du vote.
+]
+```
+
+### Ω dbs::deleteVoteByTimes($e)
+> Suppression du vote.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le temps. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+// Suppression du poste.
+db::go('DELETE FROM apso_vote WHERE date<=:date AND signe=0');
+```
+
+### Ω dbs::getSigneInVote($e)
+> Insert dans la table vote la signature.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant l'identifiant du vote et la signature. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('UPDATE apso_vote SET signe=:signe WHERE id=:id');
+```
+
 ***
 
 ## ∑ HELPER
@@ -458,3 +520,5 @@ Array [
 ```
 
 ***
+
+*Mercredi 25 Février 2015*

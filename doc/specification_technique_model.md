@@ -109,6 +109,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ADDPOSTE | Ajouter un nouveaux poste dans la base de données | id poste, le nom, la date |
 | DELETEPOSTE | Suppression du poste, des votes et des fonctions associer | id poste, nom, date, le nombre de vote supprimer |
 | EDITEROLE | Modification du rôle de l'utilisateur | id user, nom, prénom, rôle, new rôle, le nombre de vote supprimer |
+| VOTE | Le vote d'un utilisateur. | hash du vote, id crypter, type |
 
 ***
 

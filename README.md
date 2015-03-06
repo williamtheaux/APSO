@@ -25,7 +25,7 @@ APSO réalise un mode d'Assemblée Générale permanente, souveraine à dynamiqu
 	
 	1. [Model](doc/specification_technique_model.md) Nommage des fonctions.
 	2. [Data](doc/specification_technique_data.md) Conception de la base de données.
-	3. [Api](doc/specification_technique_api.md) Api en php côte serveur.
+	3. [Api](doc/specification_technique_api.md) en php côte serveur.
 	4. [Client](doc/specification_technique_client.md) App en jQuery côte client.
 
 ***

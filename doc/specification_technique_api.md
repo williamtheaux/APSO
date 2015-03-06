@@ -466,8 +466,7 @@
 }
 ```
 
-
-### Ω vote_fix($a, $d, $s)
+### Ω vote_fix($a, $d, $ds, $s)
 > Permet de confirmer son vote.
 
 **Informations entrantes**
@@ -475,19 +474,88 @@
 | param | Type | Desc |
 |-------|------|------|
 | $a | string | Identifiant client (adresse bitcoin). |
-| $d | int | L'identifiant du vote. |
-| $s | string | Signiature (hash d1+id2+type). |
+| $d | string | L'identifiant du vote. |
+| $ds | string | L'identifiant du vote crypter. |
+| $s | string | Signiature (hash id+d1+id2+type). |
 
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si citoyen ou administrateur, alors poursuivre.
-	4. Vérifier le hash.
-	6. Sauvegardait la signature.
-	7. Sauvegardait l'action d'ans l'historique.
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
+**Règles de gestion**
+
+1. Vérification que `$d` est [hash], lever une exception. `ERR-VAR-VOTE-INVALID`
+
+2. Recherche de l'utilisateur dans la base de données.
+	1. Vérifier la validité de l'adresse bitcoin `$a` ou lever une exception. `ERR-BTC-ADR-INVALID`.
+	2. Recherche de l'utilisateur dans la base de données par l'identifiant client.
+	
+		```php
+		// Crée un tableau contenant l'identifiant client.
+		$req = array('adr' => $a);
+		
+		// Appel a la fonction du model.
+		$user = dbs::getUserByBtc($req);
+		```
+	
+	3. Vérifier la présence de l'utilisateur si non lever une exception. `ERR-USER-NOT-EXISTS`.
+	
+3. Vérification du rôle de l'utilisateur `$user['role']`.
+	* Si citoyen ou administrateur, alors poursuivre. si non lever une exception. `ERR-USER-NOT-ACCESS`.
+
+4. Suppression des votes non Sagnier dépassant deux minutes dans la base de données.
+
+	```php
+	// Crée un tableau contenant l'identifiant client.
+	$req = array('date' => // Timestamp - 2 mn);
+	
+	// Appel a la fonction du model.
+	dbs::deleteVoteByTimes($req);
+	```
+
+5. Recherche du vote dans la base de données.
+
+	```php
+	// Crée un tableau contenant l'identifiant vote.
+	$req = array('id' => $d);
+	
+	// Appel a la fonction du model.
+	$vote = dbs::getVoteById($req);
+	```
+	
+4. Vérifier le hash et la signature avec $vote. si non lever une exception. `ERR-VAR-VOTE-INVALID`.
+
+6. Sauvegardait la signature dans la base de données.
+
+	```php
+	// Crée un tableau contenant l'identifiant vote et la signature.
+	$req = array('id' => $d,
+		'signe' => $s);
+	
+	// Appel a la fonction du model.
+	$vote = dbs::getSigneInVote($req);
+	```	
+	
+8. Encode en string json le contenu de la variable `$v` contenant le hash et le contenu du vote crypter `$ds`.
+9. Sauvegardait l'action dans l'historique.
+	
+	```php
+	// Crée un tableau contenant l'id user, l'action, date, jdata.
+	$req1 = array(
+		'id_user' => // id retourner par $user['id'],
+		'action' => 'VOTE',
+		'date' => // Timestamp actuel
+		'jdata' => // string json $v
+	);
+	
+	// Appel a la fonction du model.
+	dbs::setLog($req1);
+	```
+10. Construire et retourner le tableau final.
+
+**Informations sortantes**
+
+```js
+{
+	//...
+}
+```
 
 ### Ω addLois
 > Ajouter une nouvelle loi.
@@ -649,3 +717,5 @@
 	* Administrateur
 
 ***
+
+*Mercredi 25 Février 2015*
