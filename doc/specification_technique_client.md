@@ -1,0 +1,810 @@
+# Spécification technique Client (STB V.0.1)
+> L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de lois et leur amendements. C'est la partie graphique qui est affichée au client.
+
+![App architecture](annexes/appArchitect.jpg)
+
+### Ω Accueil HTML
+> C'est la porte d'entrée de votre application. Elle se situe au sommet de la hiérarchie. C'est une page qui explique clairement ce qu'on va trouver sur votre application. C'est la page la plus visitée. Si l'utilisateur est connecter, Elle affiche les données de l'utilisateur.
+
+* *Accès*
+	* Directement sur le domaine principal. https://domaine.com
+* *Maquette*
+	* Couleur dominant est le vert. Un arrière-plan blanc, photo.
+		* **Si connecter** Données de l'utilisateur.
+		* **Si no connecter** un formulaire de connexion et un slide de 3 ou 4 paragraphes.
+* *Informations*
+	* **Si connecter**
+		* **Texte**
+			* **Titre :** Mon compte
+		* **Variable interne**
+			* Id publique. L'adresse bitcoin.
+			* Clé privée.
+			* Phrase secrète crypter.
+			* Données serveur.
+	* **Si no connecter**
+		* **Texte pour le slide**
+			1. **Titre :** La démocratie directe **Desc :** Des élections anonymes en temps réel ou chaque citoyen peut changer à tous moment sont vote, et basculer le résulta final du scrutin.
+			2. **Titre :** Le suffrage universel **Desc :** Exprime un choix, une volonté. Ici chaque citoyen peut créer des lois, proposer des amendements, et enfin, exprimer sont vote.
+		* **Input**
+			* La phrase secrète pour le cryptage asymétrique.
+			* Le code pin pour le cryptage symétrique de la phrase secrète.
+* *Actions possibles*
+	* **Si connecter**
+		* Si l'utilisateur n'est pas reconue, afficher la page `Ω SignUp HTML`
+		* Si l'utilisateur est banni, afficher la page `Ω Block HTML`
+	* **Si no connecter**
+		* Connexion avec l'application. `Ω Connexion FUNC`
+* *Règles de gestion*
+	* **Si connecter**
+		* Si les données de connexion son present.
+	* **Si no connecter**
+		* Validation des champs pendant submit.
+
+### Ω Vérification HTML
+> La vérification des signatures permet de valider le message et l'expéditeur. La signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
+
+* *Accès*
+	* A partir du menu principal.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** Vérifier une signature
+		* **Desc :** Dans cette section, vous pouvez vérifier une signature et son message avec l'adresse bitcoin du signataire.
+	* **Input**
+		* Le message signé
+		* la signature du message
+		* Adresse Bitcoin du signataire
+* *Actions possibles*
+	* Vérification de la signature. `Ω Vérification FUNC`
+* *Règles de gestion*
+	* Validation des champs pendant submit.
+
+### Ω Vérification FUNC
+> La vérification valider le message et l'expéditeur. La signature électronique vérifier l'intégrité du message.
+
+* *Accès*
+	* A partir de la page `Ω Vérification HTML`.
+* *Maquette*
+	* Modifie le message sur la page `Ω Vérification HTML`.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Le message est bien signiez par l'adresse en question.
+	* **Variable interne**
+		* Le message signé
+		* la signature du message
+		* Adresse Bitcoin du signataire
+* *Actions possibles*
+	* En cas d'erreur, afficher un message d'alerte.
+	* En cas de succès, afficher le message de validation sur la page + icon.
+* *Règles de gestion*
+	* Vérification électronique du message.
+
+### Ω Signature HTML
+> La Signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
+
+* *Accès*
+	* A partir du menu principal.
+	* Accès rôle **Banni**.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** Signature du message
+		* **Desc :** Dans cette section, vous pouvez signer un message avec votre clé prives et vérifiable avec votre adresse bitcoin.
+	* **Input**
+		* Le message à signer.
+		* Le code pin pour le decryptage symétrique de la phrase secrète.
+* *Actions possibles*
+	* Signature du message. `Ω Signature FUNC`
+* *Règles de gestion*
+	* Validation des champs pendant submit.
+
+### Ω Signature FUNC
+> Procédure de la signature électronique du message.
+
+* *Accès*
+	* A partir de la page `Ω Signature HTML`.
+	* Accès rôle **Banni**.
+* *Maquette*
+	* Modifie le message sur la page `Ω Signature HTML`.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Voici la signature électronique de votre message authentifier par votre identifiant publique.
+	* **Variable interne**
+		* Le message
+		* Clé privée
+		* Phrase secrète crypter
+		* Le code pin
+		* Id publique du signataire
+	* **Variable new**
+		* la signature du message
+* *Actions possibles*
+	* En cas d'erreur, afficher un message d'alerte.
+	* En cas de succès, afficher la signature sur la page.
+* *Règles de gestion*
+	* Signature électronique du message.
+
+### Ω Login FUNC
+> Elle lance un appel à l'api pour les information client. Après analyse des données reçu et si le role d'accès est autorisé, elle lance un événement dans l'application.
+
+* *Accès*
+	* Juste après la connexion.
+	* Accès rôle **Banni**.
+* *Informations*
+	* **Variable interne**
+		* Id publique. L'adresse bitcoin.
+		* Clé privée.
+		* Phrase secrète crypter.
+* *Actions possibles*
+	* Si l'appel échoue, annulé la connexion et lancer une erreur.
+	* Editer le model, si l'utilisateur est au minimum **observateur**, lancer un événement et afficher la page `Ω Accueil HTML`.
+* *Règles de gestion*
+	* Analyse du JSON retourner par le serveur.
+
+### Ω Déconnexion FUNC
+> Elle efface toutes les variable du model, lance un événement de déconnexion dans l'application.
+
+* *Accès*
+	A partir du menu principal.
+	* Accès rôle **Banni**.
+* *Actions possibles*
+	* Editer le model, lancer un événement et afficher la page `Ω Accueil HTML`.
+* *Règles de gestion*
+	* Ne pas afficher si l'utilisateur n'est pas connecté.
+
+### Ω SignUp HTML
+> Si l'utilisateur n'est pas dans la base de données. Elle affiche un formulaire pour s'inscrire.
+
+* *Accès*
+	* Juste après la connexion. Elle est affichée si l'utilisateur ne fut pas trouvé dans la base de données.
+	* Accès rôle **Guest**.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** Finaliser votre inscription
+		* **Desc :** Pour finaliser le processus d'inscription, veuillez envoyer votre nom et prénom.
+	* **Input**
+		* Le nom
+		* Le prénom
+* *Actions possibles*
+	* Déclencher la fonction `Ω SignUp FUNC`.
+* *Règles de gestion*
+	* Validation des champs pendant submit.
+
+### Ω SignUp FUNC
+> Déclencher par un formulaire. Elle lance un appel à l'api avec les données de l'utilisateur. Si tout, c'est bien passer, elle affiche la page de validation.
+
+* *Accès*
+	* A partir de la page `Ω SignUp HTML`.
+	* Accès rôle **Guest**.
+* *Maquette*
+	* Affiche la page `Ω Valide HTML`.
+* *Informations*
+	* **Variable new**
+		* Le retour serveur
+* *Actions possibles*
+	* En cas d'erreur, afficher un message d'alerte.
+	* En cas de succès, afficher la page `Ω Valide HTML`.
+* *Règles de gestion*
+	* Analyse du JSON retourner par le serveur.
+
+### Ω Valide HTML
+> Si l'utilisateur n'est pas validé par un administrateur. Elle affiche un message de mise en attente.
+
+* *Accès*
+	* Juste après la connexion. Elle est affichée si l'utilisateur fut trouvé dans la base de données mais toujours rôle **guest**.
+	* Accès rôle **Guest**.
+* *Maquette*
+	* Composer de icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** Validation du compte
+		* **Desc :** Votre compte est actuellement en attente d'approbation. Une fois cette actions effectuées, vous pourrez poursuivre pour découvrir le déroulement du processus de vote.
+
+### Ω Block HTML
+> Si l'utilisateur est banni. Elle affiche un message de bannissement.
+
+* *Accès*
+	* Juste après la connexion. Elle est affichée si l'utilisateur est banni.
+	* Accès rôle **Banni**.
+* *Maquette*
+	* Composer de icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** Compte bloqué
+		* **Desc :** Votre compte a été désactivé par un administrateur. Veuillez contacter le service support pour plus d'information.
+
+### Ω Log HTML
+> Elle affiche l'historique du site.
+
+* *Accès*
+	* A partir du menu principal.
+	* Accès rôle **Observateur**.
+* *Maquette*
+	* Composer d'un tableau contenant les actions des utilisateurs, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** Historique d'état
+		* **Desc :** Retrouver ici, l'historique des actions publique de l'Etat souverain.
+	* **Tableau**
+		* Le nom de l'utilisateur
+		* Le pénom de l'utilisateur
+		* Le nom de l'action
+		* La date de l'action
+		* Les info de l'action
+			* Les paramètres sont des JSON est sont diffèrent à chaque action.
+* *Règles de gestion*
+	* Classement par : date Asc.
+	* Une pagination est intégrée au pied du tableau. 20 par page.
+
+### Ω État HTML
+> Elle affiche les postes et les utilisateurs élus. Elle est le point d'entrer pour toutes les fonctions touchant les postes et citoyens de l'api.
+
+* *Accès*
+	* A partir du menu principal.
+	* Accès rôle **Observateur**.
+* *Maquette*
+	* Tableau des citoyens de l'État sur la partie gauche de la page. Tableau des postes avec le citoyen élu sur la partie droite de la page.
+	* Si citoyen, Devant chaque poste proposer un formulaire pour voter ou modifier son vote.
+	* Si administrateur, afficher un btn en haut du tableau pour ajouter de nouveau poste et devant chaque poste un btn pour pouvoir le supprimer. Sur la partie gauche afficher un btn pour pouvoir modifier le rôle d'accès.
+* *Informations*
+	* **Tableau** citoyen
+		* identifiant
+		* Nom
+		* Prénom
+	* **Tableau** poste
+		* identifiant
+		* nom
+* *Actions possibles*
+	* Si **citoyen** voter ou modifier son vote.
+	* Si **Admin** ou **membre élu** Ajout des postes, suppression des postes, gestion des utilisateurs.
+* *Règles de gestion*
+	* Si **citoyen** permettre d'effectuer son vote.
+	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible. Donner accès au liste de citoyens banni ou guest.
+
+### Ω addPoste HTML
+> Elle affiche un formulaire pour l'ajout des postes.
+
+* *Accès*
+	A partir de la page `Ω État HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** Ajouter un nouveaux poste.
+	* **Input**
+		* Le poste
+		* Le code pin
+* *Actions possibles*
+	* Déclencher la fonction `Ω addPoste FUNC`.
+* *Règles de gestion*
+	* Visibiliter  dans le menu principal selon les Accès.
+	* Validation des champs pendant submit.
+
+### Ω addPoste FUNC
+> Elle lance un appel à l'api avec les données du poste au serveur.
+
+* *Accès*
+	* A partir de la page `Ω addPoste HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Le nouveau poste fut ajouté avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* le poste
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω État HTML`.
+* *Règles de gestion*
+	* signiature de la variable poste.
+	* appel à l'api.
+
+### Ω deletePoste HTML
+> Elle affiche un formulaire avec le code pin pour la suppression du poste.
+
+* *Accès*
+	* A partir de la page `Ω État HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** suppression du poste.
+	* **Input**
+		* L'identifiant du poste
+		* Le code pin
+* *Actions possibles*
+	* Déclencher la fonction `Ω addPoste FUNC`.
+* *Règles de gestion*
+	* Visibiliter selon les Accès.
+	* Validation des champs pendant submit.
+
+### Ω deletePoste FUNC
+> Elle lance un appel à l'api pour la suppression du poste.
+
+* *Accès*
+	* A partir de la page `Ω deletePoste HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Le poste fut supprimer avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* l'identifiant du poste
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω État HTML`.
+* *Règles de gestion*
+	* signiature de la variable poste.
+	* appel à l'api.
+
+### Ω editeRole HTML
+> Elle affiche un formulaire pour editer le role.
+
+* *Accès*
+	* A partir de la page `Ω État HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** Modification d'acces de l'utilisateur.
+	* **Variable interne**
+		* Id utilisateur
+	* **Input**
+		* Le role
+		* Le code pin
+* *Actions possibles*
+	* Déclencher la fonction `Ω editeRole FUNC`.
+* *Règles de gestion*
+	* Validation des champs pendant submit.
+
+### Ω editeRole FUNC
+> Elle lance un appel à l'api pour editer le role d'un utilisateur.
+
+* *Accès*
+	* A partir de la page `Ω editeRole HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Le rôle fut mise a jour avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* le rôle
+		* Id user
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.		
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω État HTML`.
+* *Règles de gestion*
+	* signiature de la variable rôle.
+	* appel à l'api.
+
+### Ω Vote HTML
+> Elle affiche un formulaire pour le vote.
+
+* *Accès*
+	* A partir de la page `Ω ficheLois HTML` ou `Ω État HTML`.
+	* Accès rôle **citoyen**.
+* *Informations*
+	* **Variable interne**
+		* Id publique
+	* **Variable new**
+		* Type de vote
+		* L'identifiant du vote
+		* L'identifiant de la catégorie
+* *Actions possibles*
+	* Déclencher la fonction `Ω Vote FUNC`.
+* *Règles de gestion*
+	* Déterminer le type de vote.
+	* Validation des champs pendant submit.
+
+### Ω Vote FUNC
+> Elle lance un appel à l'api avec les données du vote. Si succès, alors confirmer son vote en le signant a l'aide de code pin.
+
+* *Accès*
+	* A partir de la page `Ω Vote HTML`.
+	* Accès rôle **citoyen**.
+* *Maquette*
+	* En cas de succès de l'appel, composer d'un formulaire de code pin, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Confirmer votre vote.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+		* Type de vote
+		* L'identifiant du vote
+		* Id user
+	* **Variable new**
+		* L'identifiant de la catégorie
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.		
+	* En cas de succès
+		* Afficher un message de succès.
+		* Déclencher la fonction `Ω fixVote FUNC`.
+* *Règles de gestion*
+	* appel à l'api.
+
+### Ω fixVote FUNC
+> Elle lance un appel à l'api avec la signature du vote.
+
+* *Accès*
+	* A partir de la page `Ω Vote FUNC`.
+	* Accès rôle **citoyen**.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Votre vote électronique est réalisés avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+		* Type de vote
+		* L'identifiant du vote
+		* Id user
+	* **Variable new**
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.		
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω État HTML` ou `Ω Lois HTML`.
+* *Règles de gestion*
+	* signiature de la variable hash vote.
+	* Différence entre le type de vote pour l'affichage de la page de retour.
+	* appel à l'api.
+
+### Ω Lois HTML
+> Elle liste les lois et leurs amendements. Elle est le point d'entrer pour toutes les fonctions touchant les lois.
+
+* *Accès*
+	* A partir du menu principal.
+	* Accès rôle **Observateur**.
+* *Maquette*
+	* Tableau des lois sur la page. Chaque ligne conduite a la fiche détaillée de la loi.
+	* Si citoyen, Afficher un btn en haut du tableau pour ajouter de nouvelle lois.
+	* Si admin, devant chaque poste un btn pour pouvoir supprimer la lois.
+* *Informations*
+	* **Tableau** Lois
+		* identifiant
+		* Nom
+	* **Tableau** amendements élu.
+		* identifiant
+		* nom
+* *Actions possibles*
+	* Si **citoyen** voter ou modifier son vote. Ajout de lois.
+	* Si **Admin** ou **membre élu** Suppression et gestion de lois.
+* *Règles de gestion*
+	* Si **citoyen** permettre d'effectuer son vote.
+	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible.
+
+### Ω ficheLois HTML
+> Elle affiche la loi et ses amendements. Elle offre un moyen de modification de données à l'utilisateur ayant les droits nécessaires.
+
+* *Accès*
+	* A partir du menu principal.
+	* Accès rôle **Observateur**.
+* *Maquette*
+	* Le nom de la loi.
+	* Tableau des amendements. Faire resortire l'amendement élu.
+	* Si citoyen, Afficher un btn en haut du tableau pour ajouter de nouveaux amendements.
+	* Si admin, devant chaque amendements un btn pour pouvoir supprimer ou modifier.
+* *Informations*
+	* **Variable** Lois
+		* identifiant
+		* Nom
+	* **Tableau** amendements élu.
+		* identifiant
+		* nom
+* *Actions possibles*
+	* Si **citoyen** voter ou modifier son vote.
+	* Si **Admin** ou **membre élu** Suppression et gestion des amendements.
+* *Règles de gestion*
+	* Si **citoyen** permettre d'effectuer son vote.
+	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible.
+
+### Ω addLois HTML
+> Elle affiche un formulaire pour ajouter de nouvelles lois.
+
+* *Accès*
+	* A partir de la page `Ω Lois HTML`.
+	* Accès rôle **citoyen**.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** Ajouter une nouvelle loi.
+	* **Input**
+		* La loi
+		* Le code pin
+* *Actions possibles*
+	* Déclencher la fonction `Ω addLois FUNC`.
+* *Règles de gestion*
+	* Validation des champs pendant submit.
+
+### Ω addLois FUNC
+> Elle lance un appel à l'api pour ajouter de nouvelles lois.
+
+* *Accès*
+	* A partir de la page `Ω addLois HTML`.
+	* Accès rôle **citoyen**.
+* *Informations*
+	* **Texte**
+		* **Message succès :** La nouvelle loi fut ajouté avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* la loi
+		* Le premier amendement		
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω ficheLois HTML`.
+* *Règles de gestion*
+	* signiature de la variable loi.
+	* appel à l'api.
+
+### Ω addAmd HTML
+> Elle affiche un formulaire pour ajouter de nouveaux amendements.
+
+* *Accès*
+	* A partir de la page `Ω ficheLois HTML`.
+	* Accès rôle **citoyen**.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** Ajouter un nouveaux amendements.
+	* **Input**
+		* L'amendements
+		* Le code pin
+* *Actions possibles*
+	* Déclencher la fonction `Ω addAmd FUNC`.
+* *Règles de gestion*
+	* Validation des champs pendant submit.
+
+### Ω addAmd FUNC
+> Elle lance un appel à l'api pour ajouter de nouveaux amendements.
+
+* *Accès*
+	* A partir de la page `Ω addAmd HTML`.
+	* Accès rôle **citoyen**.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Le nouveaux amendement fut ajouté avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+		* la loi
+	* **Variable new**
+		* L'amendement		
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω ficheLois HTML`.
+* *Règles de gestion*
+	* signiature de la variable d'amendement.
+	* appel à l'api.
+
+### Ω editeLois HTML
+> Elle affiche un formulaire pour editer une lois.
+
+* *Accès*
+	* A partir de la page `Ω ficheLois HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** Modification de la loi.
+	* **Input**
+		* La loi
+		* Le code pin
+* *Actions possibles*
+	* Déclencher la fonction `Ω editeLois FUNC`.
+* *Règles de gestion*
+	* Validation des champs pendant submit.
+
+### Ω editeLois FUNC
+> Elle lance un appel à l'api pour editer une lois.
+
+* *Accès*
+	* A partir de la page `Ω editeLois HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Informations*
+	* **Texte**
+		* **Message succès :** La loi fut mise a jour avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* la loi
+		* Id user
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.		
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω ficheLois HTML`.
+* *Règles de gestion*
+	* signiature de la variable loi.
+	* appel à l'api.
+
+### Ω editeAmd HTML
+> Elle affiche un formulaire pour editer un amendements.
+
+* *Accès*
+	* A partir de la page `Ω ficheLois HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** Modification d'amendements.
+	* **Input**
+		* Le amendements
+* *Actions possibles*
+	* Déclencher la fonction `Ω editeAmd FUNC`.
+* *Règles de gestion*
+	* Validation des champs pendant submit.
+
+### Ω editeAmd FUNC
+> Elle lance un appel à l'api pour editer un amendements.
+
+* *Accès :*
+	* A partir de la page `Ω editeAmd HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Informations*
+	* **Texte**
+		* **Message succès :** L'amendement fut mise a jour avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* L'amendement
+		* Id user
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.		
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω ficheLois HTML`.
+* *Règles de gestion*
+	* signiature de la variable amendement.
+	* appel à l'api.
+
+### Ω deleteLoi HTML
+> Elle affiche un formulaire avec le code pin pour la suppression de la loi.
+
+* *Accès*
+	* A partir de la page `Ω Lois HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** suppression du poste.
+	* **Input**
+		* L'identifiant de la loi
+		* Le code pin
+* *Actions possibles*
+	* Déclencher la fonction `Ω deleteLoi FUNC`.
+* *Règles de gestion*
+	* Visibiliter selon les Accès.
+	* Validation des champs pendant submit.
+
+### Ω deleteLoi FUNC
+> Elle lance un appel à l'api pour la suppression d'une lois.
+
+* *Accès :*
+	* A partir de la page `Ω deleteLoi HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Informations*
+	* **Texte**
+		* **Message succès :** La loi fut supprimer avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* l'identifiant de la loi
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω Lois HTML`.
+* *Règles de gestion*
+	* signiature de la variable loi.
+	* appel à l'api.
+
+### Ω deleteAmd HTML
+> Elle affiche un formulaire avec le code pin pour la suppression de l'amendement.
+
+* *Accès*
+	* A partir de la page `Ω ficheLois HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Maquette*
+	* Composer d'un formulaire, icon, titre + Desc.
+* *Informations*
+	* **Texte**
+		* **Titre :** suppression de l'amendement.
+	* **Input**
+		* L'identifiant de l'amendement
+		* Le code pin
+* *Actions possibles*
+	* Déclencher la fonction `Ω deleteAmd FUNC`.
+* *Règles de gestion*
+	* Visibiliter selon les Accès.
+	* Validation des champs pendant submit.
+
+### Ω deleteAmd FUNC
+> Elle lance un appel à l'api pour la suppression d'un amendement.
+
+* *Accès :*
+	* A partir de la page `Ω ficheLois HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Informations*
+	* **Texte**
+		* **Message succès :** L'amendement fut supprimer avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* l'identifiant de l'amendement
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω ficheLois HTML`.
+* *Règles de gestion*
+	* signiature de la variable amendement.
+	* appel à l'api.
+
+***
+
+*Mercredi 25 Février 2015*

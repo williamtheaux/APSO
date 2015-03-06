@@ -21,8 +21,11 @@ APSO réalise un mode d'Assemblée Générale permanente, souveraine à dynamiqu
 
 * :three: [Spécification fonctionnelle](doc/specification_fonctionnelle.md) comporte l’ensemble des règles de fonctionnement de votre logiciel. C'est l'architecture de votre application.
 
-* :four: [Spécification technique](doc/specification_technique.md) comporte l’ensemble des règles, nommage des fonctions, conception de la base de données. Ça sera la feuille de route pour le développement.
-
+* :four: Les spécification technique comporte l’ensemble des règles, nommage des fonctions, conception de la base de données. Ça sera la feuille de route pour le développement.
+	1. [Model](doc/specification_technique_model.md)
+	2. [Data](doc/specification_technique_data.md)
+	3. [Api](doc/specification_technique_api.md)
+	4. [Client](doc/specification_technique_client.md)
 ***
 
 ## Annexes
