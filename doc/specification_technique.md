@@ -427,6 +427,39 @@ Array {
 }
 ```
 
+### Ω dbs::deleteVote($e)
+> Suppression du vote.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le id du vote. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+// Suppression du poste.
+db::go('DELETE FROM apso_vote WHERE id=:id');
+```
+
+### Ω dbs::setVote($e)
+> Ajoute un nouvel vote dans la base de données.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant l'identifiant vote, id1, id2, type, date, signe. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('INSERT INTO apso_vote VALUES(:id, :id1, :id2, :type, :date, :signe)');
+```
+
 ***
 
 ## ∑ HELPER
