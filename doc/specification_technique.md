@@ -553,6 +553,7 @@ Array {
 4.  Lancer une boucle sur $vote. Hash le id_vote, d1 et d2 et compare la présence dans le log créé précédemment. Construire et retourner le tableau.
 
 **Informations sortantes**
+
 ```php
 Array [
 	[id] = Array [ // Identifiant du vote
@@ -997,14 +998,29 @@ Array [
 	// Appel a la fonction du helper.
 	$vote = help::userVote($user['id']);
 	```
+
+5. Lancer une boucle sur $vote et compare la présence `$d1` avec le type.
+	* Si il y a une correspondance
+		* Supprimer le vote dans la base de données.
+		
+		```php
+		// Crée un tableau contenant l'identifiant client.
+		$req = array('id' => $vote['id']);
+		
+		// Appel a la fonction du model.
+		$user = dbs::deleteVote($req);
+		```
 	
-	4. Vérifier si le client a voté pour ce type et id.
-		* SI oui, modifier le vote.
-		* Si non, Sauvegardait le vote.
-	5. Crée un hash du vote.
-* **Informations sortantes**
-	* Id du vote
-	* Hash pour la signature.
+6. Crée un hash du vote. Sauvegardait le vote dans la base de données.
+
+**Informations sortantes**
+
+```js
+{
+	//... Hash pour la signature. Id du vote
+}
+```
+
 
 ### Ω vote_fix($a, $d, $s)
 > Permet de confirmer son vote.
