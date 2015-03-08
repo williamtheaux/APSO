@@ -142,11 +142,32 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 
 ## Erreurs client
 
-> Gestion des erreurs déclencher par le lapplication client.
+> Gestion des erreurs déclencher par l'application client.
 
 | Code | Desc |
 |-------|-----|
 | ERR-ALREADY-CONNECTED | Vous êtes déjà connecté. |
+
+***
+
+## Texte client
+
+> Gestion des texte de l'application client.
+
+Module USER
+
+| Code | Desc |
+|-------|-----|
+| USER-LABEL | Mon compte. |
+| USER-SLID-1-LABEL | La démocratie directe |
+| USER-SLID-1-DESC | Des élections anonymes en temps réel ou chaque citoyen peut changer à tous moment sont vote, et basculer le résulta final du scrutin. |
+| USER-SLID-2-LABEL | Le suffrage universel |
+| USER-SLID-2-DESC | Exprime un choix, une volonté. Ici chaque citoyen peut créer des lois, proposer des amendements, et enfin, exprimer sont vote. |
+| USER-LABEL | Mon compte. |
+| USER-LABEL | Mon compte. |
+| USER-LABEL | Mon compte. |
+| USER-LABEL | Mon compte. |
+| USER-LABEL | Mon compte. |
 
 ***
 

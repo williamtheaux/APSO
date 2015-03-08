@@ -3,48 +3,70 @@
 
 ![App architecture](annexes/appArchitect.jpg)
 
-### Ω $.user.home()
+## Ω $.user.home()
 > C'est la porte d'entrée de votre application. Elle se situe au sommet de la hiérarchie. C'est une page qui explique clairement ce qu'on va trouver sur votre application. C'est la page la plus visitée. Si l'utilisateur est connecter, Elle affiche les données de l'utilisateur.
 
 **Règles de gestion**
 
-1. Vérifier la presence de `$.m.user.wallet.adr` Si non afficher tmpl `home`
+1. Vérifier la presence de `$.m.user.wallet.adr` Si non afficher HTML `home`
+	* Installez un validateur sur le formulaire `formLogin`
+	* Installez un écouteur sur le formulaire `formLogin`avec la fonction `$.user.loginFUNC`
 
-**Template**
+2. Vérifier la presence de `$.m.user.wallet.info` Si non afficher HTML `sign`
+	* Installez un validateur sur le formulaire `formSignUser`
+	* Installez un écouteur sur le formulaire `formSignUser` avec la fonction `$.user.signUpFUNC`
+
+3. Vérifier l'absence de `$.m.user.wallet.guest` Si non afficher HTML `validation`
+4. Vérifier l'absence de `$.m.user.wallet.banni` Si non afficher HTML `bannissement`
+
+**Template HTML**
+
+* `home` Déjà intégrait dans le framework.
+	* Formulaire `formLogin`
+* `sign` Affiche un formulaire d'inscription final pour l'utilisateur.
+	* Formulaire `formSignUser`
+* `validation` Affiche un message de mise en attente avant la validation par un administrateur.
+* `bannissement` Affiche un message de bannissement par un administrateur.
+
+***
+
+## Ω $.user.loginFUNC()
+> Elle lance un appel à l'api pour les information client. Après analyse des données reçu et si le role d'accès est autorisé, elle lance un événement dans l'application.
+
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-CONNECTED`
+2. Crée le timestamp actuel. Signer le timestamp actuel. Récupérait l'adresse bitcoin. Lancer un appel au serveur `user_login(adr, timestamp, signature)`
+	* Si erreur, lever une exception avec le retour serveur. `data.error`
+3. Créer les variables de l'app.
+
+	```js
+	$.m.user.wallet = data.result // Return server.
+	$.m.user.wallet.adr // Adresse bitcoin.
+	$.m.user.wallet.hash // Hash de la phrase.
+	```
+4. Envoyer l'évènement `login`. Lancer la fonction `$.user.AccueilHTML()`. afficher tmpl `logoutBtnPart` et le tooltip dans le menu div `mIbtc`.
+
+***
+
+### Ω $.user.signUpFUNC()
+> Déclencher par un formulaire. Elle lance un appel à l'api avec les données de l'utilisateur. Si tout, c'est bien passer, elle affiche la page de validation.
 
 * *Accès*
-	* Directement sur le domaine principal. https://domaine.com
+	* A partir de la page `Ω SignUp HTML`.
+	* Accès rôle **Guest**.
 * *Maquette*
-	* Couleur dominant est le vert. Un arrière-plan blanc, photo.
-		* **Si connecter** Données de l'utilisateur.
-		* **Si no connecter** un formulaire de connexion et un slide de 3 ou 4 paragraphes.
+	* Affiche la page `Ω Valide HTML`.
 * *Informations*
-	* **Si connecter**
-		* **Texte**
-			* **Titre :** Mon compte
-		* **Variable interne**
-			* Id publique. L'adresse bitcoin.
-			* Clé privée.
-			* Phrase secrète crypter.
-			* Données serveur.
-	* **Si no connecter**
-		* **Texte pour le slide**
-			1. **Titre :** La démocratie directe **Desc :** Des élections anonymes en temps réel ou chaque citoyen peut changer à tous moment sont vote, et basculer le résulta final du scrutin.
-			2. **Titre :** Le suffrage universel **Desc :** Exprime un choix, une volonté. Ici chaque citoyen peut créer des lois, proposer des amendements, et enfin, exprimer sont vote.
-		* **Input**
-			* La phrase secrète pour le cryptage asymétrique.
-			* Le code pin pour le cryptage symétrique de la phrase secrète.
+	* **Variable new**
+		* Le retour serveur
 * *Actions possibles*
-	* **Si connecter**
-		* Si l'utilisateur n'est pas reconue, afficher la page `Ω SignUp HTML`
-		* Si l'utilisateur est banni, afficher la page `Ω Block HTML`
-	* **Si no connecter**
-		* Connexion avec l'application. `Ω Connexion FUNC`
+	* En cas d'erreur, afficher un message d'alerte.
+	* En cas de succès, afficher la page `Ω Valide HTML`.
 * *Règles de gestion*
-	* **Si connecter**
-		* Si les données de connexion son present.
-	* **Si no connecter**
-		* Validation des champs pendant submit.
+	* Analyse du JSON retourner par le serveur.
+
+***
 
 ### Ω Vérification HTML
 > La vérification des signatures permet de valider le message et l'expéditeur. La signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
@@ -131,23 +153,6 @@
 * *Règles de gestion*
 	* Signature électronique du message.
 
-### Ω $.user.loginFUNC()
-> Elle lance un appel à l'api pour les information client. Après analyse des données reçu et si le role d'accès est autorisé, elle lance un événement dans l'application.
-
-**Règles de gestion**
-
-1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-CONNECTED`
-2. Crée le timestamp actuel. Signer le timestamp actuel. Récupérait l'adresse bitcoin. Lancer un appel au serveur `user_login(adr, timestamp, signature)`
-	* Si erreur, lever une exception avec le retour serveur. `data.error`
-3. Céer les variables de l'app.
-
-	```js
-	$.m.user.wallet = data.result // Return server.
-	$.m.user.wallet.adr // Adresse bitcoin.
-	$.m.user.wallet.hash // Hash de la phrase.
-	```
-4. Envoyer l'évènement `login`. Lancer la fonction `$.user.AccueilHTML()`. afficher tmpl `logoutBtnPart` et le tooltip dans le menu div `mIbtc`.
-
 ### Ω Déconnexion FUNC
 > Elle efface toutes les variable du model, lance un événement de déconnexion dans l'application.
 
@@ -159,7 +164,7 @@
 * *Règles de gestion*
 	* Ne pas afficher si l'utilisateur n'est pas connecté.
 
-### Ω SignUp HTML
+### Ω $.user.signUpHTML()
 > Si l'utilisateur n'est pas dans la base de données. Elle affiche un formulaire pour s'inscrire.
 
 * *Accès*
@@ -179,22 +184,7 @@
 * *Règles de gestion*
 	* Validation des champs pendant submit.
 
-### Ω SignUp FUNC
-> Déclencher par un formulaire. Elle lance un appel à l'api avec les données de l'utilisateur. Si tout, c'est bien passer, elle affiche la page de validation.
 
-* *Accès*
-	* A partir de la page `Ω SignUp HTML`.
-	* Accès rôle **Guest**.
-* *Maquette*
-	* Affiche la page `Ω Valide HTML`.
-* *Informations*
-	* **Variable new**
-		* Le retour serveur
-* *Actions possibles*
-	* En cas d'erreur, afficher un message d'alerte.
-	* En cas de succès, afficher la page `Ω Valide HTML`.
-* *Règles de gestion*
-	* Analyse du JSON retourner par le serveur.
 
 ### Ω Valide HTML
 > Si l'utilisateur n'est pas validé par un administrateur. Elle affiche un message de mise en attente.

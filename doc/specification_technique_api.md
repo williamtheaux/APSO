@@ -68,6 +68,8 @@
 }
 ```
 
+***
+
 ### Ω user_sign($a, $n, $p, $s)
 > inscription de l'utilisateur.
 
@@ -142,6 +144,8 @@
 	}
 }
 ```
+
+***
 	
 ### Ω etat_addPoste($a, $p, $s)
 > Ajouter un nouveaux poste. Fonction propriétaire : **addPoste**
@@ -230,6 +234,8 @@
 }
 ```
 
+***
+
 ### Ω etat_deletePoste($a, $p, $s)
 > Suppression du poste. Fonction propriétaire : **deletePoste**
 
@@ -303,6 +309,8 @@
 	'nb' : // Le nombre de vote.
 }
 ```
+
+***
 
 ### Ω etat_editeRole($a, $r, $u, $s)
 > Editer le rôle de l'utilisateur. Fonction propriétaire : **editeRole**
@@ -386,6 +394,8 @@
 }
 ```
 
+***
+
 ### Ω vote_send($a, $d1, $d2, $t)
 > Permet d'enregistrer la première phase du vote.
 
@@ -467,6 +477,8 @@
 	'hash' :  // Hash pour la signature.
 }
 ```
+
+***
 
 ### Ω vote_fix($a, $d, $ds, $s)
 > Permet de confirmer son vote.
@@ -558,6 +570,8 @@
 	//...
 }
 ```
+
+***
 
 ### Ω addLois
 > Ajouter une nouvelle loi.
