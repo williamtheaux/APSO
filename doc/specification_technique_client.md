@@ -3,7 +3,7 @@
 
 ![App architecture](annexes/appArchitect.jpg)
 
-### Ω Accueil HTML
+### Ω $.user.home()
 > C'est la porte d'entrée de votre application. Elle se situe au sommet de la hiérarchie. C'est une page qui explique clairement ce qu'on va trouver sur votre application. C'est la page la plus visitée. Si l'utilisateur est connecter, Elle affiche les données de l'utilisateur.
 
 **Règles de gestion**
@@ -131,7 +131,7 @@
 * *Règles de gestion*
 	* Signature électronique du message.
 
-### Ω Login FUNC
+### Ω $.user.loginFUNC()
 > Elle lance un appel à l'api pour les information client. Après analyse des données reçu et si le role d'accès est autorisé, elle lance un événement dans l'application.
 
 **Règles de gestion**
@@ -142,25 +142,11 @@
 3. Céer les variables de l'app.
 
 	```js
+	$.m.user.wallet = data.result // Return server.
 	$.m.user.wallet.adr // Adresse bitcoin.
 	$.m.user.wallet.hash // Hash de la phrase.
 	```
-
-
-
-* *Accès*
-	* Juste après la connexion.
-	* Accès rôle **Banni**.
-* *Informations*
-	* **Variable interne**
-		* Id publique. L'adresse bitcoin.
-		* Clé privée.
-		* Phrase secrète crypter.
-* *Actions possibles*
-	* Si l'appel échoue, annulé la connexion et lancer une erreur.
-	* Editer le model, si l'utilisateur est au minimum **observateur**, lancer un événement et afficher la page `Ω Accueil HTML`.
-* *Règles de gestion*
-	* Analyse du JSON retourner par le serveur.
+4. Envoyer l'évènement `login`. Lancer la fonction `$.user.AccueilHTML()`. afficher tmpl `logoutBtnPart` et le tooltip dans le menu div `mIbtc`.
 
 ### Ω Déconnexion FUNC
 > Elle efface toutes les variable du model, lance un événement de déconnexion dans l'application.
