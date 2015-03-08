@@ -154,7 +154,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 
 > Gestion des texte de l'application client.
 
-Module USER
+**Module USER**
 
 | Code | Desc |
 |-------|-----|
@@ -163,6 +163,15 @@ Module USER
 | USER-SLID-1-DESC | Des élections anonymes en temps réel ou chaque citoyen peut changer à tous moment sont vote, et basculer le résulta final du scrutin. |
 | USER-SLID-2-LABEL | Le suffrage universel |
 | USER-SLID-2-DESC | Exprime un choix, une volonté. Ici chaque citoyen peut créer des lois, proposer des amendements, et enfin, exprimer sont vote. |
+| USER-SIGN-LABEL | Finaliser votre inscription. |
+| USER-SIGN-DESC | Pour finaliser le processus d'inscription, veuillez envoyer votre nom et prénom. |
+| USER-INPUT-NAME-LABEL | Le nom. |
+| USER-INPUT-PRENOM-LABEL | Le prénom. |
+| USER-VALIDE-LABEL | Validation du compte |
+| USER-VALIDE-DESC | Votre compte est actuellement en attente d'approbation. Une fois cette actions effectuées, vous pourrez poursuivre pour découvrir le déroulement du processus de vote. |
+| USER-BANNI-LABEL | Compte bloqué. |
+| USER-BANNI-DESC | Votre compte a été désactivé par un administrateur. Veuillez contacter le service support pour plus d'information. |
+| USER-LABEL | Mon compte. |
 | USER-LABEL | Mon compte. |
 | USER-LABEL | Mon compte. |
 | USER-LABEL | Mon compte. |

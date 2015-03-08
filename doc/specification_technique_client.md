@@ -45,7 +45,9 @@
 	$.m.user.wallet.adr // Adresse bitcoin.
 	$.m.user.wallet.hash // Hash de la phrase.
 	```
-4. Envoyer l'évènement `login`. Lancer la fonction `$.user.AccueilHTML()`. afficher tmpl `logoutBtnPart` et le tooltip dans le menu div `mIbtc`.
+4.  Vérifier l'absence de `$.m.user.wallet.guest` et `$.m.user.wallet.banni` pour  envoyer l'évènement `login`.
+
+5. Lancer la fonction `$.user.AccueilHTML()`. afficher tmpl `logoutBtnPart` et le tooltip dans le menu div `mIbtc`.
 
 ***
 
@@ -164,53 +166,6 @@
 * *Règles de gestion*
 	* Ne pas afficher si l'utilisateur n'est pas connecté.
 
-### Ω $.user.signUpHTML()
-> Si l'utilisateur n'est pas dans la base de données. Elle affiche un formulaire pour s'inscrire.
-
-* *Accès*
-	* Juste après la connexion. Elle est affichée si l'utilisateur ne fut pas trouvé dans la base de données.
-	* Accès rôle **Guest**.
-* *Maquette*
-	* Composer d'un formulaire, icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** Finaliser votre inscription
-		* **Desc :** Pour finaliser le processus d'inscription, veuillez envoyer votre nom et prénom.
-	* **Input**
-		* Le nom
-		* Le prénom
-* *Actions possibles*
-	* Déclencher la fonction `Ω SignUp FUNC`.
-* *Règles de gestion*
-	* Validation des champs pendant submit.
-
-
-
-### Ω Valide HTML
-> Si l'utilisateur n'est pas validé par un administrateur. Elle affiche un message de mise en attente.
-
-* *Accès*
-	* Juste après la connexion. Elle est affichée si l'utilisateur fut trouvé dans la base de données mais toujours rôle **guest**.
-	* Accès rôle **Guest**.
-* *Maquette*
-	* Composer de icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** Validation du compte
-		* **Desc :** Votre compte est actuellement en attente d'approbation. Une fois cette actions effectuées, vous pourrez poursuivre pour découvrir le déroulement du processus de vote.
-
-### Ω Block HTML
-> Si l'utilisateur est banni. Elle affiche un message de bannissement.
-
-* *Accès*
-	* Juste après la connexion. Elle est affichée si l'utilisateur est banni.
-	* Accès rôle **Banni**.
-* *Maquette*
-	* Composer de icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** Compte bloqué
-		* **Desc :** Votre compte a été désactivé par un administrateur. Veuillez contacter le service support pour plus d'information.
 
 ### Ω Log HTML
 > Elle affiche l'historique du site.
