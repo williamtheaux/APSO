@@ -3,7 +3,14 @@
 
 ![App architecture](annexes/appArchitect.jpg)
 
-## Ω $.user.home()
+# Module user
+> Gestion des utilisateurs.
+
+* mod/user/user.js
+* mod/user/user.htm
+* mod/user/user.json
+
+## $.user.home()
 > C'est la porte d'entrée de votre application. Elle se situe au sommet de la hiérarchie. C'est une page qui explique clairement ce qu'on va trouver sur votre application. C'est la page la plus visitée. Si l'utilisateur est connecter, Elle affiche les données de l'utilisateur.
 
 **Règles de gestion**
@@ -31,16 +38,16 @@
 * `compte` Affiche les info de l'utilisateur.
 
 	```js
-	$.m.user.wallet.info.adr // Identifiant client (adresse bitcoin).
-	$.m.user.wallet.info.nom // Le nom du client.
-	$.m.user.wallet.info.prenom // Le prénom du client.
-	$.m.user.wallet.info.date // La date d'inscription.
-	$.m.user.wallet.info.role // Le rôle de l'utilisateur.
+	user.wallet.info.adr // Identifiant client (adresse bitcoin).
+	user.wallet.info.nom // Le nom du client.
+	user.wallet.info.prenom // Le prénom du client.
+	user.wallet.info.date // La date d'inscription.
+	user.wallet.info.role // Le rôle de l'utilisateur.
 	```
 
 ***
 
-## Ω $.user.loginFUNC()
+## $.user.loginFUNC()
 > Elle lance un appel à l'api pour les information client. Après analyse des données reçu et si le role d'accès est autorisé, elle lance un événement dans l'application.
 
 **Règles de gestion**
@@ -57,11 +64,11 @@
 	```
 4.  Vérifier l'absence de `$.m.user.wallet.guest` et `$.m.user.wallet.banni` pour  envoyer l'évènement `login`.
 
-5. Lancer la fonction `$.user.home()`. afficher tmpl `logoutBtnPart` et le tooltip dans le menu div `mIbtc`.
+5. Lancer la fonction `$.user.home()`. afficher tmpl `logoutBtnPart` et le tooltip dans le menu div `mUser`.
 
 ***
 
-### Ω $.user.signUpFUNC()
+### $.user.signUpFUNC()
 > Déclencher par un formulaire. Elle lance un appel à l'api avec les données de l'utilisateur. Si tout, c'est bien passer, elle affiche la page de validation.
 
 **Règles de gestion**
@@ -81,7 +88,7 @@
 
 ***
 
-## Ω $.user.logoutFUNC()
+## $.user.logoutFUNC()
 > Elle efface toutes les variable du model, lance un événement de déconnexion dans l'application.
 
 **Règles de gestion**
@@ -96,32 +103,55 @@
 
 4. Envoyer l'évènement `logout`.
 
-5. Lancer la fonction `$.user.home()`. Effacer tmpl `logoutBtnPart` dans le menu div `mIbtc`.
+5. Lancer la fonction `$.user.home()`. Effacer tmpl `logoutBtnPart` dans le menu div `mUser`.
 
 ***
 
-### Ω Log HTML
+# Module etat
+> Gestion des votes pour les postes.
+
+* mod/etat/etat.js
+* mod/etat/etat.htm
+* mod/etat/etat.json
+
+## $.etat.defautHTML()
+> Fonction par defaut.
+
+**Règles de gestion**
+
+1. Installez un écouteur sur `login` avec la fonction `$.etat.???`
+2. Installez un écouteur sur `logout` avec la fonction `$.etat.???`
+
+***
+
+### Ω $.etat.logHTML()
 > Elle affiche l'historique du site.
 
-* *Accès*
-	* A partir du menu principal.
-	* Accès rôle **Observateur**.
-* *Maquette*
-	* Composer d'un tableau contenant les actions des utilisateurs, icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** Historique d'état
-		* **Desc :** Retrouver ici, l'historique des actions publique de l'Etat souverain.
-	* **Tableau**
-		* Le nom de l'utilisateur
-		* Le pénom de l'utilisateur
-		* Le nom de l'action
-		* La date de l'action
-		* Les info de l'action
-			* Les paramètres sont des JSON est sont diffèrent à chaque action.
-* *Règles de gestion*
-	* Classement par : date Asc.
-	* Une pagination est intégrée au pied du tableau. 20 par page.
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.log` Si non afficher HTML `emptyLog`
+
+2. afficher HTML `logListe`
+	* Paginer le tableau `$('#myTxTab').paginateTable({ rowsPerPage: 10, pager: ".pagerMyTx" });`
+
+**Template HTML**
+
+* `emptyLog` Affiche un message, l'historique est vide.
+* `logListe` Affiche les info de l'historique en tableau.
+
+	```js
+	user.wallet.log [
+		id_user // L'identifiant unique crée par l'application.
+		nom // Le nom de l'utilisateur.
+		prenom // Le prénom de l'utilisateur.
+		action // L'action de l'historique.
+		date // La date de l'action.
+		msg // Le message de l'action.
+	]
+	```
+
+***
+
 
 ### Ω État HTML
 > Elle affiche les postes et les utilisateurs élus. Elle est le point d'entrer pour toutes les fonctions touchant les postes et citoyens de l'api.
@@ -288,6 +318,8 @@
 	* signiature de la variable rôle.
 	* appel à l'api.
 
+
+
 ### Ω Vote HTML
 > Elle affiche un formulaire pour le vote.
 
@@ -364,6 +396,13 @@
 	* signiature de la variable hash vote.
 	* Différence entre le type de vote pour l'affichage de la page de retour.
 	* appel à l'api.
+
+# Module lois
+> Gestion des votes pour les lois.
+
+* mod/lois/lois.js
+* mod/lois/lois.htm
+* mod/lois/lois.json
 
 ### Ω Lois HTML
 > Elle liste les lois et leurs amendements. Elle est le point d'entrer pour toutes les fonctions touchant les lois.

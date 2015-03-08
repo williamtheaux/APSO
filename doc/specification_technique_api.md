@@ -65,6 +65,15 @@
 	'obs' : 
 	'citoyen' : 
 	'admin' : 
+	'log' : [
+		{   'id_user' : // L'identifiant unique crée par l'application.
+			'nom' : // Le nom de l'utilisateur.
+			'prenom' : // Le prénom de l'utilisateur.
+			'action' : // L'action de l'historique.
+			'date' : // La date de l'action.
+			'msg' : // Le message de l'action.
+		}
+	]
 }
 ```
 

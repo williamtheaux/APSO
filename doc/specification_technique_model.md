@@ -172,12 +172,31 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | USER-VALIDE-DESC | Votre compte est actuellement en attente d'approbation. Une fois cette actions effectuées, vous pourrez poursuivre pour découvrir le déroulement du processus de vote. |
 | USER-BANNI-LABEL | Compte bloqué. |
 | USER-BANNI-DESC | Votre compte a été désactivé par un administrateur. Veuillez contacter le service support pour plus d'information. |
+| USER-ID-LABEL | Identifiant client |
 | USER-LABEL | Mon compte. |
 | USER-LABEL | Mon compte. |
 | USER-LABEL | Mon compte. |
 | USER-LABEL | Mon compte. |
 | USER-LABEL | Mon compte. |
-| USER-LABEL | Mon compte. |
+
+**Module ETAT**
+| ETAT-LABEL | Assemblée générale |
+| ETAT-LOG-LABEL | Historique d'état |
+| ETAT-LOG-DESC | Retrouver ici, l'historique des actions publique de l'Etat souverain. |
+| ETAT-LABEL | Assemblée générale |
+| ETAT-LABEL | Assemblée générale |
+| ETAT-LABEL | Assemblée générale |
+| ETAT-LABEL | Assemblée générale |
+| ETAT-LABEL | Assemblée générale |
+| ETAT-LABEL | Assemblée générale |
+| ETAT-LABEL | Assemblée générale |
+| ETAT-LABEL | Assemblée générale |
+| ETAT-LABEL | Assemblée générale |
+| ETAT-LABEL | Assemblée générale |
+| ETAT-LABEL | Assemblée générale |
+| ETAT-LABEL | Assemblée générale |
+| ETAT-LABEL | Assemblée générale |
+| ETAT-LABEL | Assemblée générale |
 
 ***
 
