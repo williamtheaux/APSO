@@ -147,6 +147,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | Code | Desc |
 |-------|-----|
 | ERR-ALREADY-CONNECTED | Vous êtes déjà connecté. |
+| ERR-ALREADY-NOT-CONNECTED | Vous n'êtes pas connecté. |
 
 ***
 

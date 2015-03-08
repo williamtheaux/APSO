@@ -132,16 +132,13 @@
 **Informations sortantes**
 
 ```js
-{
-	'guest' : 1, // L'utilisateur n'est pas encore validé.
-	'info' : { // Variable $user
-		'id' : // L'identifiant unique crée par l'application.
-		'adr' : // Identifiant client (adresse bitcoin).
-		'nom' : // Le nom du client.
-		'prenom' : // Le prénom du client.
-		'date' : // La date d'inscription.
-		'role' : // Le rôle de l'utilisateur.
-	}
+{ // Variable $user
+	'id' : // L'identifiant unique crée par l'application.
+	'adr' : // Identifiant client (adresse bitcoin).
+	'nom' : // Le nom du client.
+	'prenom' : // Le prénom du client.
+	'date' : // La date d'inscription.
+	'role' : // Le rôle de l'utilisateur.
 }
 ```
 

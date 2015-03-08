@@ -18,6 +18,7 @@
 
 3. Vérifier l'absence de `$.m.user.wallet.guest` Si non afficher HTML `validation`
 4. Vérifier l'absence de `$.m.user.wallet.banni` Si non afficher HTML `bannissement`
+5. afficher HTML `compte`
 
 **Template HTML**
 
@@ -27,6 +28,15 @@
 	* Formulaire `formSignUser`
 * `validation` Affiche un message de mise en attente avant la validation par un administrateur.
 * `bannissement` Affiche un message de bannissement par un administrateur.
+* `compte` Affiche les info de l'utilisateur.
+
+	```js
+	$.m.user.wallet.info.adr // Identifiant client (adresse bitcoin).
+	$.m.user.wallet.info.nom // Le nom du client.
+	$.m.user.wallet.info.prenom // Le prénom du client.
+	$.m.user.wallet.info.date // La date d'inscription.
+	$.m.user.wallet.info.role // Le rôle de l'utilisateur.
+	```
 
 ***
 
@@ -47,125 +57,48 @@
 	```
 4.  Vérifier l'absence de `$.m.user.wallet.guest` et `$.m.user.wallet.banni` pour  envoyer l'évènement `login`.
 
-5. Lancer la fonction `$.user.AccueilHTML()`. afficher tmpl `logoutBtnPart` et le tooltip dans le menu div `mIbtc`.
+5. Lancer la fonction `$.user.home()`. afficher tmpl `logoutBtnPart` et le tooltip dans le menu div `mIbtc`.
 
 ***
 
 ### Ω $.user.signUpFUNC()
 > Déclencher par un formulaire. Elle lance un appel à l'api avec les données de l'utilisateur. Si tout, c'est bien passer, elle affiche la page de validation.
 
-* *Accès*
-	* A partir de la page `Ω SignUp HTML`.
-	* Accès rôle **Guest**.
-* *Maquette*
-	* Affiche la page `Ω Valide HTML`.
-* *Informations*
-	* **Variable new**
-		* Le retour serveur
-* *Actions possibles*
-	* En cas d'erreur, afficher un message d'alerte.
-	* En cas de succès, afficher la page `Ω Valide HTML`.
-* *Règles de gestion*
-	* Analyse du JSON retourner par le serveur.
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
+2. Récupérait l'adresse bitcoin. Signer le nom, prénom et l'adresse bitcoin. Lancer un appel au serveur `user_sign(adr, nom, prenom, signature)`
+	* Si erreur, lever une exception avec le retour serveur. `data.error`
+
+3. Créer les variables de l'app.
+
+	```js
+	$.m.user.wallet.info = data.result  // Return server.
+	$.m.user.wallet.guest = 1  // L'utilisateur n'est pas encore validé.
+	```
+
+5. Lancer la fonction `$.user.home()`.
 
 ***
 
-### Ω Vérification HTML
-> La vérification des signatures permet de valider le message et l'expéditeur. La signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
-
-* *Accès*
-	* A partir du menu principal.
-* *Maquette*
-	* Composer d'un formulaire, icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** Vérifier une signature
-		* **Desc :** Dans cette section, vous pouvez vérifier une signature et son message avec l'adresse bitcoin du signataire.
-	* **Input**
-		* Le message signé
-		* la signature du message
-		* Adresse Bitcoin du signataire
-* *Actions possibles*
-	* Vérification de la signature. `Ω Vérification FUNC`
-* *Règles de gestion*
-	* Validation des champs pendant submit.
-
-### Ω Vérification FUNC
-> La vérification valider le message et l'expéditeur. La signature électronique vérifier l'intégrité du message.
-
-* *Accès*
-	* A partir de la page `Ω Vérification HTML`.
-* *Maquette*
-	* Modifie le message sur la page `Ω Vérification HTML`.
-* *Informations*
-	* **Texte**
-		* **Message succès :** Le message est bien signiez par l'adresse en question.
-	* **Variable interne**
-		* Le message signé
-		* la signature du message
-		* Adresse Bitcoin du signataire
-* *Actions possibles*
-	* En cas d'erreur, afficher un message d'alerte.
-	* En cas de succès, afficher le message de validation sur la page + icon.
-* *Règles de gestion*
-	* Vérification électronique du message.
-
-### Ω Signature HTML
-> La Signature électronique est un procédé permettant de garantir l'authenticité du signataire et de vérifier l'intégrité du message.
-
-* *Accès*
-	* A partir du menu principal.
-	* Accès rôle **Banni**.
-* *Maquette*
-	* Composer d'un formulaire, icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** Signature du message
-		* **Desc :** Dans cette section, vous pouvez signer un message avec votre clé prives et vérifiable avec votre adresse bitcoin.
-	* **Input**
-		* Le message à signer.
-		* Le code pin pour le decryptage symétrique de la phrase secrète.
-* *Actions possibles*
-	* Signature du message. `Ω Signature FUNC`
-* *Règles de gestion*
-	* Validation des champs pendant submit.
-
-### Ω Signature FUNC
-> Procédure de la signature électronique du message.
-
-* *Accès*
-	* A partir de la page `Ω Signature HTML`.
-	* Accès rôle **Banni**.
-* *Maquette*
-	* Modifie le message sur la page `Ω Signature HTML`.
-* *Informations*
-	* **Texte**
-		* **Message succès :** Voici la signature électronique de votre message authentifier par votre identifiant publique.
-	* **Variable interne**
-		* Le message
-		* Clé privée
-		* Phrase secrète crypter
-		* Le code pin
-		* Id publique du signataire
-	* **Variable new**
-		* la signature du message
-* *Actions possibles*
-	* En cas d'erreur, afficher un message d'alerte.
-	* En cas de succès, afficher la signature sur la page.
-* *Règles de gestion*
-	* Signature électronique du message.
-
-### Ω Déconnexion FUNC
+## Ω $.user.logoutFUNC()
 > Elle efface toutes les variable du model, lance un événement de déconnexion dans l'application.
 
-* *Accès*
-	A partir du menu principal.
-	* Accès rôle **Banni**.
-* *Actions possibles*
-	* Editer le model, lancer un événement et afficher la page `Ω Accueil HTML`.
-* *Règles de gestion*
-	* Ne pas afficher si l'utilisateur n'est pas connecté.
+**Règles de gestion**
 
+1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
+
+3. Supprimer les variables de l'app.
+
+	```js
+	$.m.user.wallet = {}  // Return NULL.
+	```
+
+4. Envoyer l'évènement `logout`.
+
+5. Lancer la fonction `$.user.home()`. Effacer tmpl `logoutBtnPart` dans le menu div `mIbtc`.
+
+***
 
 ### Ω Log HTML
 > Elle affiche l'historique du site.
