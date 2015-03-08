@@ -64,7 +64,11 @@
 	},
 	'obs' : 
 	'citoyen' : 
-	'admin' : 
+	'admin' : {
+		'addPoste' : 1
+		'deletePoste' : 1
+		'editeRole' : 1
+	}
 	'log' : [
 		{   'id_user' : // L'identifiant unique crée par l'application.
 			'nom' : // Le nom de l'utilisateur.
@@ -73,6 +77,7 @@
 			'date' : // La date de l'action.
 			'msg' : // Le message de l'action.
 		}
+		{} //...
 	]
 }
 ```

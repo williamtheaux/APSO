@@ -156,6 +156,13 @@
 ## $.etat.home()
 > Elle affiche les postes et les utilisateurs élus. Elle est le point d'entrer pour toutes les fonctions touchant les postes et citoyens de l'api.
 
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
+
+
+
+
 * *Accès*
 	* A partir du menu principal.
 	* Accès rôle **Observateur**.
