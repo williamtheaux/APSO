@@ -180,6 +180,9 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | USER-LABEL | Mon compte. |
 
 **Module ETAT**
+
+| Code | Desc |
+|-------|-----|
 | ETAT-LABEL | Assemblée générale |
 | ETAT-LOG-LABEL | Historique d'état |
 | ETAT-LOG-DESC | Retrouver ici, l'historique des actions publique de l'Etat souverain. |

@@ -124,7 +124,7 @@
 
 ***
 
-### Ω $.etat.logHTML()
+## $.etat.logHTML()
 > Elle affiche l'historique du site.
 
 **Règles de gestion**
@@ -153,7 +153,7 @@
 ***
 
 
-### Ω État HTML
+## $.etat.home()
 > Elle affiche les postes et les utilisateurs élus. Elle est le point d'entrer pour toutes les fonctions touchant les postes et citoyens de l'api.
 
 * *Accès*
