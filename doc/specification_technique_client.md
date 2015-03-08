@@ -6,6 +6,12 @@
 ### Ω Accueil HTML
 > C'est la porte d'entrée de votre application. Elle se situe au sommet de la hiérarchie. C'est une page qui explique clairement ce qu'on va trouver sur votre application. C'est la page la plus visitée. Si l'utilisateur est connecter, Elle affiche les données de l'utilisateur.
 
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.adr` Si non afficher tmpl `home`
+
+**Template**
+
 * *Accès*
 	* Directement sur le domaine principal. https://domaine.com
 * *Maquette*
@@ -127,6 +133,20 @@
 
 ### Ω Login FUNC
 > Elle lance un appel à l'api pour les information client. Après analyse des données reçu et si le role d'accès est autorisé, elle lance un événement dans l'application.
+
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-CONNECTED`
+2. Crée le timestamp actuel. Signer le timestamp actuel. Récupérait l'adresse bitcoin. Lancer un appel au serveur `user_login(adr, timestamp, signature)`
+	* Si erreur, lever une exception avec le retour serveur. `data.error`
+3. Céer les variables de l'app.
+
+	```js
+	$.m.user.wallet.adr // Adresse bitcoin.
+	$.m.user.wallet.hash // Hash de la phrase.
+	```
+
+
 
 * *Accès*
 	* Juste après la connexion.

@@ -362,7 +362,7 @@ En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 db::go('DELETE FROM apso_vote WHERE date<=:date AND signe=0');
 ```
 
-### Ω dbs::getSigneInVote($e)
+### Ω dbs::setSigneInVote($e)
 > Insert dans la table vote la signature.
 
 **Informations entrantes**

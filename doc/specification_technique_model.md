@@ -140,6 +140,14 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ERR-NOT-CHANGE-ADMIN | Vous ne pouvez pas modifier les rôles d'administrateurs. |
 | ERR-VAR-VOTE-INVALID | Les données du vote semble incorrecte. |
 
+## Erreurs client
+
+> Gestion des erreurs déclencher par le lapplication client.
+
+| Code | Desc |
+|-------|-----|
+| ERR-ALREADY-CONNECTED | Vous êtes déjà connecté. |
+
 ***
 
 *Mercredi 25 Février 2015*

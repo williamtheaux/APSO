@@ -54,7 +54,7 @@
 {
 	'guest' : 1, // L'utilisateur n'est pas encore validé.
 	'banni' : 1, // L'utilisateur est banni.
-	'info' : { // Variable $user
+	'info' : { // Variable $user or 0
 		'id' : // L'identifiant unique crée par l'application.
 		'adr' : // Identifiant client (adresse bitcoin).
 		'nom' : // Le nom du client.
@@ -437,8 +437,10 @@
 		// Appel a la fonction du model.
 		dbs::deleteVote($req);
 		```
+
+6. Vérifier le type de vote, et l'existance des ids dans la base de données.
 	
-6. Crée un hash du vote. Sauvegardait le vote dans la base de données.
+7. Crée un hash du vote. Sauvegardait le vote dans la base de données.
 
 	```php
 	// Crée un tableau contenant l'id vote, id1, id2, type, date.
@@ -455,7 +457,7 @@
 	dbs::setVote($req);
 	```
 
-7. Construire et retourner le Hash (id+id1+id2+type) pour la signiature du vote.
+8. Construire et retourner le Hash (id+id1+id2+type) pour la signiature du vote.
 
 **Informations sortantes**
 
@@ -529,7 +531,7 @@
 		'signe' => $s);
 	
 	// Appel a la fonction du model.
-	$vote = dbs::getSigneInVote($req);
+	$vote = dbs::setSigneInVote($req);
 	```	
 	
 8. Encode en string json le contenu de la variable `$v` contenant le hash et le contenu du vote crypter `$ds`.
