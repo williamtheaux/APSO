@@ -233,7 +233,7 @@
 
 **Template HTML**
 
-* `loisHome` Affiche les lois et infos.
+* `loisHome` Affiche les lois et infos. Ajouter un bouton pour rejoindre la fiche de la loi. `$.lois.ficheLoisHTML(id_loi)`
 
 	```js
 	user.wallet.obs.lois [
@@ -242,13 +242,14 @@
 		'nbAmd' // le nombre d'amendements.
 		'elu' = // 1 ou 0
 		'px' = // 0 a 100.
-		'amdElu // La desc de l'amendement élu.
+		'amdElu' // La desc de l'amendement élu.
 		'myVote' = // 0 ou id amd.
-		'amd = [
+		'amd' = [
 			'id' // Identifiant d'amendement.
 			'desc' // La desc de l'amendement.
 			'nbVote' // Nombre de votes pour l'amendement.
 			'px' = // 0 a 100.
+			'myVote' // Si mon vote.
 		]
 	]
 	```
@@ -280,8 +281,50 @@
 	* Si **citoyen** permettre d'effectuer son vote.
 	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible.
 
-### Ω ficheLois HTML
+
+***
+
+
+## $.lois.ficheLoisHTML(id_loi)
 > Elle affiche la loi et ses amendements. Elle offre un moyen de modification de données à l'utilisateur ayant les droits nécessaires.
+
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
+
+2. Lancer une boucle sur `$.m.user.wallet.obs.lois`. Récupérer la loi demander. Enregistrait dans la variable `$.m.lois.fiche`
+
+3. afficher HTML `loisFiche`
+	* Paginer le tableau `$('#amdTab').paginateTable({ rowsPerPage: 10, pager: ".pagerAmd" });`
+
+4. Vérifier la presence de `$.m.user.wallet.citoyen`
+	* Installez un validateur sur le formulaire `formVoteLoi`
+	* Installez un écouteur sur le formulaire `formVoteLoi`avec la fonction `$.????.voteFUNC`
+
+**Template HTML**
+
+* `loisFiche` Affiche la fiche de la aloi.
+
+	```js
+	lois.fiche : {
+		'id' // Identifiant loi.
+		'loi' // Le nom de la loi.
+		'nbAmd' // le nombre d'amendements.
+		'elu' = // 1 ou 0
+		'px' = // 0 a 100.
+		'amdElu' // La desc de l'amendement élu.
+		'myVote' = // 0 ou id amd.
+		'amd' = [
+			'id' // Identifiant d'amendement.
+			'desc' // La desc de l'amendement.
+			'nbVote' // Nombre de votes pour l'amendement.
+			'px' = // 0 a 100.
+			'myVote' // Si mon vote.
+		]
+	}
+	```
+
+	* Si `user.wallet.citoyen` Affiche le formulaire de vote `formVoteLoi`.
 
 * *Accès*
 	* A partir du menu principal.
@@ -305,6 +348,8 @@
 	* Si **citoyen** permettre d'effectuer son vote.
 	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible.
 
+
+***
 
 
 ### Ω addPoste HTML

@@ -88,13 +88,14 @@
 			'nbAmd' : // le nombre d'amendements.
 			'elu' : // 1 ou 0
 			'px' : // 0 a 100.
-			'amdElu : // La desc de l'amendement élu.
+			'amdElu' : // La desc de l'amendement élu.
 			'myVote' : // 0 ou id amd.
-			'amd : [
-				'id' // Identifiant d'amendement.
-				'desc' // La desc de l'amendement.
-				'nbVote' // Nombre de votes pour l'amendement.
-				'px' = // 0 a 100.
+			'amd' : [
+				'id' : // Identifiant d'amendement.
+				'desc' : // La desc de l'amendement.
+				'nbVote' : // Nombre de votes pour l'amendement.
+				'px' : // 0 a 100.
+				'myVote' : // Si mon vote.
 			]
 	}
 	'citoyen' : 1
