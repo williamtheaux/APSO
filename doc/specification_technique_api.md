@@ -17,28 +17,39 @@
 **Règles de gestion**
 
 1. Vérification que Timestamp `$t` est number et comprie entre -12h et + 12h `(60*60*12)` ou lever une exception. `ERR-TIMESTAMP-INVALID`
-2. Récupérer les donnés utilisateur avec helper. Vérifier si pas d'utilisateur, retourner la variable `'info' : 0`.
+2. Récupérer les donnés utilisateur avec helper. Vérifier si pas d'utilisateur, retourner la variable `$tmp['info'] =  0`.
 	
 	```php
 	// Appel de la fonction helper dans un if.
 	if(!$user = help::user($a, $t, $s)) return // info = 0;
 	```
+	
+	* Ajouter à la réponse de retour, les info de l'utilisateur `$tmp['info'] = $user`.
+	
 3. Vérification du rôle de l'utilisateur.
-	* Si Banni. retourner la variable `'banni' : 1`.
-	* Si Guest. retourner la variable `'guest' : 1`.
+	* Si Banni. retourner la variable `$tmp['banni'] = 1`.
+	* Si Guest. retourner la variable `$tmp['guest'] = 1`.
 
 4. Sélectionner toute la base de données.
-	5. Boucle sur la table utilisateur.
-		* Séparer les utilisateurs par rôle.
-		* Compter les utilisateurs par rôle.
-	6. Boucle sur la table vote.
-		* Séparer les votes par type.
-			* Type poste
-				* Vérifier le poste et l'utilisateur choisi.
-				* Incrémenter la variable de vote des postes.
-			* Type loi
-				* Vérifier la loi et l'amendement choisi.
-				* Incrémenter la variable de vote des lois.
+	
+	```php
+	// Appel a la fonction du model.
+	$dbs = dbs::getDb();
+	```
+
+5. Boucle sur la table utilisateur. `$dbs['user'] AS $k => $v`
+	* Séparer les utilisateurs par rôle. Ajouter à la réponse de retour, les info de l'utilisateur `$tmp['obs'][$v['role']]['list'][] = array() // info user`. Si le rôle est ADMIN, alors ajouter au rôle CITOYEN.
+	
+	* Incrémenter le nombre d'utilisateurs par rôle. `$tmp['obs'][$v['role']]['nb'] ++;`
+
+6. Boucle sur la table vote.
+	* Séparer les votes par type.
+		* Type poste
+			* Vérifier le poste et l'utilisateur choisi.
+			* Incrémenter la variable de vote des postes.
+		* Type loi
+			* Vérifier la loi et l'amendement choisi.
+			* Incrémenter la variable de vote des lois.
 	7. Boucle sur la variable vote poste.
 		* Déterminer une liste de postes avec leurs utilisateurs élus. Commencer par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
 	8. Boucle sur la variable vote loi.
@@ -63,15 +74,20 @@
 		'role' : // Le rôle de l'utilisateur.
 	},
 	'obs' : {
-		'citoyen' : [ // + admin dans la liste.
-			'id' : // L'identifiant unique crée par l'application.
-			'adr' : // Identifiant client (adresse bitcoin).
-			'nom' : // Le nom du client.
-			'prenom' : // Le prénom du client.
-			'date' : // La date d'inscription.
-		]
-		'guest' : […] // Liste des banni.
-		'banni' : […] // Liste des inviter.
+		'CITOYEN' : { // + admin dans la liste.
+			'nb' : // Le nombre d'utilisateur dans list.
+			'list' : 
+				[0] : 
+					{'id' : // L'identifiant unique crée par l'application.
+					'adr' : // Identifiant client (adresse bitcoin).
+					'nom' : // Le nom du client.
+					'prenom' : // Le prénom du client.
+					'date' : // La date d'inscription.}
+				[1] //...
+		}
+		'GUEST' : {…} // Liste des banni.
+		'BANNI' : {…} // Liste des inviter.
+		'OBS' : {…} // Liste des Observateur.
 		'postes' : [
 			'id' // Identifiant poste.
 			'poste' // Le nom du poste.
