@@ -42,16 +42,30 @@
 	
 	* Incrémenter le nombre d'utilisateurs par rôle. `$tmp['obs'][$v['role']]['nb'] ++;`
 
-6. Boucle sur la table vote.
-	* Séparer les votes par type.
-		* Type poste
+6. Boucle sur la table vote. `$dbs['vote'] AS $k => $v`
+	* Hash le `$v['id']`, `$v['id1']` et `$v['id2']`.
+	* Séparer les votes par type `$v['type']`.
+		
+		* Type poste `CTN`
 			* Vérifier le poste et l'utilisateur choisi.
-			* Incrémenter la variable de vote des postes.
-		* Type loi
+			* Vérifier si `$v['id2']` est present dans key `$voteCTN`.
+				* Si oui, Vérifier si `$v['id1']` est present dans key `$voteCTN[$v['id2']]`.
+					* Si oui, Incrémenter la variable `$voteCTN[$v['id2']][$v['id1']] ++`.
+					* Si non, ajouter l'id1 au tableau `$voteCTN[$v['id2']][$v['id1']] ++`.
+				* Si non, ajouter les deux ids au tableau `$voteCTN[$v['id2']][$v['id1']] = 1`.
+			* Classer la variable par postes ids, puis par client qui on le plus de votes.
+			
+		* Type loi `LOS`
 			* Vérifier la loi et l'amendement choisi.
-			* Incrémenter la variable de vote des lois.
-	7. Boucle sur la variable vote poste.
-		* Déterminer une liste de postes avec leurs utilisateurs élus. Commencer par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
+			* Vérifier si `$v['id1']` est present dans key `$voteLOS`.
+				* Si oui, Vérifier si `$v['id1']` est present dans key `$voteLOS[$v['id2']]`.
+					* Si oui, Incrémenter la variable `$voteLOS[$v['id2']][$v['id1']] ++`.
+					* Si non, ajouter l'id1 au tableau `$voteLOS[$v['id2']][$v['id1']] ++`.
+				* Si non, ajouter les deux ids au tableau `$voteLOS[$v['id2']][$v['id1']] = 1`.
+			* Classer la variable par lois ids, puis par amd qui on le plus de votes.
+
+7. Boucle sur la variable vote poste.
+	* Déterminer une liste de postes avec leurs utilisateurs élus. Commencer par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
 	8. Boucle sur la variable vote loi.
 		* Déterminer une liste de lois avec leurs amendements élus.
 	9. Boucle sur la variable de l'historique.
@@ -77,17 +91,18 @@
 		'CITOYEN' : { // + admin dans la liste.
 			'nb' : // Le nombre d'utilisateur dans list.
 			'list' : 
-				[0] : 
-					{'id' : // L'identifiant unique crée par l'application.
+				[0] : {
+					'id' : // L'identifiant unique crée par l'application.
 					'adr' : // Identifiant client (adresse bitcoin).
 					'nom' : // Le nom du client.
 					'prenom' : // Le prénom du client.
-					'date' : // La date d'inscription.}
-				[1] //...
+					'date' : // La date d'inscription.
+					'role' : // Le rôle de l'utilisateur.
+				} [1] //...
 		}
-		'GUEST' : {…} // Liste des banni.
-		'BANNI' : {…} // Liste des inviter.
-		'OBS' : {…} // Liste des Observateur.
+		'GUEST' : {…} // Liste des invités.
+		'BANNI' : {…} // Liste des bannis.
+		'OBS' : {…} // Liste des observateurs.
 		'postes' : [
 			'id' // Identifiant poste.
 			'poste' // Le nom du poste.
