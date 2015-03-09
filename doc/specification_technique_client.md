@@ -160,30 +160,46 @@
 
 1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
 
+2. afficher HTML `etatHome`
+	* Paginer le tableau `$('#userTab').paginateTable({ rowsPerPage: 10, pager: ".pagerUser" });`
+	* Paginer le tableau `$('#posteTab').paginateTable({ rowsPerPage: 10, pager: ".pagerPoste" });`
 
+3. Vérifier la presence de `$.m.user.wallet.citoyen`
+	* Installez un validateur sur le formulaire `formVotePoste`
+	* Installez un écouteur sur le formulaire `formVotePoste`avec la fonction `$.????.voteFUNC`
 
+**Template HTML**
 
-* *Accès*
-	* A partir du menu principal.
-	* Accès rôle **Observateur**.
-* *Maquette*
-	* Tableau des citoyens de l'État sur la partie gauche de la page. Tableau des postes avec le citoyen élu sur la partie droite de la page.
-	* Si citoyen, Devant chaque poste proposer un formulaire pour voter ou modifier son vote.
-	* Si administrateur, afficher un btn en haut du tableau pour ajouter de nouveau poste et devant chaque poste un btn pour pouvoir le supprimer. Sur la partie gauche afficher un btn pour pouvoir modifier le rôle d'accès.
-* *Informations*
-	* **Tableau** citoyen
-		* identifiant
-		* Nom
-		* Prénom
-	* **Tableau** poste
-		* identifiant
-		* nom
-* *Actions possibles*
-	* Si **citoyen** voter ou modifier son vote.
-	* Si **Admin** ou **membre élu** Ajout des postes, suppression des postes, gestion des utilisateurs.
-* *Règles de gestion*
-	* Si **citoyen** permettre d'effectuer son vote.
-	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible. Donner accès au liste de citoyens banni ou guest.
+* `etatHome` Affiche les listes des postes et utilisateurs.
+
+	```js
+	user.wallet.obs.citoyen [
+		id // L'identifiant unique crée par l'application.
+		adr // Identifiant client (adresse bitcoin).
+		nom // Le nom du client.
+		prenom // Le prénom du client.
+		date // La date d'inscription.
+		role // Le rôle de l'utilisateur.
+	]
+	
+	user.wallet.obs.postes [
+		id // Identifiant poste.
+		poste // Le nom du poste.
+		id_elu // L'identifiant unique du client élu.
+		nomElu // Le nom du client élu.
+		prenomElu // Le prénom du client élu.
+		myVote // L'identifiant unique du client voter.
+		myVoteName // Le nom du client voter.
+		myVotePrenom // Le prénom du client voter.
+	]
+	```
+
+	* Si `user.wallet.citoyen` Affiche le formulaire de vote `formVotePoste`.
+	* Si `user.wallet.admin.addPoste` Affiche un bouton avec la fonction `$.etat.addPosteHTML`.
+	* Si `user.wallet.admin.deletePoste` Affiche un bouton pour chaque poste avec la fonction `$.etat.deletePosteHTML`.
+	* Si `user.wallet.admin.editeRole` Affiche un bouton devant chaque utilisateur avec la fonction `$.etat.addPosteHTML` et la getion des utilisateurs banni ou guest avec la fonction `$.etat.printUserHTML`.
+
+***
 
 ### Ω addPoste HTML
 > Elle affiche un formulaire pour l'ajout des postes.

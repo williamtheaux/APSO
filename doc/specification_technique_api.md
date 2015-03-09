@@ -62,8 +62,28 @@
 		'date' : // La date d'inscription.
 		'role' : // Le rôle de l'utilisateur.
 	},
-	'obs' : 
-	'citoyen' : 
+	'obs' : {
+		'citoyen' : [ // + admin dans la liste.
+			'id' : // L'identifiant unique crée par l'application.
+			'adr' : // Identifiant client (adresse bitcoin).
+			'nom' : // Le nom du client.
+			'prenom' : // Le prénom du client.
+			'date' : // La date d'inscription.
+		]
+		'guest' : […] // Liste des banni.
+		'banni' : […] // Liste des inviter.
+		'postes' : [ // + admin dans la liste.
+			id // Identifiant poste.
+			poste // Le nom du poste.
+			id_elu // L'identifiant unique du client élu.
+			nomElu // Le nom du client élu.
+			prenomElu // Le prénom du client élu.
+			myVote // L'identifiant unique du client voter.
+			myVoteName // Le nom du client voter.
+			myVotePrenom // Le prénom du client voter.
+		]
+	}
+	'citoyen' : 1
 	'admin' : {
 		'addPoste' : 1
 		'deletePoste' : 1
