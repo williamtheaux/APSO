@@ -72,16 +72,30 @@
 		]
 		'guest' : […] // Liste des banni.
 		'banni' : […] // Liste des inviter.
-		'postes' : [ // + admin dans la liste.
-			id // Identifiant poste.
-			poste // Le nom du poste.
-			id_elu // L'identifiant unique du client élu.
-			nomElu // Le nom du client élu.
-			prenomElu // Le prénom du client élu.
-			myVote // L'identifiant unique du client voter.
-			myVoteName // Le nom du client voter.
-			myVotePrenom // Le prénom du client voter.
+		'postes' : [
+			'id' // Identifiant poste.
+			'poste' // Le nom du poste.
+			'id_elu' // L'identifiant unique du client élu.
+			'nomElu' // Le nom du client élu.
+			'prenomElu' // Le prénom du client élu.
+			'myVote' // L'identifiant unique du client voter.
+			'myVoteName' // Le nom du client voter.
+			'myVotePrenom' // Le prénom du client voter.
 		]
+		'lois' : [
+			'id' : // Identifiant loi.
+			'loi' : // Le nom de la loi.
+			'nbAmd' : // le nombre d'amendements.
+			'elu' : // 1 ou 0
+			'px' : // 0 a 100.
+			'amdElu : // La desc de l'amendement élu.
+			'myVote' : // 0 ou id amd.
+			'amd : [
+				'id' // Identifiant d'amendement.
+				'desc' // La desc de l'amendement.
+				'nbVote' // Nombre de votes pour l'amendement.
+				'px' = // 0 a 100.
+			]
 	}
 	'citoyen' : 1
 	'admin' : {

@@ -199,7 +199,113 @@
 	* Si `user.wallet.admin.deletePoste` Affiche un bouton pour chaque poste avec la fonction `$.etat.deletePosteHTML`.
 	* Si `user.wallet.admin.editeRole` Affiche un bouton devant chaque utilisateur avec la fonction `$.etat.addPosteHTML` et la getion des utilisateurs banni ou guest avec la fonction `$.etat.printUserHTML`.
 
+
 ***
+
+# Module lois
+> Gestion des votes pour les lois.
+
+* mod/lois/lois.js
+* mod/lois/lois.htm
+* mod/lois/lois.json
+
+## $.lois.defautHTML()
+> Fonction par defaut.
+
+**Règles de gestion**
+
+1. Installez un écouteur sur `login` avec la fonction `$.lois.???`
+2. Installez un écouteur sur `logout` avec la fonction `$.lois.???`
+
+
+***
+
+
+## $.lois.home()
+> Elle liste les lois et leurs amendements. Elle est le point d'entrer pour toutes les fonctions touchant les lois.
+
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
+
+2. afficher HTML `loisHome`
+	* Paginer le tableau `$('#loisTab').paginateTable({ rowsPerPage: 10, pager: ".pagerLois" });`
+
+**Template HTML**
+
+* `loisHome` Affiche les lois et infos.
+
+	```js
+	user.wallet.obs.lois [
+		'id' // Identifiant loi.
+		'loi' // Le nom de la loi.
+		'nbAmd' // le nombre d'amendements.
+		'elu' = // 1 ou 0
+		'px' = // 0 a 100.
+		'amdElu // La desc de l'amendement élu.
+		'myVote' = // 0 ou id amd.
+		'amd = [
+			'id' // Identifiant d'amendement.
+			'desc' // La desc de l'amendement.
+			'nbVote' // Nombre de votes pour l'amendement.
+			'px' = // 0 a 100.
+		]
+	]
+	```
+
+	* Si `user.wallet.citoyen` Afficher un bouton en haut du tableau pour ajouter de nouvelle lois. `$.lois.addLoisHTML`.
+
+
+***
+
+
+* *Accès*
+	* A partir du menu principal.
+	* Accès rôle **Observateur**.
+* *Maquette*
+	* Tableau des lois sur la page. Chaque ligne conduite a la fiche détaillée de la loi.
+	* Si citoyen, Afficher un btn en haut du tableau pour ajouter de nouvelle lois.
+	* Si admin, devant chaque poste un btn pour pouvoir supprimer la lois.
+* *Informations*
+	* **Tableau** Lois
+		* identifiant
+		* Nom
+	* **Tableau** amendements élu.
+		* identifiant
+		* nom
+* *Actions possibles*
+	* Si **citoyen** voter ou modifier son vote. Ajout de lois.
+	* Si **Admin** ou **membre élu** Suppression et gestion de lois.
+* *Règles de gestion*
+	* Si **citoyen** permettre d'effectuer son vote.
+	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible.
+
+### Ω ficheLois HTML
+> Elle affiche la loi et ses amendements. Elle offre un moyen de modification de données à l'utilisateur ayant les droits nécessaires.
+
+* *Accès*
+	* A partir du menu principal.
+	* Accès rôle **Observateur**.
+* *Maquette*
+	* Le nom de la loi.
+	* Tableau des amendements. Faire resortire l'amendement élu.
+	* Si citoyen, Afficher un btn en haut du tableau pour ajouter de nouveaux amendements.
+	* Si admin, devant chaque amendements un btn pour pouvoir supprimer ou modifier.
+* *Informations*
+	* **Variable** Lois
+		* identifiant
+		* Nom
+	* **Tableau** amendements élu.
+		* identifiant
+		* nom
+* *Actions possibles*
+	* Si **citoyen** voter ou modifier son vote.
+	* Si **Admin** ou **membre élu** Suppression et gestion des amendements.
+* *Règles de gestion*
+	* Si **citoyen** permettre d'effectuer son vote.
+	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible.
+
+
 
 ### Ω addPoste HTML
 > Elle affiche un formulaire pour l'ajout des postes.
@@ -419,62 +525,6 @@
 	* signiature de la variable hash vote.
 	* Différence entre le type de vote pour l'affichage de la page de retour.
 	* appel à l'api.
-
-# Module lois
-> Gestion des votes pour les lois.
-
-* mod/lois/lois.js
-* mod/lois/lois.htm
-* mod/lois/lois.json
-
-### Ω Lois HTML
-> Elle liste les lois et leurs amendements. Elle est le point d'entrer pour toutes les fonctions touchant les lois.
-
-* *Accès*
-	* A partir du menu principal.
-	* Accès rôle **Observateur**.
-* *Maquette*
-	* Tableau des lois sur la page. Chaque ligne conduite a la fiche détaillée de la loi.
-	* Si citoyen, Afficher un btn en haut du tableau pour ajouter de nouvelle lois.
-	* Si admin, devant chaque poste un btn pour pouvoir supprimer la lois.
-* *Informations*
-	* **Tableau** Lois
-		* identifiant
-		* Nom
-	* **Tableau** amendements élu.
-		* identifiant
-		* nom
-* *Actions possibles*
-	* Si **citoyen** voter ou modifier son vote. Ajout de lois.
-	* Si **Admin** ou **membre élu** Suppression et gestion de lois.
-* *Règles de gestion*
-	* Si **citoyen** permettre d'effectuer son vote.
-	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible.
-
-### Ω ficheLois HTML
-> Elle affiche la loi et ses amendements. Elle offre un moyen de modification de données à l'utilisateur ayant les droits nécessaires.
-
-* *Accès*
-	* A partir du menu principal.
-	* Accès rôle **Observateur**.
-* *Maquette*
-	* Le nom de la loi.
-	* Tableau des amendements. Faire resortire l'amendement élu.
-	* Si citoyen, Afficher un btn en haut du tableau pour ajouter de nouveaux amendements.
-	* Si admin, devant chaque amendements un btn pour pouvoir supprimer ou modifier.
-* *Informations*
-	* **Variable** Lois
-		* identifiant
-		* Nom
-	* **Tableau** amendements élu.
-		* identifiant
-		* nom
-* *Actions possibles*
-	* Si **citoyen** voter ou modifier son vote.
-	* Si **Admin** ou **membre élu** Suppression et gestion des amendements.
-* *Règles de gestion*
-	* Si **citoyen** permettre d'effectuer son vote.
-	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible.
 
 ### Ω addLois HTML
 > Elle affiche un formulaire pour ajouter de nouvelles lois.
