@@ -42,7 +42,24 @@
 	
 	* Incrémenter le nombre d'utilisateurs par rôle. `$tmp['obs'][$v['role']]['nb'] ++;`
 
-6. Boucle sur la table vote. `$dbs['vote'] AS $k => $v`
+6. Boucle sur la table log. `$dbs['log'] AS $k => $v`
+	
+	* Séparer les log par action.
+	* Incrémenter le nombre d'actions dans le log `$tmp['log']['nb']++`
+	* Ajouter à la réponse de retour, les info du log. Dans la limit de 1000.
+		
+		```php
+		$tmp['log']['list'][] = array(
+			'id' => $v['id_user'],
+			'nom' => ,
+			'prenom' => ,
+			'action' => $v['action'],
+			'date' => $v['date'],
+			'msg' => ???
+		);
+		```
+		
+7. Boucle sur la table vote. `$dbs['vote'] AS $k => $v`
 	* Hash le `$v['id']`, `$v['id1']` et `$v['id2']`.
 	* Séparer les votes par type `$v['type']`.
 		
@@ -64,7 +81,7 @@
 				* Si non, ajouter les deux ids au tableau `$voteLOS[$v['id2']][$v['id1']] = 1`.
 			* Classer la variable par lois ids, puis par amd qui on le plus de votes.
 
-7. Boucle sur la variable vote poste.
+8. Boucle sur la variable vote poste.
 	* Déterminer une liste de postes avec leurs utilisateurs élus. Commencer par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
 	8. Boucle sur la variable vote loi.
 		* Déterminer une liste de lois avec leurs amendements élus.
@@ -90,7 +107,7 @@
 	'obs' : {
 		'CITOYEN' : { // + admin dans la liste.
 			'nb' : // Le nombre d'utilisateur dans list.
-			'list' : 
+			'list' : [
 				[0] : {
 					'id' : // L'identifiant unique crée par l'application.
 					'adr' : // Identifiant client (adresse bitcoin).
@@ -99,6 +116,7 @@
 					'date' : // La date d'inscription.
 					'role' : // Le rôle de l'utilisateur.
 				} [1] //...
+			]
 		}
 		'GUEST' : {…} // Liste des invités.
 		'BANNI' : {…} // Liste des bannis.
@@ -135,16 +153,19 @@
 		'deletePoste' : 1
 		'editeRole' : 1
 	}
-	'log' : [
-		{   'id_user' : // L'identifiant unique crée par l'application.
-			'nom' : // Le nom de l'utilisateur.
-			'prenom' : // Le prénom de l'utilisateur.
-			'action' : // L'action de l'historique.
-			'date' : // La date de l'action.
-			'msg' : // Le message de l'action.
-		}
-		{} //...
-	]
+	'log' : {
+		'nb' : // Le nombre d'actions dans le log.
+		'list' : [
+			[0] : {
+				'id_user' : // L'identifiant unique crée par l'application.
+				'nom' : // Le nom de l'utilisateur.
+				'prenom' : // Le prénom de l'utilisateur.
+				'action' : // L'action de l'historique.
+				'date' : // La date de l'action.
+				'msg' : // Le message de l'action.
+			} [1] //...
+		]
+	}
 }
 ```
 
