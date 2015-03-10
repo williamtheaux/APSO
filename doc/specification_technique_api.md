@@ -47,7 +47,11 @@
 
 6. Boucle sur la table log. `$dbs['log'] AS $k => $v`
 	
-	* Séparer les log par action.
+	* Decode JSON `$v['jdata']` dans `$jdata`.
+	
+	* Si l'action est `VOTE`.
+		* Si le id_user correspondance a id utilisateur `$user['id']`
+			* Récupérer le hash et le id_user dans `$myHashVote`.
 	
 	* Incrémenter le nombre d'actions dans le log `$tmp['log']['nb']++`
 	* Ajouter à la réponse de retour, les infos du log. Dans la limit de 1000.
@@ -74,6 +78,8 @@
 					* Si oui, Incrémenter la variable `$voteCTN[$v['id2']][$v['id1']] ++`.
 					* Si non, ajouter l'id1 au tableau `$voteCTN[$v['id2']][$v['id1']] ++`.
 				* Si non, ajouter les deux ids au tableau `$voteCTN[$v['id2']][$v['id1']] = 1`.
+				* Si le hash est present dans KEY `$myHashVote`.
+					* Récupérer `$v['id2'] => $v['id1']` du vote dans `$myCtnVote`.
 			* Classer la variable par postes ids, puis par client qui on le plus de votes.
 			
 		* Type loi `LOS`
@@ -83,6 +89,8 @@
 					* Si oui, Incrémenter la variable `$voteLOS[$v['id2']][$v['id1']] ++`.
 					* Si non, ajouter l'id1 au tableau `$voteLOS[$v['id2']][$v['id1']] ++`.
 				* Si non, ajouter les deux ids au tableau `$voteLOS[$v['id2']][$v['id1']] = 1`.
+				* Si le hash est present dans KEY `$myHashVote`.
+					* Récupérer `$v['id1'] => $v['id2']` du vote dans `$myLosVote`.
 			* Classer la variable par lois ids, puis par amd qui on le plus de votes.
 
 8. Boucle sur la table poste. `$dbs['poste'] AS $k => $v`
@@ -94,7 +102,9 @@
 		* Si non, définir les variables id_elu, nomElu, prenomElu a NULL.
 		* Si $d = FALSE, Recommencez l'opération avec `$voteCTN[$v['id']][1][KEY]`...
 		* Si $d = TRUE, $id_elu = `$voteCTN[$v['id']][?][KEY]`
-			
+		* Vérifier si poste_id `$v['id']` est present dans key `$myCtnVote`.
+			* Récupérer l'id_utilisateur pour qui, on a voter `$myCTNV = $myCtnVote[$v['id']]`. Si non retourner `$myCTNV = 0`.
+		
 	* Ajouter à la réponse de retour, les infos des postes.
 		
 		```php
@@ -103,14 +113,12 @@
 			'poste' => $v['poste'],
 			'id_elu' => $id_elu,
 			'nomElu' => $users[$id_elu]['nom'],
-			'prenomElu' => $users[$id_elu]['prénom],
-			'myVote' => // L'identifiant unique du client voter.
-			'myVoteName' => // Le nom du client voter.
-			'myVotePrenom' => // Le prénom du client voter.
+			'prenomElu' => $users[$id_elu]['prenom'],
+			'myVote' => $myCTNV,
+			'myVoteName' => $users[$$myCTNV]['nom'], // Or 0
+			'myVotePrenom' =>$users[$$myCTNV]['prenom'] // Or 0
 		);
 		```
-	
-	* Déterminer une liste de postes avec leurs utilisateurs élus. Commencer par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
 
 8. Boucle sur la variable vote loi.
 	* Déterminer une liste de lois avec leurs amendements élus.
