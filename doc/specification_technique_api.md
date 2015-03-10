@@ -29,6 +29,7 @@
 3. Vérification du rôle de l'utilisateur.
 	* Si Banni. retourner la variable `$tmp['banni'] = 1`.
 	* Si Guest. retourner la variable `$tmp['guest'] = 1`.
+	* Si citoyen ou admin. ajouter `$tmp['citoyen'] = 1`.
 
 4. Sélectionner toute la base de données.
 	
@@ -41,18 +42,21 @@
 	* Séparer les utilisateurs par rôle. Ajouter à la réponse de retour, les info de l'utilisateur `$tmp['obs'][$v['role']]['list'][] = array() // info user`. Si le rôle est ADMIN, alors ajouter au rôle CITOYEN.
 	
 	* Incrémenter le nombre d'utilisateurs par rôle. `$tmp['obs'][$v['role']]['nb'] ++;`
+	
+	* Incrémenter la variable interne d'utilisateurs. `$users[$v['id']]` = array nom et prénom.
 
 6. Boucle sur la table log. `$dbs['log'] AS $k => $v`
 	
 	* Séparer les log par action.
+	
 	* Incrémenter le nombre d'actions dans le log `$tmp['log']['nb']++`
-	* Ajouter à la réponse de retour, les info du log. Dans la limit de 1000.
+	* Ajouter à la réponse de retour, les infos du log. Dans la limit de 1000.
 		
 		```php
 		$tmp['log']['list'][] = array(
 			'id' => $v['id_user'],
-			'nom' => ,
-			'prenom' => ,
+			'nom' => $users[$v['id_user']]['nom'],
+			'prenom' => $users[$v['id_user']]['prénom'],
 			'action' => $v['action'],
 			'date' => $v['date'],
 			'msg' => ???
@@ -81,14 +85,38 @@
 				* Si non, ajouter les deux ids au tableau `$voteLOS[$v['id2']][$v['id1']] = 1`.
 			* Classer la variable par lois ids, puis par amd qui on le plus de votes.
 
-8. Boucle sur la variable vote poste.
+8. Boucle sur la table poste. `$dbs['poste'] AS $k => $v`
+	* Incrémenter le nombre de postes `$tmp['obs']['postes']['nb']++`.
+	* Vérifier si `$v['id']` est present dans key `$voteCTN`.
+		* Si oui, Boucle sur `$tmp['obs']['postes']['list'] AS $k => $v`
+			* Comparér le client élu `$v['id_elu']` == `$voteCTN[$v['id']][0][KEY]`
+				* S'il y a une correspondance, $d = FALSE si non $d = TRUE
+		* Si non, définir les variables id_elu, nomElu, prenomElu a NULL.
+		* Si $d = FALSE, Recommencez l'opération avec `$voteCTN[$v['id']][1][KEY]`...
+		* Si $d = TRUE, $id_elu = `$voteCTN[$v['id']][?][KEY]`
+			
+	* Ajouter à la réponse de retour, les infos des postes.
+		
+		```php
+		$tmp['obs']['postes'][list][] = array(
+			'id' => $v['id'],
+			'poste' => $v['poste'],
+			'id_elu' => $id_elu,
+			'nomElu' => $users[$id_elu]['nom'],
+			'prenomElu' => $users[$id_elu]['prénom],
+			'myVote' => // L'identifiant unique du client voter.
+			'myVoteName' => // Le nom du client voter.
+			'myVotePrenom' => // Le prénom du client voter.
+		);
+		```
+	
 	* Déterminer une liste de postes avec leurs utilisateurs élus. Commencer par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
-	8. Boucle sur la variable vote loi.
-		* Déterminer une liste de lois avec leurs amendements élus.
-	9. Boucle sur la variable de l'historique.
-		* Marquer les actions du client.
-	10. Vérifier si le client appartient à un poste élu.
-	11. Si Administrateur ou poste. Inclure les variables dans le retour.
+
+8. Boucle sur la variable vote loi.
+	* Déterminer une liste de lois avec leurs amendements élus.
+
+10. Vérifier si le client appartient à un poste élu.
+11. Si Administrateur ou poste. Inclure les variables dans le retour.
 
 **Informations sortantes**
 
@@ -121,16 +149,21 @@
 		'GUEST' : {…} // Liste des invités.
 		'BANNI' : {…} // Liste des bannis.
 		'OBS' : {…} // Liste des observateurs.
-		'postes' : [
-			'id' // Identifiant poste.
-			'poste' // Le nom du poste.
-			'id_elu' // L'identifiant unique du client élu.
-			'nomElu' // Le nom du client élu.
-			'prenomElu' // Le prénom du client élu.
-			'myVote' // L'identifiant unique du client voter.
-			'myVoteName' // Le nom du client voter.
-			'myVotePrenom' // Le prénom du client voter.
-		]
+		'postes' : {
+			'nb' : // Le nombre d'utilisateur dans list.
+			'list' : [
+				[0] : {
+					'id' // Identifiant poste.
+					'poste' // Le nom du poste.
+					'id_elu' // L'identifiant unique du client élu.
+					'nomElu' // Le nom du client élu.
+					'prenomElu' // Le prénom du client élu.
+					'myVote' // L'identifiant unique du client voter.
+					'myVoteName' // Le nom du client voter.
+					'myVotePrenom' // Le prénom du client voter.
+				} [1] //...
+			]
+		}
 		'lois' : [
 			'id' : // Identifiant loi.
 			'loi' : // Le nom de la loi.
