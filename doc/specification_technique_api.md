@@ -70,7 +70,6 @@
 	* Séparer les votes par type `$v['type']`.
 		
 		* Type poste `CTN`
-			* Vérifier le poste et l'utilisateur choisi.
 			* Vérifier si `$v['id2']` est present dans key `$voteCTN`.
 				* Si oui, Vérifier si `$v['id1']` est present dans key `$voteCTN[$v['id2']]`.
 					* Si oui, Incrémenter la variable `$voteCTN[$v['id2']][$v['id1']] ++`.
@@ -81,7 +80,6 @@
 			* Classer la variable par postes ids, puis par client qui on le plus de votes.
 			
 		* Type loi `LOS`
-			* Vérifier la loi et l'amendement choisi.
 			* Vérifier si `$v['id2']` est present dans key `$voteLOS`.
 				* Si oui, Incrémenter la variable `$voteLOS[$v['id2']] ++`.
 				* Si non, ajouter les deux ids au tableau `$voteLOS[$v['id2']] = 1`.
@@ -166,11 +164,15 @@
 		};
 		```
 
-11. Poste élu et les fonctions propriétaires. Vérifier.
-	* Si l'utilisateur est ADMIN.
+11. Poste élu et les fonctions propriétaires.
+	* Vérifier, si l'utilisateur est ADMIN.
 		* Boucle sur la table func `$dbs['func'] AS $k => $v`.
 			* Si `$v['id']` est 0. Ajouter le nom de la fonction a `$tmp['admin'][] = array($v['name'] => 1)`
-	* Si l'utilisateur est CITOYEN.
+	* Vérifier, si l'utilisateur est CITOYEN.
+		* Boucle sur la table func `$tmp['obs']['postes'][list] AS $k => $v`.
+			* Si `$v['id_elu']` est == a $user['id'].
+				* Boucle sur la table func `$dbs['func'] AS $k1 => $v1`.
+					* Si `$v['id']` est == a `$v1['id']`. Ajouter le nom de la fonction a `$tmp['admin'][] = array($v1['name'] => 1)`
 
 **Informations sortantes**
 

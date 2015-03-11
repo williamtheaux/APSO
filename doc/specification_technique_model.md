@@ -89,7 +89,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | 4 | Vice-Président |
 
 #### Fonction propriétaire.
-> Les postes peuvent être associés à des fonctions propriétaires.
+> Les postes peuvent être associés à des fonctions propriétaires. Pour admin, l'id est 0.
 
 | Fonction | Desc | Associés |
 |----------|------|----------|
