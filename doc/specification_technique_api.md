@@ -126,14 +126,11 @@
 
 10. Boucle sur la table loi `$dbs['lois'] AS $k => $v`
 	* Incrémenter le nombre de lois `$tmp['obs']['lois']['nb']++`.
-	
 	* Boucle sur la var `$amd[$v['id']]AS $k1 => $v1`.
 		* Incrémenter le nombre de amd `$nbAmd++`.
 		* Si l'id amd est present dans `$myLosVote`.
-			* Si oui, $myV = 1, Si non $myV = 0.
-		
+			* Si oui, $myV = 1 and $myLoisV = 1, Si non $myV = 0.
 		* Comptage des votes. `$cmp = $cmp+$v1['nbVote']`.
-		
 		* Créer le tableau des amds.
 		
 			```php
@@ -142,30 +139,35 @@
 					'id' : $v1['id'],
 					'desc' : $v1['amd'],
 					'nbVote' : $v1['nbVote'],
+					'px' : 0
 					'myVote' : $myV
 				} [1] //...
 			```
 		
-		
-		
-	
-	* Ajouter à la réponse de retour, les infos des postes.
+		* Vérifier si nbVote actuel est plus grand que l'adm précédente. $v1['nbVote'] > $eluLos['nbVote']
+			* Si oui, Remplacer les information de $eluLos $eluLos['amd'].
+	* Calculer le pourcentage de votes par a port au citoyens `$px = 100*$cmp/$tmp['obs']['CITOYEN'][nb]`
+		* Si $px est sup a 50%, alors $elu = 1, Si non $elu = O.
+	* Boucle sur la var `$amdAr AS $k1 => $v1`.
+		* Calculer le pourcentage de votes par a port au total `$pxa = 100*$v1['myVote']/$cmp`.
+			* Ajouter le pourcentage par amd a `$amdAr[$k1]['px'] = $pxa`.
+	* Ajouter à la réponse de retour, les infos des lois.
 		
 		```php
 		$tmp['obs']['lois'][list][] = array {
 			'id' : $v['id'],
 			'loi' : $v['nom'],
 			'nbAmd' : $nbAmd,
-			'elu' : // 1 ou 0
-			'px' : // 0 a 100.
-			'amdElu' : // La desc de l'amendement élu.
-			'myVote' : // 0 ou id amd.
+			'elu' : $elu
+			'px' : $px,
+			'amdElu' : $eluLos['amd'],
+			'myVote' : $myLoisV,
 			'amd' : $amdAr
 		};
 		```
 
-10. Vérifier si le client appartient à un poste élu.
-11. Si Administrateur ou poste. Inclure les variables dans le retour.
+11. Vérifier si le client appartient à un poste élu.
+12. Si Administrateur ou poste. Inclure les variables dans le retour.
 
 **Informations sortantes**
 
@@ -229,6 +231,7 @@
 						[0] : {
 							'id' : // Identifiant d'amendement.
 							'desc' : // La desc de l'amendement.
+							'px' : // 0 a 100.
 							'nbVote' : // Nombre de votes pour l'amendement.
 							'myVote' : // Si mon vote.
 						} [1] //...
