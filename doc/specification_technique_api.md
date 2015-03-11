@@ -166,8 +166,11 @@
 		};
 		```
 
-11. Vérifier si le client appartient à un poste élu.
-12. Si Administrateur ou poste. Inclure les variables dans le retour.
+11. Poste élu et les fonctions propriétaires. Vérifier.
+	* Si l'utilisateur est ADMIN.
+		* Boucle sur la table func `$dbs['func'] AS $k => $v`.
+			* Si `$v['id']` est 0. Ajouter le nom de la fonction a `$tmp['admin'][] = array($v['name'] => 1)`
+	* Si l'utilisateur est CITOYEN.
 
 **Informations sortantes**
 
@@ -239,11 +242,12 @@
 			]
 		}
 	}
-	'admin' : {
-		'addPoste' : 1
-		'deletePoste' : 1
-		'editeRole' : 1
-	}
+	'admin' : [
+		{'addPoste' : 1}
+		{'deletePoste' : 1}
+		{'editeRole' : 1}
+		{…}
+	]
 	'log' : {
 		'nb' : // Le nombre d'actions dans le log.
 		'list' : [
