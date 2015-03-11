@@ -378,6 +378,36 @@ En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 db::go('UPDATE apso_vote SET signe=:signe WHERE id=:id');
 ```
 
+### Ω dbs::getDb()
+> Retourne la base de données au complet.
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('SELECT * FROM apso_user');
+db::go('SELECT * FROM apso_vote');
+db::go('SELECT * FROM apso_log');
+db::go('SELECT * FROM apso_postes');
+db::go('SELECT * FROM apso_lois');
+db::go('SELECT * FROM apso_amd');
+db::go('SELECT * FROM apso_func');
+```
+
+**Informations sortantes**
+
+```php
+Array {
+	[user]
+	[vote]
+	[log]
+	[postes]
+	[lois]
+	[amd]
+	[func]
+}
+```
+
 ***
 
 ## ∑ HELPER
