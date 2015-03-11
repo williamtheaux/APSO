@@ -96,8 +96,8 @@
 8. Boucle sur la table poste. `$dbs['poste'] AS $k => $v`
 	* Incrémenter le nombre de postes `$tmp['obs']['postes']['nb']++`.
 	* Vérifier si `$v['id']` est present dans key `$voteCTN`.
-		* Si oui, Boucle sur `$tmp['obs']['postes']['list'] AS $k => $v`
-			* Comparér le client élu `$v['id_elu']` == `$voteCTN[$v['id']][0][KEY]`
+		* Si oui, trouver l'élu. Boucle sur `$tmp['obs']['postes']['list'] AS $k => $v1`
+			* Comparér le client élu `$v1['id_elu']` == `$voteCTN[$v['id']][0][KEY]`
 				* S'il y a une correspondance, $d = FALSE si non $d = TRUE
 		* Si non, définir les variables id_elu, nomElu, prenomElu a NULL.
 		* Si $d = FALSE, Recommencez l'opération avec `$voteCTN[$v['id']][1][KEY]`...
@@ -120,8 +120,45 @@
 		);
 		```
 
-8. Boucle sur la variable vote loi.
-	* Déterminer une liste de lois avec leurs amendements élus.
+8. Boucle sur la table amd `$dbs['amd'] AS $k => $v`
+	* Vérifier si `$v['id_lois']` est present dans key `$amd`.
+		* Si oui, ajouter l'id au tableau `$amd[$v['id_lois']][]` avec id et amd.
+		* Si non, ajouter les deux ids au tableau `$amd[$v['id_lois']][0]` avec id et amd.
+
+9. Boucle sur la table loi `$dbs['lois'] AS $k => $v`
+	* Incrémenter le nombre de lois `$tmp['obs']['lois']['nb']++`.
+	
+	* Vérifier si `$v['id']` est present dans key `$voteLOS`.
+		* Si non, définir les variables elu, px, myVote a 0.
+		* Si oui, boucle sur la var `$voteLOS[$v['id']] AS $k1 => $v1`.  $k1 = id amd. $v1 = nb de votes.
+			
+		
+		* Si oui, `$tmp['obs']['lois']['list']`
+			* Comparér le client élu `$v1['id_elu']` == `$voteCTN[$v['id']][0][KEY]`
+				* S'il y a une correspondance, $d = FALSE si non $d = TRUE
+		
+	
+	* Ajouter à la réponse de retour, les infos des postes.
+		
+		```php
+		$tmp['obs']['lois'][list][] = array {
+			'id' : $v['id'],
+			'loi' : $v['nom'],
+			'nbAmd' : // le nombre d'amendements.
+			'elu' : // 1 ou 0
+			'px' : // 0 a 100.
+			'amdElu' : // La desc de l'amendement élu.
+			'myVote' : // 0 ou id amd.
+			'amd' : [
+				[0] : {
+					'id' : // Identifiant d'amendement.
+					'desc' : // La desc de l'amendement.
+					'nbVote' : // Nombre de votes pour l'amendement.
+					'px' : // 0 a 100.
+					'myVote' : // Si mon vote.
+				} [1] //...
+		};
+		```
 
 10. Vérifier si le client appartient à un poste élu.
 11. Si Administrateur ou poste. Inclure les variables dans le retour.
@@ -132,6 +169,7 @@
 {
 	'guest' : 1, // L'utilisateur n'est pas encore validé.
 	'banni' : 1, // L'utilisateur est banni.
+	'citoyen' : 1, 
 	'info' : { // Variable $user or 0
 		'id' : // L'identifiant unique crée par l'application.
 		'adr' : // Identifiant client (adresse bitcoin).
@@ -158,7 +196,7 @@
 		'BANNI' : {…} // Liste des bannis.
 		'OBS' : {…} // Liste des observateurs.
 		'postes' : {
-			'nb' : // Le nombre d'utilisateur dans list.
+			'nb' : // Le nombre de postes dans list.
 			'list' : [
 				[0] : {
 					'id' // Identifiant poste.
@@ -172,23 +210,29 @@
 				} [1] //...
 			]
 		}
-		'lois' : [
-			'id' : // Identifiant loi.
-			'loi' : // Le nom de la loi.
-			'nbAmd' : // le nombre d'amendements.
-			'elu' : // 1 ou 0
-			'px' : // 0 a 100.
-			'amdElu' : // La desc de l'amendement élu.
-			'myVote' : // 0 ou id amd.
-			'amd' : [
-				'id' : // Identifiant d'amendement.
-				'desc' : // La desc de l'amendement.
-				'nbVote' : // Nombre de votes pour l'amendement.
-				'px' : // 0 a 100.
-				'myVote' : // Si mon vote.
+		'lois' : {
+			'nb' : // Le nombre d'utilisateur dans list.
+			'list' : [
+				[0] : {
+					'id' : // Identifiant loi.
+					'loi' : // Le nom de la loi.
+					'nbAmd' : // le nombre d'amendements.
+					'elu' : // 1 ou 0
+					'px' : // 0 a 100.
+					'amdElu' : // La desc de l'amendement élu.
+					'myVote' : // 0 ou id amd.
+					'amd' : [
+						[0] : {
+							'id' : // Identifiant d'amendement.
+							'desc' : // La desc de l'amendement.
+							'nbVote' : // Nombre de votes pour l'amendement.
+							'px' : // 0 a 100.
+							'myVote' : // Si mon vote.
+						} [1] //...
+				} [1] //...
 			]
+		}
 	}
-	'citoyen' : 1
 	'admin' : {
 		'addPoste' : 1
 		'deletePoste' : 1
