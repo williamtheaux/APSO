@@ -1,8 +1,6 @@
 # Spécification technique Api (STB V.0.1)
 > Api dédiée en PHP avec le protocole JSON RPC 2, permettant la démocratie en temps-réel. C'est la partie qui centralise et distribue les données. Elle gère la gestion des actions possibles.
 
-![App architecture](annexes/apiArchitect.jpg)
-
 ### Ω user_login($a, $t, $s)
 > Connexion de l'utilisateur.
 
@@ -118,20 +116,35 @@
 		);
 		```
 
-8. Boucle sur la table amd `$dbs['amd'] AS $k => $v`
+9. Boucle sur la table amd `$dbs['amd'] AS $k => $v`
 	* Vérifier si `$v['id']` est present dans key `$voteLOS`.
 		* Si oui, Récupérer le nobre de votes `$v = $voteLOS[$v1['id']]`.
 		* Si non, `$v = 0`.
 	* Vérifier si `$v['id_lois']` est present dans key `$amd`.
 		* Si oui, ajouter l'id au tableau `$amd[$v['id_lois']][]` avec $v, id et amd.
-		* Si non, ajouter les deux ids au tableau `$amd[$v['id_lois']][0]` avec $v, id et amd.
+		* Si non, ajouter les deux ids au tableau `$amd[$v['id_lois']][0]` avec $v (nbVote), id et amd.
 
-9. Boucle sur la table loi `$dbs['lois'] AS $k => $v`
+10. Boucle sur la table loi `$dbs['lois'] AS $k => $v`
 	* Incrémenter le nombre de lois `$tmp['obs']['lois']['nb']++`.
 	
 	* Boucle sur la var `$amd[$v['id']]AS $k1 => $v1`.
 		* Incrémenter le nombre de amd `$nbAmd++`.
+		* Si l'id amd est present dans `$myLosVote`.
+			* Si oui, $myV = 1, Si non $myV = 0.
 		
+		* Comptage des votes. `$cmp = $cmp+$v1['nbVote']`.
+		
+		* Créer le tableau des amds.
+		
+			```php
+			$amdAr = [
+				[0] : {
+					'id' : $v1['id'],
+					'desc' : $v1['amd'],
+					'nbVote' : $v1['nbVote'],
+					'myVote' : $myV
+				} [1] //...
+			```
 		
 		
 		
@@ -147,14 +160,7 @@
 			'px' : // 0 a 100.
 			'amdElu' : // La desc de l'amendement élu.
 			'myVote' : // 0 ou id amd.
-			'amd' : [
-				[0] : {
-					'id' : // Identifiant d'amendement.
-					'desc' : // La desc de l'amendement.
-					'nbVote' : // Nombre de votes pour l'amendement.
-					'px' : // 0 a 100.
-					'myVote' : // Si mon vote.
-				} [1] //...
+			'amd' : $amdAr
 		};
 		```
 
@@ -224,7 +230,6 @@
 							'id' : // Identifiant d'amendement.
 							'desc' : // La desc de l'amendement.
 							'nbVote' : // Nombre de votes pour l'amendement.
-							'px' : // 0 a 100.
 							'myVote' : // Si mon vote.
 						} [1] //...
 				} [1] //...
