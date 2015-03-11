@@ -84,13 +84,11 @@
 			
 		* Type loi `LOS`
 			* Vérifier la loi et l'amendement choisi.
-			* Vérifier si `$v['id1']` est present dans key `$voteLOS`.
-				* Si oui, Vérifier si `$v['id1']` est present dans key `$voteLOS[$v['id2']]`.
-					* Si oui, Incrémenter la variable `$voteLOS[$v['id2']][$v['id1']] ++`.
-					* Si non, ajouter l'id1 au tableau `$voteLOS[$v['id2']][$v['id1']] ++`.
-				* Si non, ajouter les deux ids au tableau `$voteLOS[$v['id2']][$v['id1']] = 1`.
+			* Vérifier si `$v['id2']` est present dans key `$voteLOS`.
+				* Si oui, Incrémenter la variable `$voteLOS[$v['id2']] ++`.
+				* Si non, ajouter les deux ids au tableau `$voteLOS[$v['id2']] = 1`.
 				* Si le hash est present dans KEY `$myHashVote`.
-					* Récupérer `$v['id1'] => $v['id2']` du vote dans `$myLosVote`.
+					* Récupérer `$v['id2']` du vote dans `$myLosVote`.
 			* Classer la variable par lois ids, puis par amd qui on le plus de votes.
 
 8. Boucle sur la table poste. `$dbs['poste'] AS $k => $v`
@@ -121,21 +119,21 @@
 		```
 
 8. Boucle sur la table amd `$dbs['amd'] AS $k => $v`
+	* Vérifier si `$v['id']` est present dans key `$voteLOS`.
+		* Si oui, Récupérer le nobre de votes `$v = $voteLOS[$v1['id']]`.
+		* Si non, `$v = 0`.
 	* Vérifier si `$v['id_lois']` est present dans key `$amd`.
-		* Si oui, ajouter l'id au tableau `$amd[$v['id_lois']][]` avec id et amd.
-		* Si non, ajouter les deux ids au tableau `$amd[$v['id_lois']][0]` avec id et amd.
+		* Si oui, ajouter l'id au tableau `$amd[$v['id_lois']][]` avec $v, id et amd.
+		* Si non, ajouter les deux ids au tableau `$amd[$v['id_lois']][0]` avec $v, id et amd.
 
 9. Boucle sur la table loi `$dbs['lois'] AS $k => $v`
 	* Incrémenter le nombre de lois `$tmp['obs']['lois']['nb']++`.
 	
-	* Vérifier si `$v['id']` est present dans key `$voteLOS`.
-		* Si non, définir les variables elu, px, myVote a 0.
-		* Si oui, boucle sur la var `$voteLOS[$v['id']] AS $k1 => $v1`.  $k1 = id amd. $v1 = nb de votes.
-			
+	* Boucle sur la var `$amd[$v['id']]AS $k1 => $v1`.
+		* Incrémenter le nombre de amd `$nbAmd++`.
 		
-		* Si oui, `$tmp['obs']['lois']['list']`
-			* Comparér le client élu `$v1['id_elu']` == `$voteCTN[$v['id']][0][KEY]`
-				* S'il y a une correspondance, $d = FALSE si non $d = TRUE
+		
+		
 		
 	
 	* Ajouter à la réponse de retour, les infos des postes.
@@ -144,7 +142,7 @@
 		$tmp['obs']['lois'][list][] = array {
 			'id' : $v['id'],
 			'loi' : $v['nom'],
-			'nbAmd' : // le nombre d'amendements.
+			'nbAmd' : $nbAmd,
 			'elu' : // 1 ou 0
 			'px' : // 0 a 100.
 			'amdElu' : // La desc de l'amendement élu.
