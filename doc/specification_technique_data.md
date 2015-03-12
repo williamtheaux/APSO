@@ -728,8 +728,8 @@ Array [
 
 **Informations sortantes**
 	
-	```php
-	{
+```php
+{
 	'obs' : {
 		'CITOYEN' : { // + admin dans la liste.
 			'nb' : // Le nombre d'utilisateur dans list.
@@ -803,8 +803,8 @@ Array [
 				'msg' : // Le message de l'action.
 			} [1] //...
 		]
-	}
-	```
+}
+```
 
 ***
 
