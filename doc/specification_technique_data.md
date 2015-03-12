@@ -559,7 +559,7 @@ Array [
 ]
 ```
 
-### Ω help::getData($a, $v, $s)
+### Ω help::getData($e)
 > Retourne toute la base de données.
 
 **Informations entrantes**
@@ -591,7 +591,17 @@ Array [
 	* Si l'action est `VOTE`.
 		* Si le id_user correspondance a id utilisateur `$e['id']`
 			* Récupérer le hash et le id_user dans `$myHashVote`.
-	
+			
+			```php
+			$jd[] = '[type] => '.$jdata['type'];
+			```
+	* Si l'action n'est pas `VOTE`.
+		* Boucle sur `$jdata  AS $k => $v`.
+		
+		```php
+		$jd[] = '['.$k'] => '.$v;
+		```
+
 	* Incrémenter le nombre d'actions dans le log `$tmp['log']['nb']++`
 	* Ajouter à la réponse de retour, les infos du log. Dans la limit de 1000.
 		
@@ -602,7 +612,7 @@ Array [
 			'prenom' => $users[$v['id_user']]['prénom'],
 			'action' => $v['action'],
 			'date' => $v['date'],
-			'msg' => ???
+			'msg' => $jd
 		);
 		```
 		
@@ -717,6 +727,7 @@ Array [
 					* Break.
 
 **Informations sortantes**
+	
 	```php
 	{
 	'obs' : {
