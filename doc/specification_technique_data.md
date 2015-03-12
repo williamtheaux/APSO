@@ -387,8 +387,8 @@ En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 ```php
 db::go('SELECT * FROM apso_user');
 db::go('SELECT * FROM apso_vote');
-db::go('SELECT * FROM apso_log');
-db::go('SELECT * FROM apso_postes');
+db::go('SELECT * FROM apso_log ORDER BY id ASC');
+db::go('SELECT * FROM apso_postes ORDER BY id DESC');
 db::go('SELECT * FROM apso_lois');
 db::go('SELECT * FROM apso_amd');
 db::go('SELECT * FROM apso_func');
@@ -406,6 +406,16 @@ Array {
 	[amd]
 	[func]
 }
+```
+
+### Ω dbs::getNbLog()
+> Compter le nombrer d'action dans le log.
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('SELECT COUNT(*) FROM apso_log');
 ```
 
 ***
@@ -548,6 +558,242 @@ Array [
 	[id] = // ...
 ]
 ```
+
+### Ω help::getData($a, $v, $s)
+> Retourne toute la base de données.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | info user. |
+
+**Règles de gestion**
+
+4. Sélectionner toute la base de données.
+	
+	```php
+	// Appel a la fonction du model.
+	$dbs = dbs::getDb();
+	```
+
+5. Boucle sur la table utilisateur. `$dbs['user'] AS $k => $v`
+	* Séparer les utilisateurs par rôle. Ajouter à la réponse de retour, les info de l'utilisateur `$tmp['obs'][$v['role']]['list'][] = array() // info user`. Si le rôle est ADMIN, alors ajouter au rôle CITOYEN.
+	
+	* Incrémenter le nombre d'utilisateurs par rôle. `$tmp['obs'][$v['role']]['nb'] ++;`
+	
+	* Incrémenter la variable interne d'utilisateurs. `$users[$v['id']]` = array nom et prénom.
+
+6. Boucle sur la table log. `$dbs['log'] AS $k => $v`
+	
+	* Decode JSON `$v['jdata']` dans `$jdata`.
+	
+	* Si l'action est `VOTE`.
+		* Si le id_user correspondance a id utilisateur `$e['id']`
+			* Récupérer le hash et le id_user dans `$myHashVote`.
+	
+	* Incrémenter le nombre d'actions dans le log `$tmp['log']['nb']++`
+	* Ajouter à la réponse de retour, les infos du log. Dans la limit de 1000.
+		
+		```php
+		$tmp['log']['list'][] = array(
+			'id' => $v['id_user'],
+			'nom' => $users[$v['id_user']]['nom'],
+			'prenom' => $users[$v['id_user']]['prénom'],
+			'action' => $v['action'],
+			'date' => $v['date'],
+			'msg' => ???
+		);
+		```
+		
+7. Boucle sur la table vote. `$dbs['vote'] AS $k => $v`
+	* Hash le `$v['id']`, `$v['id1']` et `$v['id2']`.
+	* Séparer les votes par type `$v['type']`.
+		
+		* Type poste `CTN`
+			* Vérifier si `$v['id2']` est present dans key `$voteCTN`.
+				* Si oui, Vérifier si `$v['id1']` est present dans key `$voteCTN[$v['id2']]`.
+					* Si oui, Incrémenter la variable `$voteCTN[$v['id2']][$v['id1']] ++`.
+					* Si non, ajouter l'id1 au tableau `$voteCTN[$v['id2']][$v['id1']] ++`.
+				* Si non, ajouter les deux ids au tableau `$voteCTN[$v['id2']][$v['id1']] = 1`.
+				* Si le hash est present dans KEY `$myHashVote`.
+					* Récupérer `$v['id2'] => $v['id1']` du vote dans `$myCtnVote`.
+			* Classer la variable par postes ids, puis par client qui on le plus de votes.
+			
+		* Type loi `LOS`
+			* Vérifier si `$v['id2']` est present dans key `$voteLOS`.
+				* Si oui, Incrémenter la variable `$voteLOS[$v['id2']] ++`.
+				* Si non, ajouter les deux ids au tableau `$voteLOS[$v['id2']] = 1`.
+				* Si le hash est present dans KEY `$myHashVote`.
+					* Récupérer `$v['id2']` du vote dans `$myLosVote`.
+			* Classer la variable par lois ids, puis par amd qui on le plus de votes.
+
+8. Boucle sur la table poste. `$dbs['poste'] AS $k => $v`
+	* Incrémenter le nombre de postes `$tmp['obs']['postes']['nb']++`.
+	* Vérifier si `$v['id']` est present dans key `$voteCTN`.
+		* Si oui, trouver l'élu. Boucle sur `$tmp['obs']['postes']['list'] AS $k => $v1`
+			* Comparér le client élu `$v1['id_elu']` == `$voteCTN[$v['id']][0][KEY]`
+				* S'il y a une correspondance, $d = FALSE si non $d = TRUE
+		* Si non, définir les variables id_elu, nomElu, prenomElu a NULL.
+		* Si $d = FALSE, Recommencez l'opération avec `$voteCTN[$v['id']][1][KEY]`...
+		* Si $d = TRUE, $id_elu = `$voteCTN[$v['id']][?][KEY]`
+		* Vérifier si poste_id `$v['id']` est present dans key `$myCtnVote`.
+			* Récupérer l'id_utilisateur pour qui, on a voter `$myCTNV = $myCtnVote[$v['id']]`. Si non retourner `$myCTNV = 0`.
+		
+	* Ajouter à la réponse de retour, les infos des postes.
+		
+		```php
+		$tmp['obs']['postes'][list][] = array(
+			'id' => $v['id'],
+			'poste' => $v['poste'],
+			'id_elu' => $id_elu,
+			'nomElu' => $users[$id_elu]['nom'],
+			'prenomElu' => $users[$id_elu]['prenom'],
+			'myVote' => $myCTNV,
+			'myVoteName' => $users[$$myCTNV]['nom'], // Or 0
+			'myVotePrenom' =>$users[$$myCTNV]['prenom'] // Or 0
+		);
+		```
+
+9. Boucle sur la table amd `$dbs['amd'] AS $k => $v`
+	* Vérifier si `$v['id']` est present dans key `$voteLOS`.
+		* Si oui, Récupérer le nobre de votes `$v = $voteLOS[$v1['id']]`.
+		* Si non, `$v = 0`.
+	* Vérifier si `$v['id_lois']` est present dans key `$amd`.
+		* Si oui, ajouter l'id au tableau `$amd[$v['id_lois']][]` avec $v, id et amd.
+		* Si non, ajouter les deux ids au tableau `$amd[$v['id_lois']][0]` avec $v (nbVote), id et amd.
+
+10. Boucle sur la table loi `$dbs['lois'] AS $k => $v`
+	* Incrémenter le nombre de lois `$tmp['obs']['lois']['nb']++`.
+	* Boucle sur la var `$amd[$v['id']]AS $k1 => $v1`.
+		* Incrémenter le nombre de amd `$nbAmd++`.
+		* Si l'id amd est present dans `$myLosVote`.
+			* Si oui, $myV = 1 and $myLoisV = 1, Si non $myV = 0.
+		* Comptage des votes. `$cmp = $cmp+$v1['nbVote']`.
+		* Créer le tableau des amds.
+		
+			```php
+			$amdAr = [
+				[0] : {
+					'id' : $v1['id'],
+					'desc' : $v1['amd'],
+					'nbVote' : $v1['nbVote'],
+					'px' : 0
+					'myVote' : $myV
+				} [1] //...
+			```
+		
+		* Vérifier si nbVote actuel est plus grand que l'adm précédente. $v1['nbVote'] > $eluLos['nbVote']
+			* Si oui, Remplacer les information de $eluLos $eluLos['amd'].
+	* Calculer le pourcentage de votes par a port au citoyens `$px = 100*$cmp/$tmp['obs']['CITOYEN'][nb]`
+		* Si $px est sup a 50%, alors $elu = 1, Si non $elu = O.
+	* Boucle sur la var `$amdAr AS $k1 => $v1`.
+		* Calculer le pourcentage de votes par a port au total `$pxa = 100*$v1['myVote']/$cmp`.
+			* Ajouter le pourcentage par amd a `$amdAr[$k1]['px'] = $pxa`.
+	* Ajouter à la réponse de retour, les infos des lois.
+		
+		```php
+		$tmp['obs']['lois'][list][] = array {
+			'id' : $v['id'],
+			'loi' : $v['nom'],
+			'nbAmd' : $nbAmd,
+			'elu' : $elu
+			'px' : $px,
+			'amdElu' : $eluLos['amd'],
+			'myVote' : $myLoisV,
+			'amd' : $amdAr
+		};
+		```
+
+11. Poste élu et les fonctions propriétaires.
+	* Vérifier, si l'utilisateur est ADMIN.
+		* Boucle sur la table func `$dbs['func'] AS $k => $v`.
+			* Si `$v['id']` est 0. Ajouter le nom de la fonction a `$tmp['admin'][] = array($v['name'] => 1)`
+	* Vérifier, si l'utilisateur est CITOYEN.
+		* Boucle sur la table func `$tmp['obs']['postes'][list] AS $k => $v`.
+			* Si `$v['id_elu']` est == a $e['id'].
+				* Boucle sur la table func `$dbs['func'] AS $k1 => $v1`.
+					* Si `$v['id']` est == a `$v1['id']`. Ajouter le nom de la fonction a `$tmp['admin'][] = array($v1['name'] => 1)`
+					* Break.
+
+**Informations sortantes**
+	```php
+	{
+	'obs' : {
+		'CITOYEN' : { // + admin dans la liste.
+			'nb' : // Le nombre d'utilisateur dans list.
+			'list' : [
+				[0] : {
+					'id' : // L'identifiant unique crée par l'application.
+					'adr' : // Identifiant client (adresse bitcoin).
+					'nom' : // Le nom du client.
+					'prenom' : // Le prénom du client.
+					'date' : // La date d'inscription.
+					'role' : // Le rôle de l'utilisateur.
+				} [1] //...
+			]
+		}
+		'GUEST' : {…} // Liste des invités.
+		'BANNI' : {…} // Liste des bannis.
+		'OBS' : {…} // Liste des observateurs.
+		'postes' : {
+			'nb' : // Le nombre de postes dans list.
+			'list' : [
+				[0] : {
+					'id' // Identifiant poste.
+					'poste' // Le nom du poste.
+					'id_elu' // L'identifiant unique du client élu.
+					'nomElu' // Le nom du client élu.
+					'prenomElu' // Le prénom du client élu.
+					'myVote' // L'identifiant unique du client voter.
+					'myVoteName' // Le nom du client voter.
+					'myVotePrenom' // Le prénom du client voter.
+				} [1] //...
+			]
+		}
+		'lois' : {
+			'nb' : // Le nombre d'utilisateur dans list.
+			'list' : [
+				[0] : {
+					'id' : // Identifiant loi.
+					'loi' : // Le nom de la loi.
+					'nbAmd' : // le nombre d'amendements.
+					'elu' : // 1 ou 0
+					'px' : // 0 a 100.
+					'amdElu' : // La desc de l'amendement élu.
+					'myVote' : // 0 ou id amd.
+					'amd' : [
+						[0] : {
+							'id' : // Identifiant d'amendement.
+							'desc' : // La desc de l'amendement.
+							'px' : // 0 a 100.
+							'nbVote' : // Nombre de votes pour l'amendement.
+							'myVote' : // Si mon vote.
+						} [1] //...
+				} [1] //...
+			]
+		}
+	}
+	'admin' : [
+		{'addPoste' : 1}
+		{'deletePoste' : 1}
+		{'editeRole' : 1}
+		{…}
+	]
+	'log' : {
+		'nb' : // Le nombre d'actions dans le log.
+		'list' : [
+			[0] : {
+				'id_user' : // L'identifiant unique crée par l'application.
+				'nom' : // Le nom de l'utilisateur.
+				'prenom' : // Le prénom de l'utilisateur.
+				'action' : // L'action de l'historique.
+				'date' : // La date de l'action.
+				'msg' : // Le message de l'action.
+			} [1] //...
+		]
+	}
+	```
 
 ***
 

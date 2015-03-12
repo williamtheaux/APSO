@@ -22,157 +22,18 @@
 	if(!$user = help::user($a, $t, $s)) return // info = 0;
 	```
 	
-	* Ajouter à la réponse de retour, les info de l'utilisateur `$tmp['info'] = $user`.
-	
 3. Vérification du rôle de l'utilisateur.
 	* Si Banni. retourner la variable `$tmp['banni'] = 1`.
 	* Si Guest. retourner la variable `$tmp['guest'] = 1`.
-	* Si citoyen ou admin. ajouter `$tmp['citoyen'] = 1`.
-
-4. Sélectionner toute la base de données.
 	
+4. Récupérer les donnés avec helper.
 	```php
-	// Appel a la fonction du model.
-	$dbs = dbs::getDb();
+	// Appel de la fonction helper.
+	$tmp = help::getData($user);
 	```
 
-5. Boucle sur la table utilisateur. `$dbs['user'] AS $k => $v`
-	* Séparer les utilisateurs par rôle. Ajouter à la réponse de retour, les info de l'utilisateur `$tmp['obs'][$v['role']]['list'][] = array() // info user`. Si le rôle est ADMIN, alors ajouter au rôle CITOYEN.
-	
-	* Incrémenter le nombre d'utilisateurs par rôle. `$tmp['obs'][$v['role']]['nb'] ++;`
-	
-	* Incrémenter la variable interne d'utilisateurs. `$users[$v['id']]` = array nom et prénom.
-
-6. Boucle sur la table log. `$dbs['log'] AS $k => $v`
-	
-	* Decode JSON `$v['jdata']` dans `$jdata`.
-	
-	* Si l'action est `VOTE`.
-		* Si le id_user correspondance a id utilisateur `$user['id']`
-			* Récupérer le hash et le id_user dans `$myHashVote`.
-	
-	* Incrémenter le nombre d'actions dans le log `$tmp['log']['nb']++`
-	* Ajouter à la réponse de retour, les infos du log. Dans la limit de 1000.
-		
-		```php
-		$tmp['log']['list'][] = array(
-			'id' => $v['id_user'],
-			'nom' => $users[$v['id_user']]['nom'],
-			'prenom' => $users[$v['id_user']]['prénom'],
-			'action' => $v['action'],
-			'date' => $v['date'],
-			'msg' => ???
-		);
-		```
-		
-7. Boucle sur la table vote. `$dbs['vote'] AS $k => $v`
-	* Hash le `$v['id']`, `$v['id1']` et `$v['id2']`.
-	* Séparer les votes par type `$v['type']`.
-		
-		* Type poste `CTN`
-			* Vérifier si `$v['id2']` est present dans key `$voteCTN`.
-				* Si oui, Vérifier si `$v['id1']` est present dans key `$voteCTN[$v['id2']]`.
-					* Si oui, Incrémenter la variable `$voteCTN[$v['id2']][$v['id1']] ++`.
-					* Si non, ajouter l'id1 au tableau `$voteCTN[$v['id2']][$v['id1']] ++`.
-				* Si non, ajouter les deux ids au tableau `$voteCTN[$v['id2']][$v['id1']] = 1`.
-				* Si le hash est present dans KEY `$myHashVote`.
-					* Récupérer `$v['id2'] => $v['id1']` du vote dans `$myCtnVote`.
-			* Classer la variable par postes ids, puis par client qui on le plus de votes.
-			
-		* Type loi `LOS`
-			* Vérifier si `$v['id2']` est present dans key `$voteLOS`.
-				* Si oui, Incrémenter la variable `$voteLOS[$v['id2']] ++`.
-				* Si non, ajouter les deux ids au tableau `$voteLOS[$v['id2']] = 1`.
-				* Si le hash est present dans KEY `$myHashVote`.
-					* Récupérer `$v['id2']` du vote dans `$myLosVote`.
-			* Classer la variable par lois ids, puis par amd qui on le plus de votes.
-
-8. Boucle sur la table poste. `$dbs['poste'] AS $k => $v`
-	* Incrémenter le nombre de postes `$tmp['obs']['postes']['nb']++`.
-	* Vérifier si `$v['id']` est present dans key `$voteCTN`.
-		* Si oui, trouver l'élu. Boucle sur `$tmp['obs']['postes']['list'] AS $k => $v1`
-			* Comparér le client élu `$v1['id_elu']` == `$voteCTN[$v['id']][0][KEY]`
-				* S'il y a une correspondance, $d = FALSE si non $d = TRUE
-		* Si non, définir les variables id_elu, nomElu, prenomElu a NULL.
-		* Si $d = FALSE, Recommencez l'opération avec `$voteCTN[$v['id']][1][KEY]`...
-		* Si $d = TRUE, $id_elu = `$voteCTN[$v['id']][?][KEY]`
-		* Vérifier si poste_id `$v['id']` est present dans key `$myCtnVote`.
-			* Récupérer l'id_utilisateur pour qui, on a voter `$myCTNV = $myCtnVote[$v['id']]`. Si non retourner `$myCTNV = 0`.
-		
-	* Ajouter à la réponse de retour, les infos des postes.
-		
-		```php
-		$tmp['obs']['postes'][list][] = array(
-			'id' => $v['id'],
-			'poste' => $v['poste'],
-			'id_elu' => $id_elu,
-			'nomElu' => $users[$id_elu]['nom'],
-			'prenomElu' => $users[$id_elu]['prenom'],
-			'myVote' => $myCTNV,
-			'myVoteName' => $users[$$myCTNV]['nom'], // Or 0
-			'myVotePrenom' =>$users[$$myCTNV]['prenom'] // Or 0
-		);
-		```
-
-9. Boucle sur la table amd `$dbs['amd'] AS $k => $v`
-	* Vérifier si `$v['id']` est present dans key `$voteLOS`.
-		* Si oui, Récupérer le nobre de votes `$v = $voteLOS[$v1['id']]`.
-		* Si non, `$v = 0`.
-	* Vérifier si `$v['id_lois']` est present dans key `$amd`.
-		* Si oui, ajouter l'id au tableau `$amd[$v['id_lois']][]` avec $v, id et amd.
-		* Si non, ajouter les deux ids au tableau `$amd[$v['id_lois']][0]` avec $v (nbVote), id et amd.
-
-10. Boucle sur la table loi `$dbs['lois'] AS $k => $v`
-	* Incrémenter le nombre de lois `$tmp['obs']['lois']['nb']++`.
-	* Boucle sur la var `$amd[$v['id']]AS $k1 => $v1`.
-		* Incrémenter le nombre de amd `$nbAmd++`.
-		* Si l'id amd est present dans `$myLosVote`.
-			* Si oui, $myV = 1 and $myLoisV = 1, Si non $myV = 0.
-		* Comptage des votes. `$cmp = $cmp+$v1['nbVote']`.
-		* Créer le tableau des amds.
-		
-			```php
-			$amdAr = [
-				[0] : {
-					'id' : $v1['id'],
-					'desc' : $v1['amd'],
-					'nbVote' : $v1['nbVote'],
-					'px' : 0
-					'myVote' : $myV
-				} [1] //...
-			```
-		
-		* Vérifier si nbVote actuel est plus grand que l'adm précédente. $v1['nbVote'] > $eluLos['nbVote']
-			* Si oui, Remplacer les information de $eluLos $eluLos['amd'].
-	* Calculer le pourcentage de votes par a port au citoyens `$px = 100*$cmp/$tmp['obs']['CITOYEN'][nb]`
-		* Si $px est sup a 50%, alors $elu = 1, Si non $elu = O.
-	* Boucle sur la var `$amdAr AS $k1 => $v1`.
-		* Calculer le pourcentage de votes par a port au total `$pxa = 100*$v1['myVote']/$cmp`.
-			* Ajouter le pourcentage par amd a `$amdAr[$k1]['px'] = $pxa`.
-	* Ajouter à la réponse de retour, les infos des lois.
-		
-		```php
-		$tmp['obs']['lois'][list][] = array {
-			'id' : $v['id'],
-			'loi' : $v['nom'],
-			'nbAmd' : $nbAmd,
-			'elu' : $elu
-			'px' : $px,
-			'amdElu' : $eluLos['amd'],
-			'myVote' : $myLoisV,
-			'amd' : $amdAr
-		};
-		```
-
-11. Poste élu et les fonctions propriétaires.
-	* Vérifier, si l'utilisateur est ADMIN.
-		* Boucle sur la table func `$dbs['func'] AS $k => $v`.
-			* Si `$v['id']` est 0. Ajouter le nom de la fonction a `$tmp['admin'][] = array($v['name'] => 1)`
-	* Vérifier, si l'utilisateur est CITOYEN.
-		* Boucle sur la table func `$tmp['obs']['postes'][list] AS $k => $v`.
-			* Si `$v['id_elu']` est == a $user['id'].
-				* Boucle sur la table func `$dbs['func'] AS $k1 => $v1`.
-					* Si `$v['id']` est == a `$v1['id']`. Ajouter le nom de la fonction a `$tmp['admin'][] = array($v1['name'] => 1)`
+5. Ajouter à la réponse de retour, les info de l'utilisateur `$tmp['info'] = $user`.
+	* Si citoyen ou admin. ajouter `$tmp['citoyen'] = 1`.
 
 **Informations sortantes**
 
@@ -263,6 +124,60 @@
 			} [1] //...
 		]
 	}
+}
+```
+
+***
+
+## Ω user_upData($a, $t, $s)
+> Mise à jour des données toutes les minutes.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $t | int | nombre d'actions in log. |
+| $s | string | Signiature (hash sha1 actions+Identifiant). |
+
+**Règles de gestion**
+
+1. Vérification que `$t` est number ou lever une exception. `ERR-VAR-INVALID`
+2. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, lever une exception. `ERR-USER-NOT-EXISTS`.
+	
+	```php
+	// Appel de la fonction helper dans un if.
+	if(!$user = help::user($a, $t, $s)) throw new Exception('ERR-USER-NOT-EXISTS');
+	```
+
+3. Vérification du rôle de l'utilisateur.
+	* Si Guest ou banni. lever une exception. `ERR-USER-NOT-ACCESS`.
+	
+4. Compter le nombrer d'action dans le log.
+	
+	```php
+	// Appel a la fonction du model.
+	$nb = dbs::getNbLog();
+	```
+5. Comparér le $nb a $t. Si les nombrer de log on une correspondance.
+	* Si correspondance. Retourner `$tmp['upData'] = 0`.
+	* Si pas de correspondance.
+		* Récupérer les donnés avec helper.
+			
+			```php
+			// Appel de la fonction helper.
+			$tmp = help::getData($user);
+			```
+		* Ajouter la variable `$tmp['info'] =  $user`.
+		* Si citoyen ou admin. ajouter `$tmp['citoyen'] = 1`.
+		* Ajouter `$tmp['upData'] = 1`.
+
+**Informations sortantes**
+
+```js
+{
+	'upData' : 1 // Si'il y a une mise a jour.
+	//... Idem user_login()			
 }
 ```
 
@@ -886,46 +801,6 @@
 	6. Sélectionner toutes les données de connexion (`login` 4-11).
 * **Informations sortantes**
 	* Les données seront retournées comme dans `upData`.
-
-### Ω upData
-> Mise à jour des données toutes les minutes.
-
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* Timestamp
-	* Signiature (hash Timestamp+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante. Timestamp dans les 12h du timestamp serveur.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si Banni. Retourner la reponse.
-		* Si Guest. Retourner la reponse.
-	4. Sélectionner toute la base de données.
-	5. Boucle sur la table utilisateur.
-		* Séparer les utilisateurs par rôle.
-		* Compter les utilisateurs par rôle.
-	6. Boucle sur la table vote.
-		* Séparer les votes par type.
-			* Type poste
-				* Vérifier le poste et l'utilisateur choisi.
-				* Incrémenter la variable de vote des postes.
-			* Type loi
-				* Vérifier la loi et l'amendement choisi.
-				* Incrémenter la variable de vote des lois.
-	7. Boucle sur la variable vote poste.
-		* Déterminer une liste de postes avec leurs utilisateurs élus. Commencer par le début de la liste, si l'utilisateur est déjà élu dans un poste précédant, alors choisir la personne en second élu pour le poste.
-	8. Boucle sur la variable vote loi.
-		* Déterminer une liste de lois avec leurs amendements élus.
-	9. Boucle sur la variable de l'historique.
-		* Marquer les actions du client.
-	10. Vérifier si le client appartient à un poste élu.
-	11. Si Administrateur ou poste. Inclure les variables dans le retour.
-* **Informations sortantes**
-	* Banni
-	* Guest
-	* Observateur
-	* Citoyen
-	* Administrateur
 
 ***
 

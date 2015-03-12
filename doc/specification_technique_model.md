@@ -139,6 +139,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ERR-ROLE-INVALID | Le rôle passer en paramètres semble incorrecte. |
 | ERR-NOT-CHANGE-ADMIN | Vous ne pouvez pas modifier les rôles d'administrateurs. |
 | ERR-VAR-VOTE-INVALID | Les données du vote semble incorrecte. |
+| ERR-VAR-INVALID | Les données passées en paramètre semblent incorrectes. |
 
 ## Erreurs client
 
