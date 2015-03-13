@@ -1,8 +1,6 @@
 # Spécification technique Client (STB V.0.1)
 > L'application client, affiche et accepter les inscriptions, authentification, vote, ajout de lois et leur amendements. C'est la partie graphique qui est affichée au client.
 
-![App architecture](annexes/appArchitect.jpg)
-
 # Module user
 > Gestion des utilisateurs.
 
@@ -173,25 +171,35 @@
 * `etatHome` Affiche les listes des postes et utilisateurs.
 
 	```js
-	user.wallet.obs.citoyen [
-		id // L'identifiant unique crée par l'application.
-		adr // Identifiant client (adresse bitcoin).
-		nom // Le nom du client.
-		prenom // Le prénom du client.
-		date // La date d'inscription.
-		role // Le rôle de l'utilisateur.
-	]
+	user.wallet.obs.CITOYEN' : { // + admin dans la liste.
+		'nb' : // Le nombre d'utilisateur dans list.
+		'list' : [
+			[0] : {
+				'id' : // L'identifiant unique crée par l'application.
+				'adr' : // Identifiant client (adresse bitcoin).
+				'nom' : // Le nom du client.
+				'prenom' : // Le prénom du client.
+				'date' : // La date d'inscription.
+				'role' : // Le rôle de l'utilisateur.
+			} [1] //...
+		]
+	}
 	
-	user.wallet.obs.postes [
-		id // Identifiant poste.
-		poste // Le nom du poste.
-		id_elu // L'identifiant unique du client élu.
-		nomElu // Le nom du client élu.
-		prenomElu // Le prénom du client élu.
-		myVote // L'identifiant unique du client voter.
-		myVoteName // Le nom du client voter.
-		myVotePrenom // Le prénom du client voter.
-	]
+	'postes' : {
+		'nb' : // Le nombre de postes dans list.
+		'list' : [
+			[0] : {
+				'id' // Identifiant poste.
+				'poste' // Le nom du poste.
+				'id_elu' // L'identifiant unique du client élu.
+				'nomElu' // Le nom du client élu.
+				'prenomElu' // Le prénom du client élu.
+				'myVote' // L'identifiant unique du client voter.
+				'myVoteName' // Le nom du client voter.
+				'myVotePrenom' // Le prénom du client voter.
+			} [1] //...
+		]
+	}
 	```
 
 	* Si `user.wallet.citoyen` Affiche le formulaire de vote `formVotePoste`.
@@ -236,51 +244,33 @@
 * `loisHome` Affiche les lois et infos. Ajouter un bouton pour rejoindre la fiche de la loi. `$.lois.ficheLoisHTML(id_loi)`
 
 	```js
-	user.wallet.obs.lois [
-		'id' // Identifiant loi.
-		'loi' // Le nom de la loi.
-		'nbAmd' // le nombre d'amendements.
-		'elu' = // 1 ou 0
-		'px' = // 0 a 100.
-		'amdElu' // La desc de l'amendement élu.
-		'myVote' = // 0 ou id amd.
-		'amd' = [
-			'id' // Identifiant d'amendement.
-			'desc' // La desc de l'amendement.
-			'nbVote' // Nombre de votes pour l'amendement.
-			'px' = // 0 a 100.
-			'myVote' // Si mon vote.
+	user.wallet.obs.lois : {
+		'nb' : // Le nombre d'utilisateur dans list.
+		'list' : [
+			[0] : {
+				'id' : // Identifiant loi.
+				'loi' : // Le nom de la loi.
+				'nbAmd' : // le nombre d'amendements.
+				'elu' : // 1 ou 0
+				'px' : // 0 a 100.
+				'amdElu' : // La desc de l'amendement élu.
+				'myVote' : // 0 ou id amd.
+				'amd' : [
+					[0] : {
+						'id' : // Identifiant d'amendement.
+						'desc' : // La desc de l'amendement.
+						'px' : // 0 a 100.
+						'nbVote' : // Nombre de votes pour l'amendement.
+						'myVote' : // Si mon vote.
+					} [1] //...
+			} [1] //...
 		]
-	]
+	}
 	```
 
-	* Si `user.wallet.citoyen` Afficher un bouton en haut du tableau pour ajouter de nouvelle lois. `$.lois.addLoisHTML`.
-
-
-***
-
-
-* *Accès*
-	* A partir du menu principal.
-	* Accès rôle **Observateur**.
-* *Maquette*
-	* Tableau des lois sur la page. Chaque ligne conduite a la fiche détaillée de la loi.
-	* Si citoyen, Afficher un btn en haut du tableau pour ajouter de nouvelle lois.
-	* Si admin, devant chaque poste un btn pour pouvoir supprimer la lois.
-* *Informations*
-	* **Tableau** Lois
-		* identifiant
-		* Nom
-	* **Tableau** amendements élu.
-		* identifiant
-		* nom
-* *Actions possibles*
-	* Si **citoyen** voter ou modifier son vote. Ajout de lois.
-	* Si **Admin** ou **membre élu** Suppression et gestion de lois.
-* *Règles de gestion*
-	* Si **citoyen** permettre d'effectuer son vote.
-	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible.
-
+	* Si `user.wallet.citoyen` Afficher un bouton en haut du tableau pour ajouter de nouvelle lois. `$.lois.addLoisHTML`, un btn en haut du tableau pour ajouter de nouvelle lois.
+	* Si `user.wallet.admin.deleteLois` Affiche un bouton avec la fonction `$.lois.deleteLoisHTML(id_lois)`.
+	* Si `user.wallet.admin.editeLois` Affiche un bouton avec la fonction `$.lois.editeLoisHTML(id_lois)`.
 
 ***
 
@@ -303,51 +293,36 @@
 
 **Template HTML**
 
-* `loisFiche` Affiche la fiche de la aloi.
+* `loisFiche` Affiche la fiche de la loi.
 
 	```js
-	lois.fiche : {
-		'id' // Identifiant loi.
-		'loi' // Le nom de la loi.
-		'nbAmd' // le nombre d'amendements.
-		'elu' = // 1 ou 0
-		'px' = // 0 a 100.
-		'amdElu' // La desc de l'amendement élu.
-		'myVote' = // 0 ou id amd.
-		'amd' = [
-			'id' // Identifiant d'amendement.
-			'desc' // La desc de l'amendement.
-			'nbVote' // Nombre de votes pour l'amendement.
-			'px' = // 0 a 100.
-			'myVote' // Si mon vote.
+	user.wallet.obs.lois : {
+		'nb' : // Le nombre d'utilisateur dans list.
+		'list' : [
+			[0] : {
+				'id' : // Identifiant loi.
+				'loi' : // Le nom de la loi.
+				'nbAmd' : // le nombre d'amendements.
+				'elu' : // 1 ou 0
+				'px' : // 0 a 100.
+				'amdElu' : // La desc de l'amendement élu.
+				'myVote' : // 0 ou id amd.
+				'amd' : [
+					[0] : {
+						'id' : // Identifiant d'amendement.
+						'desc' : // La desc de l'amendement.
+						'px' : // 0 a 100.
+						'nbVote' : // Nombre de votes pour l'amendement.
+						'myVote' : // Si mon vote.
+					} [1] //...
+			} [1] //...
 		]
 	}
 	```
 
-	* Si `user.wallet.citoyen` Affiche le formulaire de vote `formVoteLoi`.
-
-* *Accès*
-	* A partir du menu principal.
-	* Accès rôle **Observateur**.
-* *Maquette*
-	* Le nom de la loi.
-	* Tableau des amendements. Faire resortire l'amendement élu.
-	* Si citoyen, Afficher un btn en haut du tableau pour ajouter de nouveaux amendements.
-	* Si admin, devant chaque amendements un btn pour pouvoir supprimer ou modifier.
-* *Informations*
-	* **Variable** Lois
-		* identifiant
-		* Nom
-	* **Tableau** amendements élu.
-		* identifiant
-		* nom
-* *Actions possibles*
-	* Si **citoyen** voter ou modifier son vote.
-	* Si **Admin** ou **membre élu** Suppression et gestion des amendements.
-* *Règles de gestion*
-	* Si **citoyen** permettre d'effectuer son vote.
-	* Si **Admin** ou **citoyen élu** permettre d'effectuer les actions disponible.
-
+	* Si `user.wallet.citoyen` Affiche le formulaire de vote `formVoteLoi`, Un btn en haut du tableau pour ajouter de nouveaux amendements.
+	* Si `user.wallet.admin.deleteAmd` Affiche un bouton avec la fonction `$.lois.deleteAmdHTML(id_lois, id_amd)`.
+	* Si `user.wallet.admin.editeAmd` Affiche un bouton avec la fonction `$.lois.editeAmdHTML(id_lois, id_amd)`.
 
 ***
 

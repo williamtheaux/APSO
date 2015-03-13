@@ -93,9 +93,13 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 
 | Fonction | Desc | Associés |
 |----------|------|----------|
-| addPoste | Ajouter un nouveaux poste dans la base de données. | Secrétaire |
-| deletePoste | Suppression du poste dans la base de données. | Secrétaire |
-| editeRole | Modifier le rôle de l'utilisateur. | Secrétaire |
+| addPoste | Ajouter un nouveaux poste dans la base de données. | Admin, Secrétaire |
+| deletePoste | Suppression du poste dans la base de données. | Admin, Secrétaire |
+| editeRole | Modifier le rôle de l'utilisateur. | Admin, Secrétaire |
+| deleteLois | Suppression d'une lois. | Admin, Secrétaire |
+| deleteAmd | Suppression de l'amendement. | Admin, Secrétaire |
+| editeAmd | Editer un amendements. | Admin, Secrétaire |
+| editeLois | Editer une loi | Admin, Secrétaire |
 
 ***
 
