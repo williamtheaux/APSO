@@ -236,37 +236,21 @@
 2. Récupérait l'adresse bitcoin. Signer le poste et l'adresse bitcoin avec l'aide du code pin. Lancer un appel au serveur `etat_addPoste(adr, poste, signature)`
 	* Si erreur, lever une exception avec le retour serveur. `data.error`
 
-3. Créer les variables de l'app.
+3. Ajouter au répertoire de la variable app, le retoure.
+	* Incrémenter le nombre de postes et log. 
 
-	```js
-	$.m.user.wallet.info = data.result  // Return server.
-	$.m.user.wallet.guest = 1  // L'utilisateur n'est pas encore validé.
-	```
+		```js
+		$.m.user.wallet.poste.nb ++.
+		$.m.user.wallet.log.nb ++.
+		```
+	* Ajouter au tableau les infos retourner.
+
+		```js
+		$.m.user.wallet.poste.list =+ data.result.poste  // En fin du tableau.
+		$.m.user.wallet.log.list =+ data.result.log  // Au debut du tableau.
+		```
 
 5. Lancer la fonction `$.etat.home()`.
-
-* *Accès*
-	* A partir de la page `Ω addPoste HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Informations*
-	* **Texte**
-		* **Message succès :** Le nouveau poste fut ajouté avec succès.
-	* **Variable interne**
-		* Clé privée
-		* Phrase secrète crypter
-		* Id publique
-	* **Variable new**
-		* le poste
-		* Le code pin
-* *Actions possibles*
-	* En cas d'erreur
-		* Afficher un message d'alerte.
-	* En cas de succès
-		* Afficher un message de succès.
-		* Afficher la page `Ω État HTML`.
-* *Règles de gestion*
-	* signiature de la variable poste.
-	* appel à l'api.
 
 ***
 

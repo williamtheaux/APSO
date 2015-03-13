@@ -596,10 +596,9 @@ Array [
 			$jd[] = '[type] => '.$jdata['type'];
 			```
 	* Si l'action n'est pas `VOTE`.
-		* Boucle sur `$jdata  AS $k => $v`.
 		
 		```php
-		$jd[] = '['.$k'] => '.$v;
+		$jd = help::getMsg($jdata);
 		```
 
 	* Incrémenter le nombre d'actions dans le log `$tmp['log']['nb']++`
@@ -805,6 +804,23 @@ Array [
 		]
 }
 ```
+
+### Ω help::getMsg($e)
+> Retourne toute la base de données.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | string | info jdata dans le log. |
+
+**Règles de gestion**
+
+1. Boucle sur `$e  AS $k => $v`.
+		
+		```php
+		$jd[] = '['.$k'] => '.$v;
+		```
 
 ***
 

@@ -338,9 +338,20 @@
 
 ```js
 {
-	'id' :  // L'identifiant unique du poste.
-	'poste' :  // Le nom du poste.
-	'date' :  // La date de la creation du poste.
+	'postes' : {
+		'id' // Identifiant poste.
+		'poste' // Le nom du poste.
+		'id_elu' 0
+		'myVote' 0
+	}
+	'log' : {
+		'id_user' : $user['id']
+		'nom' : // $user['nom']
+		'prenom' : $user['prenom']
+		'action' : $req1['action']
+		'date' : $req1['date']
+		'msg' : help::getMsg($req1['jdata'])
+	}
 }
 ```
 
@@ -412,7 +423,7 @@
 **Informations sortantes**
 
 ```js
-{
+{	
 	'id' :  // L'identifiant unique du poste.
 	'poste' :  // Le nom du poste.
 	'date' :  // La date de la creation du poste.
