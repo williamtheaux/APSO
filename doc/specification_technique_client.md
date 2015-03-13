@@ -207,6 +207,66 @@
 	* Si `user.wallet.admin.deletePoste` Affiche un bouton pour chaque poste avec la fonction `$.etat.deletePosteHTML`.
 	* Si `user.wallet.admin.editeRole` Affiche un bouton devant chaque utilisateur avec la fonction `$.etat.addPosteHTML` et la getion des utilisateurs banni ou guest avec la fonction `$.etat.printUserHTML`.
 
+***
+
+
+## $.etat.addPosteHTML()
+> Elle affiche un formulaire pour l'ajout des postes.
+
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.admin.addPoste` Si non lever une exception `ERR-USER-NOT-ACCESS`.
+2. Afficher HTML `addPoste`
+	* Installez un validateur sur le formulaire `formAddPoste`
+	* Installez un écouteur sur le formulaire `formAddPoste` avec la fonction `$.etat.addPosteFUNC`
+
+**Template HTML**
+
+* `addPoste` Affiche un formulaire d'inscription final pour l'utilisateur.
+	* Formulaire `formAddPoste`
+
+***
+
+## $.etat.addPosteFUNC()
+> Elle lance un appel à l'api avec les données du poste au serveur.
+
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.admin.addPoste` Si non lever une exception `ERR-USER-NOT-ACCESS`.
+2. Récupérait l'adresse bitcoin. Signer le poste et l'adresse bitcoin avec l'aide du code pin. Lancer un appel au serveur `etat_addPoste(adr, poste, signature)`
+	* Si erreur, lever une exception avec le retour serveur. `data.error`
+
+3. Créer les variables de l'app.
+
+	```js
+	$.m.user.wallet.info = data.result  // Return server.
+	$.m.user.wallet.guest = 1  // L'utilisateur n'est pas encore validé.
+	```
+
+5. Lancer la fonction `$.etat.home()`.
+
+* *Accès*
+	* A partir de la page `Ω addPoste HTML`.
+	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Le nouveau poste fut ajouté avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+	* **Variable new**
+		* le poste
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω État HTML`.
+* *Règles de gestion*
+	* signiature de la variable poste.
+	* appel à l'api.
 
 ***
 
@@ -324,54 +384,9 @@
 	* Si `user.wallet.admin.deleteAmd` Affiche un bouton avec la fonction `$.lois.deleteAmdHTML(id_lois, id_amd)`.
 	* Si `user.wallet.admin.editeAmd` Affiche un bouton avec la fonction `$.lois.editeAmdHTML(id_lois, id_amd)`.
 
-***
 
 
-### Ω addPoste HTML
-> Elle affiche un formulaire pour l'ajout des postes.
 
-* *Accès*
-	A partir de la page `Ω État HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Maquette*
-	* Composer d'un formulaire, icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** Ajouter un nouveaux poste.
-	* **Input**
-		* Le poste
-		* Le code pin
-* *Actions possibles*
-	* Déclencher la fonction `Ω addPoste FUNC`.
-* *Règles de gestion*
-	* Visibiliter  dans le menu principal selon les Accès.
-	* Validation des champs pendant submit.
-
-### Ω addPoste FUNC
-> Elle lance un appel à l'api avec les données du poste au serveur.
-
-* *Accès*
-	* A partir de la page `Ω addPoste HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Informations*
-	* **Texte**
-		* **Message succès :** Le nouveau poste fut ajouté avec succès.
-	* **Variable interne**
-		* Clé privée
-		* Phrase secrète crypter
-		* Id publique
-	* **Variable new**
-		* le poste
-		* Le code pin
-* *Actions possibles*
-	* En cas d'erreur
-		* Afficher un message d'alerte.
-	* En cas de succès
-		* Afficher un message de succès.
-		* Afficher la page `Ω État HTML`.
-* *Règles de gestion*
-	* signiature de la variable poste.
-	* appel à l'api.
 
 ### Ω deletePoste HTML
 > Elle affiche un formulaire avec le code pin pour la suppression du poste.

@@ -191,9 +191,9 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ETAT-LABEL | Assemblée générale |
 | ETAT-LOG-LABEL | Historique d'état |
 | ETAT-LOG-DESC | Retrouver ici, l'historique des actions publique de l'Etat souverain. |
-| ETAT-LABEL | Assemblée générale |
-| ETAT-LABEL | Assemblée générale |
-| ETAT-LABEL | Assemblée générale |
+| ETAT-ADD-POSTE-DESC | Ajouter un nouveaux poste |
+| ETAT-ADD-POSTE-LABEL | Nouveaux poste |
+| ETAT-ADD-POSTE-SUCCES-DESC | Le nouveau poste fut ajouté avec succès. |
 | ETAT-LABEL | Assemblée générale |
 | ETAT-LABEL | Assemblée générale |
 | ETAT-LABEL | Assemblée générale |
