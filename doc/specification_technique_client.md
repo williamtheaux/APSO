@@ -16,11 +16,9 @@
 1. Vérifier la presence de `$.m.user.wallet.adr` Si non afficher HTML `home`
 	* Installez un validateur sur le formulaire `formLogin`
 	* Installez un écouteur sur le formulaire `formLogin`avec la fonction `$.user.loginFUNC`
-
 2. Vérifier la presence de `$.m.user.wallet.info` Si non afficher HTML `sign`
 	* Installez un validateur sur le formulaire `formSignUser`
 	* Installez un écouteur sur le formulaire `formSignUser` avec la fonction `$.user.signUpFUNC`
-
 3. Vérifier l'absence de `$.m.user.wallet.guest` Si non afficher HTML `validation`
 4. Vérifier l'absence de `$.m.user.wallet.banni` Si non afficher HTML `bannissement`
 5. afficher HTML `compte`
@@ -61,7 +59,6 @@
 	$.m.user.wallet.hash // Hash de la phrase.
 	```
 4.  Vérifier l'absence de `$.m.user.wallet.guest` et `$.m.user.wallet.banni` pour  envoyer l'évènement `login`.
-
 5. Lancer la fonction `$.user.home()`. afficher tmpl `logoutBtnPart` et le tooltip dans le menu div `mUser`.
 
 ***
@@ -74,7 +71,6 @@
 1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
 2. Récupérait l'adresse bitcoin. Signer le nom, prénom et l'adresse bitcoin. Lancer un appel au serveur `user_sign(adr, nom, prenom, signature)`
 	* Si erreur, lever une exception avec le retour serveur. `data.error`
-
 3. Créer les variables de l'app.
 
 	```js
@@ -92,7 +88,6 @@
 **Règles de gestion**
 
 1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
-
 3. Supprimer les variables de l'app.
 
 	```js
@@ -100,7 +95,6 @@
 	```
 
 4. Envoyer l'évènement `logout`.
-
 5. Lancer la fonction `$.user.home()`. Effacer tmpl `logoutBtnPart` dans le menu div `mUser`.
 
 ***
@@ -128,7 +122,6 @@
 **Règles de gestion**
 
 1. Vérifier la presence de `$.m.user.wallet.log` Si non afficher HTML `emptyLog`
-
 2. afficher HTML `logListe`
 	* Paginer le tableau `$('#myTxTab').paginateTable({ rowsPerPage: 10, pager: ".pagerMyTx" });`
 
@@ -157,11 +150,9 @@
 **Règles de gestion**
 
 1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
-
 2. afficher HTML `etatHome`
 	* Paginer le tableau `$('#userTab').paginateTable({ rowsPerPage: 10, pager: ".pagerUser" });`
 	* Paginer le tableau `$('#posteTab').paginateTable({ rowsPerPage: 10, pager: ".pagerPoste" });`
-
 3. Vérifier la presence de `$.m.user.wallet.citoyen`
 	* Installez un validateur sur le formulaire `formVotePoste`
 	* Installez un écouteur sur le formulaire `formVotePoste`avec la fonction `$.????.voteFUNC`
@@ -184,7 +175,6 @@
 			} [1] //...
 		]
 	}
-	
 	'postes' : {
 		'nb' : // Le nombre de postes dans list.
 		'list' : [
@@ -222,7 +212,7 @@
 
 **Template HTML**
 
-* `addPoste` Affiche un formulaire d'inscription final pour l'utilisateur.
+* `addPoste` Affiche un formulaire pour l'ajout d'un poste.
 	* Formulaire `formAddPoste`
 
 ***
@@ -235,7 +225,6 @@
 1. Vérifier la presence de `$.m.user.wallet.admin.addPoste` Si non lever une exception `ERR-USER-NOT-ACCESS`.
 2. Récupérait l'adresse bitcoin. Signer le poste et l'adresse bitcoin avec l'aide du code pin. Lancer un appel au serveur `etat_addPoste(adr, poste, signature)`
 	* Si erreur, lever une exception avec le retour serveur. `data.error`
-
 3. Ajouter au répertoire de la variable app, le retoure.
 	* Incrémenter le nombre de postes et log. 
 
@@ -249,8 +238,57 @@
 		$.m.user.wallet.poste.list =+ data.result.poste  // En fin du tableau.
 		$.m.user.wallet.log.list =+ data.result.log  // Au debut du tableau.
 		```
+5. Lancer un message dans la console `ETAT-ADD-POSTE-SUCCES-DESC`.
+6. Lancer la fonction `$.etat.home()`.
 
-5. Lancer la fonction `$.etat.home()`.
+***
+
+## $.etat.deletePosteHTML(id_poste)
+> Elle affiche un formulaire avec le code pin pour la suppression du poste.
+
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.admin.deletePoste` Si non lever une exception `ERR-USER-NOT-ACCESS`.
+2. Boucle sur la var `$.m.user.wallet.poste.list AS k => v`.
+	* Comparér le id_poste a v.id. Si correspondance. `$.m.etat.newPoste.info = v`
+3. Si  `$.m.etat.newPoste.info == 0`. lever une exception `ERR-VAR-INVALID`.
+4. Afficher HTML `deletePoste`
+	* Installez un validateur sur le formulaire `formDeletePoste`
+	* Installez un écouteur sur le formulaire `formDeletePoste` avec la fonction `$.etat.deletePosteFUNC`
+
+**Template HTML**
+
+* `deletePoste` Affiche un formulaire pour la suppression du poste. Les info son dans `$.m.etat.newPoste.info`
+	* Formulaire `formDeletePoste`
+
+***
+
+## Ω $.etat.deletePosteFUNC()
+> Elle lance un appel à l'api pour la suppression du poste.
+
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.admin.deletePoste` Si non lever une exception `ERR-USER-NOT-ACCESS`.
+2. Récupérait l'adresse bitcoin. Signer le id_poste et l'adresse bitcoin avec l'aide du code pin. Lancer un appel au serveur `etat_deletePoste(adr, id_poste, signature)`
+	* Si erreur, lever une exception avec le retour serveur. `data.error`
+3. Boucle sur la var `$.m.user.wallet.poste.list AS k => v`.
+	* Supprimer le poste correspondant.
+4. Ajouter au répertoire de la variable app, le retoure.
+	* Incrémenter le nombre de postes et log. 
+
+		```js
+		$.m.user.wallet.poste.nb --.
+		$.m.user.wallet.log.nb ++.
+		```
+	* Ajouter au tableau les infos retourner.
+
+		```js
+		$.m.user.wallet.log.list =+ data.result.log  // Au debut du tableau.
+		```
+5. Lancer un message dans la console `ETAT-DELETE-POSTE-DESC`.
+6. Lancer la fonction `$.etat.home()`.
+
+
 
 ***
 
@@ -372,51 +410,7 @@
 
 
 
-### Ω deletePoste HTML
-> Elle affiche un formulaire avec le code pin pour la suppression du poste.
 
-* *Accès*
-	* A partir de la page `Ω État HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Maquette*
-	* Composer d'un formulaire, icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** suppression du poste.
-	* **Input**
-		* L'identifiant du poste
-		* Le code pin
-* *Actions possibles*
-	* Déclencher la fonction `Ω addPoste FUNC`.
-* *Règles de gestion*
-	* Visibiliter selon les Accès.
-	* Validation des champs pendant submit.
-
-### Ω deletePoste FUNC
-> Elle lance un appel à l'api pour la suppression du poste.
-
-* *Accès*
-	* A partir de la page `Ω deletePoste HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Informations*
-	* **Texte**
-		* **Message succès :** Le poste fut supprimer avec succès.
-	* **Variable interne**
-		* Clé privée
-		* Phrase secrète crypter
-		* Id publique
-	* **Variable new**
-		* l'identifiant du poste
-		* Le code pin
-* *Actions possibles*
-	* En cas d'erreur
-		* Afficher un message d'alerte.
-	* En cas de succès
-		* Afficher un message de succès.
-		* Afficher la page `Ω État HTML`.
-* *Règles de gestion*
-	* signiature de la variable poste.
-	* appel à l'api.
 
 ### Ω editeRole HTML
 > Elle affiche un formulaire pour editer le role.

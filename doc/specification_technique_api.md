@@ -339,14 +339,14 @@
 ```js
 {
 	'postes' : {
-		'id' // Identifiant poste.
-		'poste' // Le nom du poste.
+		'id' $poste['id']
+		'poste' $poste['poste']
 		'id_elu' 0
 		'myVote' 0
 	}
 	'log' : {
 		'id_user' : $user['id']
-		'nom' : // $user['nom']
+		'nom' : $user['nom']
 		'prenom' : $user['prenom']
 		'action' : $req1['action']
 		'date' : $req1['date']
@@ -424,10 +424,15 @@
 
 ```js
 {	
-	'id' :  // L'identifiant unique du poste.
-	'poste' :  // Le nom du poste.
-	'date' :  // La date de la creation du poste.
-	'nb' : // Le nombre de vote.
+	'postes' : $p
+	'log' : {
+		'id_user' : $user['id']
+		'nom' : $user['nom']
+		'prenom' : $user['prenom']
+		'action' : $req1['action']
+		'date' : $req1['date']
+		'msg' : help::getMsg($req1['jdata'])
+	}
 }
 ```
 
