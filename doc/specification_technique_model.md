@@ -196,8 +196,8 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ETAT-ADD-POSTE-SUCCES-DESC | Le nouveau poste fut ajouté avec succès. |
 | ETAT-DELETE-POSTE-DESC | Le poste fut supprimer avec succès. |
 | ETAT-DELETE-POSTE-LABEL | Suppression du poste |
-| ETAT-LABEL | Assemblée générale |
-| ETAT-LABEL | Assemblée générale |
+| ETAT-EDIT-ROLE-LABEL | Gestion des rôles d'utilisateurs |
+| ETAT-EDIT-ROLE-DESC | Le rôle fut mise a jour avec succès. |
 | ETAT-LABEL | Assemblée générale |
 | ETAT-LABEL | Assemblée générale |
 | ETAT-LABEL | Assemblée générale |

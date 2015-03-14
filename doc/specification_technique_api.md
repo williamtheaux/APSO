@@ -491,9 +491,6 @@
 
 7. Modifier le rôle du client.
 	* Si citoyen, supprimé ses propre votes, puis supprimé les votes effectue pour lui.
-
-
-
 	
 8. Encode en string json le contenu de la variable `$role`
 9. Sauvegardait l'action dans l'historique.
@@ -516,7 +513,9 @@
 
 ```js
 {
-	//...
+	'id' $client['id']
+	'last' BANNI
+	'new' OBS
 }
 ```
 

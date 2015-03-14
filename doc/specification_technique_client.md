@@ -251,14 +251,14 @@
 1. Vérifier la presence de `$.m.user.wallet.admin.deletePoste` Si non lever une exception `ERR-USER-NOT-ACCESS`.
 2. Boucle sur la var `$.m.user.wallet.poste.list AS k => v`.
 	* Comparér le id_poste a v.id. Si correspondance. `$.m.etat.newPoste.info = v`
-3. Si  `$.m.etat.newPoste.info == 0`. lever une exception `ERR-VAR-INVALID`.
+3. Si  `$.m.etat.deletePoste.info == 0`. lever une exception `ERR-VAR-INVALID`.
 4. Afficher HTML `deletePoste`
 	* Installez un validateur sur le formulaire `formDeletePoste`
 	* Installez un écouteur sur le formulaire `formDeletePoste` avec la fonction `$.etat.deletePosteFUNC`
 
 **Template HTML**
 
-* `deletePoste` Affiche un formulaire pour la suppression du poste. Les info son dans `$.m.etat.newPoste.info`
+* `deletePoste` Affiche un formulaire pour la suppression du poste. Les info son dans `$.m.etat.deletePoste.info`
 	* Formulaire `formDeletePoste`
 
 ***
@@ -288,7 +288,56 @@
 5. Lancer un message dans la console `ETAT-DELETE-POSTE-DESC`.
 6. Lancer la fonction `$.etat.home()`.
 
+***
 
+
+## Ω $.etat.editeRoleHTML(id_user, role_user)
+> Elle affiche un formulaire pour editer le role.
+
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.admin.editeRole` Si non lever une exception `ERR-USER-NOT-ACCESS`.
+	* Si le role_user est ADMIN. lever une exception `ERR-NOT-CHANGE-ADMIN`.
+2. Boucle sur la var `$.m.user.wallet.obs[role_user].list AS k => v`.
+	* Comparér le id_user a v.id. Si correspondance. `$.m.etat.role.info = v`
+3. Si  `$.m.etat.role.info == 0`. lever une exception `ERR-VAR-INVALID`.
+4. Afficher HTML `editeRole`
+	* Installez un validateur sur le formulaire `formEditeRole`
+	* Installez un écouteur sur le formulaire `formEditeRole` avec la fonction `$.etat.editeRoleFUNC`
+
+**Template HTML**
+
+* `editeRole` Affiche un formulaire pour l'edition du rôle. Les info son dans `$.m.etat.editeRole.info`
+	* Formulaire `formEditeRole`
+
+***
+
+## Ω $.etat.editeRoleFUNC()
+> Elle lance un appel à l'api pour editer le role d'un utilisateur.
+
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.admin.editeRole` Si non lever une exception `ERR-USER-NOT-ACCESS`.
+2. Récupérait l'adresse bitcoin. Signer le id_user, le rôle et l'adresse bitcoin avec l'aide du code pin. Lancer un appel au serveur `etat_editeRole(adr, role, id_user, signature)`
+	* Si erreur, lever une exception avec le retour serveur. `data.error`
+3. Boucle sur la var `$.m.user.wallet.obs.[data.result.last].list AS k => v`.
+	* Récupérait l'utilisateur et l'inclure dans `$.m.user.wallet.obs.[data.result.new].list`.
+4. Boucle sur la var `$.m.user.wallet.obs.poste.list AS k => v`.
+	* Remplacer l'id_elu par 0 et myVote si il y a une correspondance avec data.result.id.
+
+5. Ajouter au répertoire de la variable app, le retoure.
+	* Incrémenter le nombre de postes et log. 
+
+		```js
+		$.m.user.wallet.log.nb ++.
+		```
+	* Ajouter au tableau les infos retourner.
+
+		```js
+		$.m.user.wallet.log.list =+ data.result.log  // Au debut du tableau.
+		```
+6. Lancer un message dans la console `ETAT-EDIT-ROLE-DESC`.
+7. Lancer la fonction `$.etat.home()`.
 
 ***
 
@@ -412,53 +461,6 @@
 
 
 
-### Ω editeRole HTML
-> Elle affiche un formulaire pour editer le role.
-
-* *Accès*
-	* A partir de la page `Ω État HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Maquette*
-	* Composer d'un formulaire, icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** Modification d'acces de l'utilisateur.
-	* **Variable interne**
-		* Id utilisateur
-	* **Input**
-		* Le role
-		* Le code pin
-* *Actions possibles*
-	* Déclencher la fonction `Ω editeRole FUNC`.
-* *Règles de gestion*
-	* Validation des champs pendant submit.
-
-### Ω editeRole FUNC
-> Elle lance un appel à l'api pour editer le role d'un utilisateur.
-
-* *Accès*
-	* A partir de la page `Ω editeRole HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Informations*
-	* **Texte**
-		* **Message succès :** Le rôle fut mise a jour avec succès.
-	* **Variable interne**
-		* Clé privée
-		* Phrase secrète crypter
-		* Id publique
-	* **Variable new**
-		* le rôle
-		* Id user
-		* Le code pin
-* *Actions possibles*
-	* En cas d'erreur
-		* Afficher un message d'alerte.		
-	* En cas de succès
-		* Afficher un message de succès.
-		* Afficher la page `Ω État HTML`.
-* *Règles de gestion*
-	* signiature de la variable rôle.
-	* appel à l'api.
 
 
 
