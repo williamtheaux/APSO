@@ -699,13 +699,19 @@
 
 ***
 
-### Ω addLois
+### Ω lois_addLois($a, $n, $amd, $s)
 > Ajouter une nouvelle loi.
 
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* nom
-	* Signiature (hash 'Loi'+Identifiant)
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $n | string | Le nom de la loi. |
+| $amd | string | Le premier amendement. |
+| $s | string | Signiature (hash id+d1+id2+type). |
+
+
 * **Règles de gestion**
 	1. Vérification des données entrante.
 	2. Recherche de l'utilisateur dans la base de données.

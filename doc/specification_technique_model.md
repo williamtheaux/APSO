@@ -206,7 +206,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | Code | Desc |
 |-------|-----|
 | LOI-ADD-LABEL | Ajouter une nouvelle loi |
-| LOI-LABEL | Assemblée |
+| LOI-ADD-SUCCES-LABEL | La nouvelle loi fut ajouté avec succès |
 | LOI-LABEL | Assemblée |
 | LOI-LABEL | Assemblée |
 | LOI-LABEL | Assemblée |
