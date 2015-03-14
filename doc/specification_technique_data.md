@@ -425,7 +425,7 @@ db::go('SELECT COUNT(*) FROM apso_log');
 
 | param | Type | Desc |
 |-------|------|------|
-| $e | array | Un tableau contenant le nom du poste. |
+| $e | array | Un tableau contenant le nom de la loi. |
 
 **Règles de gestion**
 
@@ -442,6 +442,7 @@ Array {
 	[nom] = // Le nom de la loi.
 }
 ```
+
 ### Ω dbs::setLoi($e)
 > Ajoute une nouvelle loi dans la base de données. Retourne void.
 
@@ -514,6 +515,31 @@ En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 ```php
 // Suppression de la loi.
 db::go('DELETE FROM apso_lois WHERE id=:id');
+```
+
+### Ω dbs::getLoiById($e)
+> Retourne la table de loi trouver par son nom (loi).
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le id de la loi. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('SELECT * FROM apso_loi WHERE id=:id');
+```
+
+**Informations sortantes**
+
+```php
+Array {
+	[id] = // L'identifiant unique de la loi.
+	[nom] = // Le nom de la loi.
+}
 ```
 
 ***

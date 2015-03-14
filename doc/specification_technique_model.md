@@ -114,7 +114,8 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | DELETEPOSTE | Suppression du poste, des votes et des fonctions associer | id poste, nom, date, le nombre de vote supprimer |
 | EDITEROLE | Modification du rôle de l'utilisateur | id user, nom, prénom, rôle, new rôle, le nombre de vote supprimer |
 | VOTE | Le vote d'un utilisateur. | hash du vote, type |
-| ADDLOIS | Ajouter une nouvelle loi. | La loi, l'amendement, |
+| ADDLOIS | Ajouter une nouvelle loi. | La loi, l'amendement |
+| ADDAMD | Ajouter un nouvel amendement | La loi, l'amendement |
 
 ***
 
@@ -146,14 +147,9 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ERR-VAR-VOTE-INVALID | Les données du vote semble incorrecte. |
 | ERR-VAR-INVALID | Les données passées en paramètre semblent incorrectes. |
 | ERR-LOI-ALREADY-EXISTS | La loi que vous essayiez d'ajouter existe déjà dans la base de données. |
-| ERR-ECHEC-SAVE-LOI | L'enregistrement de la loi a échoué |
-
-## Erreurs client
-
-> Gestion des erreurs déclencher par l'application client.
-
-| Code | Desc |
-|-------|-----|
+| ERR-ECHEC-SAVE-LOI | L'enregistrement de la loi a échoué. |
+| ERR-LOI-NOT-EXISTS | La loi n'est pas reconnu. |
+| ERR-ECHEC-SAVE-AMD | L'enregistrement de l'amendement a échoué. |
 | ERR-ALREADY-CONNECTED | Vous êtes déjà connecté. |
 | ERR-ALREADY-NOT-CONNECTED | Vous n'êtes pas connecté. |
 
@@ -181,11 +177,6 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | USER-BANNI-LABEL | Compte bloqué. |
 | USER-BANNI-DESC | Votre compte a été désactivé par un administrateur. Veuillez contacter le service support pour plus d'information. |
 | USER-ID-LABEL | Identifiant client |
-| USER-LABEL | Mon compte. |
-| USER-LABEL | Mon compte. |
-| USER-LABEL | Mon compte. |
-| USER-LABEL | Mon compte. |
-| USER-LABEL | Mon compte. |
 
 **Module ETAT**
 
@@ -210,6 +201,9 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 |-------|-----|
 | LOI-ADD-LABEL | Ajouter une nouvelle loi |
 | LOI-ADD-SUCCES-LABEL | La nouvelle loi fut ajouté avec succès |
+| LOI-ADD-AMD-LABEL | Ajouter un nouveaux amendements. |
+| LOI-ADD-AMD-SUCCES-LABEL | Le nouveaux amendement fut ajouté avec succès. |
+| LOI-LABEL | Assemblée |
 | LOI-LABEL | Assemblée |
 | LOI-LABEL | Assemblée |
 | LOI-LABEL | Assemblée |

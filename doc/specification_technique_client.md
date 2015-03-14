@@ -535,51 +535,52 @@
 
 ***
 
-### Ω addAmd HTML
+## $.lois.addAmdHTML()
 > Elle affiche un formulaire pour ajouter de nouveaux amendements.
 
-* *Accès*
-	* A partir de la page `Ω ficheLois HTML`.
-	* Accès rôle **citoyen**.
-* *Maquette*
-	* Composer d'un formulaire, icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** Ajouter un nouveaux amendements.
-	* **Input**
-		* L'amendements
-		* Le code pin
-* *Actions possibles*
-	* Déclencher la fonction `Ω addAmd FUNC`.
-* *Règles de gestion*
-	* Validation des champs pendant submit.
+**Règles de gestion**
 
-### Ω addAmd FUNC
+1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
+2. Afficher HTML `addAmd`
+	* Installez un validateur sur le formulaire `formAddAmd`
+	* Installez un écouteur sur le formulaire `formAddAmd` avec la fonction `$.etat.addAmdFUNC`
+
+**Template HTML**
+
+* `addAmd` Affiche un formulaire pour l'ajout d'un poste.
+	* Formulaire `formAddAmd`
+
+***
+
+## $.lois.addAmdFUNC()
 > Elle lance un appel à l'api pour ajouter de nouveaux amendements.
 
-* *Accès*
-	* A partir de la page `Ω addAmd HTML`.
-	* Accès rôle **citoyen**.
-* *Informations*
-	* **Texte**
-		* **Message succès :** Le nouveaux amendement fut ajouté avec succès.
-	* **Variable interne**
-		* Clé privée
-		* Phrase secrète crypter
-		* Id publique
-		* la loi
-	* **Variable new**
-		* L'amendement		
-		* Le code pin
-* *Actions possibles*
-	* En cas d'erreur
-		* Afficher un message d'alerte.
-	* En cas de succès
-		* Afficher un message de succès.
-		* Afficher la page `Ω ficheLois HTML`.
-* *Règles de gestion*
-	* signiature de la variable d'amendement.
-	* appel à l'api.
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
+2. Récupérait l'adresse bitcoin. Signer le id_loi, l'amd et l'adresse bitcoin avec l'aide du code pin. Lancer un appel au serveur `lois_addAmd(adr, id_loi, amd, signature)`
+	* Si erreur, lever une exception avec le retour serveur. `data.error`
+
+3. Boucle sur la var `$.m.user.wallet.obs.lois.list AS k => v`.
+	* Ajouter l'amd si il y a une correspondance avec data.result.id_loi.
+
+4. Ajouter au répertoire de la variable app, le retoure.
+	* Incrémenter le nombre d'amendements et log. 
+
+		```js
+		$.m.user.wallet.obs.lois.list['is_lois'].nb ++.
+		$.m.user.wallet.obs.log.nb ++.
+		```
+	* Ajouter au tableau les infos retourner.
+
+		```js
+		$.m.user.wallet.obs.lois[id_lois].list =+ data.result.amd  // En fin du tableau.
+		$.m.user.wallet.obs.log.list =+ data.result.log  // Au debut du tableau.
+		```
+5. Lancer un message dans la console `LOI-ADD-AMD-SUCCES-LABEL`.
+6. Lancer la fonction `$.lois.home()`.
+
+***
 
 ### Ω editeLois HTML
 > Elle affiche un formulaire pour editer une lois.
