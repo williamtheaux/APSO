@@ -631,29 +631,24 @@
 2. Récupérait l'adresse bitcoin. Signer l'id_loi, le nouvau nom de la loi et l'adresse bitcoin avec l'aide du code pin. Lancer un appel au serveur `lois_editeLois(adr, loi, id_loi, signature)`
 	* Si erreur, lever une exception avec le retour serveur. `data.error`
 
-* *Accès*
-	* A partir de la page `Ω editeLois HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Informations*
-	* **Texte**
-		* **Message succès :** La loi fut mise a jour avec succès.
-	* **Variable interne**
-		* Clé privée
-		* Phrase secrète crypter
-		* Id publique
-	* **Variable new**
-		* la loi
-		* Id user
-		* Le code pin
-* *Actions possibles*
-	* En cas d'erreur
-		* Afficher un message d'alerte.		
-	* En cas de succès
-		* Afficher un message de succès.
-		* Afficher la page `Ω ficheLois HTML`.
-* *Règles de gestion*
-	* signiature de la variable loi.
-	* appel à l'api.
+3. Boucle sur la var `$.m.user.wallet.obs.lois.list AS k => v`.
+	* Editer une loi, si il y a une correspondance avec data.result.id_loi.
+
+4. Ajouter au répertoire de la variable app, le retoure.
+	* Incrémenter le log. 
+
+		```js
+		$.m.user.wallet.obs.log.nb ++.
+		```
+	* Ajouter au tableau les infos retourner.
+
+		```js
+		$.m.user.wallet.obs.log.list =+ data.result.log  // Au debut du tableau.
+		```
+5. Lancer un message dans la console `LOI-EDIT-SUCCES-LABEL`.
+6. Lancer la fonction `$.lois.home()`.
+
+****
 
 ### Ω editeAmd HTML
 > Elle affiche un formulaire pour editer un amendements.

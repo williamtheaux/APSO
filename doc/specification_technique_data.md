@@ -542,6 +542,22 @@ Array {
 }
 ```
 
+### Ω dbs::editeLoiById($e)
+> Insert dans la table vote la signature.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant l'identifiant de la loi et le nouveau nom. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('UPDATE apso_lois SET nom=:nom WHERE id=:id');
+```
+
 ***
 
 ## ∑ HELPER

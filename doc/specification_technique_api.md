@@ -942,22 +942,78 @@
 
 **Règles de gestion**
 
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* nom
-	* id loi
-	* Signiature (hash idLoi+'nom'+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si administrateur, alors poursuivre.
-		* Si citoyen, vérifier les poste est les élus.
-	4. Modifier la loi.
-	5. Sauvegardait l'action d'ans l'historique.
-	6. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
+1. Vérification que la loi `$l` est alpha et `$l` est INT ou lever une exception. `ERR-VAR-INVALID`
+2. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, lever une exception. `ERR-USER-NOT-EXISTS`
+	
+	```php
+	// Appel de la fonction helper dans un if.
+	if(!$user = help::user($a, $l.$amd, $s)) throw new Exception('ERR-USER-NOT-EXISTS');
+	```
+
+3. Vérification du rôle de l'utilisateur.
+	
+	```php
+	// Appel de la fonction Accés Controle Level.
+	if(!help::acl($user, 'editeLois')) throw new Exception('ERR-USER-NOT-ACCESS');
+	```
+
+4. Vérifier que la loi existe déjà dans la base de données.
+	
+	```php
+	// Crée un tableau contenant le poste.
+	$reqGet = array('id' => $l);
+	
+	// Appel de la fonction model
+	$loi = dbs::getLoiById($reqGet);
+	```
+	
+5. Vérification, si `$loi` est vide, alors lever une exception. `ERR-LOI-NOT-EXISTS`
+
+6. Modifie la loi.
+
+	```php
+	// Crée un tableau contenant la loi.
+	$req = array(
+		'id' => $d,
+		'nom' => $l
+	);
+	
+	// Appel a la fonction du model.
+	dbs::editeLoiById($req);
+	```
+7. Encode en string json le contenu de la variable `$req`
+8. Sauvegardait l'action dans l'historique.
+	
+	```php
+	// Crée un tableau contenant l'id user, l'action, date, jdata.
+	$req1 = array(
+		'id_user' => // id retourner par $user['id'],
+		'action' => 'EDITELOIS',
+		'date' => // Timestamp actuel
+		'jdata' => // string json id_loi, node de la loi
+	);
+	
+	// Appel a la fonction du model.
+	dbs::setLog($req1);
+	```
+9. Construire et retourner le tableau final.
+
+**Informations sortantes**
+
+```js
+{
+	'id_loi' : // Identifiant de la loi.
+	'nom' : // le nom de la loi.
+	'log' : {
+		'id_user' : $user['id']
+		'nom' : $user['nom']
+		'prenom' : $user['prenom']
+		'action' : $req1['action']
+		'date' : $req1['date']
+		'msg' : help::getMsg($req1['jdata'])
+	}
+}
+```
 
 ### Ω editeAmd
 > Editer un amendement.

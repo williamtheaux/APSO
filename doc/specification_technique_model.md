@@ -116,6 +116,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | VOTE | Le vote d'un utilisateur. | hash du vote, type |
 | ADDLOIS | Ajouter une nouvelle loi. | La loi, l'amendement |
 | ADDAMD | Ajouter un nouvel amendement | La loi, l'amendement |
+| EDITELOIS | Editer une loi. | La loi, le nom, le nouveau nom |
 
 ***
 
