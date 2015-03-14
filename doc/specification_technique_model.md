@@ -113,7 +113,8 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ADDPOSTE | Ajouter un nouveaux poste dans la base de données | id poste, le nom, la date |
 | DELETEPOSTE | Suppression du poste, des votes et des fonctions associer | id poste, nom, date, le nombre de vote supprimer |
 | EDITEROLE | Modification du rôle de l'utilisateur | id user, nom, prénom, rôle, new rôle, le nombre de vote supprimer |
-| VOTE | Le vote d'un utilisateur. | hash du vote, id crypter, type |
+| VOTE | Le vote d'un utilisateur. | hash du vote, type |
+| ADDLOIS | Ajouter une nouvelle loi. | La loi, l'amendement, |
 
 ***
 
@@ -144,6 +145,8 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ERR-NOT-CHANGE-ADMIN | Vous ne pouvez pas modifier les rôles d'administrateurs. |
 | ERR-VAR-VOTE-INVALID | Les données du vote semble incorrecte. |
 | ERR-VAR-INVALID | Les données passées en paramètre semblent incorrectes. |
+| ERR-LOI-ALREADY-EXISTS | La loi que vous essayiez d'ajouter existe déjà dans la base de données. |
+| ERR-ECHEC-SAVE-LOI | L'enregistrement de la loi a échoué |
 
 ## Erreurs client
 

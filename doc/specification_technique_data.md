@@ -121,7 +121,7 @@ db::go('INSERT INTO apso_poste VALUES("", :poste, :date)');
 ```
 
 ### Ω dbs::getPosteByName($e)
-> Retourne la table deu poste trouver par son nom (poste).
+> Retourne la table du poste trouver par son nom (poste).
 
 **Informations entrantes**
 
@@ -416,6 +416,104 @@ Array {
 En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 ```php
 db::go('SELECT COUNT(*) FROM apso_log');
+```
+
+### Ω dbs::getLoiByName($e)
+> Retourne la table de loi trouver par son nom (loi).
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le nom du poste. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('SELECT * FROM apso_loi WHERE nom=:nom');
+```
+
+**Informations sortantes**
+
+```php
+Array {
+	[id] = // L'identifiant unique de la loi.
+	[nom] = // Le nom de la loi.
+}
+```
+### Ω dbs::setLoi($e)
+> Ajoute une nouvelle loi dans la base de données. Retourne void.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le nom de la loi. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('INSERT INTO apso_lois VALUES("", :nom)');
+```
+
+### Ω dbs::setAmd($e)
+> Ajoute un nouveaux amendement dans la base de données. Retourne void.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant id_lois, le nom de l'amendement. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('INSERT INTO apso_lois VALUES("", :id_lois, :nom)');
+```
+
+### Ω dbs::getAmdByText($e)
+> Retourne la table de l'amendement trouver par son text (amd).
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le text de l'amendement. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('SELECT * FROM apso_amd WHERE amd=:amd');
+```
+
+**Informations sortantes**
+
+```php
+Array {
+	[id_loi] = // L'identifiant unique de la loi.
+	[amd] = // Le text de l'amendement.
+}
+```
+
+### Ω dbs::deletLoi($e)
+> Suppression de la loi.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le id_loi. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+// Suppression de la loi.
+db::go('DELETE FROM apso_lois WHERE id=:id');
 ```
 
 ***

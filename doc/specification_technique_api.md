@@ -711,17 +711,122 @@
 | $amd | string | Le premier amendement. |
 | $s | string | Signiature (hash id+d1+id2+type). |
 
+**Règles de gestion**
 
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si citoyen ou administrateur, alors poursuivre.
-	4. Enregistrait la loi.
-	5. Sauvegardait l'action d'ans l'historique.
-	6. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
+1. Vérification que la loi `$n, $amd` est alpha ou lever une exception. `ERR-VAR-INVALID`
+2. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, lever une exception. `ERR-USER-NOT-EXISTS`
+	
+	```php
+	// Appel de la fonction helper dans un if.
+	if(!$user = help::user($a, $n.$amd, $s)) throw new Exception('ERR-USER-NOT-EXISTS');
+	```
+
+3. Vérification du rôle de l'utilisateur `$user['role']`.
+	* Si citoyen ou administrateur, alors poursuivre. si non lever une exception. `ERR-USER-NOT-ACCESS`.
+
+4. Vérifier que la loi n'existe pas déjà dans la base de données.
+	
+	```php
+	// Crée un tableau contenant le poste.
+	$reqGet = array('nom' => $n);
+	
+	// Appel de la fonction model
+	$loi = dbs::getLoiByName($reqGet);
+	```
+	
+5. Vérification, si `$loi` n'est pas vide, alors lever une exception. `ERR-LOI-ALREADY-EXISTS`
+6. Enregistrait la loi.
+
+	```php
+	// Crée un tableau contenant la loi.
+	$req = array(
+		'nom' => $n,
+	);
+	
+	// Appel a la fonction du model.
+	dbs::setLoi($req);
+	```
+7. 	Vérifier que la loi fut bien ajouter a la base de données.
+
+	```php
+	// Appel de la fonction model
+	$loi = dbs::getLoiByName($reqGet);
+	```
+
+8. Vérification, si `$loi` est vide, alors lever une exception. `ERR-ECHEC-SAVE-LOI`
+
+9. Enregistrait le premier amendement.
+
+	```php
+	// Crée un tableau contenant le id de la loi et l'amd.
+	$req = array(
+		'id_lois' => $loi['id'],
+		'amd' => $amd,
+	);
+	
+	// Appel a la fonction du model.
+	dbs::setAmd($req);
+	```
+
+10. Vérifier que l'amendement fut bien ajouter a la base de données.
+
+	```php
+	// Appel de la fonction model
+	$dbAmd = dbs::getAmdByText($reqGet);
+	```
+
+11. Vérification, si `$dbAmd` est vide, alors : 
+	* Supprimé, la loi précédemment ajoutée. `dbs::deletLoi($e);`
+	* Lever une exception. `ERR-ECHEC-SAVE-LOI`.
+
+12. Encode en string json le contenu de la variable `$loi, $dbAmd`
+13. Sauvegardait l'action dans l'historique.
+	
+	```php
+	// Crée un tableau contenant l'id user, l'action, date, jdata.
+	$req1 = array(
+		'id_user' => // id retourner par $user['id'],
+		'action' => 'ADDLOIS',
+		'date' => // Timestamp actuel
+		'jdata' => // string json $loi, $dbAmd
+	);
+	
+	// Appel a la fonction du model.
+	dbs::setLog($req1);
+	```
+14. Construire et retourner le tableau final.
+
+**Informations sortantes**
+
+```js
+{
+	'lois' : {
+		'id' : // Identifiant loi.
+		'loi' : // Le nom de la loi.
+		'nbAmd' : // le nombre d'amendements.
+		'elu' : 0
+		'px' : 0
+		'amdElu' : 0
+		'myVote' : 0
+		'amd' : [
+			[0] : {
+				'id' : // Identifiant d'amendement.
+				'desc' : // La desc de l'amendement.
+				'px' : 0
+				'nbVote' : 0
+				'myVote' : 0
+			} [1] //...
+	}
+	'log' : {
+		'id_user' : $user['id']
+		'nom' : $user['nom']
+		'prenom' : $user['prenom']
+		'action' : $req1['action']
+		'date' : $req1['date']
+		'msg' : help::getMsg($req1['jdata'])
+	}
+}
+```
 
 ### Ω addAmd
 > Ajouter un nouveaux amendement.
