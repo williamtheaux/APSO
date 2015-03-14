@@ -203,8 +203,8 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | LOI-ADD-SUCCES-LABEL | La nouvelle loi fut ajouté avec succès |
 | LOI-ADD-AMD-LABEL | Ajouter un nouveaux amendements. |
 | LOI-ADD-AMD-SUCCES-LABEL | Le nouveaux amendement fut ajouté avec succès. |
-| LOI-LABEL | Assemblée |
-| LOI-LABEL | Assemblée |
+| LOI-EDIT-LABEL | Modification de la loi |
+| LOI-EDIT-SUCCES-LABEL | La loi fut mise a jour avec succès. |
 | LOI-LABEL | Assemblée |
 | LOI-LABEL | Assemblée |
 

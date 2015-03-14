@@ -928,8 +928,19 @@
 }
 ```
 
-### Ω editeLois
+### Ω lois_editeLois($a, $l, $d, $s)
 > Editer une loi.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $l | string | Le nouveau nom de la loi. |
+| $d | int | Le id de la loi. |
+| $s | string | Signiature (hash $l+$amd+$a). |
+
+**Règles de gestion**
 
 * **Informations entrantes**
 	* Identifiant client (adresse bitcoin)

@@ -582,27 +582,54 @@
 
 ***
 
-### Ω editeLois HTML
+## $.lois.editeLoisHTML()
 > Elle affiche un formulaire pour editer une lois.
 
-* *Accès*
-	* A partir de la page `Ω ficheLois HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Maquette*
-	* Composer d'un formulaire, icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** Modification de la loi.
-	* **Input**
-		* La loi
-		* Le code pin
-* *Actions possibles*
-	* Déclencher la fonction `Ω editeLois FUNC`.
-* *Règles de gestion*
-	* Validation des champs pendant submit.
+**Règles de gestion**
 
-### Ω editeLois FUNC
+1. Vérifier la presence de `$.m.user.wallet.admin.editeLois` Si non lever une exception `ERR-USER-NOT-ACCESS`.
+
+3. Boucle sur la var `$.m.user.wallet.obs.lois.list AS k => v`.
+	* Ajouter les infos si il y a une correspondance avec data.result.id_loi.
+
+2. Afficher HTML `editeLois`
+	* Installez un validateur sur le formulaire `formEditeLois`
+	* Installez un écouteur sur le formulaire `formEditeLois` avec la fonction `$.etat.addAmdFUNC`
+
+**Template HTML**
+
+* `editeLois` Affiche un formulaire pour l'ajout d'un poste.
+	* Formulaire `formEditeLois`
+
+	```js
+	$.m.lois.infos : {
+		'id' : // Identifiant loi.
+		'loi' : // Le nom de la loi.
+		'nbAmd' : // le nombre d'amendements.
+		'elu' : // 1 ou 0
+		'px' : // 0 a 100.
+		'amdElu' : // La desc de l'amendement élu.
+		'myVote' : // 0 ou id amd.
+		'amd' : [
+			[0] : {
+				'id' : // Identifiant d'amendement.
+				'desc' : // La desc de l'amendement.
+				'px' : // 0 a 100.
+				'nbVote' : // Nombre de votes pour l'amendement.
+				'myVote' : // Si mon vote.
+			} [1] //...
+	}
+	```
+***
+
+## $.lois.editeLoisFUNC()
 > Elle lance un appel à l'api pour editer une lois.
+
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.admin.editeLois` Si non lever une exception `ERR-USER-NOT-ACCESS`.
+2. Récupérait l'adresse bitcoin. Signer l'id_loi, le nouvau nom de la loi et l'adresse bitcoin avec l'aide du code pin. Lancer un appel au serveur `lois_editeLois(adr, loi, id_loi, signature)`
+	* Si erreur, lever une exception avec le retour serveur. `data.error`
 
 * *Accès*
 	* A partir de la page `Ω editeLois HTML`.
