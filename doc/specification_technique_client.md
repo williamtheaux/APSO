@@ -371,7 +371,10 @@
 1. Vérifier la presence de `$.m.vote.info` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
 2. Récupérait l'adresse bitcoin. Signer le hash et l'adresse bitcoin avec l'aide du code pin. Lancer un appel au serveur `vote_fix(adr, id_vote, signature)`
 	* Si erreur, lever une exception avec le retour serveur. `data.error`
-3. Si type CNT. Lancer la fonction `$.etat.home()`. Si type LOS. Lancer la fonction `$.lois.home()`.
+
+**Template HTML**
+
+* Si type CNT. Lancer la fonction `$.etat.home()`. Si type LOS. Lancer la fonction `$.lois.home()`.
 
 ***
 
@@ -487,35 +490,25 @@
 	* Si `user.wallet.admin.deleteAmd` Affiche un bouton avec la fonction `$.lois.deleteAmdHTML(id_lois, id_amd)`.
 	* Si `user.wallet.admin.editeAmd` Affiche un bouton avec la fonction `$.lois.editeAmdHTML(id_lois, id_amd)`.
 
+***
 
-
-
-
-
-
-
-
-
-
-
-### Ω addLois HTML
+## $.lois.addLoisHTML()
 > Elle affiche un formulaire pour ajouter de nouvelles lois.
 
-* *Accès*
-	* A partir de la page `Ω Lois HTML`.
-	* Accès rôle **citoyen**.
-* *Maquette*
-	* Composer d'un formulaire, icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** Ajouter une nouvelle loi.
-	* **Input**
-		* La loi
-		* Le code pin
-* *Actions possibles*
-	* Déclencher la fonction `Ω addLois FUNC`.
-* *Règles de gestion*
-	* Validation des champs pendant submit.
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
+
+2. Afficher HTML `addLois`
+	* Installez un validateur sur le formulaire `formAddLois`
+	* Installez un écouteur sur le formulaire `formAddLois` avec la fonction `$.etat.addLoisFUNC`
+
+**Template HTML**
+
+* `addLois` Affiche un formulaire pour l'ajout d'un poste.
+	* Formulaire `formAddLois`
+
+***
 
 ### Ω addLois FUNC
 > Elle lance un appel à l'api pour ajouter de nouvelles lois.

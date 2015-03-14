@@ -200,11 +200,16 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ETAT-EDIT-ROLE-DESC | Le rôle fut mise a jour avec succès. |
 | ETAT-CONFIRME-VOTE-LABEL | Confirmer votre vote |
 | ETAT-CONFIRME-VOTE-DESC | Votre vote électronique est réalisés avec succès. |
-| ETAT-LABEL | Assemblée générale |
-| ETAT-LABEL | Assemblée générale |
-| ETAT-LABEL | Assemblée générale |
-| ETAT-LABEL | Assemblée générale |
-| ETAT-LABEL | Assemblée générale |
+
+**Module LOI**
+
+| Code | Desc |
+|-------|-----|
+| LOI-ADD-LABEL | Ajouter une nouvelle loi |
+| LOI-LABEL | Assemblée |
+| LOI-LABEL | Assemblée |
+| LOI-LABEL | Assemblée |
+| LOI-LABEL | Assemblée |
 
 ***
 
