@@ -117,6 +117,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ADDLOIS | Ajouter une nouvelle loi. | La loi, l'amendement |
 | ADDAMD | Ajouter un nouvel amendement | La loi, l'amendement |
 | EDITELOIS | Editer une loi. | La loi, le nom, le nouveau nom |
+| EDITEAMD | Editer un amendement. | L'amendement, le nom, le nouveau nom |
 
 ***
 
@@ -153,6 +154,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ERR-ECHEC-SAVE-AMD | L'enregistrement de l'amendement a échoué. |
 | ERR-ALREADY-CONNECTED | Vous êtes déjà connecté. |
 | ERR-ALREADY-NOT-CONNECTED | Vous n'êtes pas connecté. |
+| ERR-AMD-NOT-EXISTS | L'amendement n'est pas reconnu. |
 
 ***
 
@@ -206,6 +208,12 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | LOI-ADD-AMD-SUCCES-LABEL | Le nouveaux amendement fut ajouté avec succès. |
 | LOI-EDIT-LABEL | Modification de la loi |
 | LOI-EDIT-SUCCES-LABEL | La loi fut mise a jour avec succès. |
+| LOI-EDIT-AMD-LABEL | Modification d'amendements. |
+| LOI-EDIT-AMD-SUCCES | L'amendement fut mise a jour avec succès. |
+| LOI-LABEL | Assemblée |
+| LOI-LABEL | Assemblée |
+| LOI-LABEL | Assemblée |
+| LOI-LABEL | Assemblée |
 | LOI-LABEL | Assemblée |
 | LOI-LABEL | Assemblée |
 

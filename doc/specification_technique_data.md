@@ -543,7 +543,7 @@ Array {
 ```
 
 ### Ω dbs::editeLoiById($e)
-> Insert dans la table vote la signature.
+> Insert dans la table la loi.
 
 **Informations entrantes**
 
@@ -557,6 +557,50 @@ En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 ```php
 db::go('UPDATE apso_lois SET nom=:nom WHERE id=:id');
 ```
+
+
+### Ω dbs::getAmdById($e)
+> Retourne la table de l'amendement trouver par son id.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le id de l'amendement. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('SELECT * FROM apso_amd WHERE id=:id');
+```
+
+**Informations sortantes**
+
+```php
+Array {
+	[id_loi] = // L'identifiant unique de la loi.
+	[amd] = // Le text de l'amendement.
+}
+```
+
+
+### Ω dbs::editeAmdById($e)
+> Insert dans la table l'amendement.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant l'identifiant de l'amendement et le nouveau nom. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+db::go('UPDATE apso_lois SET amd=:amd WHERE id=:id');
+```
+
 
 ***
 

@@ -531,7 +531,7 @@
 		$.m.user.wallet.obs.log.list =+ data.result.log  // Au debut du tableau.
 		```
 5. Lancer un message dans la console `LOI-ADD-SUCCES-LABEL`.
-6. Lancer la fonction `$.lois.home()`.
+6. Lancer la fonction `$.lois.ficheLoisHTML(id_loi)`.
 
 ***
 
@@ -578,11 +578,11 @@
 		$.m.user.wallet.obs.log.list =+ data.result.log  // Au debut du tableau.
 		```
 5. Lancer un message dans la console `LOI-ADD-AMD-SUCCES-LABEL`.
-6. Lancer la fonction `$.lois.home()`.
+6. Lancer la fonction `$.lois.ficheLoisHTML(id_loi)`.
 
 ***
 
-## $.lois.editeLoisHTML()
+## $.lois.editeLoisHTML(id_loi)
 > Elle affiche un formulaire pour editer une lois.
 
 **Règles de gestion**
@@ -646,54 +646,78 @@
 		$.m.user.wallet.obs.log.list =+ data.result.log  // Au debut du tableau.
 		```
 5. Lancer un message dans la console `LOI-EDIT-SUCCES-LABEL`.
-6. Lancer la fonction `$.lois.home()`.
+6. Lancer la fonction `$.lois.ficheLoisHTML(id_loi)`.
 
 ****
 
-### Ω editeAmd HTML
+## $.lois.editeAmdHTML(id_loi, id_amd)
 > Elle affiche un formulaire pour editer un amendements.
 
-* *Accès*
-	* A partir de la page `Ω ficheLois HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Maquette*
-	* Composer d'un formulaire, icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** Modification d'amendements.
-	* **Input**
-		* Le amendements
-* *Actions possibles*
-	* Déclencher la fonction `Ω editeAmd FUNC`.
-* *Règles de gestion*
-	* Validation des champs pendant submit.
+**Règles de gestion**
 
-### Ω editeAmd FUNC
+1. Vérifier la presence de `$.m.user.wallet.admin.editeAmd` Si non lever une exception `ERR-USER-NOT-ACCESS`.
+
+3. Boucle sur la var `$.m.user.wallet.obs.lois.list AS k => v`.
+	* Ajouter les infos si il y a une correspondance avec data.result.id_loi.
+
+2. Afficher HTML `editeAmd`
+	* Installez un validateur sur le formulaire `formEditeAmd`
+	* Installez un écouteur sur le formulaire `formEditeAmd` avec la fonction `$.etat.addAmdFUNC`
+
+**Template HTML**
+
+* `editeAmd` Affiche un formulaire pour l'ajout d'un poste.
+	* Formulaire `formEditeAmd`
+
+	```js
+	$.m.lois.infos : {
+		'id' : // Identifiant loi.
+		'loi' : // Le nom de la loi.
+		'nbAmd' : // le nombre d'amendements.
+		'elu' : // 1 ou 0
+		'px' : // 0 a 100.
+		'amdElu' : // La desc de l'amendement élu.
+		'myVote' : // 0 ou id amd.
+		'amd' : [
+			[0] : {
+				'id' : // Identifiant d'amendement.
+				'desc' : // La desc de l'amendement.
+				'px' : // 0 a 100.
+				'nbVote' : // Nombre de votes pour l'amendement.
+				'myVote' : // Si mon vote.
+			} [1] //...
+	}
+	```
+***
+
+## $.lois.editeAmdFUNC()
 > Elle lance un appel à l'api pour editer un amendements.
 
-* *Accès :*
-	* A partir de la page `Ω editeAmd HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Informations*
-	* **Texte**
-		* **Message succès :** L'amendement fut mise a jour avec succès.
-	* **Variable interne**
-		* Clé privée
-		* Phrase secrète crypter
-		* Id publique
-	* **Variable new**
-		* L'amendement
-		* Id user
-		* Le code pin
-* *Actions possibles*
-	* En cas d'erreur
-		* Afficher un message d'alerte.		
-	* En cas de succès
-		* Afficher un message de succès.
-		* Afficher la page `Ω ficheLois HTML`.
-* *Règles de gestion*
-	* signiature de la variable amendement.
-	* appel à l'api.
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.admin.editeAmd` Si non lever une exception `ERR-USER-NOT-ACCESS`.
+2. Récupérait l'adresse bitcoin. Signer l'id_loi, l'amd et l'adresse bitcoin avec l'aide du code pin. Lancer un appel au serveur `lois_editeAmds(adr, id Amd, amd, signature)`
+	* Si erreur, lever une exception avec le retour serveur. `data.error`
+
+3. Boucle sur la var `$.m.user.wallet.obs.lois.list AS k => v`.
+	* Boucle sur la var `v.amd.list AS k1 => v1`.
+		* Editer l'amd, si il y a une correspondance avec data.result.id_loi.
+
+4. Ajouter au répertoire de la variable app, le retoure.
+	* Incrémenter le log. 
+
+		```js
+		$.m.user.wallet.obs.log.nb ++.
+		```
+	* Ajouter au tableau les infos retourner.
+
+		```js
+		$.m.user.wallet.obs.log.list =+ data.result.log  // Au debut du tableau.
+		```
+5. Lancer un message dans la console `LOI-EDIT-AMD-SUCCES`.
+6. Lancer la fonction `$.lois.ficheLoisHTML(id_loi)`.
+
+***
 
 ### Ω deleteLoi HTML
 > Elle affiche un formulaire avec le code pin pour la suppression de la loi.
