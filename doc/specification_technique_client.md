@@ -155,7 +155,7 @@
 	* Paginer le tableau `$('#posteTab').paginateTable({ rowsPerPage: 10, pager: ".pagerPoste" });`
 3. Vérifier la presence de `$.m.user.wallet.citoyen`
 	* Installez un validateur sur le formulaire `formVotePoste`
-	* Installez un écouteur sur le formulaire `formVotePoste`avec la fonction `$.????.voteFUNC`
+	* Installez un écouteur sur le formulaire `formVotePoste`avec la fonction `$.vote.send`
 
 **Template HTML**
 
@@ -341,6 +341,61 @@
 
 ***
 
+# Module vote
+> Gestion des vote.
+
+## $.vote.send()
+> Elle lance un appel à l'api avec les données du vote. Si succès, alors confirmer son vote en le signant a l'aide de code pin.
+
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.adr` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
+2. Récupérait l'adresse bitcoin. les deux ids du vote et le type de vote. Lancer un appel au serveur `vote_send(adr, id1, id2, type)`
+	* Si erreur, lever une exception avec le retour serveur. `data.error`
+3. Afficher HTML `confirmVote`
+	* Installez un validateur sur le formulaire `formConfirmVote`
+	* Installez un écouteur sur le formulaire `formConfirmVote` avec la fonction `$.vote.fix`
+
+**Template HTML**
+
+* `editeRole` Affiche un formulaire pour l'edition du rôle. Les info son dans `$.m.vote.info`
+	* Formulaire `formConfirmVote`
+
+***
+
+## $.vote.fix()
+> Elle lance un appel à l'api avec la signature du vote.
+
+**Règles de gestion**
+
+* *Accès*
+	* A partir de la page `Ω Vote FUNC`.
+	* Accès rôle **citoyen**.
+* *Informations*
+	* **Texte**
+		* **Message succès :** Votre vote électronique est réalisés avec succès.
+	* **Variable interne**
+		* Clé privée
+		* Phrase secrète crypter
+		* Id publique
+		* Type de vote
+		* L'identifiant du vote
+		* Id user
+	* **Variable new**
+		* Le code pin
+* *Actions possibles*
+	* En cas d'erreur
+		* Afficher un message d'alerte.		
+	* En cas de succès
+		* Afficher un message de succès.
+		* Afficher la page `Ω État HTML` ou `Ω Lois HTML`.
+* *Règles de gestion*
+	* signiature de la variable hash vote.
+	* Différence entre le type de vote pour l'affichage de la page de retour.
+	* appel à l'api.
+
+***
+
 # Module lois
 > Gestion des votes pour les lois.
 
@@ -356,9 +411,7 @@
 1. Installez un écouteur sur `login` avec la fonction `$.lois.???`
 2. Installez un écouteur sur `logout` avec la fonction `$.lois.???`
 
-
 ***
-
 
 ## $.lois.home()
 > Elle liste les lois et leurs amendements. Elle est le point d'entrer pour toutes les fonctions touchant les lois.
@@ -464,82 +517,7 @@
 
 
 
-### Ω Vote HTML
-> Elle affiche un formulaire pour le vote.
 
-* *Accès*
-	* A partir de la page `Ω ficheLois HTML` ou `Ω État HTML`.
-	* Accès rôle **citoyen**.
-* *Informations*
-	* **Variable interne**
-		* Id publique
-	* **Variable new**
-		* Type de vote
-		* L'identifiant du vote
-		* L'identifiant de la catégorie
-* *Actions possibles*
-	* Déclencher la fonction `Ω Vote FUNC`.
-* *Règles de gestion*
-	* Déterminer le type de vote.
-	* Validation des champs pendant submit.
-
-### Ω Vote FUNC
-> Elle lance un appel à l'api avec les données du vote. Si succès, alors confirmer son vote en le signant a l'aide de code pin.
-
-* *Accès*
-	* A partir de la page `Ω Vote HTML`.
-	* Accès rôle **citoyen**.
-* *Maquette*
-	* En cas de succès de l'appel, composer d'un formulaire de code pin, icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Message succès :** Confirmer votre vote.
-	* **Variable interne**
-		* Clé privée
-		* Phrase secrète crypter
-		* Id publique
-		* Type de vote
-		* L'identifiant du vote
-		* Id user
-	* **Variable new**
-		* L'identifiant de la catégorie
-* *Actions possibles*
-	* En cas d'erreur
-		* Afficher un message d'alerte.		
-	* En cas de succès
-		* Afficher un message de succès.
-		* Déclencher la fonction `Ω fixVote FUNC`.
-* *Règles de gestion*
-	* appel à l'api.
-
-### Ω fixVote FUNC
-> Elle lance un appel à l'api avec la signature du vote.
-
-* *Accès*
-	* A partir de la page `Ω Vote FUNC`.
-	* Accès rôle **citoyen**.
-* *Informations*
-	* **Texte**
-		* **Message succès :** Votre vote électronique est réalisés avec succès.
-	* **Variable interne**
-		* Clé privée
-		* Phrase secrète crypter
-		* Id publique
-		* Type de vote
-		* L'identifiant du vote
-		* Id user
-	* **Variable new**
-		* Le code pin
-* *Actions possibles*
-	* En cas d'erreur
-		* Afficher un message d'alerte.		
-	* En cas de succès
-		* Afficher un message de succès.
-		* Afficher la page `Ω État HTML` ou `Ω Lois HTML`.
-* *Règles de gestion*
-	* signiature de la variable hash vote.
-	* Différence entre le type de vote pour l'affichage de la page de retour.
-	* appel à l'api.
 
 ### Ω addLois HTML
 > Elle affiche un formulaire pour ajouter de nouvelles lois.
