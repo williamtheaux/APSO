@@ -199,7 +199,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ETAT-EDIT-ROLE-LABEL | Gestion des rôles d'utilisateurs |
 | ETAT-EDIT-ROLE-DESC | Le rôle fut mise a jour avec succès. |
 | ETAT-CONFIRME-VOTE-LABEL | Confirmer votre vote |
-| ETAT-LABEL | Assemblée générale |
+| ETAT-CONFIRME-VOTE-DESC | Votre vote électronique est réalisés avec succès. |
 | ETAT-LABEL | Assemblée générale |
 | ETAT-LABEL | Assemblée générale |
 | ETAT-LABEL | Assemblée générale |

@@ -368,31 +368,10 @@
 
 **Règles de gestion**
 
-* *Accès*
-	* A partir de la page `Ω Vote FUNC`.
-	* Accès rôle **citoyen**.
-* *Informations*
-	* **Texte**
-		* **Message succès :** Votre vote électronique est réalisés avec succès.
-	* **Variable interne**
-		* Clé privée
-		* Phrase secrète crypter
-		* Id publique
-		* Type de vote
-		* L'identifiant du vote
-		* Id user
-	* **Variable new**
-		* Le code pin
-* *Actions possibles*
-	* En cas d'erreur
-		* Afficher un message d'alerte.		
-	* En cas de succès
-		* Afficher un message de succès.
-		* Afficher la page `Ω État HTML` ou `Ω Lois HTML`.
-* *Règles de gestion*
-	* signiature de la variable hash vote.
-	* Différence entre le type de vote pour l'affichage de la page de retour.
-	* appel à l'api.
+1. Vérifier la presence de `$.m.vote.info` Si non lever une exception `ERR-ALREADY-NOT-CONNECTED`.
+2. Récupérait l'adresse bitcoin. Signer le hash et l'adresse bitcoin avec l'aide du code pin. Lancer un appel au serveur `vote_fix(adr, id_vote, signature)`
+	* Si erreur, lever une exception avec le retour serveur. `data.error`
+3. Si type CNT. Lancer la fonction `$.etat.home()`. Si type LOS. Lancer la fonction `$.lois.home()`.
 
 ***
 

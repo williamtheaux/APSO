@@ -605,7 +605,7 @@
 
 ***
 
-### Ω vote_fix($a, $d, $ds, $s)
+### Ω vote_fix($a, $d, $s)
 > Permet de confirmer son vote.
 
 **Informations entrantes**
@@ -614,7 +614,6 @@
 |-------|------|------|
 | $a | string | Identifiant client (adresse bitcoin). |
 | $d | string | L'identifiant du vote. |
-| $ds | string | L'identifiant du vote crypter. |
 | $s | string | Signiature (hash id+d1+id2+type). |
 
 **Règles de gestion**
@@ -692,7 +691,9 @@
 
 ```js
 {
-	//...
+	'id1' $vote['id1']
+	'id2' $vote['id2']
+	'type' CNT
 }
 ```
 
