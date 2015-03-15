@@ -719,7 +719,7 @@
 
 ***
 
-## $.lois.deleteLoisHTML(id_poste)
+## $.lois.deleteLoisHTML(id_loi)
 > Elle affiche un formulaire avec le code pin pour la suppression de la loi.
 
 **Règles de gestion**
@@ -765,25 +765,27 @@
 	* signiature de la variable loi.
 	* appel à l'api.
 
-### Ω deleteAmd HTML
+## $.lois.deleteAmdHTML(id_amd)
 > Elle affiche un formulaire avec le code pin pour la suppression de l'amendement.
 
-* *Accès*
-	* A partir de la page `Ω ficheLois HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Maquette*
-	* Composer d'un formulaire, icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** suppression de l'amendement.
-	* **Input**
-		* L'identifiant de l'amendement
-		* Le code pin
-* *Actions possibles*
-	* Déclencher la fonction `Ω deleteAmd FUNC`.
-* *Règles de gestion*
-	* Visibiliter selon les Accès.
-	* Validation des champs pendant submit.
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.admin.deleteAmd` Si non lever une exception `ERR-USER-NOT-ACCESS`.
+
+2. Boucle sur la var `$.m.user.wallet.obs.lois.list AS k => v`.
+	* Boucle sur la var `v.amd.list AS k1 => v1`.
+		* Editer l'amd, si il y a une correspondance avec data.result.id_loi.
+
+3. Afficher HTML `deleteAmd`
+	* Installez un validateur sur le formulaire `formDeleteAmd`
+	* Installez un écouteur sur le formulaire `formDeleteAmd` avec la fonction `$.etat.deleteAmdFUNC`
+
+**Template HTML**
+
+* `deleteAmd` Affiche un formulaire pour la suppression de la loi. Les info son dans `$.m.lois.info`
+	* Formulaire `formDeleteAmd`
+
+***
 
 ### Ω deleteAmd FUNC
 > Elle lance un appel à l'api pour la suppression d'un amendement.

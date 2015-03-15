@@ -211,7 +211,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | LOI-EDIT-AMD-LABEL | Modification d'amendements. |
 | LOI-EDIT-AMD-SUCCES | L'amendement fut mise a jour avec succès. |
 | LOI-DELETE-LOIS-LABEL | Suppression de la loi |
-| LOI-LABEL | Assemblée |
+| LOI-DELETE-AMD-LABEL | Suppression de l'amendement |
 | LOI-LABEL | Assemblée |
 | LOI-LABEL | Assemblée |
 | LOI-LABEL | Assemblée |
