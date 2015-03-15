@@ -172,7 +172,7 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | number | FORM-MESSAGE-CODE-PIN-INVALID |
 
 ### passPhrase
-> L pass phrase.
+> La pass phrase.
 
 | Rules | Messages |
 |-------|----------|
@@ -186,6 +186,22 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | required | FORM-MESSAGE-ADR-BTC-REQUIRED |
 | minlength | FORM-MESSAGE-ADR-BTC-MIN |
 | alphanumeric | FORM-MESSAGE-ADR-BTC-ALPHANUM |
+
+### nom, prenom, nom de la loi, poste
+> Les inputs.
+
+| Rules | Messages |
+|-------|----------|
+| required | FORM-MESSAGE-INPUT-REQUIRED |
+| minlength | FORM-MESSAGE-MIN |
+| alphanumeric | FORM-MESSAGE-ALPHANUM |
+
+### amd
+> L'amendement.
+
+| Rules | Messages |
+|-------|----------|
+| required | FORM-MESSAGE-INPUT-REQUIRED |
 
 ***
 

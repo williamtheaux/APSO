@@ -929,7 +929,7 @@
 ```
 
 ### Ω lois_editeLois($a, $l, $d, $s)
-> Editer une loi.
+> Editer une loi. Fonction propriétaire : **editeLois**
 
 **Informations entrantes**
 
@@ -1016,7 +1016,7 @@
 ```
 
 ### Ω lois_editeAmd($a, $l, $d, $s)
-> Editer un amendement.
+> Editer un amendement. Fonction propriétaire : **editeAmd**
 
 **Informations entrantes**
 
