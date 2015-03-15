@@ -162,11 +162,30 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 
 ## Gestion des input
 
-| id & name | Desc | Rules |
-|-----------|------|-------|
-| password | Le code pin. | * required
-* minlength
-* number |
+### password
+> Le code pin.
+
+| Rules | Messages |
+|-------|----------|
+| required | FORM-MESSAGE-CODE-PIN-REQUIRED |
+| minlength | FORM-MESSAGE-CODE-PIN-MIN |
+| number | FORM-MESSAGE-CODE-PIN-INVALID |
+
+### passPhrase
+> L pass phrase.
+
+| Rules | Messages |
+|-------|----------|
+| required | FORM-PASS-PHRASE-REQUIRED |
+
+### btcadr
+> L'adresse bitcoin.
+
+| Rules | Messages |
+|-------|----------|
+| required | FORM-MESSAGE-ADR-BTC-REQUIRED |
+| minlength | FORM-MESSAGE-ADR-BTC-MIN |
+| alphanumeric | FORM-MESSAGE-ADR-BTC-ALPHANUM |
 
 ***
 
