@@ -160,8 +160,17 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 
 ***
 
-## Texte client
+## Gestion des input
 
+| id & name | Desc | Rules |
+|-----------|------|-------|
+| password | Le code pin. | * required
+* minlength
+* number |
+
+***
+
+## Texte client
 > Gestion des texte de l'application client.
 
 **Module USER**
