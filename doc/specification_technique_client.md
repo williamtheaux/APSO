@@ -719,27 +719,27 @@
 
 ***
 
-### Ω deleteLoi HTML
+## $.lois.deleteLoisHTML(id_poste)
 > Elle affiche un formulaire avec le code pin pour la suppression de la loi.
 
-* *Accès*
-	* A partir de la page `Ω Lois HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Maquette*
-	* Composer d'un formulaire, icon, titre + Desc.
-* *Informations*
-	* **Texte**
-		* **Titre :** suppression du poste.
-	* **Input**
-		* L'identifiant de la loi
-		* Le code pin
-* *Actions possibles*
-	* Déclencher la fonction `Ω deleteLoi FUNC`.
-* *Règles de gestion*
-	* Visibiliter selon les Accès.
-	* Validation des champs pendant submit.
+**Règles de gestion**
 
-### Ω deleteLoi FUNC
+1. Vérifier la presence de `$.m.user.wallet.admin.deleteLois` Si non lever une exception `ERR-USER-NOT-ACCESS`.
+2. Boucle sur la var `$.m.user.wallet.obs.lois.list AS k => v`.
+	* Comparér le id_poste a v.id. Si correspondance. `$.m.lois.info = v`
+3. Si  `$.m.lois.info == 0`. lever une exception `ERR-VAR-INVALID`.
+4. Afficher HTML `deleteLois`
+	* Installez un validateur sur le formulaire `formDeleteLois`
+	* Installez un écouteur sur le formulaire `formDeleteLois` avec la fonction `$.etat.deleteLoisFUNC`
+
+**Template HTML**
+
+* `deleteLois` Affiche un formulaire pour la suppression de la loi. Les info son dans `$.m.lois.info`
+	* Formulaire `formDeleteLois`
+
+***
+
+### Ω deleteLoisFUNC
 > Elle lance un appel à l'api pour la suppression d'une lois.
 
 * *Accès :*
