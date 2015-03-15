@@ -1102,47 +1102,169 @@
 }
 ```
 
+***
 
-### Ω deleteLoi
-> Suppression d'une loi.
+### Ω lois_deleteLoi($a, $d, $s)
+> Suppression d'une loi. Fonction propriétaire : **deleteLois**
 
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* id loi
-	* Signiature (hash idLoi+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si administrateur, alors poursuivre.
-		* Si citoyen, vérifier les poste est les élus.
-	4. Suppression de la loi.
-		* Suppression des votes.
-	5. Sauvegardait l'action d'ans l'historique.
-	6. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
+**Informations entrantes**
 
-### Ω deleteAmd
-> Suppression d'un amendemente.
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $p | int | Identifiant loi. |
+| $s | string | Signiature (hash id_loi+Identifiant). |
 
-* **Informations entrantes**
-	* Identifiant client (adresse bitcoin)
-	* id loi
-	* id Amd
-	* Signiature (hash idLoi+idAmd+Identifiant)
-* **Règles de gestion**
-	1. Vérification des données entrante.
-	2. Recherche de l'utilisateur dans la base de données.
-	3. Vérification du rôle de l'utilisateur.
-		* Si administrateur, alors poursuivre.
-		* Si citoyen, vérifier les poste est les élus.
-	4. Suppression de l'amendemente.
-		* Suppression des votes.
-	5. Sauvegardait l'action d'ans l'historique.
-	6. Sélectionner toutes les données de connexion (`login` 4-11).
-* **Informations sortantes**
-	* Les données seront retournées comme dans `upData`.
+**Règles de gestion**
+
+1. Vérification que id loi `$d` est int ou lever une exception. `ERR-VAR-INVALID`
+2. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, lever une exception. `ERR-USER-NOT-EXISTS`
+	
+	```php
+	// Appel de la fonction helper dans un if.
+	if(!$user = help::user($a, $d, $s)) throw new Exception('ERR-USER-NOT-EXISTS');
+	```
+
+3. Vérification du rôle de l'utilisateur.
+	
+	```php
+	// Appel de la fonction Accés Controle Level.
+	if(!help::acl($user, 'deleteLois')) throw new Exception('ERR-USER-NOT-ACCESS');
+	```
+
+4. Vérifier que la loi existe dans la base de données.
+	
+	```php
+	// Crée un tableau contenant la loi.
+	$req = array('id' => $d);
+	
+	// Appel de la fonction model
+	$loi = dbs::getLoiById($req);
+	```
+	
+5. Vérification, si `$loi` est vide, alors lever une exception. `ERR-LOI-NOT-EXISTS`
+6. Suppression de la loi, des amds et des votes associer.
+
+	```php
+	// Appel de la fonction model
+	dbs:deleteLoiComplet($req);
+	```
+
+7. Encode en string json le contenu de la variable `$loi`
+8. Sauvegardait l'action dans l'historique.
+	
+	```php
+	// Crée un tableau contenant l'id user, l'action, date, jdata.
+	$req1 = array(
+		'id_user' => // id retourner par $user['id'],
+		'action' => 'DELETELOIS',
+		'date' => // Timestamp actuel
+		'jdata' => // string json $loi
+	);
+	
+	// Appel a la fonction du model.
+	dbs::setLog($req1);
+	```
+9. Construire et retourner le tableau final.
+
+**Informations sortantes**
+
+```js
+{
+	'id_loi' : // Identifiant de la loi.
+	'nom' : // le nom de la loi.
+	'log' : {
+		'id_user' : $user['id']
+		'nom' : $user['nom']
+		'prenom' : $user['prenom']
+		'action' : $req1['action']
+		'date' : $req1['date']
+		'msg' : help::getMsg($req1['jdata'])
+	}
+}
+```
+
+***
+
+### Ω lois_deleteAmd($a, $d, $s)
+> Suppression d'un amendemente. Fonction propriétaire : **deleteAmd**
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $a | string | Identifiant client (adresse bitcoin). |
+| $d | int | Identifiant amd. |
+| $s | string | Signiature (hash id_amd+Identifiant). |
+
+**Règles de gestion**
+
+1. Vérification que id amd `$d` est int ou lever une exception. `ERR-VAR-INVALID`
+2. Récupérer les donnés utilisateur avec helper. Vérifier, si pas d'utilisateur, lever une exception. `ERR-USER-NOT-EXISTS`
+	
+	```php
+	// Appel de la fonction helper dans un if.
+	if(!$user = help::user($a, $d, $s)) throw new Exception('ERR-USER-NOT-EXISTS');
+	```
+
+3. Vérification du rôle de l'utilisateur.
+	
+	```php
+	// Appel de la fonction Accés Controle Level.
+	if(!help::acl($user, 'deletePoste')) throw new Exception('ERR-USER-NOT-ACCESS');
+	```
+
+4. Vérifier que l'amd existe dans la base de données.
+	
+	```php
+	// Crée un tableau contenant le poste.
+	$req = array('id' => $d);
+	
+	// Appel de la fonction model
+	$amd = dbs::getAmdById($req);
+	```
+	
+5. Vérification, si `$amd` est vide, alors lever une exception. `ERR-AMD-NOT-EXISTS`
+6. Suppression de l'amd et des votes.
+
+	```php
+	// Appel de la fonction model
+	dbs:deleteAmd($req);
+	```
+
+7. Encode en string json le contenu de la variable `$amd`
+10. Sauvegardait l'action dans l'historique.
+	
+	```php
+	// Crée un tableau contenant l'id user, l'action, date, jdata.
+	$req1 = array(
+		'id_user' => // id retourner par $user['id'],
+		'action' => 'DELETEAMD',
+		'date' => // Timestamp actuel
+		'jdata' => // string json $amd
+	);
+	
+	// Appel a la fonction du model.
+	dbs::setLog($req1);
+	```
+11. Construire et retourner le tableau final.
+
+**Informations sortantes**
+
+```js
+{
+	'id_amd' : // Identifiant de l'amd.
+	'amd' : // le texte de l'amd.
+	'log' : {
+		'id_user' : $user['id']
+		'nom' : $user['nom']
+		'prenom' : $user['prenom']
+		'action' : $req1['action']
+		'date' : $req1['date']
+		'msg' : help::getMsg($req1['jdata'])
+	}
+}
+```
 
 ***
 

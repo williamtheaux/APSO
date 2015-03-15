@@ -601,6 +601,48 @@ En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
 db::go('UPDATE apso_lois SET amd=:amd WHERE id=:id');
 ```
 
+### Ω dbs::deleteLoiComplet($e)
+> Suppression de la loi, des votes et des amd.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le id de la loi. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+// Suppression du poste.
+db::go('DELETE FROM apso_lois WHERE id=:id');
+
+// Suppression des vote.
+db::go('DELETE FROM apso_vote WHERE id1=:id AND type="LOS"');
+
+// Suppression des fonctions associer.
+db::go('DELETE FROM apso_amd WHERE id_lois=:id');
+```
+
+### Ω dbs::deleteAmd($e)
+> Suppression d'un amendemente et des votes.
+
+**Informations entrantes**
+
+| param | Type | Desc |
+|-------|------|------|
+| $e | array | Un tableau contenant le id de la loi. |
+
+**Règles de gestion**
+
+En cas d'erreur, lever une exception `ERR-MODEL-DATABASE`.
+```php
+// Suppression des vote.
+db::go('DELETE FROM apso_vote WHERE id2=:id AND type="LOS"');
+
+// Suppression des fonctions associer.
+db::go('DELETE FROM apso_amd WHERE id=:id');
+```
 
 ***
 

@@ -739,31 +739,32 @@
 
 ***
 
-### Ω deleteLoisFUNC
+## Ω $.lois.deleteLoisFUNC()
 > Elle lance un appel à l'api pour la suppression d'une lois.
 
-* *Accès :*
-	* A partir de la page `Ω deleteLoi HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Informations*
-	* **Texte**
-		* **Message succès :** La loi fut supprimer avec succès.
-	* **Variable interne**
-		* Clé privée
-		* Phrase secrète crypter
-		* Id publique
-	* **Variable new**
-		* l'identifiant de la loi
-		* Le code pin
-* *Actions possibles*
-	* En cas d'erreur
-		* Afficher un message d'alerte.
-	* En cas de succès
-		* Afficher un message de succès.
-		* Afficher la page `Ω Lois HTML`.
-* *Règles de gestion*
-	* signiature de la variable loi.
-	* appel à l'api.
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.admin.deleteLois` Si non lever une exception `ERR-USER-NOT-ACCESS`.
+2. Récupérait l'adresse bitcoin. Signer le id_poste et l'adresse bitcoin avec l'aide du code pin. Lancer un appel au serveur `lois_deleteLoi(adr, id_loi, signature)`
+	* Si erreur, lever une exception avec le retour serveur. `data.error`
+3. Boucle sur la var `$.m.user.wallet.obs.lois.list AS k => v`.
+	* Supprimer la loi correspondant.
+4. Ajouter au répertoire de la variable app, le retoure.
+	* Incrémenter le nombre de log. 
+
+		```js
+		$.m.user.wallet.obs.lois.nb --.
+		$.m.user.wallet.log.nb ++.
+		```
+	* Ajouter au tableau les infos retourner.
+
+		```js
+		$.m.user.wallet.log.list =+ data.result.log  // Au debut du tableau.
+		```
+5. Lancer un message dans la console `LOI-DELETE-DESC`.
+6. Lancer la fonction `$.lois.home()`.
+
+***
 
 ## $.lois.deleteAmdHTML(id_amd)
 > Elle affiche un formulaire avec le code pin pour la suppression de l'amendement.
@@ -787,31 +788,31 @@
 
 ***
 
-### Ω deleteAmd FUNC
+## Ω $.lois.deleteAmdFUNC()
 > Elle lance un appel à l'api pour la suppression d'un amendement.
 
-* *Accès :*
-	* A partir de la page `Ω ficheLois HTML`.
-	* Accès rôle **Admin** ou un **citoyen élu** au poste donc la fonction dépend, précisément à ce moment-là.
-* *Informations*
-	* **Texte**
-		* **Message succès :** L'amendement fut supprimer avec succès.
-	* **Variable interne**
-		* Clé privée
-		* Phrase secrète crypter
-		* Id publique
-	* **Variable new**
-		* l'identifiant de l'amendement
-		* Le code pin
-* *Actions possibles*
-	* En cas d'erreur
-		* Afficher un message d'alerte.
-	* En cas de succès
-		* Afficher un message de succès.
-		* Afficher la page `Ω ficheLois HTML`.
-* *Règles de gestion*
-	* signiature de la variable amendement.
-	* appel à l'api.
+**Règles de gestion**
+
+1. Vérifier la presence de `$.m.user.wallet.admin.deleteAmd` Si non lever une exception `ERR-USER-NOT-ACCESS`.
+2. Récupérait l'adresse bitcoin. Signer le id_amd et l'adresse bitcoin avec l'aide du code pin. Lancer un appel au serveur `lois_deleteAmd(adr, id_amd, signature)`
+	* Si erreur, lever une exception avec le retour serveur. `data.error`
+3. Boucle sur la var `$.m.user.wallet.obs.lois.list AS k => v`.
+	* Boucle sur la var `v.amd.list AS k1 => v1`.
+		* Supprimer l'amd correspondant.
+4. Ajouter au répertoire de la variable app, le retoure.
+	* Incrémenter le nombre de log. 
+
+		```js
+		$.m.user.wallet.obs.lois.amd.nb --.
+		$.m.user.wallet.log.nb ++.
+		```
+	* Ajouter au tableau les infos retourner.
+
+		```js
+		$.m.user.wallet.log.list =+ data.result.log  // Au debut du tableau.
+		```
+5. Lancer un message dans la console `LOI-DELETE-AMD-DESC`.
+6. Lancer la fonction `$.lois.ficheLoisHTML(id_loi)`.
 
 ***
 

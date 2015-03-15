@@ -118,6 +118,8 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | ADDAMD | Ajouter un nouvel amendement | La loi, l'amendement |
 | EDITELOIS | Editer une loi. | La loi, le nom, le nouveau nom |
 | EDITEAMD | Editer un amendement. | L'amendement, le nom, le nouveau nom |
+| DELETELOIS | Suppression de la loi. | La loi, le nom |
+| DELETEAMD | Suppression de l'amendement. | L'amd, le text |
 
 ***
 
@@ -210,12 +212,10 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 | LOI-EDIT-SUCCES-LABEL | La loi fut mise a jour avec succès. |
 | LOI-EDIT-AMD-LABEL | Modification d'amendements. |
 | LOI-EDIT-AMD-SUCCES | L'amendement fut mise a jour avec succès. |
-| LOI-DELETE-LOIS-LABEL | Suppression de la loi |
+| LOI-DELETE-LABEL | Suppression de la loi |
 | LOI-DELETE-AMD-LABEL | Suppression de l'amendement |
-| LOI-LABEL | Assemblée |
-| LOI-LABEL | Assemblée |
-| LOI-LABEL | Assemblée |
-| LOI-LABEL | Assemblée |
+| LOI-DELETE-DESC | La loi fut supprimer avec succès. |
+| LOI-DELETE-AMD-DESC | L'amendement fut supprimer avec succès. |
 
 ***
 
