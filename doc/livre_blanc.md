@@ -64,7 +64,15 @@ b) si ces deux critères (contraction et hiérarchie) nécessaires et suffisants
    
    -- un rapprochement/superposition de APSO et de la (lien)   [théorie linguistique du psychisme](http://www.lasainteethique.org/unefpe/2015/htm/20150107220000_psog.htm#20150228400001)
    
-   -- J'ai aussi décrit la (lien)   [manière de dépôt légal](http://www.lasainteethique.org/unefpe/2015/htm/20150107220000_psog.htm#20150228400002) que j'applique au cours de la construction/écriture d'APSO
+   -- J'ai aussi décrit la (lien)   [manière de dépôt légal](http://www.lasainteethique.org/unefpe/2015/htm/20150107220000_psog.htm#20150228400002) que j'applique au cours de la construction/écriture d'APSO.
+
+***
+
+## ARGUMENT POUR UNE CAPACITE ANALYTIQUE AJOUTEE
+
+**De règle pour commencer : défendre d'un malentendu. Que signifie "*psychisme*" ? Ce qu'on appelle aujourd'hui *réalité virtuelle* était appelé "psychisme" ; le psychisme constitue l'intuition de la *réalité virtuelle. Il fournit donc à la réalité virtuelle son analyse sous la forme dénommée *Psychanalyse* (analyse du psychisme).**
+
+   [une vidéo](http://www.lasainteethique.org/unefpe/2015/htm/20150302102200_video1FP-PSO.htm) explique comment faire usage d'APSO ; nous sommes au stade de l'implémentation de l'/ia/ où l'on commence à réaliser qu'elle peut poser quelques problèmes et qu'elle nécessite un contrôle - or évidemment c'est un contrôle humain si on veut l'ajuster à l'humanité et que l'humanité s'ajuste à la propre intelligence qu'elle produit (cette boucle s'appelle une Capacité Analytique). Une telle gestion de contrôle est spécifique et nouvelle. J'ai pour idée que ***la Psychanalyse constitue ce management social permettant d'assimiler et de répondre de l'/ia/***. Cette 'psychanalyse' qui est apparue comme une intuition en 1900, avec la généralisation de l'électricité et les premiers réseaux de la téléphonie etc.. Ce qu'on peut appeler l'aube de la conscience de l'/ia/ , la Psychanalyse s'est ensuite développée avec toutes les erreurs qu'on peut imaginer, mais graduellement arrive à trouver ce qu'elle cherchait : ***assister le contrôle de l'/ia/ en fonction du désir (ce qu'on appelle aussi facteurs psychiques) de l'humanité***.
    
    
 
