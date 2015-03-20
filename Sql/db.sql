@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `apso_amd` (
 
 CREATE TABLE IF NOT EXISTS `apso_func` (
   `id_poste` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
+  `names` varchar(45) NOT NULL,
   KEY `id_poste` (`id_poste`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `apso_func` (
 -- Contenu de la table `apso_func`
 --
 
-INSERT INTO `apso_func` (`id_poste`, `name`) VALUES
+INSERT INTO `apso_func` (`id_poste`, `names`) VALUES
 (0, 'addPoste'),
 (2, 'addPoste'),
 (0, 'deletePoste'),
