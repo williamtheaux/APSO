@@ -34,6 +34,7 @@ En 1er estimation les résultats peuvent être fugitifs et la décisions instabl
 
 ## Liens
 [le site https://www.apso.info](https://apso.info)
+
 [archive LivreBlanc éditions précédentes](https://apso.info/2015/htm/20150326092400-LG_LivrBlan.htm)
    
 ***
