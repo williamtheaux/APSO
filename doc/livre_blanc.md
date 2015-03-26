@@ -10,7 +10,7 @@
 
 ## Définition de PSO
    
-Association.1901 : héberge addons, Association d'adolescents (<13à18>ans) autogérée, première à utiliser APSO comme son appareil décisionnel. Secondairement PSO conseille l'usage d'APSO par d'autres organisations (Associations, troupes, équipes, entreprises etc..) ; il est en effet recommandé d'ajouter à l'usage d'APSO un contrôle analytique (la vitalité et puissance de la démocratie directe & temps réel peuvent entraîner des troubles de l'adaptation de/à l'environnement corrigés par ledit contrôle).
+Association.1901 : héberge ***addons***, Association d'adolescents (<13à18>ans) autogérée, première à utiliser APSO comme son appareil décisionnel. Secondairement PSO conseille l'usage d'APSO par d'autres organisations (Associations, troupes, équipes, entreprises etc..) ; il est en effet recommandé d'ajouter à l'usage d'APSO un contrôle analytique (la vitalité et puissance de la démocratie directe & temps réel peuvent entraîner des troubles de l'adaptation de/à l'environnement corrigés par ledit contrôle).
  
 ***
 
