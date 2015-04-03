@@ -33,9 +33,9 @@ En 1er estimation les résultats peuvent être fugitifs et la décisions instabl
 ***
 
 ## Liens
-[le site https://www.apso.info](https://apso.info)
+[le site du théoricien d'APSO ](http://www.lasainteethique.org/apso/)
 
-[archive LivreBlanc éditions précédentes](https://apso.info/2015/htm/20150326092400-LG_LivrBlan.htm)
+[archive LivreBlanc éditions précédentes](http://www.lasainteethique.org/apso/2015/htm/20150326092400-LG_LivrBlan.htm)
    
 ***
 
