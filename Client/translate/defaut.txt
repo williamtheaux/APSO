@@ -1,0 +1,218 @@
+// Mod Langue.
+
+fr                                    Français
+en                                    English
+ru                                    Руcский
+de                                    Deutsch
+it                                    Italiano
+sp                                    Español
+pt                                    Português
+tr                                    Türkçe
+el                                    Ελληνικά
+he                                    עברית
+ja                                    日本語
+ar                                    العربية
+zh                                    中文
+
+// Server error defaut.
+
+SERV-ERROR-NOT-FIND-FILE              Erreur lors du chargement du fichier d'exécution.
+SERV-ERROR-DATABASE                   Impossible de se connecter à la base SQL. Erreur dans les données.
+SERV-ERROR-INVALID-PARAM-OR-METHODE   Méthodes ou Paramètres incorrects. Erreur dans les données d'accès.
+SERV-ERROR-CONNECT-MYSQL              Connexion au serveur MySQL impossible. Erreur dans les données d'accès.
+SERV-ERROR-OFFLINE-MESSAGE            L'application est actuellement indisponible pour cause de maintenance. Désolé pour le désagrément.
+ERR-NOT-FIND-FILE                     Erreur lors du chargement du fichier d'exécution.
+ERR-INVALID-PARAM-OR-METHODE          Méthodes ou Paramètres incorrects. Erreur dans les données d'accès.
+ERR-CONNECT-MYSQL	                  Connexion au serveur MySQL impossible. Erreur dans les données d'accès.
+ERR-OFFLINE-MESSAGE                   L'application est actuellement indisponible pour cause de maintenance. Désolé pour le désagrément.
+ERR-MODEL-DATABASE	                  Erreur lors de l'exécution de la commande de model SQL.
+ERR-BTC-ADR-INVALID                   L'identifiant utilisateur ne semble pas être valide.
+ERR-BTC-SIGN-INVALID              	  La signature électronique ne semble pas être valide.
+ERR-ACCOUNT-ALREADY-EXISTS            L'utilisateur est déjà enregistré dans la base de données.
+ERR-ECHEC-SAVE-USER                   L'enregistrement de l'utilisateur a échoué.
+ERR-NAME-OR-FIRSTNAME-INVALID	      Votre nom ou prénom semble invalide.
+ERR-POSTE-INVALID              	      Le poste semble invalide.
+ERR-USER-NOT-EXISTS              	  Votre identifiant n'est pas reconnu.
+ERR-TIMESTAMP-INVALID	              Le timestamp semble invalide.
+ERR-USER-NOT-ACCESS	                  Vous n'êtes pas autorisé à accéder à cette ressource.
+ERR-POSTE-ALREADY-EXISTS	          Le poste que vous essayiez d'ajouter existe déjà dans la base de données.
+ERR-ECHEC-SAVE-POSTE	              L'enregistrement du poste a échoué
+ERR-POSTE-NOT-EXISTS                  Le poste que vous voulez supprimer n'existe pas.
+ERR-ROLE-INVALID                      Le rôle passer en paramètres semble incorrecte.
+ERR-NOT-CHANGE-ADMIN                  Vous ne pouvez pas modifier les rôles d'administrateurs.
+ERR-VAR-VOTE-INVALID                  Les données du vote semble incorrecte.
+ERR-VAR-INVALID	                      Les données passées en paramètre semblent incorrectes.
+ERR-LOI-ALREADY-EXISTS                La loi que vous essayiez d'ajouter existe déjà dans la base de données.
+ERR-ECHEC-SAVE-LOI	                  L'enregistrement de la loi a échoué.
+ERR-LOI-NOT-EXISTS	                  La loi n'est pas reconnu.
+ERR-ECHEC-SAVE-AMD	                  L'enregistrement de l'amendement a échoué.
+ERR-ALREADY-CONNECTED	              Vous êtes déjà connecté.
+ERR-ALREADY-NOT-CONNECTED	          Vous n'êtes pas connecté.
+ERR-AMD-NOT-EXISTS                    L'amendement n'est pas reconnu.
+ERR-SECU-NOT-EXISTS                   La synchronization a échoué pour cause de parametre invalide.
+
+// Mod tmpl.
+
+FORM-MESSAGE-ADR-BTC-MIN              L'identifiant utilisateur incorrecte
+FORM-MESSAGE-CODE-PIN-REQUIRED        Veillez entrer votre code Pin
+FORM-MESSAGE-INPUT-REQUIRED           Veuillez remplir les champs ci-dessous
+FORM-MESSAGE-ADR-BTC-REQUIRED         Veuillez entrer l'identifiant du signataire
+FORM-MESSAGE-EMAIL-INVALID            L'adresse email n'est pas valide
+FORM-MESSAGE-PIN-REQUIRED             Veuillez entrer le code pin crypté
+FORM-MESSAGE-CODE-PIN-INVALID         Votre code Pin ne doit être composé que de chiffres
+FORM-MESSAGE-VALIDATION-FORM-FAILED   Vous devez valider le formulaire avant de poursuivre
+FORM-MESSAGE-CODE-PIN-MIN             Votre code Pin doit être composé de 4 chiffres au minimum
+
+// Apso.
+
+USER-LOGIN                            Connexion
+USER-LABEL                            Mon compte
+USER-SLID-1-LABEL                     DÉMOCRATIE DIRECTE en TEMPS RÉEL
+USER-SLID-1-DESC                      Attribuez des postes, votez pour des lois et proposez des lois. Les votes sont directs et les résultats instantanés.
+USER-SLID-2-LABEL                     SUFFRAGE UNIVERSEL
+USER-SLID-2-DESC                      Tous votent anonymement et proposent lois et amendements. Chaque vote est comptabilisé et chaque proposition enregistrée, à égalité (résultats à la majorité des membres).
+USER-NOT-SIGN-VALIDE                  La signature du message n'est pas valide et ne correspond pas a l'identifiant du signataire.
+USER-VERIF-MESS-TITLE                 Vérifier une signature
+USER-VERIF-MESS-DESC                  Le quotient de message & de la signature retrouve l'identifiant du signataire - garantie d'authenticité.
+USER-VERIF-MESS                       Vérification
+USER-SIGN-MESS-INPUT                  Le message signé
+DEF-MESSAGE                           Message
+USER-SIGN-INPUT-LABEL                 La signature du message
+USER-SIGN-MESS                        Signature
+USER-ADR-SIGN-LABEL                   L'identifiant du signataire
+DEF-BITCOIN-ADR                       Identifiant
+IBTC-SIGN-INPUT                       Veuillez entrer votre signature
+IBTC-MESS-INPUT                       Veuillez entrer votre message
+DEF-CODE-PIN                          CODE PIN de SESSION
+USER-NOT-SIGN-VALIDE                  La signature du message n'est pas valide et ne correspond pas a l'identifiant utilisateur.
+USER-VALIDE-SIGN                      Le message est bien signé par l'identifiant en question.
+USER-SIGN-MESS-TITLE                  Signature EAC
+USER-SIGN-MESS-DESC                   Votre signature sera un mix.crypté de votre message & votre identité.
+USER-SIGN-MESS-LABEL                  Le message a signer
+USER-SIGN-MESS-RESULT                 Voici la signature électronique de notre message mixé à votre identifiant utilisateur. Envoyez votre message au destinataire et faites lui parvenir cette signature.
+USER-SIGN-MESS-ERR                    La signature du message a échoué, merci de réessayer.
+DEF-CODE-PIN-NEW                      CRÉEZ UN CODE PIN DE SESSION
+USER-PASS-CODE-LABEL                  Le Code Pin est destiné à opérer et protéger la session. À chaque nouvelle connexion vous choisirez un Code Pin différent.
+USER-PASS-PHRASE-EX                   Ex : decoupa -foxminecho- 110299 :mecodelta: (tr304512) dans les fées Pature 669912 0143785912 decoti ++ZEROMONT++ 45er
+USER-PASS-PHRASE-LABEL                Nouveau? Créez votre phrase secrète. Si vous oubliez votre phrase secrète, votre identité est perdus définitivement.
+USER-PASS-PHRASE                      PHRASE SECRÈTE DE MEMBRE
+USER-PASS-PHRASE-REQUIRED             Veuillez saisir votre phrase secrète.
+DEF-LOGOUT                            Déconnexion
+DEF-CODE-PIN-LABEL                    Votre code Pin
+USER-NOM-LABEL                        Votre nom
+USER-PRENOM-LABEL                     Votre prénom
+USER-NOM-INPUT                        Nom
+USER-PRENOM-INPUT                     Prénom
+USER-FORM-NOM                         Veuillez saisir votre nom
+USER-FORM-PRENOM                      Veuillez saisir votre prénom
+USER-END-SIGN-LABEL                   Finaliser l'inscription
+USER-END-SIGN-DESC                    Veuillez finaliser le processus d'inscription en entrant votre nom et prénom dans le formulaire.
+DEF-SAVE                              Enregistrement
+USER-VALIDE-LABEL                     Validation du compte
+USER-VALIDE-DESC                      Votre compte est actuellement en attente d'approbation. Une fois cette actions effectuées, vous pourrez poursuivre pour découvrir le déroulement du processus de vote.
+USER-BANNI-LABEL                      Compte bloqué
+USER-BANNI-DESC                       Votre compte a été désactivé par un administrateur. Veuillez contacter le service support pour plus d'information.
+DEF-SIGNUP                            Inscription
+GUEST                                 Inviter
+BANNI                                 Bloqué
+OBS                                   Observateur
+CITOYEN                               Citoyen
+ADMIN                                 Administrateur
+GUESTS                                Inviters
+BANNIS                                Bloqués
+OBSS                                  Observateurs
+CITOYENS                              Citoyens
+USER-COMPTE-DESC                      Des élections anonymes en temps réel ou chaque citoyen est susceptible d'être élu. Exprime un choix, une volonté. Ici chaque utilisateur peut créer des lois, proposer des amendements, et enfin, exprimer sont vote.
+DEF-HISTORY                           Historique
+SAVE                                  Inscription de l'utilisateur
+ADDPOSTE                              Ajout d'un nouveaux poste
+DELETEPOSTE                           Suppression du poste
+EDITEROLE                             Modification du rôle de l'utilisateur
+VOTE                                  Vote de l'utilisateur
+ADDLOIS                               Ajout d'une nouvelle loi
+ADDAMD                                Ajout d'un nouvel amendement
+EDITELOIS                             Edition d'une loi
+EDITEAMD                              Edition d'un amendement
+DELETELOIS                            Suppression de la loi
+DELETEAMD                             Suppression de l'amendement
+DEF-ACTIONS                           Actions
+DEF-INFO                              Informations
+USER-SYNC-LABEL                       Dernière mise à jour le
+VOIX-SOUND-TITRE                      Audio
+USER-Q-OBS                            Vous êtes Observateur ?
+USER-Q-CIT                            Vous êtes Citoyen ?
+USER-Q-ADM                            Vous êtes Administrateur ?
+USER-R-OBS                            Vous pouvez accéder à l'historique - Vous pouvez voir les Lois actives et en proposition ainsi que leurs amendements en proposition. Vous pouvez voir quels sont les postes, les membres en poste et à quel poste. Vous pouvez connaître la liste des membres inscrits.
+USER-R-CIT                            Vous accédez à l'historique - aux Lois actives et en proposition ainsi que leurs amendements ; vous pouvez voter et créer des propositions de lois et d'amendements. Vous pouvez voir les membres, les postes et leurs élus. Vous pouvez élire un membre à un poste.
+USER-R-ADM                            Vous accédez à l'historique - aux Lois et amendements que vous pouvez voter ainsi que les modifier (orthographe par expl) ou les supprimer (obsolète par exple). Vous pouvez voir membres, postes et élus. Vous pouvez élire, créer ou supprimer un poste, vous pouvez bannir un membre. Vous admettez les membres et vous êtes désigné à ce poste par une loi.
+
+// Mod état
+
+ETAT-LOG-DESC-LIMIT                   Un historique profond stocke toutes les actions depuis la mise en activité. L'historique sommaire affiche ici les mille dernières actions. Parmi les informations, date, heure, agent, objet, les choix de vote sont immédiatement anonymes et aucun historique ne les retiens.
+ETAT-LABEL                            Élus
+ETAT-LOG-DESC                         Toutes les actions des Citoyens et Administrateurs.
+DEF-CONFIRM-VOTE                      Votre vote a était confirmer.
+ETAT-SELECT-POSTE                     Sélectionner un poste
+ETAT-SELECT-USER                      Sélectionnez un citoyen
+ETAT-GET-MY-VOTE                      Choisissez vos Élus, les cumuls sont possibles, tous les citoyens sont éligibles.
+ETAT-POSTE-FREE                       Poste vacant
+ETAT-CONFIRME-VOTE-LABEL              Confirmer votre vote
+ETAT-ADD-NEW-POSTE                    Création de poste
+ETAT-ADD-POSTE-DESC                   Dans cette section vous pouvez crée un nouveaux poste.
+ETAT-POSTE-LABEL                      Poste
+ETAT-POSTES-LABEL                     Postes
+ETAT-POSTE-INPUT                      Le nouveau poste
+DEF-SIGNUP                            Inscription
+ETAT-ADD-POSTE-SUCCES-DESC            Le nouveau poste fut ajouté avec succès.
+ETAT-DELETE-POSTE-LABEL               Supprimer le poste
+ETAT-DELETE-POSTE-TITLE               Suppression du poste
+ETAT-DELETE-POSTE-DESC                Dans cette section vous pouvez supprimer le poste
+ETAT-DELETE-POSTE-MSG-DESC            Le poste fut supprimer avec succès.
+ETAT-LIST-OF                          Liste des
+ETAT-EDIT-ROLE-LABEL                  Modification du rôle
+ETAT-ROLE-INPUT                       Choisissez le nouveau rôle de l'utilisateur
+ETAT-EDIT-ROLE-DESC                   Dans cette section vous pouvez modifier le rôle de
+ETAT-ACTU-ROLE-DESC                   Le rôle actuel de l'utilisateur est
+ETAT-SUCC-ROLE-DESC                   Le rôle fut mise a jour avec succès.
+ETAT-NOT-EDIT-YOUR-ROLE               Vous ne pouvez pas modifier votre propre rôle.
+
+// Mod lois
+
+LOIS-LABEL                            Lois
+LOIS-AMD-LABEL                        Amendements
+LOIS-MY-VOTE                          Mon vote
+LOIS-ADD-NEW                          CRÉER UNE LOI
+LOIS-ADD-NAME-INPUT                   Le nom de la loi
+LOIS-ADD-AMD-INPUT                    NOUVEL AMENDEMENT
+LOIS-ADD-DESC                         Une loi comporte un Titre qui entre en vigueur par son amendement élu. En l'enregistrant vous la soumettez aux votes et autorisez la création d'autres amendements.
+LOIS-ADD-SUCCES-LABEL                 La nouvelle loi fut ajouté avec succès
+LOIS-FICHE-LABEL                      Fiche de la loi
+LOIS-ADD-AMD-NEW                      CRÉER un amendement
+LOIS-ADD-AMD-LABEL                    Ajouter une nouvelle alternative aux amendements ci-dessous.
+LOIS-ADD-AMD-SUCCES-LABEL             Le nouveaux amendement fut ajouté avec succès.
+LOIS-EDIT-LABEL                       Modification de la loi
+LOIS-EDIT-DESC                        Dans cette section vous pouvez modifier la loi
+DEF-MODIFICATION                      Modification
+LOIS-EDIT-SUCCES-LABEL                La loi fut mise a jour avec succès.
+LOIS-DELETE-LABEL                     Suppression de la loi
+LOIS-DELETE-DESC                      Dans cette section vous pouvez supprimer la loi
+DEF-DELETE                            Suppression
+LOIS-DELETE-MSG                       La loi fut supprimer avec succès.
+DEF-VOTING                            Voter
+LOIS-EDIT-AMD-LABEL                   Modification de l'amendements suivant :
+LOIS-EDIT-AMD-SUCCES                  L'amendement fut mise a jour avec succès.
+LOIS-DELETE-AMD-LABEL                 Suppression de l'amendements suivant :
+LOIS-DELETE-AMD-DESC                  L'amendement fut supprimer avec succès.
+LOIS-NOT-DELETE-LAST-AMD              La loi doit contenir au moins un amendement.
+LOIS-VOTANT-LABEL                     Votants
+LOIS-DELETE-BTN                       Supprimer la loi
+LOIS-EDIT-BTN                         Modifier la loi
+LOIS-EDIT-AMD-BTN                     Modifier l'amendements
+LOIS-DELETE-AMD-BTN                   Supprimer l'amendements
+LOIS-ACTIVE-LABEL                     Loi en vigueur
+LOIS-NOT-ACTIVE-LABEL                 Loi non appliquée
+LOIS-AMD-ELU-LABEL                    L'amendement élu
+LOIS-VOTE-DESC-AMD                    Vous allez voter pour son amendement suivant :
+LOIS-ACTIVE-DESC                      En vigueur à la majorité des Citoyens (50%)
+LOIS-NOT-ACTIVE-DESC                  En proposition par défaut
+LOIS-VOTE-PARTICIPE                   La loi cochée signifie que vous avez participé à son vote
