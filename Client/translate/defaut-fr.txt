@@ -23,31 +23,31 @@ SERV-ERROR-CONNECT-MYSQL              Connexion au serveur MySQL impossible. Err
 SERV-ERROR-OFFLINE-MESSAGE            L'application est actuellement indisponible pour cause de maintenance. Désolé pour le désagrément.
 ERR-NOT-FIND-FILE                     Erreur lors du chargement du fichier d'exécution.
 ERR-INVALID-PARAM-OR-METHODE          Méthodes ou Paramètres incorrects. Erreur dans les données d'accès.
-ERR-CONNECT-MYSQL	                  Connexion au serveur MySQL impossible. Erreur dans les données d'accès.
+ERR-CONNECT-MYSQL                     Connexion au serveur MySQL impossible. Erreur dans les données d'accès.
 ERR-OFFLINE-MESSAGE                   L'application est actuellement indisponible pour cause de maintenance. Désolé pour le désagrément.
-ERR-MODEL-DATABASE	                  Erreur lors de l'exécution de la commande de model SQL.
+ERR-MODEL-DATABASE                    Erreur lors de l'exécution de la commande de model SQL.
 ERR-BTC-ADR-INVALID                   L'identifiant utilisateur ne semble pas être valide.
-ERR-BTC-SIGN-INVALID              	  La signature électronique ne semble pas être valide.
+ERR-BTC-SIGN-INVALID                  La signature électronique ne semble pas être valide.
 ERR-ACCOUNT-ALREADY-EXISTS            L'utilisateur est déjà enregistré dans la base de données.
 ERR-ECHEC-SAVE-USER                   L'enregistrement de l'utilisateur a échoué.
-ERR-NAME-OR-FIRSTNAME-INVALID	      Votre nom ou prénom semble invalide.
-ERR-POSTE-INVALID              	      Le poste semble invalide.
-ERR-USER-NOT-EXISTS              	  Votre identifiant n'est pas reconnu.
-ERR-TIMESTAMP-INVALID	              Le timestamp semble invalide.
-ERR-USER-NOT-ACCESS	                  Vous n'êtes pas autorisé à accéder à cette ressource.
-ERR-POSTE-ALREADY-EXISTS	          Le poste que vous essayiez d'ajouter existe déjà dans la base de données.
-ERR-ECHEC-SAVE-POSTE	              L'enregistrement du poste a échoué
+ERR-NAME-OR-FIRSTNAME-INVALID         Votre nom ou prénom semble invalide.
+ERR-POSTE-INVALID                     Le poste semble invalide.
+ERR-USER-NOT-EXISTS                   Votre identifiant n'est pas reconnu.
+ERR-TIMESTAMP-INVALID                 Le timestamp semble invalide.
+ERR-USER-NOT-ACCESS                   Vous n'êtes pas autorisé à accéder à cette ressource.
+ERR-POSTE-ALREADY-EXISTS              Le poste que vous essayiez d'ajouter existe déjà dans la base de données.
+ERR-ECHEC-SAVE-POSTE                  L'enregistrement du poste a échoué
 ERR-POSTE-NOT-EXISTS                  Le poste que vous voulez supprimer n'existe pas.
 ERR-ROLE-INVALID                      Le rôle passer en paramètres semble incorrecte.
 ERR-NOT-CHANGE-ADMIN                  Vous ne pouvez pas modifier les rôles d'administrateurs.
 ERR-VAR-VOTE-INVALID                  Les données du vote semble incorrecte.
-ERR-VAR-INVALID	                      Les données passées en paramètre semblent incorrectes.
+ERR-VAR-INVALID                       Les données passées en paramètre semblent incorrectes.
 ERR-LOI-ALREADY-EXISTS                La loi que vous essayiez d'ajouter existe déjà dans la base de données.
-ERR-ECHEC-SAVE-LOI	                  L'enregistrement de la loi a échoué.
-ERR-LOI-NOT-EXISTS	                  La loi n'est pas reconnu.
-ERR-ECHEC-SAVE-AMD	                  L'enregistrement de l'amendement a échoué.
-ERR-ALREADY-CONNECTED	              Vous êtes déjà connecté.
-ERR-ALREADY-NOT-CONNECTED	          Vous n'êtes pas connecté.
+ERR-ECHEC-SAVE-LOI                    L'enregistrement de la loi a échoué.
+ERR-LOI-NOT-EXISTS                    La loi n'est pas reconnu.
+ERR-ECHEC-SAVE-AMD                    L'enregistrement de l'amendement a échoué.
+ERR-ALREADY-CONNECTED                 Vous êtes déjà connecté.
+ERR-ALREADY-NOT-CONNECTED             Vous n'êtes pas connecté.
 ERR-AMD-NOT-EXISTS                    L'amendement n'est pas reconnu.
 ERR-SECU-NOT-EXISTS                   La synchronization a échoué pour cause de parametre invalide.
 
