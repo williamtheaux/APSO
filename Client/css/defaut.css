@@ -1,0 +1,191 @@
+/*
+ * @version 0.5.1
+ * @license MIT license
+ * @link    https://chagry.com
+ * @author  Grigori <git@chagry.com>
+ * @package defaut.css
+ */
+
+html
+{
+	width: 100%;
+	height: 100%;
+}
+
+body 
+{
+	width: 100%;
+	height: 100%;
+	background: url("../img/apso/fond.jpg") no-repeat center top fixed;
+	background-size: cover;
+	background-color: #ccc;
+}
+
+#event
+{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+#conten
+{
+	height: auto;
+	background: none;
+	padding-top: 50px;
+}
+
+.navbar.navbar-fixed-top.navbar-static-top {
+	box-shadow: 0px 0px 60px #111;
+	background-color: #80cd44;
+	background: url("../img/apso/menu.jpg") no-repeat center top fixed;
+	background-size: cover;
+	border-color: green;
+}
+
+.jumbotron.noir {
+	background: none;
+}
+
+.fontH1wt{
+	color: #333;
+	font-family: 'Ubuntu', cursive;
+	text-shadow: 1px 1px #ccc;
+}
+
+.fontPwt{
+	color: #333;
+	font-family: 'Indie Flower', cursive;
+}
+
+.bigLrt{
+	font-size: 8em;
+}
+
+.btn-label {
+	position:
+	relative;
+	left: -12px;
+	display: inline-block;
+	padding: 6px 12px;
+	background: rgba(0,0,0,0.15);
+	border-radius: 3px 0 0 3px;
+}
+
+.btn-labeled {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.btn-lg {
+	height: 46px;
+}
+
+.well.noir {
+	background-color: #000;
+	background-color: rgba(0, 0, 0, 0.1);
+	background: url("../img/apso/menu.jpg") no-repeat center center;
+	background-size: cover;
+	border-color: rgba(0, 0, 0, 0.1);
+	box-shadow: 0 10px 6px -6px #bbb;
+}
+
+.well.blue {
+	background-color: rgba(0, 0, 0, 0.1);
+	border-color: rgba(1, 1, 1, 0.2);
+	box-shadow: 0px 0px 1px 0px #37b2c4;
+	
+}
+
+.well.blueDark {
+	background-color: #000;
+	background-color: rgba(0, 0, 0, 0.1);
+	background: url("../img/css/a8.png") no-repeat left center;
+	background-size: cover;
+	border-color: rgba(0, 0, 0, 0.1);
+}
+
+.navbar-inverse {
+	background-color: #222;
+	border-color: #080808;
+}
+
+
+
+.footMarge {
+	margin-bottom: 10px;
+}
+
+.topMarge-lg {
+	margin-top: 40px;
+}
+
+.topMarge {
+	margin-top: 10px;
+}
+
+.footMarge-lg {
+	margin-bottom: 40px;
+}
+
+.affix {
+	position: fixed;
+	top: 70px;
+}
+.affix-top{
+	position: static;
+}
+.affix-bottom {
+	position: absolute;
+}
+
+a.anchor {
+	text-decoration: none;
+	padding-left: 1%;
+	opacity: 0.5;
+	color: #357ebd;
+	font-weight: none;
+	font-size: 1em;
+}
+
+a:hover.anchor {
+	opacity: 1;
+}
+
+.cursor {
+	cursor: pointer;
+}
+
+canvas {
+	width: 100% !important;
+	max-height: 300px;
+	height: auto !important;
+}
+
+#qrDiv {
+	width: 270px;
+	height: 270px;
+	padding: 10px;
+	background: url("../img/fond/a1.jpg") no-repeat center top;
+	background-size: cover;
+	border-radius: 7px;
+}
+
+hr {
+	border-color: #DCDDDD;
+	border-style: solid; 
+}
+
+.navbar-nav.navbar-right:last-child {
+	margin-right: 0px;
+}
+
+.table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+	border-top: none;
+}
+
+@media screen and (max-width: 767px) {
+	.table-responsive {
+		border: none;
+	}
+}
