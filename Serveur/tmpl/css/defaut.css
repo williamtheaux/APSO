@@ -1,0 +1,27 @@
+/*
+ * @version 0.6.0
+ * @license MIT license
+ * @link    https://chagry.com
+ * @author  Grigori <git@chagry.com>
+ * @package css_defaut.css
+ */
+
+html 
+{
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	background-color: #000;
+}
+
+body 
+{
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	background: url("../img/back.jpg") no-repeat center center fixed;
+	background-size: cover;
+	
+}

@@ -1,0 +1,31 @@
+# @version		0.5 Server.
+# @date Crea	08/10/2013.
+# @date Modif	11/02/2014.
+# @package		.htaccess
+# @contact		Chagry.com - git@chagry.com
+
+RewriteEngine On
+# Block base64_encode.
+RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [OR]
+# Block <script> tag.
+RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+# Block PHP GLOBALS.
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+# Block _REQUEST.
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+# return index if error!
+RewriteRule ^(.*)$ index.php [F,L]
+
+# if doc or file, Not redirect.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/index.php
+RewriteRule (.*) index.php
+
+# Delete www.
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1%{REQUEST_URI} [R=301,QSA,NC,L]
+
+# On https.
+# RewriteCond %{HTTP:X-Forwarded-Proto} !https
+# RewriteRule (.*) https://DOMAINE.COM/api/$1 [R=301,L]
