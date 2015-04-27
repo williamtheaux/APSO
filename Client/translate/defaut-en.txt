@@ -84,7 +84,6 @@ DEF-BITCOIN-ADR                       Identifiant
 IBTC-SIGN-INPUT                       Veuillez entrer votre signature
 IBTC-MESS-INPUT                       Veuillez entrer votre message
 DEF-CODE-PIN                          CODE PIN de SESSION
-USER-NOT-SIGN-VALIDE                  La signature du message n'est pas valide et ne correspond pas a l'identifiant utilisateur.
 USER-VALIDE-SIGN                      Le message est bien signé par l'identifiant en question.
 USER-SIGN-MESS-TITLE                  Signature EAC
 USER-SIGN-MESS-DESC                   Votre signature sera un mix.crypté de votre message & votre identité.
@@ -216,3 +215,4 @@ LOIS-VOTE-DESC-AMD                    Vous allez voter pour son amendement suiva
 LOIS-ACTIVE-DESC                      En vigueur à la majorité des Citoyens (50%)
 LOIS-NOT-ACTIVE-DESC                  En proposition par défaut
 LOIS-VOTE-PARTICIPE                   La loi cochée signifie que vous avez participé à son vote
+LOIS-VOTE-PARTICIPE-AMD               L'amendement coché signifie qu'il s'agit de votre vote
