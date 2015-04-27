@@ -1,0 +1,38 @@
+{
+	"api"            : "https://DOMAINE.COM/api/",
+	"protocol"       : "https",
+	"lng" : {
+		"off"        : true,
+		"list"       : ["fr"],
+		"url"        : "https://DOMAINE.COM/translate/",
+		"file"       : "defaut",
+		"langue"     : false,
+		"cookie"     : "langueClient",
+		"root"       : "img/flag/",
+		"extension"  : ".gif"
+	},
+	"event" : {
+		"setup"      : "startTmpl",
+		"langue"     : "langue",
+		"login"      : "login",
+		"logout"     : "logout"
+	},
+	"div" : {
+		"event"      : "event",
+		"content"    : "conten",
+		"menu"       : "menu"
+	},
+	"plug" : {
+		"url"        : "mod/",
+		"list" : [
+			"voix",
+			"btc",
+			"user",
+			"log",
+			"lois",
+			"etat",
+			"lng",
+			"tmpl"
+		]
+	}
+}

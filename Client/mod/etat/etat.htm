@@ -1,0 +1,327 @@
+<!--
+ * @version 0.6.0
+ * @license MIT license
+ * @link    https://chagry.com
+ * @author  Grigori <git@chagry.com>
+ * @package	user.user.htm
+-->
+
+<!-- Menu ibTc -->
+<script id="mEtat" type="text/html">
+	{{#etat.off}}
+		<div id="mEtat" class="btn-group navbar-btn">
+			<button id='mEtatSpin' type="button" onClick="{{etat.func.page}}" class="btn btn-success" data-tr="ETAT-LABEL" data-toggle="tooltip" data-placement="bottom" data-container="body" title="{{#TX}}ETAT-LABEL{{/TX}}">
+				<i class="fa fa-university"></i>
+			</button>
+		</div>
+	{{/etat.off}}
+</script>
+
+<!-- Page homeLog -->
+<script id="homeEtat" type="text/html">
+	<!-- Table Historique -->
+	<div class="container-fluid">
+		<div class="row fontPwt">
+			<!-- Table poste -->
+			{{#user.wallet.obs.postes.nb}}
+				<div class="col-sm-7">
+					<div class="row">
+						<div class="col-xs-6">
+							<h1 class="text-left text-uppercase fontH1wt topMarge-lg"><i class="fa fa-university"></i> {{#T}}ETAT-LABEL{{/T}}</h1>
+							<p>{{user.wallet.obs.postes.nb}} {{#T}}ETAT-POSTES-LABEL{{/T}}</p>
+						</div>
+						<!-- btn add Poste -->
+						<div class="col-xs-6">
+							<p class="text-right fontPwt lead">
+								{{#user.wallet.admin.addPoste}}
+									<button type="button" onClick="$.etat.addPosteHTML()" class="btn btn-success topMarge-lg">
+										<span class="text-uppercase"><i class="fa fa-plus"></i> {{#T}}ETAT-ADD-NEW-POSTE{{/T}}</span>
+									</button>
+								{{/user.wallet.admin.addPoste}}
+							</p>
+						</div>
+					</div>
+					<!-- Slide poste -->
+					<div class="owl-carousel owl-theme" id="owl-head">
+						{{#user.wallet.obs.postes.list}}
+							<div class="item" style="margin:0px 10px;">
+								<div class="well well-sm blue text-center">
+									<p class="fontH1wt">{{{poste}}} 
+										{{#user.wallet.admin.deletePoste}}	
+											<span class="cursor" onClick="$.etat.deletePosteHTML('{{id}}')"><i class="fa fa-trash toolHome" data-tr="ETAT-DELETE-POSTE-LABEL" data-toggle="tooltip" data-placement="top" data-container="body" title="{{#TX}}ETAT-DELETE-POSTE-LABEL{{/TX}}"></i></span> 
+										{{/user.wallet.admin.deletePoste}}
+									</p>
+									<p>{{#id_elu}}{{{nomElu}}} {{{prenomElu}}}{{/id_elu}}{{^id_elu}}{{#T}}ETAT-POSTE-FREE{{/T}}{{/id_elu}}</p>
+									{{#user.wallet.citoyen}}
+										<p>
+											{{#myVote}}
+												<span class="label label-success toolHome" data-toggle="tooltip" data-placement="top" data-container="body" title="{{myVoteNom}} {{myVotePrenom}}">
+													<i class="fa fa-check-square-o"></i> {{#T}}LOIS-MY-VOTE{{/T}}
+												</span>
+											{{/myVote}}
+											{{^myVote}}
+												<span class="label label-danger"><i class="fa fa-square-o"></i> {{#T}}LOIS-MY-VOTE{{/T}}</span>
+											{{/myVote}}
+										</p>
+									{{/user.wallet.citoyen}}
+								</div>
+							</div>
+						{{/user.wallet.obs.postes.list}}
+					</div>
+					<hr>
+					<!-- Form + form vote postes -->
+					{{#user.wallet.citoyen}}
+						<p class="text-center fontPwt text-uppercase"><i class="fa fa-arrow-circle-down"></i> {{#T}}ETAT-GET-MY-VOTE{{/T}}</p>
+						<div class="well blue">
+							<form id="formVotePoste" role="form">			
+								<div class="well noir text-center">
+									<div class="form-group">
+										<select class="form-control" id="posteVote" name="posteVote">
+											<option value="">{{#T}}ETAT-SELECT-POSTE{{/T}}</option>
+											{{#user.wallet.obs.postes.list}}
+												<option value="{{id}}">{{{poste}}}</option>
+											{{/user.wallet.obs.postes.list}}
+										</select>
+									</div>
+									<div class="form-group">
+										<select class="form-control" id="userVote" name="userVote">
+											<option value="">{{#T}}ETAT-SELECT-USER{{/T}}</option>
+											{{#user.wallet.obs.CITOYEN.list}}
+												<option value="{{id}}">{{nom}} {{prenom}}</option> 
+											{{/user.wallet.obs.CITOYEN.list}}
+										</select>
+									</div>
+								</div>
+								<button type="submit" class="btn btn-success btn-lg btn-block btnAddLoi">
+									<span class="text-uppercase"><i class="fa fa-upload"></i> {{#T}}DEF-VOTING{{/T}}</span>
+								</button>
+							</form>
+						</div>
+					{{/user.wallet.citoyen}}
+				</div>
+			{{/user.wallet.obs.postes.nb}}
+			<!-- Table user -->
+			<div class="col-sm-5">
+				<div class="row">
+					<!-- btn filtre user by rôle -->
+					<div class="col-xs-12">
+						<p class="text-right fontPwt lead">
+							<button type="button" onClick="$.etat.listUser('CITOYEN')" class="btn btn-success topMarge-lg toolHome" data-tr="CITOYENS" data-toggle="tooltip" data-placement="top" data-container="body" title="{{#TX}}CITOYENS{{/TX}}">
+								<span class="text-uppercase"><i class="fa fa-users"></i> {{user.wallet.obs.CITOYEN.nb}}</span>
+							</button>
+								{{#user.wallet.obs.OBS.nb}}
+									<button type="button" onClick="$.etat.listUser('OBS')" class="btn btn-primary topMarge-lg toolHome" data-tr="OBSS" data-toggle="tooltip" data-placement="top" data-container="body" title="{{#TX}}OBSS{{/TX}}">
+										<span class="text-uppercase"><i class="fa fa-user-secret"></i> {{user.wallet.obs.OBS.nb}}</span>
+									</button>
+								{{/user.wallet.obs.OBS.nb}}
+								{{#user.wallet.obs.GUEST.nb}}
+									<button type="button" onClick="$.etat.listUser('GUEST')" class="btn btn-warning topMarge-lg toolHome" data-tr="GUESTS" data-toggle="tooltip" data-placement="top" data-container="body" title="{{#TX}}GUESTS{{/TX}}">
+										<span class="text-uppercase"><i class="fa fa-user-plus"></i> {{user.wallet.obs.GUEST.nb}}</span>
+									</button>
+								{{/user.wallet.obs.GUEST.nb}}
+								{{#user.wallet.obs.BANNI.nb}}
+									<button type="button" onClick="$.etat.listUser('BANNI')" class="btn btn-danger topMarge-lg toolHome" data-tr="BANNIS" data-toggle="tooltip" data-placement="top" data-container="body" title="{{#TX}}BANNIS{{/TX}}">
+										<span class="text-uppercase"><i class="fa fa-user-times"></i> {{user.wallet.obs.BANNI.nb}}</span>
+									</button>
+								{{/user.wallet.obs.BANNI.nb}}
+						</p>
+						<p class="text-left"><i class="fa fa-th-list"></i> {{#T}}ETAT-LIST-OF{{/T}} <span id="listTile">{{#TX}}CITOYENS{{/TX}}</span>.</p>
+					</div>
+				</div>
+				<div class="well blue" id="liteUser">
+					{{>listeUserPart}}
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<!-- Page fixVotePosteHTML -->
+<script id="fixVotePosteHTML" type="text/html">
+	<div class="container-fluid">
+		<!-- Form + form add amd -->
+		<form id="formFixVotePoste" role="form">
+			<div class="row topMarge-lg">
+				<div class="col-sm-6 col-md-5 fontPwt">
+					<div class="well well-lg blue text-center">
+						<div class="well noir text-center">
+							<p class="text-uppercase text-left fontH1wt">
+								{{#T}}DEF-CODE-PIN{{/T}}
+							</p>
+							{{>pinPartials}}
+						</div>
+						<button type="submit" class="btn btn-success btn-lg btn-block btnVotePoste"><span class="text-uppercase"><i class="fa fa-check"></i> {{#T}}DEF-VOTING{{/T}}</span></button>
+					</div>
+				</div>
+				<!-- Titre add loi & Table amd -->
+				<div class="col-sm-6 col-md-7 text-center fontPwt">
+					<h1 class="text-center fontH1wt hidden-xs"><i class="fa fa-check-circle fa-5x"></i></h1>
+					<h2 class="text-uppercase fontH1wt">{{#T}}ETAT-CONFIRME-VOTE-LABEL{{/T}}</h2>
+					<!-- Btn back loi -->
+					<button type="button" onClick="$.etat.home()" class="btn btn-success btn-lg footMarge-lg">
+						<span class="text-uppercase lead"><i class="fa fa-arrow-circle-left"></i> {{#T}}ETAT-LABEL{{/T}}</span>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</script>
+
+<!-- Page addPosteHTML -->
+<script id="addPosteHTML" type="text/html">
+	<div class="container-fluid">
+		<!-- Form + form add poste -->
+		<form id="formAddPoste" role="form">
+			<div class="row topMarge-lg">
+				<div class="col-sm-6 col-md-5 fontPwt">
+					<div class="well well-lg blue text-center">
+						<p class="text-left text-uppercase fontH1wt">{{#T}}ETAT-POSTE-INPUT{{/T}}</p>
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
+								<input class="form-control" placeholder="{{#TX}}ETAT-POSTE-LABEL{{/TX}}" id="loi" type="text" name="loi" required>
+							</div>
+						</div>
+						<div class="well noir text-center">
+							<p class="text-uppercase text-left fontH1wt">
+								{{#T}}DEF-CODE-PIN{{/T}}
+							</p>
+							{{>pinPartials}}
+						</div>
+						<button type="submit" class="btn btn-success btn-lg btn-block btnAddPoste"><span class="text-uppercase"><i class="fa fa-upload"></i> {{#T}}DEF-SAVE{{/T}}</span></button>
+					</div>
+				</div>
+				<!-- Titre add Poste -->
+				<div class="col-sm-6 col-md-7">
+					<div class="row text-center fontPwt">
+						<div class="col-sm-12 text-center">
+							<h1 class="text-center fontH1wt hidden-xs"><i class="fa fa-plus-circle fa-5x"></i></h1>
+							<h2 class="text-uppercase fontH1wt">{{#T}}ETAT-ADD-NEW-POSTE{{/T}}</h2>
+							<p class="text-center lead fontPwt">{{#T}}ETAT-ADD-POSTE-DESC{{/T}}</p>
+						</div>
+						<button type="button" onClick="$.etat.home()" class="btn btn-success btn-lg footMarge-lg">
+							<span class="text-uppercase lead"><i class="fa fa-arrow-circle-left"></i> {{#T}}ETAT-LABEL{{/T}}</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</script>
+
+<!-- Page deletePosteHTML -->
+<script id="deletePosteHTML" type="text/html">
+	<div class="container-fluid">
+		<!-- Form + form delete poste -->
+		<form id="formDeletePoste" role="form">
+			<div class="row topMarge-lg">
+				<div class="col-sm-6 col-md-5 fontPwt">
+					<div class="well well-lg blue text-center">
+						<p class="text-left text-uppercase fontH1wt">{{etat.poste.poste}}</p>
+						<div class="well noir text-center">
+							<p class="text-uppercase text-left fontH1wt">
+								{{#T}}DEF-CODE-PIN{{/T}}
+							</p>
+							{{>pinPartials}}
+						</div>
+						<button type="submit" class="btn btn-success btn-lg btn-block btnDeletePoste"><span class="text-uppercase"><i class="fa fa-trash"></i> {{#T}}DEF-DELETE{{/T}}</span></button>
+					</div>
+				</div>
+				<!-- Titre delete poste -->
+				<div class="col-sm-6 col-md-7">
+					<div class="row text-center fontPwt">
+						<div class="col-sm-12 text-center">
+							<h1 class="text-center fontH1wt hidden-xs"><i class="fa fa-trash fa-5x"></i></h1>
+							<h2 class="text-uppercase fontH1wt">{{#T}}ETAT-DELETE-POSTE-TITLE{{/T}}</h2>
+							<p class="text-center lead fontPwt">{{#T}}ETAT-DELETE-POSTE-DESC{{/T}} {{etat.poste.poste}}</p>
+						</div>
+						<!-- Btn back fiche loi -->
+						<button type="button" onClick="$.etat.home()" class="btn btn-success btn-lg footMarge-lg">
+							<span class="text-uppercase lead"><i class="fa fa-arrow-circle-left"></i> {{#T}}ETAT-LABEL{{/T}}</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</script>
+
+<!-- Partials liste user -->
+<script id="listeUserPart" type="text/html">
+	<table cellpadding="0" cellspacing="0" border="0" class="datatable table" id="myUserTab">
+		{{#etat.printList}}
+			<tr>
+				<td class="text-left">
+					<span class="fontH1wt">
+						{{#user.wallet.admin.editeRole}}
+							<span class="cursor" onClick="$.etat.editeRoleHTML('{{id}}')"><i class="fa fa-pencil toolHome" data-tr="ETAT-EDIT-ROLE-LABEL" data-toggle="tooltip" data-placement="top" data-container="body" title="{{#TX}}ETAT-EDIT-ROLE-LABEL{{/TX}}"></i></span> 
+						{{/user.wallet.admin.editeRole}}
+						{{^user.wallet.admin.editeRole}}
+							<i class="fa fa-user"></i> 
+						{{/user.wallet.admin.editeRole}}
+						{{{nom}}} {{{prenom}}}
+					</span>
+					<br>
+					<small>{{{adr}}}</small>
+				</td>
+				<td class="text-right">
+					<span class="fontPwt">
+						<span class="hidden-sm hidden-xs">{{#T}}DEF-SIGNUP{{/T}} {{#FROMNOW}}{{{date}}}{{/FROMNOW}}</span> <i class="fa fa-clock-o toolHome" data-toggle="tooltip" data-placement="left" data-container="body" title="{{#LLLL}}{{date}}{{/LLLL}} {{#FROMNOW}}{{{date}}}{{/FROMNOW}}"></i>
+					</span>
+				</td>
+			</tr>
+		{{/etat.printList}}
+	</table>
+	<div class="text-right">
+		<div class="btn-group pagerMyUser">
+			<button type="button" class="btn btn-success firstPage"><span class='currentPage'></span></button>
+			<button type="button" class="btn btn-success prevPage"><i class="fa fa-angle-left"></i></button>
+			<button type="button" class="btn btn-success nextPage"><i class="fa fa-angle-right"></i></button>
+			<button type="button" class="btn btn-success lastPage"><span class='totalPages'></span></button>
+		</div>
+	</div>
+</script>
+
+<!-- Page editeRoleHTML -->
+<script id="editeRoleHTML" type="text/html">
+	<div class="container-fluid">
+		<!-- Form + form edite rôle -->
+		<form id="formEditeRole" role="form">
+			<div class="row topMarge-lg">
+				<div class="col-sm-6 col-md-5 fontPwt">
+					<div class="well well-lg blue text-center">
+						<p class="text-left text-uppercase fontH1wt">{{#T}}ETAT-ROLE-INPUT{{/T}}</p>
+						<div class="form-group">
+							<select class="form-control" id="role" name="role">
+								<option value="BANNI">{{#T}}BANNI{{/T}}</option>
+								<option value="OBS">{{#T}}OBS{{/T}}</option>
+								<option value="CITOYEN">{{#T}}CITOYEN{{/T}}</option>
+							</select>
+						</div>
+						<div class="well noir text-center">
+							<p class="text-uppercase text-left fontH1wt">
+								{{#T}}DEF-CODE-PIN{{/T}}
+							</p>
+							{{>pinPartials}}
+						</div>
+						<button type="submit" class="btn btn-success btn-lg btn-block btnEditeRole"><span class="text-uppercase"><i class="fa fa-upload"></i> {{#T}}DEF-SAVE{{/T}}</span></button>
+					</div>
+				</div>
+				<!-- Titre add Poste -->
+				<div class="col-sm-6 col-md-7">
+					<div class="row text-center fontPwt">
+						<div class="col-sm-12 text-center">
+							<h1 class="text-center fontH1wt hidden-xs"><i class="fa fa-pencil-square fa-5x"></i></h1>
+							<h2 class="text-uppercase fontH1wt">{{#T}}ETAT-EDIT-ROLE-LABEL{{/T}}</h2>
+							<p class="text-center lead fontPwt">{{#T}}ETAT-EDIT-ROLE-DESC{{/T}} {{etat.user.nom}} {{etat.user.prenom}}<br>
+							{{#T}}ETAT-ACTU-ROLE-DESC{{/T}} {{#T}}{{etat.user.role}}{{/T}}</p>
+						</div>
+						<button type="button" onClick="$.etat.home()" class="btn btn-success btn-lg footMarge-lg">
+							<span class="text-uppercase lead"><i class="fa fa-arrow-circle-left"></i> {{#T}}ETAT-LABEL{{/T}}</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</script>

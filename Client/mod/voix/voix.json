@@ -1,0 +1,27 @@
+{
+	"off" : true,
+	"is"  : false,
+	"load" : {
+		"sound"         : false
+	},
+	"sound" : {
+		"name"          : "sound",
+		"off"           : true,
+		"btnOver"       : "btnOver:0.1",
+		"setup"         : "setup:0.2",
+		"url"           : "mod/voix/sounds/",
+		"list" : [
+			"setup",
+			"openWin",
+			"closeWin",
+			"error",
+			"btnOver",
+			"Shutdown",
+			"top",
+			"newPage",
+			"water_droplet_2",
+			"water_droplet_3",
+			"water_droplet"
+		]
+	}
+}

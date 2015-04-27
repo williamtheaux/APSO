@@ -1,0 +1,25 @@
+<!--
+ * @version 0.5.0
+ * @license MIT license
+ * @link    https://chagry.com
+ * @author  Grigori <git@chagry.com>
+ * @package	voix.voix.htm
+-->
+
+<!-- Menu User 0.4-->
+<script id="mVoix" type="text/html">
+	{{#voix.off}}
+		<div id="mVoix" class="btn-group navbar-btn">
+			{{#voix.is}}
+				<button type="button" id="mSound" class="btn btn-success" onClick="$.voix.toggle();" data-tr="VOIX-SOUND-TITRE" data-toggle="tooltip" data-placement="bottom" data-container="body" title="{{#TX}}VOIX-SOUND-TITRE{{/TX}}">
+					<i class="fa fa-volume-up"></i>
+				</button>
+			{{/voix.is}}
+			{{^voix.is}}
+				<button type="button" id="mSound" class="btn btn-success" onClick="$.voix.toggle();" data-tr="VOIX-SOUND-TITRE" data-toggle="tooltip" data-placement="bottom" data-container="body" title="{{#TX}}VOIX-SOUND-TITRE{{/TX}}">
+					<i class="fa fa-volume-off"></i>
+				</button>
+			{{/voix.is}}
+		</div>
+	{{/voix.off}}
+</script>

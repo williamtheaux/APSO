@@ -1,0 +1,20 @@
+{
+	"off"           : true,
+	"intro" : [
+		{
+			"img"   : "vote",
+			"ico"   : "fa-archive",
+			"label" : "USER-SLID-1-LABEL",
+			"desc"  : "USER-SLID-1-DESC"
+		},
+		{
+			"img"   : "lois",
+			"ico"   : "fa-university",
+			"label" : "USER-SLID-2-LABEL",
+			"desc"  : "USER-SLID-2-DESC"
+		}
+	],
+	"func" : {
+		"page"      : "$.user.home()"
+	}
+}

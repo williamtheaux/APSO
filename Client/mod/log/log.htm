@@ -1,0 +1,70 @@
+<!--
+ * @version 0.6.0
+ * @license MIT license
+ * @link    https://chagry.com
+ * @author  Grigori <git@chagry.com>
+ * @package	log.log.htm
+-->
+
+<!-- Menu ibTc -->
+<script id="mLog" type="text/html">
+	{{#log.off}}
+		<div id="mLog" class="btn-group navbar-btn">
+			<button id='mLogSpin' type="button" onClick="{{log.func.page}}" class="btn btn-success" data-tr="DEF-HISTORY" data-toggle="tooltip" data-placement="bottom" data-container="body" title="{{#TX}}DEF-HISTORY{{/TX}}">
+				<i class="fa fa-book"></i>
+			</button>
+		</div>
+	{{/log.off}}
+</script>
+
+<!-- Page homeLog -->
+<script id="homeLog" type="text/html">
+	<!-- Table Historique -->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-4">
+				<h1 class="text-center text-uppercase fontH1wt topMarge-lg"><i class="fa fa-book"></i> {{#T}}DEF-HISTORY{{/T}}</h1>
+				<p class="text-center fontPwt">{{#T}}ETAT-LOG-DESC{{/T}}</p>
+				<h1 class="text-center fontH1wt bigLrt" id="nbAct">{{user.wallet.log.nb}}</h1>
+				<p class="text-center lead fontPwt">{{#T}}DEF-ACTIONS{{/T}}</p>
+				<p class="text-justify fontPwt">{{#T}}ETAT-LOG-DESC-LIMIT{{/T}}</p>
+			</div>
+			<div class="col-sm-8">
+				{{#user.wallet.log.nb}}
+					<div class="well blue topMarge-lg">
+						<div class="table-responsive">
+							<table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped" id="myLogTab">
+								{{#user.wallet.log.list}}
+									<tr>
+										<td class="text-left">
+											<span class="fontPwt"><i class="fa fa-clock-o" data-toggle="tooltip" data-placement="right" data-container="body" title="{{#LLLL}}{{date}}{{/LLLL}}"></i> {{#FROMNOW}}{{{date}}}{{/FROMNOW}}</span>
+										</td>
+										<td class="text-left">
+											<span class="fontH1wt"><i class="fa fa-user"></i> {{{nom}}} {{{prenom}}}</span>
+										</td>
+										<td class="text-center">
+											<span class="label label-success">{{#T}}{{{action}}}{{/T}}</span>
+										</td>
+										<td class="text-right">
+											<span class="label label-default cursor" data-toggle="popover" data-placement="left" data-container="body" data-content="{{#msg}}+ {{.}} {{/msg}}">
+												<i class="fa fa-info-circle"></i> {{#T}}DEF-INFO{{/T}}
+											</span>
+										</td>
+									</tr>
+								{{/user.wallet.log.list}}
+							</table>
+						</div>
+						<div class="text-right">
+							<div class="btn-group pagerMyLog">
+								<button type="button" class="btn btn-success firstPage"><span class='currentPage'></span></button>
+								<button type="button" class="btn btn-success prevPage"><i class="fa fa-angle-left"></i></button>
+								<button type="button" class="btn btn-success nextPage"><i class="fa fa-angle-right"></i></button>
+								<button type="button" class="btn btn-success lastPage"><span class='totalPages'></span></button>
+							</div>
+						</div>
+					</div>
+				{{/user.wallet.log.nb}}
+			</div>
+		</div>
+	</div>
+</script>

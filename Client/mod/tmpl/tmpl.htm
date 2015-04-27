@@ -1,0 +1,27 @@
+<!--
+ * @version 0.5.0
+ * @license MIT license
+ * @link    https://chagry.com
+ * @author  Grigori <git@chagry.com>
+ * @package	tmpl.tmpl.htm
+-->
+
+<!-- Erreur fatal 0.4-->
+<script id="erreur" type="text/html">
+	<div id="erreur" class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<p>
+					<div class="alert alert-danger text-center">
+						<p>{{#T}}{{tmpl.error.label}}{{/T}}</p>
+						<p class="text-right">
+							<button onclick="{{tmpl.func.reload}}" type="button" class="btn btn-danger">
+								<i class="fa fa-refresh fa-spin fa-lg"></i> {{#T}}DEF-CANCEL{{/T}}
+							</button>
+						</p>
+					</div>
+				</p>
+			</div>
+		</div>
+	</div>
+</script>

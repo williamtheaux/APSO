@@ -1,0 +1,464 @@
+<!--
+ * @version 0.6.0
+ * @license MIT license
+ * @link    https://chagry.com
+ * @author  Grigori <git@chagry.com>
+ * @package	lois.lois.htm
+-->
+
+<!-- Menu ibTc -->
+<script id="mLois" type="text/html">
+	{{#lois.off}}
+		<div id="mLois" class="btn-group navbar-btn">
+			<button id='mLoisSpin' type="button" onClick="{{lois.func.page}}" class="btn btn-success" data-tr="LOIS-LABEL" data-toggle="tooltip" data-placement="bottom" data-container="body" title="{{#TX}}LOIS-LABEL{{/TX}}">
+				<i class="fa fa-leanpub"></i>
+			</button>
+		</div>
+	{{/lois.off}}
+</script>
+
+<!-- Page homeLois -->
+<script id="homeLois" type="text/html">
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Title nb loi -->
+			<div class="col-xs-6">
+				<h2 class="text-left text-uppercase fontH1wt topMarge-lg"><i class="fa fa-leanpub"></i> {{user.wallet.obs.lois.nb}} {{#T}}LOIS-LABEL{{/T}}</h2>
+			</div>
+			<!-- btn add lois -->
+			<div class="col-xs-6">
+				<p class="text-right fontPwt lead">
+					{{#user.wallet.citoyen}}
+						<button type="button" onClick="$.lois.addLoisHTML()" class="btn btn-success topMarge-lg">
+							<span class="text-uppercase"><i class="fa fa-plus"></i> {{#T}}LOIS-ADD-NEW{{/T}}</span>
+						</button>
+					{{/user.wallet.citoyen}}
+				</p>
+			</div>
+			<!-- Table loi -->
+			{{#user.wallet.obs.lois.nb}}
+				<div class="col-xs-12">
+					<div class="well blue">
+						<div class="fontPwt">
+							<table cellpadding="0" cellspacing="0" border="0" class="datatable table" id="myLoisTab">
+								{{#user.wallet.obs.lois.list}}
+									<tr class="cursor" onClick="$.lois.ficheLoisHTML('{{id}}')">
+										<td class="text-left">
+											{{#elu}}
+												<span class="text-success"><i class="fa fa-check-circle fa-3x loiTooltip" data-tr="LOIS-ACTIVE-LABEL" data-toggle="tooltip" data-placement="right" data-container="body" title="{{#TX}}LOIS-ACTIVE-LABEL{{/TX}}"></i></span>
+											{{/elu}}
+											{{^elu}}
+												<span class="text-danger"><i class="fa fa-ban fa-3x loiTooltip" data-tr="LOIS-NOT-ACTIVE-LABEL" data-toggle="tooltip" data-placement="right" data-container="body" title="{{#TX}}LOIS-NOT-ACTIVE-LABEL{{/TX}}"></i></span>
+											{{/elu}}
+										</td>
+										<td class="text-left">
+											<span class="fontH1wt">{{#myVote}}<i class="fa fa-check-square-o"></i>{{/myVote}}{{^myVote}}<i class="fa fa-square-o"></i>{{/myVote}} {{{loi}}}</span> 
+											<small class="text-muted"> - {{{nbAmd}}} {{#T}}LOIS-AMD-LABEL{{/T}}</small><br>
+											<span class="fontPwt"> {{amdElu}}</span><br>
+											<div class="progress">
+											<div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" aria-valuenow="{{px}}" aria-valuemin="0" aria-valuemax="100" style="width: {{px}}%;">
+												{{px}}%
+											</div>
+											</div>
+										</td>
+									</tr>
+								{{/user.wallet.obs.lois.list}}
+							</table>
+						</div>
+						<div class="text-right">
+							<div class="btn-group pagerMyLois">
+								<button type="button" class="btn btn-success firstPage"><span class='currentPage'></span></button>
+								<button type="button" class="btn btn-success prevPage"><i class="fa fa-angle-left"></i></button>
+								<button type="button" class="btn btn-success nextPage"><i class="fa fa-angle-right"></i></button>
+								<button type="button" class="btn btn-success lastPage"><span class='totalPages'></span></button>
+							</div>
+						</div>
+					</div>
+					<small class="fontPwt"><i class="fa fa-check-circle"></i> {{#T}}LOIS-ACTIVE-DESC{{/T}} - <i class="fa fa-ban"></i> {{#T}}LOIS-NOT-ACTIVE-DESC{{/T}} - <i class="fa fa-check-square-o"></i> {{#T}}LOIS-VOTE-PARTICIPE{{/T}}</small>
+				</div>
+			{{/user.wallet.obs.lois.nb}}
+		</div>
+	</div>
+</script>
+
+<!-- Page loisFiche -->
+<script id="loisFiche" type="text/html">
+	<div class="container-fluid">
+		<div class="row">
+			<!-- btn back loi -->
+			<div class="col-xs-5 fontPwt">
+				<button type="button" onClick="$.lois.home()" class="btn btn-success btn-lg topMarge-lg">
+					<span class="text-uppercase lead"><i class="fa fa-arrow-circle-left"></i> {{#T}}LOIS-LABEL{{/T}}</span>
+				</button>
+			</div>
+			<!-- btn add amd -->
+			<div class="col-xs-7">
+				<p class="text-right fontPwt lead">
+					{{#user.wallet.citoyen}}
+						<button type="button" onClick="$.lois.addAmdHTML()" class="btn btn-success topMarge-lg">
+							<span class="text-uppercase"><i class="fa fa-plus"></i> {{#T}}LOIS-ADD-AMD-NEW{{/T}}</span>
+						</button>
+					{{/user.wallet.citoyen}}
+				</p>
+			</div>
+			<!-- Title & desc loi -->
+			<div class="col-xs-12">
+				<div class="row">
+					<div class="col-sm-6 fontPwt">
+						<h1 class="text-left text-uppercase fontH1wt topMarge-lg"><i class="fa fa-leanpub hidden-xs"></i> {{lois.fiche.loi}}
+							{{#user.wallet.admin.editeLois}}
+								<button type="button" onClick="$.lois.editeLoisHTML()" class="btn btn-success btn-xs loiTooltip" data-tr="LOIS-EDIT-BTN" data-toggle="tooltip" data-placement="top" data-container="body" title="{{#TX}}LOIS-EDIT-BTN{{/TX}}">
+									<span><i class="fa fa-pencil"></i></span>
+								</button>
+							{{/user.wallet.admin.editeLois}}
+							{{#user.wallet.admin.deleteLois}}
+								<button type="button" onClick="$.lois.deleteLoisHTML()" class="btn btn-success btn-xs loiTooltip" data-tr="LOIS-DELETE-BTN" data-toggle="tooltip" data-placement="top" data-container="body" title="{{#TX}}LOIS-DELETE-BTN{{/TX}}">
+									<span><i class="fa fa-trash"></i></span>
+								</button>
+							{{/user.wallet.admin.deleteLois}}
+						</h1>
+						<hr>
+						<h5 class="text-left text-uppercase fontH1wt">{{#T}}LOIS-AMD-ELU-LABEL{{/T}}</h5>
+						<p class="text-left fontPwt">{{lois.fiche.amdElu}}</p>
+						<div class="progress">
+							<div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" aria-valuenow="{{lois.fiche.px}}" aria-valuemin="0" aria-valuemax="100" style="width: {{lois.fiche.px}}%;">
+								{{lois.fiche.px}}%
+							</div>
+						</div>
+						{{#lois.fiche.elu}}
+							<h1 class="text-center text-uppercase topMarge-lg footMarge-lg text-success"><i class="fa fa-check-circle"></i> {{#T}}LOIS-ACTIVE-LABEL{{/T}}</h1>
+						{{/lois.fiche.elu}}
+						{{^lois.fiche.elu}}
+							<h1 class="text-center text-uppercase topMarge-lg footMarge-lg text-danger"><i class="fa fa-ban"></i> {{#T}}LOIS-NOT-ACTIVE-LABEL{{/T}}</h1>
+						{{/lois.fiche.elu}}
+					</div>
+					<!-- Table amd -->
+					<div class="col-sm-6">
+						<div class="well blue">
+							<table cellpadding="0" cellspacing="0" border="0" class="datatable table fontPwt" id="myAmdTab">
+								{{#lois.fiche.amd}}
+									<tr>
+										{{#user.wallet.citoyen}}
+											<td class="text-left">
+												<button type="button" onClick="$.lois.sendVote('{{id}}')" class="btn {{#myVote}}btn-success{{/myVote}}{{^myVote}}btn-danger{{/myVote}} topMarge">
+													<span>{{#myVote}}<i class="fa fa-check-square-o"></i>{{/myVote}}{{^myVote}}<i class="fa fa-square-o"></i>{{/myVote}} {{#T}}DEF-VOTING{{/T}}</span>
+												</button>
+											</td>
+										{{/user.wallet.citoyen}}
+										<td class="text-left fontPwt">
+											{{#user.wallet.admin.editeAmd}}
+												<span class="cursor" onClick="$.lois.editeAmdHTML('{{id}}')"><i class="fa fa-pencil loiTooltip" data-tr="LOIS-EDIT-AMD-BTN" data-toggle="tooltip" data-placement="top" data-container="body" title="{{#TX}}LOIS-EDIT-AMD-BTN{{/TX}}"></i></span> 
+											{{/user.wallet.admin.editeAmd}}
+											{{#user.wallet.admin.deleteAmd}}	
+												<span class="cursor" onClick="$.lois.deleteAmdHTML('{{id}}')"><i class="fa fa-trash loiTooltip" data-tr="LOIS-DELETE-AMD-BTN" data-toggle="tooltip" data-placement="top" data-container="body" title="{{#TX}}LOIS-DELETE-AMD-BTN{{/TX}}"></i></span> 
+											{{/user.wallet.admin.deleteAmd}}
+											<span class="fontPwt"> {{{desc}}}</span>
+											<br>
+											<div class="progress loiTooltip" data-toggle="tooltip" data-placement="top" data-container="body" title="{{nbVote}} {{#TX}}LOIS-VOTANT-LABEL{{/TX}}">
+												<div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" aria-valuenow="{{px}}" aria-valuemin="0" aria-valuemax="100" style="width: {{px}}%;">
+													{{px}}%
+												</div>
+											</div>
+										</td>
+									</tr>
+								{{/lois.fiche.amd}}
+							</table>
+							<div class="text-right">
+								<div class="btn-group pagerMyAmd">
+									<button type="button" class="btn btn-success firstPage"><span class='currentPage'></span></button>
+									<button type="button" class="btn btn-success prevPage"><i class="fa fa-angle-left"></i></button>
+									<button type="button" class="btn btn-success nextPage"><i class="fa fa-angle-right"></i></button>
+									<button type="button" class="btn btn-success lastPage"><span class='totalPages'></span></button>
+								</div>
+							</div>
+						</div>
+						<small class="fontPwt"><i class="fa fa-check-square-o"></i> {{#T}}LOIS-VOTE-PARTICIPE-AMD{{/T}}</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<!-- Page addLoisHTML -->
+<script id="addLoisHTML" type="text/html">
+	<div class="container-fluid">
+		<!-- Form + form add lois -->
+		<form id="formAddLois" role="form">
+			<div class="row topMarge-lg">
+				<div class="col-sm-6 col-md-5 fontPwt">
+					<div class="well well-lg blue text-center">
+						<p class="text-left text-uppercase fontH1wt">{{#T}}LOIS-ADD-NAME-INPUT{{/T}}</p>
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-leanpub"></i></span>
+								<input class="form-control" placeholder="{{#TX}}LOIS-LABEL{{/TX}}" id="loi" type="text" name="loi" required>
+							</div>
+						</div>
+						<p class="text-left text-uppercase fontH1wt"><i class="fa fa-file-text"></i> {{#T}}LOIS-ADD-AMD-INPUT{{/T}}</p>
+						<div class="form-group">
+							<textarea class="form-control footMarge" name="amd" id="amd" placeholder="{{#TX}}LOIS-AMD-LABEL{{/TX}}" rows="3"></textarea>
+						</div>
+						<div class="well noir text-center">
+							<p class="text-uppercase text-left fontH1wt">
+								{{#T}}DEF-CODE-PIN{{/T}}
+							</p>
+							{{>pinPartials}}
+						</div>
+						<button type="submit" class="btn btn-success btn-lg btn-block btnAddLoi"><span class="text-uppercase"><i class="fa fa-upload"></i> {{#T}}DEF-SAVE{{/T}}</span></button>
+					</div>
+				</div>
+				<!-- Titre add loi -->
+				<div class="col-sm-6 col-md-7">
+					<div class="row text-center fontPwt">
+						<div class="col-sm-12 text-center">
+							<h1 class="text-center fontH1wt hidden-xs"><i class="fa fa-plus-circle fa-5x"></i></h1>
+							<h2 class="text-uppercase fontH1wt">{{#T}}LOIS-ADD-NEW{{/T}}</h2>
+							<p class="text-center lead fontPwt">{{#T}}LOIS-ADD-DESC{{/T}}</p>
+						</div>
+						<button type="button" onClick="$.lois.home()" class="btn btn-success btn-lg footMarge-lg">
+							<span class="text-uppercase lead"><i class="fa fa-arrow-circle-left"></i> {{#T}}LOIS-LABEL{{/T}}</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</script>
+
+<!-- Page addAmdHTML -->
+<script id="addAmdHTML" type="text/html">
+	<div class="container-fluid">
+		<!-- Form + form add amd -->
+		<form id="formAddAmd" role="form">
+			<div class="row topMarge-lg">
+				<div class="col-sm-6 col-md-5 fontPwt">
+					<div class="well well-lg blue text-center">
+						<p class="text-left text-uppercase fontH1wt"><i class="fa fa-file-text"></i> {{#T}}LOIS-ADD-AMD-INPUT{{/T}}</p>
+						<div class="form-group">
+							<textarea class="form-control footMarge" name="amd" id="amd" placeholder="{{#TX}}LOIS-AMD-LABEL{{/TX}}" rows="3"></textarea>
+						</div>
+						<div class="well noir text-center">
+							<p class="text-uppercase text-left fontH1wt">
+								{{#T}}DEF-CODE-PIN{{/T}}
+							</p>
+							{{>pinPartials}}
+						</div>
+						<button type="submit" class="btn btn-success btn-lg btn-block btnAddAmd"><span class="text-uppercase"><i class="fa fa-upload"></i> {{#T}}DEF-SAVE{{/T}}</span></button>
+					</div>
+				</div>
+				<!-- Titre add loi & Table amd -->
+				<div class="col-sm-6 col-md-7 text-center fontPwt">
+					<h2 class="text-uppercase fontH1wt"><i class="fa fa-leanpub"></i> {{lois.fiche.loi}}</h2>
+					<p class="text-center lead fontPwt"><i class="fa fa-plus-circle"></i> {{#T}}LOIS-ADD-AMD-LABEL{{/T}}</p>
+					
+					<div class="well blue">
+						<div class="table-responsive">
+							<table cellpadding="0" cellspacing="0" border="0" class="datatable table" id="myAmdTab">
+								{{#lois.fiche.amd}}
+									<tr>
+										<td class="text-left">
+											<span class="fontPwt"><i class="fa fa-arrow-circle-right"></i> {{{desc}}}</span>
+										</td>
+									</tr>
+								{{/lois.fiche.amd}}
+							</table>
+						</div>
+						<div class="text-right">
+							<div class="btn-group pagerMyAmd">
+								<button type="button" class="btn btn-success firstPage"><span class='currentPage'></span></button>
+								<button type="button" class="btn btn-success prevPage"><i class="fa fa-angle-left"></i></button>
+								<button type="button" class="btn btn-success nextPage"><i class="fa fa-angle-right"></i></button>
+								<button type="button" class="btn btn-success lastPage"><span class='totalPages'></span></button>
+							</div>
+						</div>
+					</div>
+					<!-- Btn back loi -->
+					<button type="button" onClick="$.lois.ficheLoisHTML('{{lois.fiche.id}}')" class="btn btn-success btn-lg footMarge-lg">
+						<span class="text-uppercase lead"><i class="fa fa-arrow-circle-left"></i> {{lois.fiche.loi}}</span>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</script>
+
+<!-- Page editeLoisHTML -->
+<script id="editeLoisHTML" type="text/html">
+	<div class="container-fluid">
+		<!-- Form + form edite lois -->
+		<form id="formEditeLois" role="form">
+			<div class="row topMarge-lg">
+				<div class="col-sm-6 col-md-5 fontPwt">
+					<div class="well well-lg blue text-center">
+						<p class="text-left text-uppercase fontH1wt">{{#T}}LOIS-ADD-NAME-INPUT{{/T}}</p>
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-leanpub"></i></span>
+								<input class="form-control" placeholder="{{#TX}}LOIS-LABEL{{/TX}}" id="loi" type="text" name="loi" value="{{lois.fiche.loi}}" required>
+							</div>
+						</div>
+						<div class="well noir text-center">
+							<p class="text-uppercase text-left fontH1wt">
+								{{#T}}DEF-CODE-PIN{{/T}}
+							</p>
+							{{>pinPartials}}
+						</div>
+						<button type="submit" class="btn btn-success btn-lg btn-block btnEditeLoi"><span class="text-uppercase"><i class="fa fa-pencil"></i> {{#T}}DEF-MODIFICATION{{/T}}</span></button>
+					</div>
+				</div>
+				<!-- Titre edite loi -->
+				<div class="col-sm-6 col-md-7">
+					<div class="row text-center fontPwt">
+						<div class="col-sm-12 text-center">
+							<h1 class="text-center fontH1wt hidden-xs"><i class="fa fa-pencil-square fa-5x"></i></h1>
+							<h2 class="text-uppercase fontH1wt">{{#T}}LOIS-EDIT-LABEL{{/T}}</h2>
+							<p class="text-center lead fontPwt">{{#T}}LOIS-EDIT-DESC{{/T}} {{lois.fiche.loi}}</p>
+						</div>
+						<!-- Btn back loi -->
+						<button type="button" onClick="$.lois.ficheLoisHTML('{{lois.fiche.id}}')" class="btn btn-success btn-lg footMarge-lg">
+							<span class="text-uppercase lead"><i class="fa fa-arrow-circle-left"></i> {{lois.fiche.loi}}</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</script>
+
+<!-- Page deleteLoisHTML -->
+<script id="deleteLoisHTML" type="text/html">
+	<div class="container-fluid">
+		<!-- Form + form delete lois -->
+		<form id="formDeleteLois" role="form">
+			<div class="row topMarge-lg">
+				<div class="col-sm-6 col-md-5 fontPwt">
+					<div class="well well-lg blue text-center">
+						<p class="text-left text-uppercase fontH1wt">{{lois.fiche.loi}}</p>
+						<div class="well noir text-center">
+							<p class="text-uppercase text-left fontH1wt">
+								{{#T}}DEF-CODE-PIN{{/T}}
+							</p>
+							{{>pinPartials}}
+						</div>
+						<button type="submit" class="btn btn-success btn-lg btn-block btnDeleteLoi"><span class="text-uppercase"><i class="fa fa-trash"></i> {{#T}}DEF-DELETE{{/T}}</span></button>
+					</div>
+				</div>
+				<!-- Titre delete loi -->
+				<div class="col-sm-6 col-md-7">
+					<div class="row text-center fontPwt">
+						<div class="col-sm-12 text-center">
+							<h1 class="text-center fontH1wt hidden-xs"><i class="fa fa-trash fa-5x"></i></h1>
+							<h2 class="text-uppercase fontH1wt">{{#T}}LOIS-DELETE-LABEL{{/T}}</h2>
+							<p class="text-center lead fontPwt">{{#T}}LOIS-DELETE-DESC{{/T}} {{lois.fiche.loi}}</p>
+						</div>
+						<!-- Btn back fiche loi -->
+						<button type="button" onClick="$.lois.ficheLoisHTML('{{lois.fiche.id}}')" class="btn btn-success btn-lg footMarge-lg">
+							<span class="text-uppercase lead"><i class="fa fa-arrow-circle-left"></i> {{lois.fiche.loi}}</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</script>
+
+<!-- Page editeAmdHTML -->
+<script id="editeAmdHTML" type="text/html">
+	<div class="container-fluid">
+		<!-- Form + form add amd -->
+		<form id="formEditeAmd" role="form">
+			<div class="row topMarge-lg">
+				<div class="col-sm-6 col-md-5 fontPwt">
+					<div class="well well-lg blue text-center">
+						<p class="text-left text-uppercase fontH1wt"><i class="fa fa-file-text"></i> {{#T}}LOIS-ADD-AMD-INPUT{{/T}}</p>
+						<div class="form-group">
+							<textarea class="form-control footMarge" name="amd" id="amd" placeholder="{{#TX}}LOIS-AMD-LABEL{{/TX}}" rows="3">{{lois.amdFiche.desc}}</textarea>
+						</div>
+						<div class="well noir text-center">
+							<p class="text-uppercase text-left fontH1wt">
+								{{#T}}DEF-CODE-PIN{{/T}}
+							</p>
+							{{>pinPartials}}
+						</div>
+						<button type="submit" class="btn btn-success btn-lg btn-block btnEditeAmd"><span class="text-uppercase"><i class="fa fa-pencil"></i> {{#T}}DEF-MODIFICATION{{/T}}</span></button>
+					</div>
+				</div>
+				<!-- Titre add loi & Table amd -->
+				<div class="col-sm-6 col-md-7 text-center fontPwt">
+					<h1 class="text-center fontH1wt hidden-xs"><i class="fa fa-pencil-square fa-5x"></i></h1>
+					<h2 class="text-uppercase fontH1wt">{{lois.fiche.loi}}</h2>
+					<p class="text-center lead fontPwt">{{#T}}LOIS-EDIT-AMD-LABEL{{/T}} {{lois.amdFiche.desc}}</p>
+					<!-- Btn back loi -->
+					<button type="button" onClick="$.lois.ficheLoisHTML('{{lois.fiche.id}}')" class="btn btn-success btn-lg footMarge-lg">
+						<span class="text-uppercase lead"><i class="fa fa-arrow-circle-left"></i> {{lois.fiche.loi}}</span>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</script>
+
+<!-- Page deleteAmdHTML -->
+<script id="deleteAmdHTML" type="text/html">
+	<div class="container-fluid">
+		<!-- Form + form add amd -->
+		<form id="formDeleteAmd" role="form">
+			<div class="row topMarge-lg">
+				<div class="col-sm-6 col-md-5 fontPwt">
+					<div class="well well-lg blue text-center">
+						<div class="well noir text-center">
+							<p class="text-uppercase text-left fontH1wt">
+								{{#T}}DEF-CODE-PIN{{/T}}
+							</p>
+							{{>pinPartials}}
+						</div>
+						<button type="submit" class="btn btn-success btn-lg btn-block btnDeleteAmd"><span class="text-uppercase"><i class="fa fa-trash"></i> {{#T}}DEF-DELETE{{/T}}</span></button>
+					</div>
+				</div>
+				<!-- Titre add loi & Table amd -->
+				<div class="col-sm-6 col-md-7 text-center fontPwt">
+					<h1 class="text-center fontH1wt hidden-xs"><i class="fa fa-trash fa-5x"></i></h1>
+					<h2 class="text-uppercase fontH1wt">{{lois.fiche.loi}}</h2>
+					<p class="text-center lead fontPwt">{{#T}}LOIS-DELETE-AMD-LABEL{{/T}} {{lois.amdFiche.desc}}</p>
+					<!-- Btn back loi -->
+					<button type="button" onClick="$.lois.ficheLoisHTML('{{lois.fiche.id}}')" class="btn btn-success btn-lg footMarge-lg">
+						<span class="text-uppercase lead"><i class="fa fa-arrow-circle-left"></i> {{lois.fiche.loi}}</span>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</script>
+
+<!-- Page fixVoteLoiHTML -->
+<script id="fixVoteLoiHTML" type="text/html">
+	<div class="container-fluid">
+		<!-- Form + form add amd -->
+		<form id="formFixVoteLoi" role="form">
+			<div class="row topMarge-lg">
+				<div class="col-sm-6 col-md-5 fontPwt">
+					<div class="well well-lg blue text-center">
+						<div class="well noir text-center">
+							<p class="text-uppercase text-left fontH1wt">
+								{{#T}}DEF-CODE-PIN{{/T}}
+							</p>
+							{{>pinPartials}}
+						</div>
+						<button type="submit" class="btn btn-success btn-lg btn-block btnVoteLoi"><span class="text-uppercase"><i class="fa fa-check"></i> {{#T}}DEF-VOTING{{/T}}</span></button>
+					</div>
+				</div>
+				<!-- Titre add loi & Table amd -->
+				<div class="col-sm-6 col-md-7 text-center fontPwt">
+					<h1 class="text-center fontH1wt hidden-xs"><i class="fa fa-check-circle fa-5x"></i></h1>
+					<h2 class="text-uppercase fontH1wt">{{lois.fiche.loi}}</h2>
+					<p class="text-center lead fontPwt">{{#T}}LOIS-VOTE-DESC-AMD{{/T}} {{lois.amdFiche.desc}}</p>
+					<!-- Btn back loi -->
+					<button type="button" onClick="$.lois.ficheLoisHTML('{{lois.fiche.id}}')" class="btn btn-success btn-lg footMarge-lg">
+						<span class="text-uppercase lead"><i class="fa fa-arrow-circle-left"></i> {{lois.fiche.loi}}</span>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</script>

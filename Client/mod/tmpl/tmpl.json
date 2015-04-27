@@ -1,0 +1,154 @@
+{
+	"rules" : {
+		"email" : {
+			"required"  : true,
+			"email"     : true
+		},
+		"password" : {
+			"required"  : true,
+			"minlength" : 4,
+			"number"    : true
+		},
+		"loi" : {
+			"required"  : true
+		},
+		"amd" : {
+			"required"  : true
+		},
+		"pin" : {
+			"required"  : true
+		},
+		"nom" : {
+			"required"  : true
+		},
+		"prenom" : {
+			"required"  : true
+		},
+		"posteVote" : {
+			"required"  : true
+		},
+		"userVote" : {
+			"required"  : true
+		},
+		"cles" : {
+			"required"  : true,
+			"minlength" : 32,
+			"maxlength" : 124
+		},
+		"passPhrase" : {
+			"required"  : true
+		},
+		"mess" : {
+			"required"  : true
+		},
+		"sign" : {
+			"required"  : true
+		},
+		"som" : {
+			"number"    : true
+		},
+		"btcsth" : {
+			"number"    : true
+		},
+		"btctx" : {
+			"required"  : true,
+			"minlength" : 64
+		},
+		"btcadr" : {
+			"required"  : true,
+			"minlength" : 32,
+			"alphanumeric" : true
+		},
+		"inputSecuCode" : {
+			"required"  : true,
+			"minlength" : 32
+		}
+	},
+	"messages" : {
+		"email" : {
+			"required"  : "FORM-MESSAGE-EMAIL-REQUIRED",
+			"email"     : "FORM-MESSAGE-EMAIL-INVALID"
+		},
+		"loi" : {
+			"required"  : "FORM-MESSAGE-INPUT-REQUIRED"
+		},
+		"amd" : {
+			"required"  : "FORM-MESSAGE-INPUT-REQUIRED"
+		},
+		"pin" : {
+			"required"  : "FORM-MESSAGE-PIN-REQUIRED"
+		},
+		"nom" : {
+			"required"  : "USER-FORM-NOM"
+		},
+		"prenom" : {
+			"required"  : "USER-FORM-PRENOM"
+		},
+		"posteVote" : {
+			"required"  : "ERR-VAR-VOTE-INVALID"
+		},
+		"userVote" : {
+			"required"  : "ERR-VAR-VOTE-INVALID"
+		},
+		"cles" : {
+			"required"  : "FORM-MESSAGE-KEY-REQUIRED",
+			"minlength"  : "FORM-MESSAGE-KEY-REQUIRED",
+			"maxlength"  : "FORM-MESSAGE-KEY-REQUIRED"
+		},
+		"passPhrase" : {
+			"required"  : "USER-PASS-PHRASE-REQUIRED"
+		},
+		"mess" : {
+			"required"  : "IBTC-MESS-INPUT"
+		},
+		"sign" : {
+			"required"  : "IBTC-SIGN-INPUT"
+		},
+		"som" : {
+			"number"    : "FORM-MESSAGE-SOM-INVALID"
+		},
+		"btcsth" : {
+			"number"    : "FORM-MESSAGE-BTCSTH-INVALID"
+		},
+		"btctx" : {
+			"required"  : "FORM-MESSAGE-TX-BTC-REQUIRED",
+			"minlength" : "FORM-MESSAGE-TX-BTC-MIN"
+		},
+		"btcadr" : {
+			"required"  : "FORM-MESSAGE-ADR-BTC-REQUIRED",
+			"minlength" : "FORM-MESSAGE-ADR-BTC-MIN",
+			"alphanumeric" : "FORM-MESSAGE-ADR-BTC-ALPHANUM"
+		},
+		"password" : {
+			"required"  : "FORM-MESSAGE-CODE-PIN-REQUIRED",
+			"minlength" : "FORM-MESSAGE-CODE-PIN-MIN",
+			"number"    : "FORM-MESSAGE-CODE-PIN-INVALID"
+		}
+	},
+	"sound" : {
+		"closeWin"      : "closeWin:0.2",
+		"openWin"       : "openWin:0.2",
+		"scroll"        : "Shutdown:0.1",
+		"click"         : "top:0.1",
+		"error"         : "error"
+	},
+	"html" : {
+		"spinClass"     : "fa-spinner fa-spin",
+		"scrollBtn"     : "<i onClick=\"$.tmpl.scroll('up');\" class=\"fa fa-arrow-circle-up text-muted fa-2x\" style=\"cursor: pointer;\"></i>",
+		"scrollBtnCl1"  : "text-muted",
+		"scrollBtnCl2"  : "text-primary"
+	},
+	"func" : {
+		"reload"        : "location.reload();"
+	},
+	"error" : {
+		"position"      : "bottom-right",
+		"closeIcon"     : "<i class=\"fa fa-times\"></i>",
+		"blackList"     : [
+			"SERV-ERROR-SESSION-EXPIRE",
+			"SERV-ERROR-ACCESS-NO-CONNECT",
+			"SERV-ERROR-USER-BLACKLISTED",
+			"SERV-ERROR-OFFLINE-MESSAGE"
+		]
+	}
+}

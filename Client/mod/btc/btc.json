@@ -1,0 +1,14 @@
+{
+	"off"             : false,
+	"v"               : {},
+	"vid" : {
+		"en"        : "Um63OQz3bjo",
+		"fr"        : "VIh47147ZWQ",
+		"es"        : "ceef71b0zSo",
+		"ru"        : "iah5-dZIaHE",
+		"de"        : "2kPNz0tdlj0"
+	},
+	"func" : {
+		"home"        : "$.btc.home()"
+	}
+}

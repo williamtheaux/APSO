@@ -1,0 +1,49 @@
+<!--
+ * @version 0.6.0
+ * @license MIT license
+ * @link    https://chagry.com
+ * @author  Grigori <git@chagry.com>
+ * @package	btc.btc.htm
+-->
+
+<!-- Menu price -->
+<script id="mBtc" type="text/html">
+	{{#btc.off}}
+		<div id="mBtc" class="btn-group navbar-btn">
+			<button type="button" class="btn btn-primary" onClick="{{btc.func.home}}" data-tr="BTC-WHAT-IS-IT" data-toggle="tooltip" data-placement="bottom" data-container="body" title="{{#TX}}BTC-WHAT-IS-IT{{/TX}}">
+				<span class="fontH1wt"> <i class="fa fa-btc"></i> </span> <small> <span class="fontH1wt"> {{#btc.PRIX}}1{{/btc.PRIX}} {{#btc.DEVISE}}CODE{{/btc.DEVISE}} </span> </small> <span id="menuBtcSign" class="fontH1wt"><i class="fa fa-arrow-circle-up"></i></span>
+			</button>
+			<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+				{{#btc.DEVISE}}ICO{{/btc.DEVISE}}
+			</button>
+			<ul class="dropdown-menu">
+				{{#btc.v.menu}}
+					<li><a class="cursor" onclick="$.btc.changePrices('{{.}}');"><img src="img/val/{{.}}.gif" alt="{{.}}"> {{#TX}}{{.}}{{/TX}}</a></li>
+				{{/btc.v.menu}}
+				<li class="divider"></li>
+				<li><a href="https://blockchain.info/" target="blank"><img src="img/ibtc/blockchainPrice.png" alt="Blockchain.info"></a></li>
+			</ul>
+		</div>
+	{{/btc.off}}
+</script>
+
+<!-- Page btcHome -->
+<script id="btcHome" type="text/html">
+	<!-- Logo + video bitcoin -->
+	<div class="jumbotron noir">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-12 text-center">
+					<img class="footMarge-lg" src="img/ibtc/bitcoin.png" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-6 col-sm-offset-3">
+					<div class="well well-sm noir">
+						<div id="videoBtc" class="embed-responsive embed-responsive-16by9"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>

@@ -1,0 +1,6 @@
+{
+	"off"           : true,
+	"func" : {
+		"page"      : "$.etat.home()"
+	}
+}
