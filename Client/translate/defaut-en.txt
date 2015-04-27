@@ -38,18 +38,18 @@ ERR-USER-NOT-ACCESS	                  Vous n'êtes pas autorisé à accéder à 
 ERR-POSTE-ALREADY-EXISTS	          Le poste que vous essayiez d'ajouter existe déjà dans la base de données.
 ERR-ECHEC-SAVE-POSTE	              L'enregistrement du poste a échoué
 ERR-POSTE-NOT-EXISTS                  Le poste que vous voulez supprimer n'existe pas.
-ERR-ROLE-INVALID                      Le rôle passer en paramètres semble incorrecte.
+ERR-ROLE-INVALID                      Le rôle passé en paramètres semble incorrect.
 ERR-NOT-CHANGE-ADMIN                  Vous ne pouvez pas modifier les rôles d'administrateurs.
-ERR-VAR-VOTE-INVALID                  Les données du vote semble incorrecte.
+ERR-VAR-VOTE-INVALID                  Les données du vote semblent incorrectes.
 ERR-VAR-INVALID	                      Les données passées en paramètre semblent incorrectes.
 ERR-LOI-ALREADY-EXISTS                La loi que vous essayiez d'ajouter existe déjà dans la base de données.
 ERR-ECHEC-SAVE-LOI	                  L'enregistrement de la loi a échoué.
-ERR-LOI-NOT-EXISTS	                  La loi n'est pas reconnu.
+ERR-LOI-NOT-EXISTS	                  La loi n'est pas reconnue.
 ERR-ECHEC-SAVE-AMD	                  L'enregistrement de l'amendement a échoué.
 ERR-ALREADY-CONNECTED	              Vous êtes déjà connecté.
 ERR-ALREADY-NOT-CONNECTED	          Vous n'êtes pas connecté.
 ERR-AMD-NOT-EXISTS                    L'amendement n'est pas reconnu.
-ERR-SECU-NOT-EXISTS                   La synchronization a échoué pour cause de parametre invalide.
+ERR-SECU-NOT-EXISTS                   La synchronisation a échoué pour cause de paramètre invalide.
 
 // Mod tmpl.
 
@@ -68,32 +68,32 @@ FORM-MESSAGE-CODE-PIN-MIN             Votre code Pin doit être composé de 4 ch
 USER-LOGIN                            Connexion
 USER-LABEL                            Mon compte
 USER-SLID-1-LABEL                     DÉMOCRATIE DIRECTE en TEMPS RÉEL
-USER-SLID-1-DESC                      Attribuez des postes, votez pour des lois et proposez des lois. Les votes sont directs et les résultats instantanés.
+USER-SLID-1-DESC                      Votez pour élire, créez des lois. Les votes sont directs et les résultats instantanés.
 USER-SLID-2-LABEL                     SUFFRAGE UNIVERSEL
-USER-SLID-2-DESC                      Tous votent anonymement et proposent lois et amendements. Chaque vote est comptabilisé et chaque proposition enregistrée, à égalité (résultats à la majorité des membres).
-USER-NOT-SIGN-VALIDE                  La signature du message n'est pas valide et ne correspond pas a l'identifiant du signataire.
+USER-SLID-2-DESC                      Tous sont éligibles et tous votent. Tous proposent lois et amendements. Tous les votes sont secrets (résultats à la majorité des membres).
+USER-NOT-SIGN-VALIDE                  La signature du message n'est pas valide et/ou ne correspond pas à l'identifiant du signataire.
 USER-VERIF-MESS-TITLE                 Vérifier une signature
-USER-VERIF-MESS-DESC                  Le quotient de message & de la signature retrouve l'identifiant du signataire - garantie d'authenticité.
+USER-VERIF-MESS-DESC                  Le quotient message & signature retrouve l'identifiant du signataire - garantie d'authenticité.
 USER-VERIF-MESS                       Vérification
 USER-SIGN-MESS-INPUT                  Le message signé
 DEF-MESSAGE                           Message
-USER-SIGN-INPUT-LABEL                 La signature du message
+USER-SIGN-INPUT-LABEL                 Signature du message
 USER-SIGN-MESS                        Signature
-USER-ADR-SIGN-LABEL                   L'identifiant du signataire
+USER-ADR-SIGN-LABEL                   Identifiant du signataire
 DEF-BITCOIN-ADR                       Identifiant
-IBTC-SIGN-INPUT                       Veuillez entrer votre signature
-IBTC-MESS-INPUT                       Veuillez entrer votre message
+IBTC-SIGN-INPUT                       Entrez votre signature
+IBTC-MESS-INPUT                       Entrez votre message
 DEF-CODE-PIN                          CODE PIN de SESSION
 USER-VALIDE-SIGN                      Le message est bien signé par l'identifiant en question.
 USER-SIGN-MESS-TITLE                  Signature EAC
-USER-SIGN-MESS-DESC                   Votre signature sera un mix.crypté de votre message & votre identité.
-USER-SIGN-MESS-LABEL                  Le message a signer
-USER-SIGN-MESS-RESULT                 Voici la signature électronique de notre message mixé à votre identifiant utilisateur. Envoyez votre message au destinataire et faites lui parvenir cette signature.
+USER-SIGN-MESS-DESC                   Votre signature sera un mixe.crypté de vos message & identité.
+USER-SIGN-MESS-LABEL                  Le message à signer
+USER-SIGN-MESS-RESULT                 Voici la signature électronique de votre message mixé à votre identifiant. Envoyez les trois éléments au destinataire.
 USER-SIGN-MESS-ERR                    La signature du message a échoué, merci de réessayer.
 DEF-CODE-PIN-NEW                      CRÉEZ UN CODE PIN DE SESSION
-USER-PASS-CODE-LABEL                  Le Code Pin est destiné à opérer et protéger la session. À chaque nouvelle connexion vous choisirez un Code Pin différent.
-USER-PASS-PHRASE-EX                   Ex : decoupa -foxminecho- 110299 :mecodelta: (tr304512) dans les fées Pature 669912 0143785912 decoti ++ZEROMONT++ 45er
-USER-PASS-PHRASE-LABEL                Nouveau? Créez votre phrase secrète. Si vous oubliez votre phrase secrète, votre identité est perdus définitivement.
+USER-PASS-CODE-LABEL                  Un Code Pin (4 chiffres) est destiné à protéger la session. À chaque nouvelle connexion vous inventez un Code Pin.
+USER-PASS-PHRASE-EX                   Entrez ici votre phrase secrete
+USER-PASS-PHRASE-LABEL                Nouveau? Créez votre phrase secrète. Si vous oubliez votre phrase secrète, votre identité est perdue définitivement.
 USER-PASS-PHRASE                      PHRASE SECRÈTE DE MEMBRE
 USER-PASS-PHRASE-REQUIRED             Veuillez saisir votre phrase secrète.
 DEF-LOGOUT                            Déconnexion
@@ -108,30 +108,30 @@ USER-END-SIGN-LABEL                   Finaliser l'inscription
 USER-END-SIGN-DESC                    Veuillez finaliser le processus d'inscription en entrant votre nom et prénom dans le formulaire.
 DEF-SAVE                              Enregistrement
 USER-VALIDE-LABEL                     Validation du compte
-USER-VALIDE-DESC                      Votre compte est actuellement en attente d'approbation. Une fois cette actions effectuées, vous pourrez poursuivre pour découvrir le déroulement du processus de vote.
+USER-VALIDE-DESC                      Votre compte est actuellement en attente d'approbation. Le contact en charge est à apso.4g@gmail.com .
 USER-BANNI-LABEL                      Compte bloqué
 USER-BANNI-DESC                       Votre compte a été désactivé par un administrateur. Veuillez contacter le service support pour plus d'information.
 DEF-SIGNUP                            Inscription
-GUEST                                 Inviter
+GUEST                                 Invité
 BANNI                                 Bloqué
 OBS                                   Observateur
 CITOYEN                               Citoyen
 ADMIN                                 Administrateur
-GUESTS                                Inviters
+GUESTS                                Invités
 BANNIS                                Bloqués
 OBSS                                  Observateurs
 CITOYENS                              Citoyens
-USER-COMPTE-DESC                      Des élections anonymes en temps réel ou chaque citoyen est susceptible d'être élu. Exprime un choix, une volonté. Ici chaque utilisateur peut créer des lois, proposer des amendements, et enfin, exprimer sont vote.
+USER-COMPTE-DESC                      Entrez votre e-mail si vous désirez passer d'Observateur à Citoyen (ou contactez apso.4g@gmail.com)
 DEF-HISTORY                           Historique
 SAVE                                  Inscription de l'utilisateur
-ADDPOSTE                              Ajout d'un nouveaux poste
+ADDPOSTE                              Ajout d'un nouveau poste
 DELETEPOSTE                           Suppression du poste
 EDITEROLE                             Modification du rôle de l'utilisateur
 VOTE                                  Vote de l'utilisateur
 ADDLOIS                               Ajout d'une nouvelle loi
 ADDAMD                                Ajout d'un nouvel amendement
-EDITELOIS                             Edition d'une loi
-EDITEAMD                              Edition d'un amendement
+EDITELOIS                             Édition d'une loi
+EDITEAMD                              Édition d'un amendement
 DELETELOIS                            Suppression de la loi
 DELETEAMD                             Suppression de l'amendement
 DEF-ACTIONS                           Actions
@@ -141,78 +141,78 @@ VOIX-SOUND-TITRE                      Audio
 USER-Q-OBS                            Vous êtes Observateur ?
 USER-Q-CIT                            Vous êtes Citoyen ?
 USER-Q-ADM                            Vous êtes Administrateur ?
-USER-R-OBS                            Vous pouvez accéder à l'historique - Vous pouvez voir les Lois actives et en proposition ainsi que leurs amendements en proposition. Vous pouvez voir quels sont les postes, les membres en poste et à quel poste. Vous pouvez connaître la liste des membres inscrits.
-USER-R-CIT                            Vous accédez à l'historique - aux Lois actives et en proposition ainsi que leurs amendements ; vous pouvez voter et créer des propositions de lois et d'amendements. Vous pouvez voir les membres, les postes et leurs élus. Vous pouvez élire un membre à un poste.
-USER-R-ADM                            Vous accédez à l'historique - aux Lois et amendements que vous pouvez voter ainsi que les modifier (orthographe par expl) ou les supprimer (obsolète par exple). Vous pouvez voir membres, postes et élus. Vous pouvez élire, créer ou supprimer un poste, vous pouvez bannir un membre. Vous admettez les membres et vous êtes désigné à ce poste par une loi.
+USER-R-OBS                            Vous pouvez afficher l'Historique, les Lois et leurs Amendements (en vigueur et en proposition), tous les membres, tous les postes et les élus.
+USER-R-CIT                            Vous gardez vos droits observateurs et accédez à la création de Lois et Amendements ainsi qu'à l'élection des membres et au vote des Lois.
+USER-R-ADM                            Vous êtes désigné à ce poste par une loi - vous gardez vos droits citoyens et pouvez modifier ou supprimer rôles et lois, supprimer ou créer des postes.
 
 // Mod état
 
-ETAT-LOG-DESC-LIMIT                   Un historique profond stocke toutes les actions depuis la mise en activité. L'historique sommaire affiche ici les mille dernières actions. Parmi les informations, date, heure, agent, objet, les choix de vote sont immédiatement anonymes et aucun historique ne les retiens.
+ETAT-LOG-DESC-LIMIT                   Toutes les actions depuis la mise en activité sont stockées, un historique affiche ici les mille dernières actions. En action ou en archive les votes sont secrets.
 ETAT-LABEL                            Élus
 ETAT-LOG-DESC                         Toutes les actions des Citoyens et Administrateurs.
-DEF-CONFIRM-VOTE                      Votre vote a était confirmer.
+DEF-CONFIRM-VOTE                      Votre vote a été confirmé.
 ETAT-SELECT-POSTE                     Sélectionner un poste
 ETAT-SELECT-USER                      Sélectionnez un citoyen
 ETAT-GET-MY-VOTE                      Choisissez vos Élus, les cumuls sont possibles, tous les citoyens sont éligibles.
 ETAT-POSTE-FREE                       Poste vacant
 ETAT-CONFIRME-VOTE-LABEL              Confirmer votre vote
 ETAT-ADD-NEW-POSTE                    Création de poste
-ETAT-ADD-POSTE-DESC                   Dans cette section vous pouvez crée un nouveaux poste.
+ETAT-ADD-POSTE-DESC                   La création d'un nouveau poste est demandé par une loi.
 ETAT-POSTE-LABEL                      Poste
 ETAT-POSTES-LABEL                     Postes
-ETAT-POSTE-INPUT                      Le nouveau poste
+ETAT-POSTE-INPUT                      Nouveau poste
 DEF-SIGNUP                            Inscription
-ETAT-ADD-POSTE-SUCCES-DESC            Le nouveau poste fut ajouté avec succès.
+ETAT-ADD-POSTE-SUCCES-DESC            Le nouveau poste a été ajouté avec succès.
 ETAT-DELETE-POSTE-LABEL               Supprimer le poste
 ETAT-DELETE-POSTE-TITLE               Suppression du poste
-ETAT-DELETE-POSTE-DESC                Dans cette section vous pouvez supprimer le poste
-ETAT-DELETE-POSTE-MSG-DESC            Le poste fut supprimer avec succès.
+ETAT-DELETE-POSTE-DESC                Attention la suppression d'un poste peut modifier l'ensemble du bureau
+ETAT-DELETE-POSTE-MSG-DESC            Le poste a été supprimé avec succès.
 ETAT-LIST-OF                          Liste des
-ETAT-EDIT-ROLE-LABEL                  Modification du rôle
+ETAT-EDIT-ROLE-LABEL                  Modification de rôle
 ETAT-ROLE-INPUT                       Choisissez le nouveau rôle de l'utilisateur
-ETAT-EDIT-ROLE-DESC                   Dans cette section vous pouvez modifier le rôle de
+ETAT-EDIT-ROLE-DESC                   Attention vous allez modifier le rôle de
 ETAT-ACTU-ROLE-DESC                   Le rôle actuel de l'utilisateur est
-ETAT-SUCC-ROLE-DESC                   Le rôle fut mise a jour avec succès.
+ETAT-SUCC-ROLE-DESC                   Le rôle a été mis a jour avec succès.
 ETAT-NOT-EDIT-YOUR-ROLE               Vous ne pouvez pas modifier votre propre rôle.
 
 // Mod lois
 
-LOIS-LABEL                            Lois
-LOIS-AMD-LABEL                        Amendements
+LOIS-LABEL                            Loi
+LOIS-AMD-LABEL                        Amendement
 LOIS-MY-VOTE                          Mon vote
 LOIS-ADD-NEW                          CRÉER UNE LOI
-LOIS-ADD-NAME-INPUT                   Le nom de la loi
-LOIS-ADD-AMD-INPUT                    NOUVEL AMENDEMENT
-LOIS-ADD-DESC                         Une loi comporte un Titre qui entre en vigueur par son amendement élu. En l'enregistrant vous la soumettez aux votes et autorisez la création d'autres amendements.
-LOIS-ADD-SUCCES-LABEL                 La nouvelle loi fut ajouté avec succès
+LOIS-ADD-NAME-INPUT                   Entrez le nouveau titre
+LOIS-ADD-AMD-INPUT                    PREMIER AMENDEMENT
+LOIS-ADD-DESC                         Une loi comporte un Titre et au moins un amendement. En la créant vous autorisez la création d'autres amendements. La loi entrera en vigueur par l'amendement élu.
+LOIS-ADD-SUCCES-LABEL                 La nouvelle loi a été ajoutée avec succès
 LOIS-FICHE-LABEL                      Fiche de la loi
 LOIS-ADD-AMD-NEW                      CRÉER un amendement
 LOIS-ADD-AMD-LABEL                    Ajouter une nouvelle alternative aux amendements ci-dessous.
-LOIS-ADD-AMD-SUCCES-LABEL             Le nouveaux amendement fut ajouté avec succès.
+LOIS-ADD-AMD-SUCCES-LABEL             Le nouvel amendement fut ajouté avec succès.
 LOIS-EDIT-LABEL                       Modification de la loi
 LOIS-EDIT-DESC                        Dans cette section vous pouvez modifier la loi
 DEF-MODIFICATION                      Modification
-LOIS-EDIT-SUCCES-LABEL                La loi fut mise a jour avec succès.
+LOIS-EDIT-SUCCES-LABEL                La loi a été mise a jour avec succès.
 LOIS-DELETE-LABEL                     Suppression de la loi
 LOIS-DELETE-DESC                      Dans cette section vous pouvez supprimer la loi
 DEF-DELETE                            Suppression
-LOIS-DELETE-MSG                       La loi fut supprimer avec succès.
+LOIS-DELETE-MSG                       La loi a été supprimée avec succès.
 DEF-VOTING                            Voter
-LOIS-EDIT-AMD-LABEL                   Modification de l'amendements suivant :
-LOIS-EDIT-AMD-SUCCES                  L'amendement fut mise a jour avec succès.
-LOIS-DELETE-AMD-LABEL                 Suppression de l'amendements suivant :
-LOIS-DELETE-AMD-DESC                  L'amendement fut supprimer avec succès.
+LOIS-EDIT-AMD-LABEL                   Modification de l'amendement suivant :
+LOIS-EDIT-AMD-SUCCES                  L'amendement a été mis a jour avec succès.
+LOIS-DELETE-AMD-LABEL                 Suppression de l'amendement suivant :
+LOIS-DELETE-AMD-DESC                  L'amendement a été supprimé avec succès.
 LOIS-NOT-DELETE-LAST-AMD              La loi doit contenir au moins un amendement.
 LOIS-VOTANT-LABEL                     Votants
 LOIS-DELETE-BTN                       Supprimer la loi
 LOIS-EDIT-BTN                         Modifier la loi
-LOIS-EDIT-AMD-BTN                     Modifier l'amendements
-LOIS-DELETE-AMD-BTN                   Supprimer l'amendements
+LOIS-EDIT-AMD-BTN                     Modifier l'amendement
+LOIS-DELETE-AMD-BTN                   Supprimer l'amendement
 LOIS-ACTIVE-LABEL                     Loi en vigueur
 LOIS-NOT-ACTIVE-LABEL                 Loi non appliquée
 LOIS-AMD-ELU-LABEL                    L'amendement élu
 LOIS-VOTE-DESC-AMD                    Vous allez voter pour son amendement suivant :
-LOIS-ACTIVE-DESC                      En vigueur à la majorité des Citoyens (50%)
-LOIS-NOT-ACTIVE-DESC                  En proposition par défaut
+LOIS-ACTIVE-DESC                      En vigueur (à la majorité des Citoyens)
+LOIS-NOT-ACTIVE-DESC                  En état de proposition (par défaut)
 LOIS-VOTE-PARTICIPE                   La loi cochée signifie que vous avez participé à son vote
 LOIS-VOTE-PARTICIPE-AMD               L'amendement coché signifie qu'il s'agit de votre vote
