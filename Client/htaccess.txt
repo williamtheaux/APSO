@@ -27,5 +27,5 @@ RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ http://%1%{REQUEST_URI} [R=301,QSA,NC,L]
 
 # On https.
-RewriteCond %{HTTP:X-Forwarded-Proto} !https
-RewriteRule (.*) https://DOMAINE.COM/$1 [R=301,L]
+# RewriteCond %{HTTP:X-Forwarded-Proto} !https
+# RewriteRule (.*) https://DOMAINE.COM/$1 [R=301,L]

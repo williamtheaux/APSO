@@ -216,3 +216,4 @@ LOIS-ACTIVE-DESC                      En vigueur (à la majorité des Citoyens)
 LOIS-NOT-ACTIVE-DESC                  En état de proposition (par défaut)
 LOIS-VOTE-PARTICIPE                   La loi cochée signifie que vous avez participé à son vote
 LOIS-VOTE-PARTICIPE-AMD               L'amendement coché signifie qu'il s'agit de votre vote
+DEF_TUTORIEL                          Accéder au tutoriel et au forum de discussion sur l'application APSO
