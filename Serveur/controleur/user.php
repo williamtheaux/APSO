@@ -68,7 +68,7 @@ class user {
 	public static function sign($a, $n, $p, $s) {
 		
 		// Vérification que nom $n et prénom $p son des alpha ou lever une exception.
-		if(!valide::alpha($n) || !valide::alpha($p)) throw new Exception('ERR-VAR-INVALID');
+		if(!valide::txt($n) || !valide::txt($p)) throw new Exception('ERR-VAR-INVALID');
 		
 		// Récupérer les donnés utilisateur avec helper.
 		$user = help::user($a, $n.$p, $s);
