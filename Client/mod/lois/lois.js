@@ -69,6 +69,41 @@
 				// If btc adress exist
 				if($.m.user.wallet.adr) {
 					
+					// Si les lois son present dans la liste.
+					if($.m.user.wallet.obs.lois.nb) {
+						
+						// Si pas de type d'ordre alphabétique ou chronologique. Le type d'order par defaut, alphabétique
+						if(!$.m.lois.order) $.m.lois.order = 'alphabetique';
+						
+						// Si order est alphabetique.
+						if($.m.lois.order == 'alphabetique') {
+							
+							// Fonction de tri.
+							function compareA(a,b) {
+								if (a.loi < b.loi) return -1;
+								if (a.loi > b.loi) return 1;
+								else return 0;
+							}
+							
+							// Tri des lois.	
+							$.m.user.wallet.obs.lois.list.sort(compareA);
+						}
+						
+						// Si order est chronologique.
+						if($.m.lois.order == 'chronologique') {
+							
+							// Fonction de tri.
+							function compareC(a,b) {
+								if (a.id < b.id) return 1;
+								if (a.id > b.id) return -1;
+								else return 0;
+							}
+							
+							// Tri des lois.	
+							$.m.user.wallet.obs.lois.list.sort(compareC);
+						}
+					}
+					
 					// Clean windows.
 					$.tmpl.clean();
 					
@@ -92,6 +127,29 @@
 				
 				// If not btcAdr.
 				else $.tmpl.error('ERR-ALREADY-NOT-CONNECTED');
+			},
+			
+			/**
+			 * Funct sortLois.
+			 */
+			sortLois: function(param) {
+				
+				// Si order est alphabetique.
+				if(param == 'alphabetique') {
+					
+					// Insc order for tri		
+					$.m.lois.order = 'alphabetique';
+				}
+						
+				// Si order est chronologique.
+				if(param == 'chronologique') {
+							
+					// Insc order for tri		
+					$.m.lois.order = 'chronologique';
+				}
+				
+				// Setup html.
+				$.lois.home();
 			},
 			
 			/**

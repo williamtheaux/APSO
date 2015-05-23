@@ -217,3 +217,11 @@ LOIS-NOT-ACTIVE-DESC                  En état de proposition (par défaut)
 LOIS-VOTE-PARTICIPE                   La loi cochée signifie que vous avez participé à son vote
 LOIS-VOTE-PARTICIPE-AMD               L'amendement coché signifie qu'il s'agit de votre vote
 DEF_TUTORIEL                          Accéder au tutoriel et au forum de discussion sur l'application APSO
+
+// Add V 0.2
+
+USER-SLID-0-LABEL                     Votre titre
+USER-SLID-0-DESC                      Emplacement pour votre description.
+LOIS-FICHE-TITLE                      Détail de la loi
+LOIS-SORT-ALPHA                       Tri alphabétique
+LOIS-SORT-CHRONO                      Tri chronologique

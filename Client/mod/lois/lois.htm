@@ -23,7 +23,16 @@
 		<div class="row">
 			<!-- Title nb loi -->
 			<div class="col-xs-6">
-				<h2 class="text-left text-uppercase fontH1wt topMarge-lg"><i class="fa fa-leanpub"></i> {{user.wallet.obs.lois.nb}} {{#T}}LOIS-LABEL{{/T}}</h2>
+				<h2 class="text-left text-uppercase fontH1wt topMarge-lg"><i class="fa fa-leanpub"></i> {{user.wallet.obs.lois.nb}} {{#T}}LOIS-LABEL{{/T}} 
+				<div class="btn-group">
+					<button type="button" onClick="$.lois.sortLois('alphabetique')" class="btn btn-success btn-xs loiTooltip" data-tr="LOIS-SORT-ALPHA" data-toggle="tooltip" data-placement="top" data-container="body" title="{{#TX}}LOIS-SORT-ALPHA{{/TX}}">
+						<i class="fa fa-sort-alpha-asc"></i>
+					</button>
+					<button type="button" onClick="$.lois.sortLois('chronologique')" class="btn btn-success btn-xs loiTooltip" data-tr="LOIS-SORT-CHRONO" data-toggle="tooltip" data-placement="top" data-container="body" title="{{#TX}}LOIS-SORT-CHRONO{{/TX}}">
+						<i class="fa fa-sort-numeric-desc"></i>
+					</button>
+				</div>
+				</h2>
 			</div>
 			<!-- btn add lois -->
 			<div class="col-xs-6">
@@ -105,7 +114,7 @@
 			<div class="col-xs-12">
 				<div class="row">
 					<div class="col-sm-6 fontPwt">
-						<h1 class="text-left text-uppercase fontH1wt topMarge-lg"><i class="fa fa-leanpub hidden-xs"></i> {{lois.fiche.loi}}
+						<h1 class="text-left text-uppercase fontH1wt"><small>{{#T}}LOIS-FICHE-TITLE{{/T}}</small><br><i class="fa fa-leanpub hidden-xs"></i> {{lois.fiche.loi}}
 							{{#user.wallet.admin.editeLois}}
 								<button type="button" onClick="$.lois.editeLoisHTML()" class="btn btn-success btn-xs loiTooltip" data-tr="LOIS-EDIT-BTN" data-toggle="tooltip" data-placement="top" data-container="body" title="{{#TX}}LOIS-EDIT-BTN{{/TX}}">
 									<span><i class="fa fa-pencil"></i></span>

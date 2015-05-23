@@ -2,6 +2,12 @@
 	"off"           : true,
 	"intro" : [
 		{
+			"img"   : "logo",
+			"ico"   : "fa-tint",
+			"label" : "USER-SLID-0-LABEL",
+			"desc"  : "USER-SLID-0-DESC"
+		},
+		{
 			"img"   : "vote",
 			"ico"   : "fa-archive",
 			"label" : "USER-SLID-1-LABEL",
