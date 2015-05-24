@@ -481,7 +481,7 @@ class dbs {
 		try {
 		
 			// requête SQL.
-			$req = db::go('INSERT INTO apso_user VALUES("", :adr, :nom, :prenom, :date, :role)');
+			$req = db::go('INSERT INTO apso_user VALUES("", :adr, :nom, :prenom, :date, :role, :email)');
 			
 			// Exécut requête.
 			$req->execute($e);

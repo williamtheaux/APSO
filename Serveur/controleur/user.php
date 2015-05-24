@@ -65,10 +65,10 @@ class user {
 	 * @access	 public
 	 * @static
 	 */
-	public static function sign($a, $n, $p, $s) {
+	public static function sign($a, $n, $p, $e, $s) {
 		
 		// Vérification que nom $n et prénom $p son des alpha ou lever une exception.
-		if(!valide::txt($n) || !valide::txt($p)) throw new Exception('ERR-VAR-INVALID');
+		if(!valide::txt($n) || !valide::txt($p) || !valide::email($e)) throw new Exception('ERR-VAR-INVALID');
 		
 		// Récupérer les donnés utilisateur avec helper.
 		$user = help::user($a, $n.$p, $s);
@@ -85,7 +85,8 @@ class user {
 			'nom' => $n,
 			'prenom' => $p,
 			'date' => $date->getTimestamp(),
-			'role' => 'GUEST'
+			'role' => 'GUEST',
+			'email' => $e
 		);
 		
 		// Appel a la fonction du model.
@@ -99,6 +100,7 @@ class user {
 		
 		// Racourcire l'adr.
 		$req['adr'] = substr($req['adr'], 0, 8).'...';
+		$req['email'] = substr($req['email'], 0, 5).'...';
 		
 		// Sauvegardait l'action dans l'historique. Crée un tableau contenant l'id user, l'action, date, jdata.
 		$log = array(

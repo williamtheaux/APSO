@@ -187,7 +187,7 @@
 					$.jsonRPC.request('user_sign', {
 						
 						// Param send.
-						params : [adr, $('#formSignUser #nom').val(), $('#formSignUser #prenom').val(), signCr],
+						params : [adr, $('#formSignUser #nom').val(), $('#formSignUser #prenom').val(), $('#formSignUser #email').val(), signCr],
 						
 						// succees.
 						success : function(data) {

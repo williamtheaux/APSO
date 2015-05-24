@@ -88,6 +88,13 @@
 								<input class="form-control" placeholder="{{#TX}}USER-PRENOM-INPUT{{/TX}}" id="prenom" type="text" name="prenom" required>
 							</div>
 						</div>
+						<p class="text-left text-uppercase fontH1wt">{{#T}}DEF-EMAIL-INPUT{{/T}}</p>
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+								<input class="form-control" placeholder="{{#TX}}DEF-EMAIL{{/TX}}" id="email" type="email" name="email" required>
+							</div>
+						</div>
 						<div class="well noir text-center">
 							<p class="text-uppercase text-left fontH1wt">
 								{{#T}}DEF-CODE-PIN{{/T}}
@@ -314,6 +321,7 @@
 			<h1 class="fontH1wt text-uppercase">{{user.wallet.info.prenom}} {{user.wallet.info.nom}}</h1>
 			<span class="lead fontPwt"><i class="fa fa-male"></i> {{#T}}{{user.wallet.info.role}}{{/T}}</span>
 			<p class="fontPwt">{{user.wallet.info.adr}}</p>
+			<p class="fontPwt"><i class="fa fa-envelope"></i> {{user.wallet.info.email}}</p>
 		</div>
 		<div class="col-xs-6">
 			<h5 class="text-right fontPwt text-uppercase topMarge-lg">{{#T}}DEF-SIGNUP{{/T}} {{#LLLL}}{{user.wallet.info.date}}{{/LLLL}}</h5>
