@@ -113,6 +113,9 @@ class user {
 		// Appel a la fonction du model.
 		dbs::setLog($log);
 		
+		// Send to admin mail.
+		email::newUser($user);
+		
 		// Return array.
 		return $user;
 	}
