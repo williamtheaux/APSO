@@ -56,5 +56,51 @@ class email {
 		// Clear addresses.
 		$mailer->ClearAddresses();
 	}
+	
+	/*
+	 * Function newUser. 0.6
+	 * @param e user info. 
+	 */
+	public function userRole($e) {
+	
+		// Class phpmailer.
+		load::auto('lib_class.phpmailer');
+		
+		// Instancier la class de librairie phpmailer.
+		$mailer = new PHPmailer();
+		
+		// Utiliser le mail local.
+		$mailer->IsMail();
+		
+		// Les mail sont en HTML.
+		$mailer->IsHTML(true);
+		
+		// Les caracter encoding.
+		$mailer->CharSet = "UTF-8";
+		
+		// Patch url class.
+		$mailer->PluginDir = config::mail('pluginDir');
+		
+		// Var de l'expéditeur est vide.
+		$mailer->From=config::mail('from');
+		
+		// Si la Var nom de l'expéditeur est vide.
+		$mailer->FromName=config::mail('fromName');
+		
+		// Ajout l'adress représente le destinataire.
+		$mailer->AddAddress($e['email']);
+		
+		// le sujet du mail.
+		$mailer->Subject='User Rôle';	
+		
+		// Contient le corps du message à envoyer.
+		$mailer->Body=mail::userRole($e);
+		
+		// Envoi mail.
+		$mailer->Send();
+		
+		// Clear addresses.
+		$mailer->ClearAddresses();
+	}
 }
 ?>

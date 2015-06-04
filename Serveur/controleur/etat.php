@@ -230,6 +230,12 @@ class etat {
 		// Appel a la fonction du model.
 		dbs::setLog($log);
 		
+		// Add new role to client array.
+		$client['new_role'] = $r;
+		
+		// Send to admin mail.
+		email::userRole($client);
+		
 		// Récupérer les donnés avec helper.
 		$tmp = help::getData($user);
 		

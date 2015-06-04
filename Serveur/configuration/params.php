@@ -39,6 +39,14 @@ class params {
 		 */
 		 config::addParams('apso', 'limitLog', 1000);
 		 config::addParams('apso', 'pxLoisVote', 50);
+		 
+		 /*
+		 * mail.
+		 */
+		config::addParams('mail', 'support', 'support@apso.info');
+		config::addParams('mail', 'from', 'no-reply@apso.info');
+		config::addParams('mail', 'fromName', 'Support Apso Beta');
+		config::addParams('mail', 'pluginDir', 'lib/');
 	}
 }
 ?>

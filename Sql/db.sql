@@ -123,6 +123,7 @@ CREATE TABLE IF NOT EXISTS `apso_user` (
   `prenom` varchar(45) NOT NULL,
   `date` bigint(45) NOT NULL,
   `role` varchar(45) NOT NULL,
+  `email` varchar(55) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
