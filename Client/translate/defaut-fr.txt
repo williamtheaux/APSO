@@ -58,6 +58,7 @@ FORM-MESSAGE-CODE-PIN-REQUIRED        Veillez entrer votre code Pin
 FORM-MESSAGE-INPUT-REQUIRED           Veuillez remplir les champs ci-dessous
 FORM-MESSAGE-ADR-BTC-REQUIRED         Veuillez entrer l'identifiant du signataire
 FORM-MESSAGE-EMAIL-INVALID            L'adresse email n'est pas valide
+FORM-MESSAGE-EMAIL-REQUIRED           Saisissez votre adresse e-mail
 FORM-MESSAGE-PIN-REQUIRED             Veuillez entrer le code pin crypté
 FORM-MESSAGE-CODE-PIN-INVALID         Votre code Pin ne doit être composé que de chiffres
 FORM-MESSAGE-VALIDATION-FORM-FAILED   Vous devez valider le formulaire avant de poursuivre
@@ -108,7 +109,7 @@ USER-END-SIGN-LABEL                   Finaliser l'inscription
 USER-END-SIGN-DESC                    Veuillez finaliser le processus d'inscription en entrant votre nom et prénom dans le formulaire.
 DEF-SAVE                              Enregistrement
 USER-VALIDE-LABEL                     Validation du compte
-USER-VALIDE-DESC                      Votre compte est actuellement en attente d'approbation. Le contact en charge est à apso.4g@gmail.com .
+USER-VALIDE-DESC                      Votre compte est actuellement en attente d'approbation. Le contact en charge est à support@apso.info
 USER-BANNI-LABEL                      Compte bloqué
 USER-BANNI-DESC                       Votre compte a été désactivé par un administrateur. Veuillez contacter le service support pour plus d'information.
 DEF-SIGNUP                            Inscription
@@ -121,7 +122,7 @@ GUESTS                                Invités
 BANNIS                                Bloqués
 OBSS                                  Observateurs
 CITOYENS                              Citoyens
-USER-COMPTE-DESC                      Entrez votre e-mail si vous désirez passer d'Observateur à Citoyen (ou contactez apso.4g@gmail.com)
+USER-COMPTE-DESC                      Entrez votre e-mail si vous désirez passer d'Observateur à Citoyen (ou contactez support@apso.info)
 DEF-HISTORY                           Historique
 SAVE                                  Inscription de l'utilisateur
 ADDPOSTE                              Ajout d'un nouveau poste
@@ -225,3 +226,5 @@ USER-SLID-0-DESC                      Emplacement pour votre description.
 LOIS-FICHE-TITLE                      Détail de la loi
 LOIS-SORT-ALPHA                       Tri alphabétique
 LOIS-SORT-CHRONO                      Tri chronologique
+DEF-EMAIL                             Adresse e-mail
+DEF-EMAIL-INPUT                       Votre adresse e-mail

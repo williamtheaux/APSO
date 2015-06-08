@@ -61,5 +61,53 @@ class mail {
 		// Return template.
 		return $tmp;
 	}
+	
+	public static function godNewsHtml($e) {
+		
+		// add header.
+		$tmp='<!DOCTYPE html>';
+		$tmp.='<html>';
+		$tmp.='<head>';
+			$tmp.='<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
+			$tmp.='<meta http-equiv="Pragma" content="no-cache">';
+		$tmp.='</head>';
+		$tmp.='<body>';
+		
+		$tmp.='<p>Bonjour,</p>';
+		$tmp.='<p>APSO vous informe que vous vous êtes élu au poste : '.$e['poste'].'</p>';
+		$tmp.='<hr>';
+		$tmp.='<p>Pour l\'Administration d\'APSO, contact : support@apso.info</p>';
+		
+		// Fin page.
+		$tmp.='</body>';
+		$tmp.='</html>';
+		
+		// Return template.
+		return $tmp;
+	}
+	
+	public static function badNewsHtml($e) {
+		
+		// add header.
+		$tmp='<!DOCTYPE html>';
+		$tmp.='<html>';
+		$tmp.='<head>';
+			$tmp.='<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
+			$tmp.='<meta http-equiv="Pragma" content="no-cache">';
+		$tmp.='</head>';
+		$tmp.='<body>';
+		
+		$tmp.='<p>Bonjour,</p>';
+		$tmp.='<p>APSO vous informe que vous n\'êtes plus élu au poste : '.$e['poste'].'</p>';
+		$tmp.='<hr>';
+		$tmp.='<p>Pour l\'Administration d\'APSO, contact : support@apso.info</p>';
+		
+		// Fin page.
+		$tmp.='</body>';
+		$tmp.='</html>';
+		
+		// Return template.
+		return $tmp;
+	}
 }
 ?>

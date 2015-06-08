@@ -75,11 +75,15 @@ class vote {
 		// Vérification que le type est CTN ou LOS ou lever une exception.
 		else throw new Exception('ERR-VAR-VOTE-INVALID');
 		
+		// Date Actuel.
+		$date = new DateTime();
+		
 		// Sauvegardait le vote dans la base de données. Crée un tableau contenant l'id vote, id1, id2, type, date.
 		$req = array(
 			'id1' => $d1,
 			'id2' => $d2,
-			'type' => $t
+			'type' => $t,
+			'secudate' => $date->getTimestamp()
 		);
 		
 		// Appel a la fonction du model.

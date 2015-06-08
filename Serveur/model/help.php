@@ -459,7 +459,7 @@ class help {
 			foreach($amdAr as $k1 => $v1) {
 				
 				// Calculer le pourcentage de votes par a port au total.
-				$pxa = round(100*$v1['nbVote']/$cmp);
+				$pxa = ($cmp!=0)? round(100*$v1['nbVote']/$cmp) : 0;
 				
 				// Ajouter le pourcentage par amd.
 				$amdAr[$k1]['px'] = $pxa;

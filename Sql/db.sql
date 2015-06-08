@@ -139,6 +139,23 @@ CREATE TABLE IF NOT EXISTS `apso_vote` (
   `id2` int(11) NOT NULL,
   `type` varchar(45) NOT NULL,
   `signe` varchar(65) NOT NULL,
+  `secudate` bigint(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Base de données: `apso`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `apso_ipn`
+--
+
+CREATE TABLE IF NOT EXISTS `apso_ipn` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vote` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

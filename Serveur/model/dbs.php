@@ -66,6 +66,34 @@ class dbs {
 	}
 	
 	/**
+	 * Function getControlIpn.
+	 * @access  public
+	 * @static
+	 */
+	public static function getControlIpn() {
+	
+		try {
+		
+			// query SQL.
+			$req = db::go('SELECT * FROM apso_ipn ORDER BY id DESC');
+			
+			// Exécut requête.
+			$req->execute();
+			
+			// Récup donnes db.
+			$arrTmp = $req->fetch();
+			
+    		// close requête SQL.
+			$req->closeCursor();
+			
+			// return result.
+			return $arrTmp;
+		}
+		
+		catch(Exception $e) { throw new Exception('SERV-ERROR-DATABASE'); }
+	}
+	
+	/**
 	 * Function getUserByBtc.
 	 * @access  public
 	 * @static
@@ -469,7 +497,27 @@ class dbs {
 		catch(Exception $e) { throw new Exception('SERV-ERROR-DATABASE'); }
 	}
 	
+	/**
+	 * Function setControlIpn.
+	 * @access  public
+	 * @static
+	 */
+	public static function setControlIpn($e) {
 	
+		try {
+		
+			// requête SQL.
+			$req = db::go('INSERT INTO apso_ipn VALUES("", :vote)');
+			
+			// Exécut requête.
+			$req->execute($e);
+		
+			// close requête SQL.
+			$req->closeCursor();
+		}
+	
+		catch(Exception $e) { throw new Exception('SERV-ERROR-DATABASE'); }
+	}
 	
 	/**
 	 * Function setUser.
@@ -547,7 +595,7 @@ class dbs {
 		try {
 		
 			// query SQL.
-			$req = db::go('INSERT INTO apso_vote VALUES("", :id1, :id2, :type, 0)');
+			$req = db::go('INSERT INTO apso_vote VALUES("", :id1, :id2, :type, 0, :secudate)');
 			
 			// Exécut requête.
 			$req->execute($e);
@@ -855,6 +903,28 @@ class dbs {
 		
 			// requête SQL.
 			$req = db::go('DELETE FROM apso_vote WHERE id1=:id1 and type="CTN"');
+			
+			// Exécut requête.
+			$req->execute($e);
+		
+			// Close requête SQL.
+			$req->closeCursor();
+		}
+	
+		catch(Exception $e) { throw new Exception('SERV-ERROR-DATABASE'); }
+	}
+	
+	/**
+	 * Function cleanVote.
+	 * @access  public
+	 * @static
+	 */ 
+	public static function cleanVote($e) {
+	
+		try {
+		
+			// requête SQL.
+			$req = db::go('DELETE FROM apso_vote WHERE signe="0" AND secudate<=:secudate');
 			
 			// Exécut requête.
 			$req->execute($e);
