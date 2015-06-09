@@ -122,7 +122,7 @@ GUESTS                                Invités
 BANNIS                                Bloqués
 OBSS                                  Observateurs
 CITOYENS                              Citoyens
-USER-COMPTE-DESC                      Entrez votre e-mail si vous désirez passer d'Observateur à Citoyen (ou contactez support@apso.info)
+USER-COMPTE-DESC                      Contact admin direct/privé = support@apso.info
 DEF-HISTORY                           Historique
 SAVE                                  Inscription de l'utilisateur
 ADDPOSTE                              Ajout d'un nouveau poste
@@ -228,3 +228,4 @@ LOIS-SORT-ALPHA                       Tri alphabétique
 LOIS-SORT-CHRONO                      Tri chronologique
 DEF-EMAIL                             Adresse e-mail
 DEF-EMAIL-INPUT                       Votre adresse e-mail
+DEF-AGORA-MON-COMPTE                  Passer par l'agora pour échanger, discuter
