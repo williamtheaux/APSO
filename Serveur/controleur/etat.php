@@ -201,10 +201,10 @@ class etat {
 				
 				// Supprimé ses propre votes.
 				dbs::deleteMyVote($delete);
-				
-				// Supprimé les votes effectue pour lui.
-				dbs::deleteVoteForClient(array('id1' => $client['id']));
 			}
+			
+			// Supprimé les votes effectue pour lui.
+			dbs::deleteVoteForClient(array('id1' => $client['id']));
 		}
 		
 		// Modifier le rôle du client.
