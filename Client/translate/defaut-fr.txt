@@ -221,8 +221,8 @@ DEF_TUTORIEL                          Accéder au tutoriel et au forum de discus
 
 // Add V 0.2
 
-USER-SLID-0-LABEL                     Votre titre
-USER-SLID-0-DESC                      Emplacement pour votre description.
+USER-SLID-0-LABEL                     APSO
+USER-SLID-0-DESC                      Exemplaire Evaluation Tous Publics (inscrivez-vous et testez)
 LOIS-FICHE-TITLE                      Détail de la loi
 LOIS-SORT-ALPHA                       Tri alphabétique
 LOIS-SORT-CHRONO                      Tri chronologique

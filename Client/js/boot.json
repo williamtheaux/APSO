@@ -3,7 +3,7 @@
 	"protocol"       : "https",
 	"lng" : {
 		"off"        : true,
-		"list"       : ["fr"],
+		"list"       : ["fr", "en"],
 		"url"        : "https://DOMAINE.COM/translate/",
 		"file"       : "defaut",
 		"langue"     : false,

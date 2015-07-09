@@ -467,7 +467,7 @@ class help {
 			
 			// Ajouter à la réponse de retour, les infos des lois.
 			$tmp['obs']['lois']['list'][] = array(
-				'id' => $v['id'],
+				'id' => (int)$v['id'],
 				'loi' => $v['nom'],
 				'nbAmd' => $nbAmd,
 				'elu' => $elu,
