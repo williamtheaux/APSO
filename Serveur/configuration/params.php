@@ -43,8 +43,8 @@ class params {
 		 /*
 		 * mail.
 		 */
-		config::addParams('mail', 'support', 'support@apso.info');
-		config::addParams('mail', 'from', 'no-reply@apso.info');
+		config::addParams('mail', 'support', 'YOUR_MAIL@YOUR.DOMAIN');
+		config::addParams('mail', 'from', 'no-reply@YOUR.DOMAIN');
 		config::addParams('mail', 'fromName', 'Support Apso Beta');
 		config::addParams('mail', 'pluginDir', 'lib/');
 	}
