@@ -93,7 +93,9 @@ class user {
 		dbs::setUser($req);
 		
 		// Récupérer les donnés utilisateur avec helper.
-		$user = help::user($a, $n.$p, $s);
+		//$user = help::user($a, $n.$p, $s);
+		// Recherche de l'utilisateur dans la base de données par l'identifiant client.
+		$user = dbs::getUserByBtc(array('adr' => $a));
 		
 		// Vérifier si utilisateur, lever une exception.
 		if(empty($user)) throw new Exception('ERR-ECHEC-SAVE-USER');
