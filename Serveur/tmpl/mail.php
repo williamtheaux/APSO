@@ -109,5 +109,53 @@ class mail {
 		// Return template.
 		return $tmp;
 	}
+	
+	public static function newLawHtml($e) {
+		
+		// add header.
+		$tmp='<!DOCTYPE html>';
+		$tmp.='<html>';
+		$tmp.='<head>';
+			$tmp.='<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
+			$tmp.='<meta http-equiv="Pragma" content="no-cache">';
+		$tmp.='</head>';
+		$tmp.='<body>';
+		
+		$tmp.='<h2>Nouvelle loi</h2>';
+		$tmp.='<p>Une nouvelle loi a été ajoutée : </p>';
+		$tmp.='<h3>Loi : '.$e['loi'].'</h3>';
+		$tmp.='<p>Amendement : '.$e['amd'].'</p>';
+			
+		// Fin page.
+		$tmp.='</body>';
+		$tmp.='</html>';
+		
+		// Return template.
+		return $tmp;
+	}
+	
+	public static function newAmdHtml($e) {
+		
+		// add header.
+		$tmp='<!DOCTYPE html>';
+		$tmp.='<html>';
+		$tmp.='<head>';
+			$tmp.='<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
+			$tmp.='<meta http-equiv="Pragma" content="no-cache">';
+		$tmp.='</head>';
+		$tmp.='<body>';
+		
+		$tmp.='<h2>Nouvel amendement</h2>';
+		$tmp.='<p>Un nouvel amendement fut ajouté : </p>';
+		$tmp.='<h3>Loi : '.$e['loi'].'</h3>';
+		$tmp.='<p>Amendement ajouté: '.$e['amd'].'</p>';
+			
+		// Fin page.
+		$tmp.='</body>';
+		$tmp.='</html>';
+		
+		// Return template.
+		return $tmp;
+	}
 }
 ?>

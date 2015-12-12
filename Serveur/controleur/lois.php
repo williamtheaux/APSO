@@ -81,6 +81,9 @@ class lois {
 		// Appel a la fonction du model.
 		dbs::setLog($log);
 		
+		// Send to group mail new law.
+		email::newLaw(array('loi'=> $loi['nom'], 'amd'=>$dbAmd['amd']));
+		
 		// Add for return.
 		$tmp['lois']['id'] = $loi['id'];
 		$tmp['lois']['loi'] = $loi['nom'];
@@ -164,6 +167,9 @@ class lois {
 
 		// Appel a la fonction du model.
 		dbs::setLog($log);
+		
+		// Send to group mail new amendment.
+		email::newAmd(array('loi'=> $loi['nom'], 'amd'=>$dbAmd['amd']));
 		
 		// Add for return.
 		$tmp['id_loi'] = $loi['id'];

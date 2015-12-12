@@ -47,6 +47,13 @@ class params {
 		config::addParams('mail', 'from', 'no-reply@YOUR.DOMAIN');
 		config::addParams('mail', 'fromName', 'Support Apso Beta');
 		config::addParams('mail', 'pluginDir', 'lib/');
+		
+		/*
+		 * New law and amendment for send mail.
+		 */
+		config::addParams('mail', 'newLawMail', 'YOUR_MAIL@YOUR_DOMAIN.COM');
+		config::addParams('mail', 'fromLawMail', 'YOUR_MAIL@YOUR_DOMAIN.COM');
+		config::addParams('mail', 'fromLawName', 'New law Apso');
 	}
 }
 ?>

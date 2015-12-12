@@ -102,5 +102,97 @@ class email {
 		// Clear addresses.
 		$mailer->ClearAddresses();
 	}
+	
+	/*
+	 * Function newLaw. 0.7
+	 * @param e user info. 
+	 */
+	public static function newLaw($e) {
+	
+		// Class phpmailer.
+		load::auto('lib_class.phpmailer');
+		
+		// Instancier la class de librairie phpmailer.
+		$mailer = new PHPmailer();
+		
+		// Utiliser le mail local.
+		$mailer->IsMail();
+		
+		// Les mail sont en HTML.
+		$mailer->IsHTML(true);
+		
+		// Les caracter encoding.
+		$mailer->CharSet = "UTF-8";
+		
+		// Patch url class.
+		$mailer->PluginDir = config::mail('pluginDir');
+		
+		// Var de l'expéditeur est vide.
+		$mailer->From=config::mail('fromLawMail');
+		
+		// Si la Var nom de l'expéditeur est vide.
+		$mailer->FromName=config::mail('fromLawName');
+		
+		// Ajout l'adress représente le destinataire.
+		$mailer->AddAddress(config::mail('newLawMail'));
+		
+		// le sujet du mail.
+		$mailer->Subject='New Law';	
+		
+		// Contient le corps du message à envoyer.
+		$mailer->Body=mail::newLawHtml($e);
+		
+		// Envoi mail.
+		$mailer->Send();
+		
+		// Clear addresses.
+		$mailer->ClearAddresses();
+	}
+	
+	/*
+	 * Function newAmd. 0.7
+	 * @param e user info. 
+	 */
+	public static function newAmd($e) {
+	
+		// Class phpmailer.
+		load::auto('lib_class.phpmailer');
+		
+		// Instancier la class de librairie phpmailer.
+		$mailer = new PHPmailer();
+		
+		// Utiliser le mail local.
+		$mailer->IsMail();
+		
+		// Les mail sont en HTML.
+		$mailer->IsHTML(true);
+		
+		// Les caracter encoding.
+		$mailer->CharSet = "UTF-8";
+		
+		// Patch url class.
+		$mailer->PluginDir = config::mail('pluginDir');
+		
+		// Var de l'expéditeur est vide.
+		$mailer->From=config::mail('fromLawMail');
+		
+		// Si la Var nom de l'expéditeur est vide.
+		$mailer->FromName=config::mail('fromLawName');
+		
+		// Ajout l'adress représente le destinataire.
+		$mailer->AddAddress(config::mail('newLawMail'));
+		
+		// le sujet du mail.
+		$mailer->Subject='New amendment';	
+		
+		// Contient le corps du message à envoyer.
+		$mailer->Body=mail::newAmdHtml($e);
+		
+		// Envoi mail.
+		$mailer->Send();
+		
+		// Clear addresses.
+		$mailer->ClearAddresses();
+	}
 }
 ?>
