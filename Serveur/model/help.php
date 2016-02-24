@@ -402,8 +402,8 @@ class help {
 			// Conteneur de comptage des votes.
 			$cmp = 0;
 			
-			// Conteneur de l'amd élu.
-			$eluLos = array('nbVote' => 0, 'amd' => $amd[$v['id']][0]['amd']);
+			// Conteneur de l'amd élu. Placer le premier amd present. Il sera comparet au autre amd plus bas et remplacer ci il faut.
+			$eluLos = array('nbVote' => 0, 'amd' => $amd[$v['id']][0]['amd'], 'idAmdElu' => $amd[$v['id']][0]['id']);
 			
 			// Conteneur des amd.
 			$amdAr = array();
@@ -445,6 +445,7 @@ class help {
 					
 					// Remplacer les information de $eluLos.
 					$eluLos['nbVote'] = $v1['vote'];
+					$eluLos['idAmdElu'] = $v1['id'];
 					$eluLos['amd'] = $v1['amd'];
 				}
 			}
@@ -473,6 +474,7 @@ class help {
 				'elu' => $elu,
 				'px' => $px,
 				'amdElu' => $eluLos['amd'],
+				'idAmdElu' => $eluLos['idAmdElu'],
 				'myVote' => $myLoisV,
 				'amd' => $amdAr
 			);

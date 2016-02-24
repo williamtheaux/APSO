@@ -92,6 +92,7 @@
 					'elu' : // 1 ou 0
 					'px' : // 0 a 100.
 					'amdElu' : // La desc de l'amendement élu.
+					'idAmdElu' : // L'id de l'amendement élu.
 					'myVote' : // 0 ou id amd.
 					'amd' : [
 						[0] : {
