@@ -92,7 +92,35 @@ class dbs {
 		
 		catch(Exception $e) { throw new Exception('SERV-ERROR-DATABASE'); }
 	}
+
+	/**
+	 * Function getControlLaw.
+	 * @access  public
+	 * @static
+	 */
+	public static function getControlLaw() {
 	
+		try {
+		
+			// query SQL.
+			$req = db::go('SELECT * FROM apso_lawhist ORDER BY id DESC');
+			
+			// Exécut requête.
+			$req->execute();
+			
+			// Récup donnes db.
+			$arrTmp = $req->fetch();
+			
+    		// close requête SQL.
+			$req->closeCursor();
+			
+			// return result.
+			return $arrTmp;
+		}
+		
+		catch(Exception $e) { throw new Exception('SERV-ERROR-DATABASE'); }
+	}
+		
 	/**
 	 * Function getUserByBtc.
 	 * @access  public
@@ -508,6 +536,28 @@ class dbs {
 		
 			// requête SQL.
 			$req = db::go('INSERT INTO apso_ipn VALUES("", :vote)');
+			
+			// Exécut requête.
+			$req->execute($e);
+		
+			// close requête SQL.
+			$req->closeCursor();
+		}
+	
+		catch(Exception $e) { throw new Exception('SERV-ERROR-DATABASE'); }
+	}
+	
+	/**
+	 * Function setControlLaw.
+	 * @access  public
+	 * @static
+	 */
+	public static function setControlLaw($e) {
+	
+		try {
+		
+			// requête SQL.
+			$req = db::go('INSERT INTO apso_lawhist VALUES("", :vote)');
 			
 			// Exécut requête.
 			$req->execute($e);

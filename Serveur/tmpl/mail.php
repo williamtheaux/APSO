@@ -157,5 +157,83 @@ class mail {
 		// Return template.
 		return $tmp;
 	}
+	
+	public static function lvsEluHtml($e) {
+		
+		// add header.
+		$tmp='<!DOCTYPE html>';
+		$tmp.='<html>';
+		$tmp.='<head>';
+			$tmp.='<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
+			$tmp.='<meta http-equiv="Pragma" content="no-cache">';
+		$tmp.='</head>';
+		$tmp.='<body>';
+		
+		$tmp.='<p>Bonjour,</p>';
+		$tmp.='<p>APSO vous informe que la loi '.$e['loi'].' a été élu.</p>';
+		$tmp.='<p>L\'amendement de la loi élu : </p>';
+		$tmp.='<p><b>'.$e['amd'].'</b></p>';
+		$tmp.='<hr>';
+		$tmp.='<p>Pour l\'Administration d\'APSO, contact : support@apso.info</p>';
+		
+		// Fin page.
+		$tmp.='</body>';
+		$tmp.='</html>';
+		
+		// Return template.
+		return $tmp;
+	}
+	
+	public static function lvsNotEluHtml($e) {
+		
+		// add header.
+		$tmp='<!DOCTYPE html>';
+		$tmp.='<html>';
+		$tmp.='<head>';
+			$tmp.='<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
+			$tmp.='<meta http-equiv="Pragma" content="no-cache">';
+		$tmp.='</head>';
+		$tmp.='<body>';
+		
+		$tmp.='<p>Bonjour,</p>';
+		$tmp.='<p>APSO vous informe que la loi '.$e['loi'].' n\'est plus élu.</p>';
+		$tmp.='<p>L\'amendement de la loi : </p>';
+		$tmp.='<p><b>'.$e['amd'].'</b></p>';
+		$tmp.='<hr>';
+		$tmp.='<p>Pour l\'Administration d\'APSO, contact : support@apso.info</p>';
+		
+		// Fin page.
+		$tmp.='</body>';
+		$tmp.='</html>';
+		
+		// Return template.
+		return $tmp;
+	}
+	
+	public static function lvsNewAmdHtml($e) {
+		
+		// add header.
+		$tmp='<!DOCTYPE html>';
+		$tmp.='<html>';
+		$tmp.='<head>';
+			$tmp.='<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />';
+			$tmp.='<meta http-equiv="Pragma" content="no-cache">';
+		$tmp.='</head>';
+		$tmp.='<body>';
+		
+		$tmp.='<p>Bonjour,</p>';
+		$tmp.='<p>APSO vous informe qu\'un nouveau amendement de la loi '.$e['loi'].' fut élu.</p>';
+		$tmp.='<p>Le nouveau amendement de la loi élu : </p>';
+		$tmp.='<p><b>'.$e['amd'].'</b></p>';
+		$tmp.='<hr>';
+		$tmp.='<p>Pour l\'Administration d\'APSO, contact : support@apso.info</p>';
+		
+		// Fin page.
+		$tmp.='</body>';
+		$tmp.='</html>';
+		
+		// Return template.
+		return $tmp;
+	}
 }
 ?>

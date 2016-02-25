@@ -52,8 +52,12 @@ class params {
 		 * New law and amendment for send mail.
 		 */
 		config::addParams('mail', 'newLawMail', 'YOUR_MAIL@YOUR_DOMAIN.COM');
-		config::addParams('mail', 'fromLawMail', 'YOUR_MAIL@YOUR_DOMAIN.COM');
+		config::addParams('mail', 'fromLawMail', 'FROM_MAIL@YOUR_DOMAIN.COM');
 		config::addParams('mail', 'fromLawName', 'New law Apso');
+		
+		config::addParams('mail', 'toLvsMail', 'YOUR_MAIL@YOUR_DOMAIN.COM');
+		config::addParams('mail', 'fromLvsMail', 'FROM_MAIL@YOUR_DOMAIN.COM');
+		config::addParams('mail', 'fromLvsName', 'Law info Apso Beta');
 	}
 }
 ?>
