@@ -1,6 +1,6 @@
 ![logo](doc/annexes/Flyer-APSO-P1.jpg)
 
-![logo](doc/annexes/Flyer-APSO-P2.jpg)
+![logo](doc/annexes/Flyer-APSO-p2.jpg)
 
 ![logo](doc/annexes/Flyer-APSO-P3.jpg)
 
