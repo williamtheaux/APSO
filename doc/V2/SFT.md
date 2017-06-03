@@ -38,23 +38,13 @@ Une application qui permet crée des groupes qui a leur tour organiserait des é
 	
 	* En tant que désactivé, il ne peut plus voir ou accédé au groupe.
 	
-	* En tant que guest, il a juste un message "ça demande d'accès au groupe est en attente de validation".
+	* En tant que guest, il a juste un message "La demande d'accès au groupe est en attente de validation".
 
 * L'utilisateur accède à un système de messagerie interne et crypter pour pouvoir communiquer avec tous les autres utilisateurs d'APSO.
 
 ***
 
-## II Utilisateur
-
-* Information demander au moment de la première connexion. Deux choix possibles.
-
-	* Un surnom pour le côté public de l'application. Se marie parfaitement avec l'anonymat du client APSO en associant l'adresse bitcoin avec le surnom.
-	
-	* Le nom et prénom. No anonyme et pose un problème, car la plus par des clients rentreront des informations erronées, donc pour éviter ça, je vous conseille de demander uniquement le surnom du client.
-
-***
-
-## Design
+## II Design
 
 Le template choisi par le client : [centaurus](http://centaurus.adbee.technology/v5/)
 
@@ -64,6 +54,97 @@ Shop pour l'achat : [wrapbootstrap](https://wrapbootstrap.com/theme/centaurus-WB
 
 ***
 
-## III Base de données
+## III Utilisateur
+
+* Information demander au moment de la première connexion. Deux choix possibles.
+
+	* Un surnom pour le côté public de l'application. Se marie parfaitement avec l'anonymat du client APSO en associant l'adresse bitcoin avec le surnom.
+	
+	* Le nom et prénom. No anonyme et pose un problème, car la plus par des clients rentreront des informations erronées, donc pour éviter ça, je vous conseille de demander uniquement le surnom du client.
+
+### Fonctions et variables disponible dans le framework
+
+> Accès au information de l'utilisateur côté jQuery, dans toutes les fonctions du framework.
+
+#### Variables disponibles.
+
+```js
+// PassPhrase.
+$.m.user.wallet.passPhrase
+
+// Identifiant client. Address bitcoin.
+$.m.user.wallet.addr
+
+// Hash pass phrase bitcoin.
+$.m.user.wallet.hash
+
+// Private Key
+$.m.user.wallet.key
+
+// RSA object.
+$.m.user.wallet.RSAkey
+
+// RSA public key.
+$.m.user.wallet.PublicKeyString
+```
+
+#### Signer un message
+
+```js
+// Init bitcoin object.
+var sec = new Bitcoin.ECKey($.m.user.wallet.hash);
+var key = ''+sec.getExportedPrivateKey();
+var payload = Bitcoin.Base58.decode(key);
+var compressed = payload.length == 38;
+
+// Signer le message.
+var sign = $.btc.sign_message(sec, 'YOUR-MESSAGE', compressed);
+```
+
+#### Decrypte message
+
+```js
+var DecryptionResult = cryptico.decrypt('MESSAGE', $.m.user.wallet.RSAkey);
+```
+
+#### Crypte message
+
+```js
+// Crypte pour un autre l'utilisateur.
+var EncryptionResult = cryptico.encrypt('MESSAGE', 'clé publique du destinataire');
+
+// Crypte pour l'utilisateur.
+var EncryptionResult = cryptico.encrypt('MESSAGE', $.m.user.wallet.PublicKeyString);
+```
+
+#### Les événement déclenché par la partie utilisateur
+
+| Event | Desc |
+|-------|------|
+| login | Cette événement est lancé a la connexion d'un utilisateur. |
+| logout | Cette événement est lancé a la déconnexion d'un utilisateur. |
+
+#### Ecoute des événement.
+
+```js
+$('#'+$.m.div.event).on('login', function);
+$('#'+$.m.div.event).on('logout', function);
+```
+
+### Côté serveur
+
+> Vérification de la signature électronique côté serveur par le php, dans toutes les fonctions du framework.
+
+#### Validation de la signature
+
+```php
+// Return true or false.
+valide::btc_sign($bitcoinAdresse, $message, $signature);
+```
+
+***
+
+## IV Base de données
+
 
 
