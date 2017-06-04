@@ -56,6 +56,9 @@ Shop pour l'achat : [wrapbootstrap](https://wrapbootstrap.com/theme/centaurus-WB
 
 ## III Utilisateur
 
+L'utilisateur entre, côté client une phrase secrétée qui génère une clé public, avec là qu'elle, il est identifié côté serveur. Si l'utilisateur doit faire une modification exigent son authentification, un message est signé côté client.
+Si le client se connecte pour la première fois et n'est pas reconnu par l'api, un nouveau utilisateur est créer dans la base de données et les info de connexion son retourner. Avantage est que le client est directement connecté sans rien faire d'autre.
+
 ### Fonctions et variables disponible dans le framework
 
 > Accès au information de l'utilisateur côté jQuery, dans toutes les fonctions du framework.
@@ -137,6 +140,8 @@ valide::btc_sign($bitcoinAdresse, $message, $signature);
 ```
 
 #### Couleur et logo du client
+
+> Déterminer automatiquement la couleur a partir de l'adresse bitcoin et son contraste.
 
 ![User](img/user.jpg)
 
