@@ -56,10 +56,6 @@ Shop pour l'achat : [wrapbootstrap](https://wrapbootstrap.com/theme/centaurus-WB
 
 ## III Utilisateur
 
-* Information demander au moment de la première connexion.
-
-	* Un pseudo pour le côté public de l'application en associant avec l'adresse bitcoin.
-
 ### Fonctions et variables disponible dans le framework
 
 > Accès au information de l'utilisateur côté jQuery, dans toutes les fonctions du framework.
@@ -138,6 +134,43 @@ $('#'+$.m.div.event).on('logout', function);
 ```php
 // Return true or false.
 valide::btc_sign($bitcoinAdresse, $message, $signature);
+```
+
+#### Couleur et logo du client
+
+![User](img/user.jpg)
+
+```php
+// Récupérer les 3 premiers caractères après le 1.
+$a = substr('ADDR_BTC', 1, 3);
+$color = bin2hex($a);
+```
+
+##### Contraste
+
+```php
+$r = dechex(255 - hexdec(substr($color,0,2)));
+$r = (strlen($r) > 1) ? $r : '0'.$r;
+$g = dechex(255 - hexdec(substr($color,2,2)));
+$g = (strlen($g) > 1) ? $g : '0'.$g;
+$b = dechex(255 - hexdec(substr($color,4,2)));
+$b = (strlen($b) > 1) ? $b : '0'.$b;
+$contrast = $r.$g.$b;
+```
+
+##### CSS pour le logo
+
+```css
+div#couleur {
+    height: 100px;
+    width: 100px;  
+    background-color: #$color;
+    border-radius: 50%;
+    font-size: 2.4em;
+    text-align: center;
+    line-height: 100px;
+    color: #$contrast;
+}
 ```
 
 ***
