@@ -25,8 +25,6 @@ Une application qui permet de créer et gêrer des groupes qui a leur tour peuve
 	* Il peut créer et supprimer de nouveaux mandats. Les mandats permettent d'élire un acteur à ce mandat par les autres acteurs du groupe.
 	
 	* Pour lui aider a gérer son groupe, il pourra associer certaines fonctions à des mandats, donc l'élue à ce mandat peut accéder à certaines fonctions admin.
-	
-	* Il pourra recharger le compte de son groupe en payant avec paypal, si son groupe dépasse les limites choisies.
 
 * Après l'accès a un groupe, il accède a tout son contenu et ses informations. Il peut participer en votant ou en créant son contenu.
 
@@ -40,7 +38,7 @@ Une application qui permet de créer et gêrer des groupes qui a leur tour peuve
 	
 	* En tant que guest, il a juste un message "La demande d'accès au groupe est en attente de validation".
 
-* L'utilisateur accède à un système de messagerie interne et cryptée pour pouvoir communiquer avec tous les autres utilisateurs d'APSO.
+* L'application est gratuite pour l'utilisation du client, la facturation est baser sur la publicité.
 
 ***
 
@@ -57,7 +55,13 @@ Shop pour l'achat : [wrapbootstrap](https://wrapbootstrap.com/theme/centaurus-WB
 ## III Utilisateur
 
 L'utilisateur entre, côté client une phrase secrétée qui génère une clé public, avec là qu'elle, il est identifié côté serveur. Si l'utilisateur doit faire une modification exigent son authentification, un message est signé côté client.
-Si le client se connecte pour la première fois et n'est pas reconnu par l'api, un nouveau utilisateur est créer dans la base de données et les info de connexion son retourner. Avantage est que le client est directement connecté sans rien faire d'autre.
+Si le client se connecte pour la première fois et n'est pas reconnu par l'api, Un formulaire lui demande de finaliser son inscription avec les information suivante :
+
+* nom
+* prénom
+* email
+
+Apres la verification de mail, un nouveau utilisateur est créer dans la base de données et les info de connexion son retourner.
 
 ### Fonctions et variables disponible dans le framework
 
@@ -182,5 +186,14 @@ div#couleur {
 
 ## IV Base de données
 
+![db](img/db.png)
 
+***
 
+## V Api
+
+![db](img/api.png)
+
+***
+
+## VI Application web
