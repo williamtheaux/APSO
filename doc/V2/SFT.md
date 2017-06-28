@@ -12,6 +12,8 @@
 
 Application qui permet de créer des groupes - lesquels groupes centrés sur une fonction principale de scrutin ; qui permet de créer et voter des lois ainsiq qu'élire à des postes ou "mandats". Les Citoyens sont législateurs, créateurs et votant et tous sont susceptibles d'être élus à des postes/mandats. Ce scrutin (ou ce sondage) est recalculé en permanence et à chaque moment chaque résultat peut basculer ; les citoyens sont avertis pour un effet immédiat. Le procédé est intitulé Démocratie Flux Direct.
 
+![use](img/use.png)
+
 * Après l'inscription de l'utilisateur, il pourra voir les groupes existants, les groupes ou il est inscrit ou ceux qu'il a créé. Il peut aussi demander à rejoindre un groupe ou en créer un lui-même.
 
 * Après la création d'un nouveau groupe, l'utilisateur accède à la page admin qui lui fournit des nouvelles fonctionnalités pour gérer le groupe créé.
