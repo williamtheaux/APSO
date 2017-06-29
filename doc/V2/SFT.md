@@ -30,7 +30,7 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 
 * Après l'accès a un groupe, il accède a tout son contenu et ses informations. Il peut participer en votant ou en créant son contenu.
 
-	* Selon le choix de l'admin, il peux créer de nouvelle lois, sondage ou questionnaires. Il peut laisser des commentaires.
+	* Selon le choix de l'admin, il peux créer de nouvelle lois, sondage ou questionnaires.
 	
 	* En tant qu'Acteur, il peut voter pour un acteur et un mandat ou une loi et un amendement.
 	
