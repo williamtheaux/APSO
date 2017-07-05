@@ -16,29 +16,9 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 
 * Après l'inscription de l'utilisateur, il pourra voir les groupes existants, les groupes ou il est inscrit ou ceux qu'il a créé. Il peut aussi demander à rejoindre un groupe ou en créer un lui-même.
 
-* Après la création d'un nouveau groupe, l'utilisateur accède à la page admin qui lui fournit des nouvelles fonctionnalités pour gérer le groupe créé.
-
-	* Il peut gérer les inscrits du groupe en changeant leur niveau d'accès : guest, acteur, observateur, désactivé.
-	
-	* Il peut créer et ajouter des nouvelles lois, sondages ou questionnaires.
-	
-	* Il peut déterminer si les inscrits à son groupe peuvent créer et ajouter des nouvelles lois, sondages ou questionnaires.
-	
-	* Il peut créer et supprimer de nouveaux mandats. Les mandats permettent d'élire un acteur à ce mandat par les autres acteurs du groupe.
-	
-	* Pour lui aider a gérer son groupe, il pourra associer certaines fonctions à des mandats, donc l'élue à ce mandat peut accéder à certaines fonctions admin.
+* Après la création d'un nouveau groupe, l'utilisateur accède à la page admin qui lui fournit des nouvelles fonctionnalités pour gérer le groupe créé. Il peut créer et supprimer de nouveaux mandats. Les mandats permettent d'élire un acteur à ce mandat par les autres acteurs du groupe. Pour lui aider a gérer son groupe, il pourra associer certaines fonctions à des mandats, donc l'élue à ce mandat peut accéder à certaines fonctions admin.
 
 * Après l'accès a un groupe, il accède a tout son contenu et ses informations. Il peut participer en votant ou en créant son contenu.
-
-	* Selon le choix de l'admin, il peux créer de nouvelle lois, sondage ou questionnaires.
-	
-	* En tant qu'Acteur, il peut voter pour un acteur et un mandat ou une loi et un amendement.
-	
-	* En tant qu'observateur, il peut accéder à tout le contenu et l'historique du groupe.
-	
-	* En tant que désactivé, il ne peut plus voir ou accéder au groupe.
-	
-	* En tant que guest, il a juste un message "La demande d'accès au groupe est en attente de validation".
 
 * L'application est gratuite pour l'utilisation du client, la facturation est baser sur la publicité.
 
