@@ -14,14 +14,6 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 
 ![use](img/use.png)
 
-* Après l'inscription de l'utilisateur, il pourra voir les groupes existants, les groupes ou il est inscrit ou ceux qu'il a créé. Il peut aussi demander à rejoindre un groupe ou en créer un lui-même.
-
-* Après la création d'un nouveau groupe, l'utilisateur accède à la page admin qui lui fournit des nouvelles fonctionnalités pour gérer le groupe créé. Il peut créer et supprimer de nouveaux mandats. Les mandats permettent d'élire un acteur à ce mandat par les autres acteurs du groupe. Pour lui aider a gérer son groupe, il pourra associer certaines fonctions à des mandats, donc l'élue à ce mandat peut accéder à certaines fonctions admin.
-
-* Après l'accès a un groupe, il accède a tout son contenu et ses informations. Il peut participer en votant ou en créant son contenu.
-
-* L'application est gratuite pour l'utilisation du client, la facturation est baser sur la publicité.
-
 ***
 
 ## II Design
