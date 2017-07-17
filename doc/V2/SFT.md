@@ -26,6 +26,22 @@ Shop pour l'achat : [wrapbootstrap](https://wrapbootstrap.com/theme/centaurus-WB
 
 ***
 
+## III Api
+
+> Api dédiée en PHP avec le protocole JSON RPC 2.
+
+![db](img/api.png)
+
+***
+
+## IV Base de données
+
+> Les fonctions du modèle et l'architecture de la base de données.
+
+![db](img/db.png)
+
+***
+
 ## III Utilisateur
 
 L'utilisateur entre, côté client une phrase secrétée qui génère une clé public, avec là qu'elle, il est identifié côté serveur. Si l'utilisateur doit faire une modification exigent son authentification, un message est signé côté client.
@@ -158,17 +174,7 @@ div#couleur {
 
 ***
 
-## IV Base de données
 
-![db](img/db.png)
-
-***
-
-## V Api
-
-![db](img/api.png)
-
-***
 
 ## VI Application web
 
