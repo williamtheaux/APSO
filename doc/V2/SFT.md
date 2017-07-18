@@ -23,65 +23,167 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 ![db](img/api.png)
 
 ### user
-+ login()
-+ sign()
-+ edit()
-+ sendvmail()
-+ getvcode()
+* login($a, $t, $s)
+	
+	> Connexion de l'utilisateur.
+	
+	| param | Type | Desc |
+	|-------|------|------|
+	| $a | string | Identifiant client (adresse bitcoin). |
+	| $t | int | Timestamp actuel. |
+	| $s | string | Signiature (hash sha1 Timestamp+Identifiant). |
+	
+	**Return**
+	
+	```js
+	{
+		'guest' : 1, // L'utilisateur n'est pas encore validé.
+		'banni' : 1, // L'utilisateur est banni.
+		'citoyen' : 1, 
+		'info' : { // Variable $user or 0
+			'id' : // L'identifiant unique crée par l'application.
+			'adr' : // Identifiant client (adresse bitcoin).
+			'nom' : // Le nom du client.
+			'prenom' : // Le prénom du client.
+			'date' : // La date d'inscription.
+			'role' : // Le rôle de l'utilisateur.
+		},
+		'obs' : {
+			'CITOYEN' : { // + admin dans la liste.
+				'nb' : // Le nombre d'utilisateur dans list.
+				'list' : [
+					[0] : {
+						'id' : // L'identifiant unique crée par l'application.
+						'adr' : // Identifiant client (adresse bitcoin).
+						'nom' : // Le nom du client.
+						'prenom' : // Le prénom du client.
+						'date' : // La date d'inscription.
+						'role' : // Le rôle de l'utilisateur.
+					} [1] //...
+				]
+			}
+			'GUEST' : {…} // Liste des invités.
+			'BANNI' : {…} // Liste des bannis.
+			'OBS' : {…} // Liste des observateurs.
+			'postes' : {
+				'nb' : // Le nombre de postes dans list.
+				'list' : [
+					[0] : {
+						'id' // Identifiant poste.
+						'poste' // Le nom du poste.
+						'id_elu' // L'identifiant unique du client élu.
+						'nomElu' // Le nom du client élu.
+						'prenomElu' // Le prénom du client élu.
+						'myVote' // L'identifiant unique du client voter.
+						'myVoteName' // Le nom du client voter.
+						'myVotePrenom' // Le prénom du client voter.
+					} [1] //...
+				]
+			}
+			'lois' : {
+				'nb' : // Le nombre d'utilisateur dans list.
+				'list' : [
+					[0] : {
+						'id' : // Identifiant loi.
+						'loi' : // Le nom de la loi.
+						'nbAmd' : // le nombre d'amendements.
+						'elu' : // 1 ou 0
+						'px' : // 0 a 100.
+						'amdElu' : // La desc de l'amendement élu.
+						'idAmdElu' : // L'id de l'amendement élu.
+						'myVote' : // 0 ou id amd.
+						'amd' : [
+							[0] : {
+								'id' : // Identifiant d'amendement.
+								'desc' : // La desc de l'amendement.
+								'px' : // 0 a 100.
+								'nbVote' : // Nombre de votes pour l'amendement.
+								'myVote' : // Si mon vote.
+							} [1] //...
+					} [1] //...
+				]
+			}
+		}
+		'admin' : [
+			{'addPoste' : 1}
+			{'deletePoste' : 1}
+			{'editeRole' : 1}
+			{…}
+		]
+		'log' : {
+			'nb' : // Le nombre d'actions dans le log.
+			'list' : [
+				[0] : {
+					'id_user' : // L'identifiant unique crée par l'application.
+					'nom' : // Le nom de l'utilisateur.
+					'prenom' : // Le prénom de l'utilisateur.
+					'action' : // L'action de l'historique.
+					'date' : // La date de l'action.
+					'msg' : // Le message de l'action.
+				} [1] //...
+			]
+		}
+	}
+	```
+	
+* sign()
+* edit()
+* sendvmail()
+* getvcode()
 
 ### message
-+ newmess()
-+ blockuser()
-+ deblockuser()
+* newmess()
+* blockuser()
+* deblockuser()
 
 ### group
-+ joingroup()
-+ accesgroup()
-+ created()
-+ edit()
-+ delete()
-+ setacl()
-+ deleteacl()
-+ autcoments()
-+ setpourcentpart()
-+ setnewadmin()
-+ acceptadmin()
-+ voteformandat()
-+ editsendingmail()
-+ updataminute()
+* joingroup()
+* accesgroup()
+* created()
+* edit()
+* delete()
+* setacl()
+* deleteacl()
+* autcoments()
+* setpourcentpart()
+* setnewadmin()
+* acceptadmin()
+* voteformandat()
+* editsendingmail()
+* updataminute()
 
 ### actes
-+ newcat()
-+ newacte()
-+ newdecret()
-+ editcat()
-+ editacte()
-+ editdecret()
-+ addcomment()
-+ editcomment()
-+ deletecomment()
-+ alertusercomment()
-+ addvote()
-+ deletevote()
+* newcat()
+* newacte()
+* newdecret()
+* editcat()
+* editacte()
+* editdecret()
+* addcomment()
+* editcomment()
+* deletecomment()
+* alertusercomment()
+* addvote()
+* deletevote()
 
 ### admin
-+ validcat()
-+ validacte()
-+ validdecret()
-+ editcat()
-+ editacte()
-+ editdecret()
-+ deletecat()
-+ deleteacate()
-+ deletedecret()
-+ newmandat()
-+ editmandat()
-+ deletemandat()
-+ editcomment()
-+ deletecomment()
-+ editroleuser()
-+ editcatorg()
-+ editacteorg()
+* validcat()
+* validacte()
+* validdecret()
+* editcat()
+* editacte()
+* editdecret()
+* deletecat()
+* deleteacate()
+* deletedecret()
+* newmandat()
+* editmandat()
+* deletemandat()
+* editcomment()
+* deletecomment()
+* editroleuser()
+* editcatorg()
+* editacteorg()
 
 ***
 
@@ -96,7 +198,7 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 
 ## IV Application web
 
-> la partie graphique en HTML CSS et JS.
+> La partie graphique en HTML CSS et JS.
 
 ***
 
