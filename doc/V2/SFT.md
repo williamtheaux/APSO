@@ -22,8 +22,9 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 
 ![db](img/api.png)
 
-### user
-* login($a, $t, $s)
+### Class user
+
+* **login($a, $t, $s)**
 	
 	> Connexion de l'utilisateur.
 	
@@ -33,7 +34,7 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 	| $t | int | Timestamp actuel. |
 	| $s | string | Signiature (hash sha1 Timestamp+Identifiant). |
 	
-	**Return**
+	*Return*
 	
 	```js
 	{
@@ -48,62 +49,6 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 			'date' : // La date d'inscription.
 			'role' : // Le rôle de l'utilisateur.
 		},
-		'obs' : {
-			'CITOYEN' : { // + admin dans la liste.
-				'nb' : // Le nombre d'utilisateur dans list.
-				'list' : [
-					[0] : {
-						'id' : // L'identifiant unique crée par l'application.
-						'adr' : // Identifiant client (adresse bitcoin).
-						'nom' : // Le nom du client.
-						'prenom' : // Le prénom du client.
-						'date' : // La date d'inscription.
-						'role' : // Le rôle de l'utilisateur.
-					} [1] //...
-				]
-			}
-			'GUEST' : {…} // Liste des invités.
-			'BANNI' : {…} // Liste des bannis.
-			'OBS' : {…} // Liste des observateurs.
-			'postes' : {
-				'nb' : // Le nombre de postes dans list.
-				'list' : [
-					[0] : {
-						'id' // Identifiant poste.
-						'poste' // Le nom du poste.
-						'id_elu' // L'identifiant unique du client élu.
-						'nomElu' // Le nom du client élu.
-						'prenomElu' // Le prénom du client élu.
-						'myVote' // L'identifiant unique du client voter.
-						'myVoteName' // Le nom du client voter.
-						'myVotePrenom' // Le prénom du client voter.
-					} [1] //...
-				]
-			}
-			'lois' : {
-				'nb' : // Le nombre d'utilisateur dans list.
-				'list' : [
-					[0] : {
-						'id' : // Identifiant loi.
-						'loi' : // Le nom de la loi.
-						'nbAmd' : // le nombre d'amendements.
-						'elu' : // 1 ou 0
-						'px' : // 0 a 100.
-						'amdElu' : // La desc de l'amendement élu.
-						'idAmdElu' : // L'id de l'amendement élu.
-						'myVote' : // 0 ou id amd.
-						'amd' : [
-							[0] : {
-								'id' : // Identifiant d'amendement.
-								'desc' : // La desc de l'amendement.
-								'px' : // 0 a 100.
-								'nbVote' : // Nombre de votes pour l'amendement.
-								'myVote' : // Si mon vote.
-							} [1] //...
-					} [1] //...
-				]
-			}
-		}
 		'admin' : [
 			{'addPoste' : 1}
 			{'deletePoste' : 1}
@@ -131,12 +76,12 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 * sendvmail()
 * getvcode()
 
-### message
+### Class message
 * newmess()
 * blockuser()
 * deblockuser()
 
-### group
+### Class group
 * joingroup()
 * accesgroup()
 * created()
@@ -152,7 +97,7 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 * editsendingmail()
 * updataminute()
 
-### actes
+### Class actes
 * newcat()
 * newacte()
 * newdecret()
@@ -166,7 +111,7 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 * addvote()
 * deletevote()
 
-### admin
+### Class admin
 * validcat()
 * validacte()
 * validdecret()
@@ -199,6 +144,8 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 ## IV Application web
 
 > La partie graphique en HTML CSS et JS.
+
+![app](img/app.png)
 
 ***
 
