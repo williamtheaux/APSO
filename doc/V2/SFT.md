@@ -16,29 +16,87 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 
 ***
 
-## II Design
-
-Le template choisi par le client : [centaurus](http://centaurus.adbee.technology/v5/)
-
-Shop pour l'achat : [wrapbootstrap](https://wrapbootstrap.com/theme/centaurus-WB0CX3745)
-
-![Template](img/template.jpg)
-
-***
-
-## III Api
+## II Api
 
 > Api dédiée en PHP avec le protocole JSON RPC 2.
 
 ![db](img/api.png)
 
+### user
++ login()
++ sign()
++ edit()
++ sendvmail()
++ getvcode()
+
+### message
++ newmess()
++ blockuser()
++ deblockuser()
+
+### group
++ joingroup()
++ accesgroup()
++ created()
++ edit()
++ delete()
++ setacl()
++ deleteacl()
++ autcoments()
++ setpourcentpart()
++ setnewadmin()
++ acceptadmin()
++ voteformandat()
++ editsendingmail()
++ updataminute()
+
+### actes
++ newcat()
++ newacte()
++ newdecret()
++ editcat()
++ editacte()
++ editdecret()
++ addcomment()
++ editcomment()
++ deletecomment()
++ alertusercomment()
++ addvote()
++ deletevote()
+
+### admin
++ validcat()
++ validacte()
++ validdecret()
++ editcat()
++ editacte()
++ editdecret()
++ deletecat()
++ deleteacate()
++ deletedecret()
++ newmandat()
++ editmandat()
++ deletemandat()
++ editcomment()
++ deletecomment()
++ editroleuser()
++ editcatorg()
++ editacteorg()
+
 ***
 
-## IV Base de données
+## III Base de données
 
 > Les fonctions du modèle et l'architecture de la base de données.
 
 ![db](img/db.png)
+
+***
+
+
+## IV Application web
+
+> la partie graphique en HTML CSS et JS.
 
 ***
 
@@ -174,7 +232,14 @@ div#couleur {
 
 ***
 
+## XXII Design
 
+Le template choisi par le client : [centaurus](http://centaurus.adbee.technology/v5/)
 
-## VI Application web
+Shop pour l'achat : [wrapbootstrap](https://wrapbootstrap.com/theme/centaurus-WB0CX3745)
+
+![Template](img/template.jpg)
+
+***
+
 
