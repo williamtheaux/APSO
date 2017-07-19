@@ -32,39 +32,28 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 	|-------|------|------|
 	| $a | string | Identifiant client (adresse bitcoin). |
 	| $t | int | Timestamp actuel. |
-	| $s | string | Signiature (hash sha1 Timestamp+Identifiant). |
+	| $s | string | Signature (hash sha1 Timestamp+Identifiant). |
 	
 	*Return*
 	
 	```js
 	{
 		'guest' : 1, // L'utilisateur n'est pas encore enregistré.
-		'valide' : 1, // L'utilisateur n'a pas encore valider ou modifier sont mail.
-		'info' : { // Variable $user or 0
+		'validat' : 1, // L'utilisateur n'a pas encore valider ou modifier sont mail.
+		'info' : { // Regroupe les info de l'utilisateur.
 			'addr' : // Identifiant client (adresse bitcoin).
 			'nom' : // Le nom du client.
 			'prenom' : // Le prénom du client.
 			'mail' : // Le mail du client.
 			'inscdate' : // La date d'inscription.
+			'fcolor' : // La couleur des fond pour les texte.
+			'tcolor' : // La couleur des textes.
 		},
-		'admin' : [
-			{'addcat' : 1}
-			{'deletecat' : 1}
-			{'editcat' : 1}
-			{…}
-		]
+		'cat' : {
+			
+		}
 		'log' : {
-			'nb' : // Le nombre d'actions dans le log.
-			'list' : [
-				[0] : {
-					'id_user' : // L'identifiant unique crée par l'application.
-					'nom' : // Le nom de l'utilisateur.
-					'prenom' : // Le prénom de l'utilisateur.
-					'action' : // L'action de l'historique.
-					'date' : // La date de l'action.
-					'msg' : // Le message de l'action.
-				} [1] //...
-			]
+			
 		}
 	}
 	```
