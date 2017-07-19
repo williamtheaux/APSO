@@ -38,21 +38,19 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 	
 	```js
 	{
-		'guest' : 1, // L'utilisateur n'est pas encore validé.
-		'banni' : 1, // L'utilisateur est banni.
-		'citoyen' : 1, 
+		'guest' : 1, // L'utilisateur n'est pas encore enregistré.
+		'valide' : 1, // L'utilisateur n'a pas encore valider ou modifier sont mail.
 		'info' : { // Variable $user or 0
-			'id' : // L'identifiant unique crée par l'application.
-			'adr' : // Identifiant client (adresse bitcoin).
+			'addr' : // Identifiant client (adresse bitcoin).
 			'nom' : // Le nom du client.
 			'prenom' : // Le prénom du client.
-			'date' : // La date d'inscription.
-			'role' : // Le rôle de l'utilisateur.
+			'mail' : // Le mail du client.
+			'inscdate' : // La date d'inscription.
 		},
 		'admin' : [
-			{'addPoste' : 1}
-			{'deletePoste' : 1}
-			{'editeRole' : 1}
+			{'addcat' : 1}
+			{'deletecat' : 1}
+			{'editcat' : 1}
 			{…}
 		]
 		'log' : {
@@ -146,6 +144,29 @@ Application qui permet de créer des groupes - lesquels groupes centrés sur une
 > La partie graphique en HTML CSS et JS.
 
 ![app](img/app.png)
+
+### Object user
+* **setup()**
+* homePage()
+* passPhraseControl()
+* signFUNC()
+* verifFUNC()
+* sign_message()
+* verify_message()
+* scanQR()
+* closeQrReadModal()
+* paperWalletFunc()
+* qrCodeInit()
+* decryptFUNC()
+* cryptFUNC()
+* sendLogin()
+* sendLogout()
+* userSign()
+* sendVmail()
+* sendVcode()
+* userPage()
+* editeUser()
+* syncOneMinute()
 
 ***
 
